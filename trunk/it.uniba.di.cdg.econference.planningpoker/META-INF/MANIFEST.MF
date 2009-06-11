@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: PlanningPoker Plug-in
+Bundle-SymbolicName: it.uniba.di.cdg.econference.planningpoker;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: it.uniba.di.cdg.econference.planningpoker.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ it.uniba.di.cdg.xcore.econference;bundle-version="1.0.0",
+ it.uniba.di.cdg.xcore.ui;bundle-version="1.0.0",
+ it.uniba.di.cdg.xcore.network;bundle-version="1.0.0",
+ org.eclipse.core.resources
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: it.uniba.di.cdg.econference.planningpoker.model,
+ it.uniba.di.cdg.econference.planningpoker.views
