@@ -1,4 +1,4 @@
-#labels Phase-Requirements
+#labels Phase-Requirements,UserInterface
 <wiki:toc max_depth="3" />
 
 = Le prospettive e le views individuate (Draft) =
@@ -34,7 +34,7 @@ Alla luce di queste considerazioni possono essere delineate le viste e le prospe
 Di seguito viene mostrata la prospettiva per la discussione e la stima della story corrente.
  
 
-<img src="http://agileconference.files.wordpress.com/2009/05/prospettiva_stima.jpeg" width="700px" />
+<img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/prospettiva_stima.jpeg" width="700px" />
 
 La prospettiva contiene le seguenti viste:
 
@@ -51,7 +51,7 @@ Di seguito viene mostrata la prospettiva per la discussione sulle stime, attivat
 Naturalmente, nel caso in cui tutte le carte siano equivalenti (si è raggiunta l’unanimità) questa prospettiva non dovrebbe essere mostrata e si dovrebbe passare alla stima della story successiva.
 
 
-<img src="http://econference-agile-planning-plugin.googlecode.com/svn/wiki/Prospettiva_Discussione_Stime.jpeg" width="700px" />
+<img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Prospettiva_Discussione_Stime.jpeg" width="700px" />
 
 La prospettiva contiene le seguenti viste:
  # *Participants*.
