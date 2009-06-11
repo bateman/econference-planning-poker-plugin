@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Planning Poker"
+            id="it.uniba.di.cdg.econference.planningpoker">
+      </category>
+      <view
+            category="it.uniba.di.cdg.econference.planningpoker"
+            class="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
+            icon="icons/user-story.gif"
+            id="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
+            name="User Stories"
+            restorable="true">
+      </view>
+      <view
+            category="it.uniba.di.cdg.econference.planningpoker"
+            class="it.uniba.di.cdg.econference.planningpoker.views.DeckView"
+            icon="icons/cards.gif"
+            id="it.uniba.di.cdg.econference.planningpoker.DeckView"
+            name="Cards Deck"
+            restorable="true">
+      </view>
+      <view
+            category="it.uniba.di.cdg.econference.planningpoker"
+            class="it.uniba.di.cdg.econference.planningpoker.views.EstimatesView"
+            icon="icons/hand_money_16.gif"
+            id="it.uniba.di.cdg.econference.planningpoker.EstimatesView"
+            name="Estimates"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="it.uniba.di.cdg.econference.planningpoker.workbenchActionSet"
+            label="Views Action Set"
+            visible="true">
+         <menu
+               id="it.uniba.di.cdg.econference.planningpoker.workbenchMenu"
+               label="&amp;Planning Poker"
+               path="addition">
+            <groupMarker
+                  name="it.uniba.di.cdg.econference.planningpoker.content">
+            </groupMarker>
+            <separator
+                  name="it.uniba.di.cdg.econference.planningpoker.additions">
+            </separator>
+         </menu>
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.LoadUserStoriesActionDelegate"
+               icon="icons/new-stories-list.gif"
+               id="it.uniba.di.cdg.econference.planningpoker.loadUserStories"
+               label="Load User Stories"
+               menubarPath="it.uniba.di.cdg.econference.planningpoker.workbenchMenu/content"
+               style="push"
+               toolbarPath="Normal/additions">
+         </action>
+      </actionSet>
+      <actionSet
+            description="Planning Poker actions"
+            id="it.uniba.di.cdg.econference.planningpoker.actionSet"
+            label="Planning Poker actions"
+            visible="true">
+         <menu
+               id="it.uniba.di.cdg.econference.planningpoker.menu"
+               label="&amp;PlanningPoker"
+               path="file/additions">
+            <groupMarker
+                  name="additions">
+            </groupMarker>
+         </menu>
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.LoadPPFromFileActionDelegate"
+               id="it.uniba.di.cdg.econference.planningpoker.loadPPFromFileAction"
+               label="Load configuration ..."
+               menubarPath="file/it.uniba.di.cdg.econference.planningpoker.menu/additions"
+               style="push">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.viewActions">
+      <viewContribution
+            id="it.uniba.di.cdg.econference.planningpoker.StoriesListViewAction"
+            targetID="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView">
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.LoadUserStoriesActionDelegate"
+               icon="icons/loadBacklog.gif"
+               id="it.uniba.di.cdg.econference.planningpoker.NewBacklogAction"
+               label="New Backlog"
+               style="push"
+               toolbarPath="additions"
+               tooltip="Load a new list of User Stories">
+         </action>
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryActionDelegate"
+               icon="icons/new-user-story.gif"
+               id="it.uniba.di.cdg.econference.planningpoker.addNewStory"
+               label="New User Story"
+               style="push"
+               toolbarPath="additions"
+               tooltip="Add a new Story in the list">
+         </action>
+      </viewContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="it.uniba.di.cdg.econference.planningpoker.perspectives.PlanningPokerPerspective"
+            fixed="false"
+            icon="icons/poker.gif"
+            id="it.uniba.di.cdg.econference.planningpoker.PPPerspective"
+            name="Planning Poker">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <viewerContribution
+            id="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopup"
+            targetID="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView">
+         <menu
+               id="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenus"
+               label="Story Menu"
+               path="content">
+         </menu>
+         <menu
+               id="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenu2"
+               label="Other Actions"
+               path="additions">
+         </menu>
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.EstimateStoryActionDelegate"
+               enablesFor="1"
+               icon="icons/colletto_bianco.gif"
+               id="it.uniba.di.cdg.econference.planningpoker.EstimateStoryAction"
+               label="&amp;Estimate Story"
+               menubarPath="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenus"
+               tooltip="Set conversation about selected Story">
+         </action>
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryActionDelegate"
+               icon="icons/new-user-story.gif"
+               id="it.uniba.di.cdg.econference.planningpoker.addUserStoryAction"
+               label="New User Story"
+               menubarPath="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenus"
+               tooltip="Add new User Story">
+         </action>
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.EditUserStoryActionDelegate"
+               enablesFor="1"
+               icon="icons/editStory.gif"
+               id="it.uniba.di.cdg.econference.planningpoker.actions.editStory"
+               label="Edit Story"
+               menubarPath="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenus"
+               tooltip="Edit selected User Story">
+         </action>
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.DeleteUserStoryActionDelegate"
+               enablesFor="1"
+               icon="icons/deleteStory.gif"
+               id="it.uniba.di.cdg.econference.planningpoker.deleteStoryAction"
+               label="Delete Story"
+               menubarPath="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenus"
+               tooltip="Delete selected User Story">
+         </action>
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.LoadUserStoriesActionDelegate"
+               icon="icons/loadBacklog.gif"
+               id="it.uniba.di.cdg.econference.planningpoker.NewBacklogAction"
+               label="New Backlog"
+               menubarPath="it.uniba.di.cdg.econference.planningpoker.otherActionsPopupMenu"
+               tooltip="Load a new list of User Stories">
+         </action>
+      </viewerContribution>
+   </extension>
+
+</plugin>
