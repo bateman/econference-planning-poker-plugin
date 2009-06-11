@@ -34,7 +34,7 @@ Alla luce di queste considerazioni possono essere delineate le viste e le prospe
 Di seguito viene mostrata la prospettiva per la discussione e la stima della story corrente.
  
 
-<img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/prospettiva_stima.jpeg" width="700px" />
+<img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Prospettiva_Stima.jpeg" width="700px" />
 
 La prospettiva contiene le seguenti viste:
 
