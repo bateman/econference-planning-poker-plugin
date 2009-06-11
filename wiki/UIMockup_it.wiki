@@ -1,0 +1,18 @@
+#labels Phase-Requirements,UserInterface,PlanningPokerPerspective
+#the Planning Poker Plug-in User Interface
+= La prospettiva e le views individuate =
+
+Il mock-up è organizzato seguendo il paradigma a Workbench, tipico delle applicazioni sviluppate con la teconologia Eclipse RCP. La scelta è obbligata per il semplice motivo che eConference utilizza questo paradigma per le sue interfacce utente. 
+ 
+Il paradigma consente la definizione di una prospettiva(perspective), che rappresenta un contenitore in cui vengono disposte le views e gli editor. Questi ultimi costituiscono gli elementi base che fanno parte dell'interfaccia utente e mostrano il contenuto dell'applicazione.
+
+In base allo svolgimento del Planning Poker possiamo definire la seguente prospettiva e le views e gli editor che ne faranno parte.
+
+
+
+
+I tipi di ruoli che possono essere assunti nel gioco, portano ad ulteriori considerazioni sull'interfaccia utente. 
+
+Gli sviluppatori dovranno soltanto vedere le carte che hanno a disposizione, la Story corrente e le finestre di chat. Il Product Owner, dovrà determinare la chiusura della discussione sulla Story, avviare la discussione sulle stime e iniziare la discussione relativa alla Story successiva. Il moderatore avrà il permesso di scrivere in una view apposita (per prendere nota di considerazioni importanti sullo sviluppo futuro della story).
+
+Per queste ragioni è neccessario aggiungere funzionalità privilegiate per il Product Owner e per il moderatore.
