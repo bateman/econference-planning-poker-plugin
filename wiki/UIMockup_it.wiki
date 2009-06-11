@@ -1,6 +1,4 @@
 #labels Phase-Requirements,UserInterface,PlanningPokerPerspective
- #the Planning Poker Plug-in User Interface
-
 <wiki:toc max_depth="3" />
 
 = Mock-up dell'interfaccia utente di eConference3P =
