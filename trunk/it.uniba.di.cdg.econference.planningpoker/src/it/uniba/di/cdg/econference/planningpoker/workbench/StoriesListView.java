@@ -1,4 +1,4 @@
-package it.uniba.di.cdg.econference.planningpoker.views;
+package it.uniba.di.cdg.econference.planningpoker.workbench;
 
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogAbstractFactory;
