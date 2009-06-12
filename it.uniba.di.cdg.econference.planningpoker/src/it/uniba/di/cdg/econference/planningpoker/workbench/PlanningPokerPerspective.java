@@ -1,8 +1,5 @@
-package it.uniba.di.cdg.econference.planningpoker.perspectives;
+package it.uniba.di.cdg.econference.planningpoker.workbench;
 
-import it.uniba.di.cdg.econference.planningpoker.views.DeckView;
-import it.uniba.di.cdg.econference.planningpoker.views.EstimatesView;
-import it.uniba.di.cdg.econference.planningpoker.views.StoriesListView;
 import it.uniba.di.cdg.xcore.econference.ui.views.WhiteBoardView;
 import it.uniba.di.cdg.xcore.ui.views.BuddyListView;
 import it.uniba.di.cdg.xcore.ui.views.TalkView;

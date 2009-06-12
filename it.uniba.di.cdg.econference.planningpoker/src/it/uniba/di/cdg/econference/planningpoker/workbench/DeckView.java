@@ -1,4 +1,4 @@
-package it.uniba.di.cdg.econference.planningpoker.views;
+package it.uniba.di.cdg.econference.planningpoker.workbench;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
