@@ -89,7 +89,7 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 			//fill the dialog area with data of the Story to edit
 			fillForm();
 		}else{
-			//Select the first element od the Combos
+			//Select the first element of the Combos
 			cb_priority.select(0);
 			cb_estimate.select(0);
 		}
