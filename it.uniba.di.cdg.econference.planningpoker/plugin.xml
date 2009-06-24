@@ -10,7 +10,7 @@
       </category>
       <view
             category="it.uniba.di.cdg.econference.planningpoker"
-            class="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
+            class="it.uniba.di.cdg.econference.planningpoker.workbench.StoriesListView"
             icon="icons/user-story.gif"
             id="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
             name="User Stories"
@@ -18,7 +18,7 @@
       </view>
       <view
             category="it.uniba.di.cdg.econference.planningpoker"
-            class="it.uniba.di.cdg.econference.planningpoker.views.DeckView"
+            class="it.uniba.di.cdg.econference.planningpoker.workbench.DeckView"
             icon="icons/cards.gif"
             id="it.uniba.di.cdg.econference.planningpoker.DeckView"
             name="Cards Deck"
@@ -26,7 +26,7 @@
       </view>
       <view
             category="it.uniba.di.cdg.econference.planningpoker"
-            class="it.uniba.di.cdg.econference.planningpoker.views.EstimatesView"
+            class="it.uniba.di.cdg.econference.planningpoker.workbench.EstimatesView"
             icon="icons/hand_money_16.gif"
             id="it.uniba.di.cdg.econference.planningpoker.EstimatesView"
             name="Estimates"
@@ -116,7 +116,7 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="it.uniba.di.cdg.econference.planningpoker.perspectives.PlanningPokerPerspective"
+            class="it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective"
             fixed="false"
             icon="icons/poker.gif"
             id="it.uniba.di.cdg.econference.planningpoker.PPPerspective"
