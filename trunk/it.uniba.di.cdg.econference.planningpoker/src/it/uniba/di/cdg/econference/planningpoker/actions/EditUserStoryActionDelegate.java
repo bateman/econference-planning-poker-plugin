@@ -2,7 +2,7 @@ package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
-import it.uniba.di.cdg.econference.planningpoker.views.StoriesListView;
+import it.uniba.di.cdg.econference.planningpoker.workbench.StoriesListView;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
