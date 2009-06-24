@@ -139,7 +139,7 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 		Button button = new Button(parent, SWT.NONE);
 		button.setText(okLabel);
 		button.setFont(JFaceResources.getDialogFont());
-		button.setData(new Integer(okId));
+		button.setData(Integer.valueOf(okId));
 		button.addSelectionListener(new SelectionAdapter() {
 			private SimpleUserStory.PRIORITY priority;
 			private StoryPoints points;
