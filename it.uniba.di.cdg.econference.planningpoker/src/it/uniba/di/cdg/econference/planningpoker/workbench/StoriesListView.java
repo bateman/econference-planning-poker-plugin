@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.ViewPart;
 
-public class StoriesListView extends ViewPart implements IAgendaView {
+public class StoriesListView extends ViewPart implements IStoriesListView {
 	
 	public static final String ID = "it.uniba.di.cdg.econference.planningpoker.views.StoriesListView";
 	
