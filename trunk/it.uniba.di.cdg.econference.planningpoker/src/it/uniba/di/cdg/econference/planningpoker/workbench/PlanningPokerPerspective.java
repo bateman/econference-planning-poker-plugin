@@ -37,7 +37,7 @@ public class PlanningPokerPerspective implements IPerspectiveFactory {
         
         layout.addView(WhiteBoardView.ID, IPageLayout.RIGHT, 0.4f, ChatRoomView.ID);
 		
-        layout.addView(StoriesListView.ID, IPageLayout.BOTTOM, 0.4f, ChatRoomView.ID);
+        //layout.addView(StoriesListView.ID, IPageLayout.BOTTOM, 0.4f, ChatRoomView.ID);
 		
 		IFolderLayout leftBottomFolder = layout.createFolder(BOTTOM_FOLDER, IPageLayout.BOTTOM, 0.2f, StoriesListView.ID);
 		leftBottomFolder.addView(DeckView.ID);

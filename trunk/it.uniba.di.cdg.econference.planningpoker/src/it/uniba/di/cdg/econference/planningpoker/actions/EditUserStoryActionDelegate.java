@@ -14,6 +14,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 
 public class EditUserStoryActionDelegate implements IViewActionDelegate {
 
+	public static final String ID = "it.uniba.di.cdg.econference.planningpoker.actions.editStory";
+	
 	private IViewPart view;
 
 	public EditUserStoryActionDelegate() {
@@ -31,14 +33,15 @@ public class EditUserStoryActionDelegate implements IViewActionDelegate {
 		IWorkbenchWindow window = view.getViewSite().getWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
 		StoriesListView storyView = (StoriesListView) page.findView(StoriesListView.ID);
-		IUserStoryDialog dialog = storyView.getBacklogFactory().createUserStoryDialog(page.getActivePart().getSite().getShell());
+		IUserStoryDialog dialog = storyView.getModel().getBacklogFactory().createUserStoryDialog(page.getActivePart().getSite().getShell());
 		ISelection selection = storyView.getViewer().getSelection();
 		if (selection != null && selection instanceof IStructuredSelection) {
-			IStructuredSelection sel = (IStructuredSelection) selection;			
-			dialog.setStory((IUserStory)sel.getFirstElement());
+			IStructuredSelection sel = (IStructuredSelection) selection;	
+			IUserStory selectedStory = (IUserStory)sel.getFirstElement();
+			dialog.setStory(selectedStory);
 			dialog.show();
 			if (dialog.getStory() != null) {
-				storyView.refreshBacklogContent();			
+				storyView.getModel().getBacklog().removeUserStory(selectedStory);
 			}
 		}
 

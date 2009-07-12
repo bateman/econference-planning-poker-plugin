@@ -3,9 +3,16 @@ package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.dialogs.SimpleUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.StoryPoints;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.SimpleUserStory.PRIORITY;
+import it.uniba.di.cdg.xcore.econference.model.IDiscussionItem;
+import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TableViewer;
@@ -18,17 +25,23 @@ import org.eclipse.swt.widgets.Table;
 
 public class SimpleBacklog implements IBacklog {
 
-	private static SimpleBacklog uniqInstance;
 
-	private List<SimpleUserStory> stories = new ArrayList<SimpleUserStory>();
+	private Set<IItemListListener> listeners;
+	
+	private List<SimpleUserStory> stories;
 
-	public static synchronized SimpleBacklog getInstance() {
-		if (uniqInstance == null) {
-			uniqInstance = new SimpleBacklog();
-		}
-		return uniqInstance;
+	private int current;
+
+	
+	public SimpleBacklog() {
+		 this(NO_ITEM_SELECTED);
 	}
 	
+	public SimpleBacklog(int initialIndex) {
+		 current = initialIndex;
+		 listeners  = new HashSet<IItemListListener>();
+		 stories = new ArrayList<SimpleUserStory>();
+	}
 	
 	@Override
 	public Object[] getElements(Object inputElement) {
@@ -107,12 +120,6 @@ public class SimpleBacklog implements IBacklog {
 		
 	}
 
-	@Override
-	public void addUserStory(IUserStory story) {
-		stories.add((SimpleUserStory) story);
-		
-	}
-
 
 	@Override
 	public IUserStory[] getUserStories() {
@@ -148,15 +155,115 @@ public class SimpleBacklog implements IBacklog {
 	}
 
 
-	@Override
-	public void removeUserStory(IUserStory story) {
-		stories.remove((SimpleUserStory)story);		
-	}
-
 
 	public void initializeTestData() {
-		
+		addItem(new SimpleUserStory("Load Backlog", PRIORITY.MEDIUM,
+				"As a Product Owner " +
+				"I would like to load a list of stories in the " +
+				"application as the Backlog so that I can estabilish" +
+				" which user stories should be estimate in the " +
+				"meeting", StoryPoints.UNKNOW));
+		addItem(new SimpleUserStory("Start Planning Poker Session", 
+				PRIORITY.HIGH,
+				"As a moderator I would like to start a new " +
+				"Planning Poker session so that all participants " +
+				"can join in", StoryPoints.UNKNOW));
 		
 	}
+
+
+	@Override
+	public void addItem(Object item) {
+		stories.add((SimpleUserStory) item);
+		 for (IItemListListener l : listeners)
+	            l.contentChanged( this );
+	}
+
+	@Override
+	public void addItem(String itemText) {
+		// TODO Auto-generated method stub
+		throw new IllegalArgumentException("Cannot add a String item to the Backlog");
+	}
+	
+	@Override
+	public void setBacklogContent(IUserStory[] stories) {
+		this.stories.clear();
+		for(IUserStory story : stories)
+			this.stories.add((SimpleUserStory) story);
+		for (IItemListListener l : listeners)
+            l.contentChanged( this );		
+	}
+
+	@Override
+	public void addListener(IItemListListener listener) {
+		listeners.add(listener);
+		
+	}
+
+	@Override
+	public void decode(String encodedItems) {
+		// TODO Inserire il metodo per decodificare le User Story in arrivo
+		//Vedere metdodo decode della classe it.uniba.di.cdg.xcore.econference.model.internal.ItemList
+	}
+
+	@Override
+	public String encode() {
+		// TODO Inserire il metodo per codificare le User Story presenti nel backlog
+		//Vedere metodo encode della classe it.uniba.di.cdg.xcore.econference.model.internal.ItemList
+		return null;
+	}
+
+	@Override
+	public int getCurrentItemIndex() {
+		return current;
+	}
+
+	@Override
+	public Object getItem(int itemIndex) {
+		return stories.get(itemIndex);
+	}
+
+	@Override
+	public void removeUserStory(IUserStory story) {
+		stories.remove(story);
+		
+		for (IItemListListener l : listeners)
+            l.contentChanged(this);
+		
+	}
+	
+	@Override
+	public void removeItem(int itemIndex) {
+		IUserStory item = stories.get( itemIndex );       
+		removeUserStory(item);
+        
+	}
+
+	@Override
+	public void removeListener(IItemListListener listener) {
+		listeners.remove(listener);
+		
+	}
+
+	@Override
+	public void setCurrentItemIndex(int itemIndex) {
+		if (itemIndex >= size() || itemIndex < -1)
+            throw new IllegalArgumentException( "itemIndex out of range" );
+        this.current = itemIndex;
+        
+        for (IItemListListener l : listeners)
+            l.currentSelectionChanged( current );
+		
+	}
+
+	@Override
+	public int size() {		
+		return stories.size();
+	}
+
+
+
+
+
 
 }

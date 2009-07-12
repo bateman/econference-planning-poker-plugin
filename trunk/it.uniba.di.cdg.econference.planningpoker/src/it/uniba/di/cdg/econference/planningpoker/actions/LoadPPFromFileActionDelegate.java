@@ -1,9 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
-import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
+import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.econference.IEConferenceHelper;
-import it.uniba.di.cdg.xcore.network.NetworkPlugin;
-import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -36,9 +34,9 @@ public class LoadPPFromFileActionDelegate implements
             return;
         }*/
 
-        PlanningPokerPlugin defualt = PlanningPokerPlugin.getDefault();
+        EConferencePlugin defaultPlugin = EConferencePlugin.getDefault();
         
-        IEConferenceHelper helper = defualt.getHelper();
+        IEConferenceHelper helper = defaultPlugin.getHelper();
         
         helper.openFromFile();
 

@@ -4,6 +4,9 @@
 package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
+import it.uniba.di.cdg.xcore.econference.model.IDiscussionItem;
+import it.uniba.di.cdg.xcore.econference.model.IItemList;
+import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -14,18 +17,17 @@ import org.eclipse.swt.widgets.Shell;
  * @author Alex
  *
  */
-public interface IBacklog extends IStructuredContentProvider, ITableLabelProvider{
+public interface IBacklog extends IStructuredContentProvider, ITableLabelProvider, IItemList{
 	
-	
-	public void addUserStory(IUserStory story);
-	
-	public void removeUserStory(IUserStory story);
 
-	public IUserStory[] getUserStories();
+	IUserStory[] getUserStories();
 	
-	public void createColumns(TableViewer viewer);
+	void createColumns(TableViewer viewer);
 
-	public IUserStoryDialog getDialog(Shell shell);
+	IUserStoryDialog getDialog(Shell shell);
 	
+	void removeUserStory(IUserStory story);
+	
+	void setBacklogContent(IUserStory[] stories);
 
 }
