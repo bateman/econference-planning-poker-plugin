@@ -1,5 +1,6 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
+import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.econference.IEConferenceHelper;
 import it.uniba.di.cdg.xcore.econference.model.storedevents.IStoredEventsModel;
 import it.uniba.di.cdg.xcore.econference.model.storedevents.StoredEventsModel;
@@ -20,23 +21,8 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
 
     // The shared instance.
     private static PlanningPokerPlugin plugin;
-
-    private IEConferenceHelper helper;
     
-    private IStoredEventsModel storedEventsModel;
     
-	
-
-	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path
-	 *
-	 * @param path the path
-	 * @return the image descriptor
-	 */
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return imageDescriptorFromPlugin(ID, path);
-	}
 
     /**
      * The constructor.
@@ -53,12 +39,9 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		plugin = this;
-		helper = new PlanningPokerHelper( UiPlugin.getUIHelper(), NetworkPlugin.getDefault().getHelper() );
-        helper.init();
-        
-        storedEventsModel = new StoredEventsModel();
-        storedEventsModel.init();
-        NetworkPlugin.getDefault().getHelper().registerBackendListener( storedEventsModel );
+		EConferencePlugin defaultPlugin = EConferencePlugin.getDefault(); 
+		defaultPlugin.setHelper(new PlanningPokerHelper( UiPlugin.getUIHelper(), NetworkPlugin.getDefault().getHelper()));        
+
 	}
     
 
@@ -66,12 +49,6 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
      * This method is called when the plug-in is stopped
      */
     public void stop( BundleContext context ) throws Exception {
-        NetworkPlugin.getDefault().getHelper().unregisterBackendListener( storedEventsModel );
-        storedEventsModel.dispose();
-        
-        helper.dispose();
-        helper = null;
-        
         super.stop( context );
         plugin = null;
     }
@@ -91,15 +68,19 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
      * 
      * @return
      */
-    public IEConferenceHelper getHelper() {
+ /*   public IEConferenceHelper getHelper() {
         return helper;
-    }
+    }*/
     
-    /**
-     * 
-     * @return
-     */
-    public IStoredEventsModel getStoredEventsModel() {
-        return storedEventsModel;
-    }
+    
+	/**
+	 * Returns an image descriptor for the image file at the given
+	 * plug-in relative path
+	 *
+	 * @param path the path
+	 * @return the image descriptor
+	 */
+	public static ImageDescriptor getImageDescriptor(String path) {
+		return imageDescriptorFromPlugin(ID, path);
+	}
 }

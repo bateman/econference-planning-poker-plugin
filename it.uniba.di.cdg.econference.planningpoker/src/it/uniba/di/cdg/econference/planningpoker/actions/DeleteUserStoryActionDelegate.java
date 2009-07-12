@@ -13,6 +13,8 @@ import org.eclipse.ui.IWorkbenchWindow;
 
 public class DeleteUserStoryActionDelegate implements IViewActionDelegate {
 
+	public static final String ID = "it.uniba.di.cdg.econference.planningpoker.deleteStoryAction";
+	
 	private IViewPart view;
 
 	public DeleteUserStoryActionDelegate() {
@@ -33,8 +35,9 @@ public class DeleteUserStoryActionDelegate implements IViewActionDelegate {
 		ISelection selection = storyView.getViewer().getSelection();
 		if(selection!=null && selection instanceof IStructuredSelection){
 			IStructuredSelection sel = (IStructuredSelection)selection;
-			storyView.getBacklog().removeUserStory((IUserStory) sel.getFirstElement());
-			storyView.refreshBacklogContent();
+			storyView.getModel().getBacklog().removeUserStory((IUserStory) sel.getFirstElement());
+			//notify the backlog's content
+			storyView.getManager().notifyItemListToRemote();
 		}
 	}
 

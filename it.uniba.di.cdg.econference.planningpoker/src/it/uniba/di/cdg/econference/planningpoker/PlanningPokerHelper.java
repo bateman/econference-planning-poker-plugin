@@ -81,7 +81,7 @@ public class PlanningPokerHelper extends EConferenceHelper {
 		 final JoinPPDialog dlg = new JoinPPDialog( null );
 	        if (dlg.open() == Dialog.OK) {
 	            // 1. Open a file dialog, asking the conference file name
-	            IEConferenceManager manager = open( dlg.getContext() );
+	            IPlanningPokerManager manager = open( dlg.getContext() );
 
 	            if (dlg.isSendInvitations()) {
 	                for (Invitee i : dlg.getContext().getInvitees())
@@ -93,7 +93,7 @@ public class PlanningPokerHelper extends EConferenceHelper {
     /* (non-Javadoc)
      * @see it.uniba.di.cdg.xcore.econference.IEConferenceHelper#askUserAcceptInvitation(it.uniba.di.cdg.xcore.multichat.InvitationEvent)
      */
-    public EConferenceContext askUserAcceptInvitation( InvitationEvent invitation ) {
+    public PlanningPokerContext askUserAcceptInvitation( InvitationEvent invitation ) {
         // Skip invitations which do not interest us ...
         if (!ECONFERENCE_REASON.equals( invitation.getReason() ))
             return null;
@@ -108,7 +108,7 @@ public class PlanningPokerHelper extends EConferenceHelper {
         String chosenNickNamer = uihelper.askFreeQuestion( "Invitation received", message, backend
                 .getUserAccount().getId() );
         if (chosenNickNamer != null) {
-            EConferenceContext context = new EConferenceContext( chosenNickNamer, invitation );
+            PlanningPokerContext context = new PlanningPokerContext( chosenNickNamer, invitation );
             return context;
         } else
             invitation.decline( "No reason" );

@@ -1,28 +1,21 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
-import org.eclipse.ui.IFolderLayout;
-import org.eclipse.ui.IPageLayout;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.WorkbenchException;
-
 import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.EstimatesView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective;
 import it.uniba.di.cdg.econference.planningpoker.workbench.StoriesListView;
 import it.uniba.di.cdg.xcore.econference.IEConferenceService;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceManager;
-import it.uniba.di.cdg.xcore.econference.ui.views.AgendaView;
-import it.uniba.di.cdg.xcore.econference.ui.views.HandRaisingView;
-import it.uniba.di.cdg.xcore.econference.ui.views.IHandRaisingView;
 import it.uniba.di.cdg.xcore.econference.ui.views.IWhiteBoard;
 import it.uniba.di.cdg.xcore.econference.ui.views.WhiteBoardView;
-import it.uniba.di.cdg.xcore.multichat.internal.MultiChatManager;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
+import it.uniba.di.cdg.xcore.multichat.model.Privileged;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
-import it.uniba.di.cdg.xcore.multichat.ui.MultiChatPerspective;
-import it.uniba.di.cdg.xcore.multichat.ui.views.ChatRoomView;
 import it.uniba.di.cdg.xcore.network.BackendException;
 import it.uniba.di.cdg.xcore.network.IBackend;
+
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.WorkbenchException;
 
 public class PlanningPokerManager extends EConferenceManager implements IPlanningPokerManager {
 	
@@ -83,6 +76,11 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
         		IPlanningPokerService.PLANNINGPOKER_SERVICE, 
                 getContext() );
     }
+    
+    @Override
+    protected PlanningPokerContext getContext() {
+        return (PlanningPokerContext) super.getContext();
+    }
 	
 	
 	@Override
@@ -103,10 +101,9 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 		
 	}
 
-	@Override
-	public void notifyItemListToRemote() {
-		// TODO Auto-generated method stub
-		
-	}
+	@Privileged( atleast = Role.MODERATOR )
+    public void notifyItemListToRemote() {
+        getService().notifyItemListToRemote();
+    }
 
 }

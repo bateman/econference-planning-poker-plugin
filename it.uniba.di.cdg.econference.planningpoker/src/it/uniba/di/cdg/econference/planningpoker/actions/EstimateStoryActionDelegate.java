@@ -7,6 +7,9 @@ import org.eclipse.ui.IViewPart;
 
 public class EstimateStoryActionDelegate implements IViewActionDelegate {
 
+	
+	public static final String ID = "it.uniba.di.cdg.econference.planningpoker.EstimateStoryAction";
+	
 	public EstimateStoryActionDelegate() {
 		// TODO Auto-generated constructor stub
 	}

@@ -2,6 +2,7 @@ package it.uniba.di.cdg.econference.planningpoker.dialogs;
 
 import java.util.Iterator;
 
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerContext;
 import it.uniba.di.cdg.econference.planningpoker.model.internal.PPContextLoader;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
 import it.uniba.di.cdg.xcore.econference.model.internal.ConferenceContextLoader;
@@ -36,12 +37,12 @@ public class LoadPPFileDialogUI extends Composite {
 	    private Label label = null;
 	    private Text nickNameText = null;
 
-	    private EConferenceContext context;
+	    private PlanningPokerContext context;
 	
 	public LoadPPFileDialogUI(Composite parent, int style) {
 		super(parent, style);
 		 initialize();
-		 context = new EConferenceContext();
+		 context = new PlanningPokerContext();
 	}
 
 	private void initialize() {
@@ -194,7 +195,7 @@ public class LoadPPFileDialogUI extends Composite {
 		 return sendInvitationsCheckBox.getSelection();
 	}
 
-	public EConferenceContext getContext() {
+	public PlanningPokerContext getContext() {
 			return context;
 	}
 

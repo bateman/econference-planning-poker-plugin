@@ -1,17 +1,23 @@
 package it.uniba.di.cdg.econference.planningpoker.model;
 
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogAbstractFactory;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel;
 
 public interface IPlanningPokerModel extends IConferenceModel {
 
-	public void setCardValue(StoryPoints point);
+	void setCardValue(StoryPoints point);
 	
-	public void setBacklog(IBacklog backlog);
+	void setBacklog(IBacklog backlog);
 	
-	public StoryPoints getCardValue();
+	void setBacklogFactory(IBacklogAbstractFactory factory);
 	
-	public IBacklog getBacklog();
+	StoryPoints getCardValue();
+	
+	IBacklog getBacklog();
+	
+	IBacklogAbstractFactory getBacklogFactory();
+	
 	
 	
 }
