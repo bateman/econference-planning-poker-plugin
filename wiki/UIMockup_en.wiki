@@ -3,9 +3,9 @@
 
 == The Planning Poker perspective ==
 
-This is the perspective of eConference£P:
+This is the perspective of eConference3P:
 
-<img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Prospettiva_Finale.png" width="900px" />
+<img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Prospettiva_Finale.png" width="800px" />
 
 
 == Views description ==
