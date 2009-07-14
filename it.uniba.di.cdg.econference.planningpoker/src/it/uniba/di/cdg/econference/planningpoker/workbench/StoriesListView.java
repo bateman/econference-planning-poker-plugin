@@ -3,10 +3,11 @@ package it.uniba.di.cdg.econference.planningpoker.workbench;
 import java.awt.MenuItem;
 
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
-import it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryActionDelegate;
-import it.uniba.di.cdg.econference.planningpoker.actions.DeleteUserStoryActionDelegate;
-import it.uniba.di.cdg.econference.planningpoker.actions.EditUserStoryActionDelegate;
-import it.uniba.di.cdg.econference.planningpoker.actions.EstimateStoryActionDelegate;
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
+import it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryAction;
+import it.uniba.di.cdg.econference.planningpoker.actions.DeleteUserStoryAction;
+import it.uniba.di.cdg.econference.planningpoker.actions.EditUserStoryAction;
+import it.uniba.di.cdg.econference.planningpoker.actions.EstimateStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.BacklogListenerAdapter;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
@@ -14,10 +15,13 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogAbstractF
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.SimpleBacklog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.SimpleFactory;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
+import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
 
+import org.aspectj.lang.annotation.Around;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -32,6 +36,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.ViewPart;
 
@@ -42,6 +47,11 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
 	private TableViewer viewer;
 	private IBacklog backlog;
 	private MenuManager  menuMgr;
+	
+	private IAction editStoryAction;
+	private IAction deleteStoryAction;
+	private IAction addStoryAction;
+	private IAction estimateStoryAction;
 
 	private IPlanningPokerManager manager;
 
@@ -49,23 +59,39 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
 	public StoriesListView() {
 	}
 	
-	
-	    
+	private IMenuListener viewActionsMenuListener = new IMenuListener(){
 
+		@Override
+		public void menuAboutToShow(IMenuManager manager) {
+			manager.add(estimateStoryAction);
+			manager.add(new Separator("content"));			
+			manager.add(editStoryAction);	
+			manager.add(deleteStoryAction);
+			manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));	
+			manager.add(addStoryAction);
+					
+		}
+		
+	};
+	
+	private void makeActions(){
+		editStoryAction = new EditUserStoryAction(this);
+		deleteStoryAction = new DeleteUserStoryAction(this);
+		addStoryAction = new AddUserStoryAction(this);
+		estimateStoryAction = new EstimateStoryAction(this);
+	}
+	    
 	private void createContextMenu(){		
 		menuMgr = new MenuManager("StoriesListViewActionPopup");
 		menuMgr.setRemoveAllWhenShown(true);
-		menuMgr.addMenuListener(new IMenuListener(){
-			@Override
-			public void menuAboutToShow(IMenuManager manager) {
-				manager.add(new Separator("content"));
-				manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));			
-			}		
-		});
-		Menu menu = menuMgr.createContextMenu(viewer.getControl());
+		menuMgr.addMenuListener(viewActionsMenuListener);
+		//menuMgr.add(editAction);
+		Menu menu = menuMgr.createContextMenu(viewer.getControl());				
 		viewer.getControl().setMenu(menu);	
-		getSite().registerContextMenu(menuMgr, viewer);		
+		getSite().registerContextMenu(menuMgr, viewer);	
 	}
+	
+
 	
 
 	@Override
@@ -76,6 +102,7 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
 		viewer = new TableViewer(parent, SWT.FULL_SELECTION);		
 		getSite().setSelectionProvider(viewer);		
 		createContextMenu();
+		makeActions();
 		//refreshBacklogContent();
 		/*
 	     * NOTE: MeasureItem, PaintItem and EraseItem are called repeatedly.
@@ -110,13 +137,14 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
 	    };
 	    viewer.getTable().addListener(SWT.MeasureItem, paintListener);
 	    viewer.getTable().addListener(SWT.PaintItem, paintListener);
-	    viewer.getTable().addListener(SWT.EraseItem, paintListener);
-
+	    viewer.getTable().addListener(SWT.EraseItem, paintListener);	  	   
 	}
 
-	private void refreshBacklogContent() {
+	@SwtAsyncExec
+	private void refreshBacklogContent() {		
 		viewer.setInput(getModel().getBacklog().getUserStories());
 		viewer.refresh();
+		System.out.println("Refreshed backlog in the view");
 	}
 	
 	
@@ -151,6 +179,8 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
 	    		changeItemList((IBacklog) newBacklog);
 	    	}
 	    };
+
+	
 	    
 
 	public void setManager(IPlanningPokerManager manager) {
@@ -172,8 +202,13 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
         changeItemList( getModel().getBacklog() );
         //changeButtonStatus( getModel().getStatus() );
         updateActionsAccordingToRole();
+        
+        //TODO: remove following line
+        this.setTitle(getModel().getLocalUser().getRole().toString());
 		
 	}
+	
+
 
 	private void updateActionsAccordingToRole() {
 		setReadOnly(getManager() != null && // There is a manager
@@ -189,15 +224,19 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
 
 	@Override
 	public boolean isReadOnly() {
-		return !viewer.getTable().isEnabled();
+		return !(getManager() != null && // There is a manager
+	    Role.MODERATOR.equals( getModel().getLocalUser().getRole())); // and we are moderators 
+        
 	}
-
+	
+	
 	@Override
 	 @SwtAsyncExec
 	public void setReadOnly(boolean readOnly) {	
-		viewer.getControl().getMenu().setVisible(!readOnly);
-		}
-
+		editStoryAction.setEnabled(!readOnly);
+		deleteStoryAction.setEnabled(!readOnly);
+		addStoryAction.setEnabled(!readOnly);
+	}
 
 
 }
