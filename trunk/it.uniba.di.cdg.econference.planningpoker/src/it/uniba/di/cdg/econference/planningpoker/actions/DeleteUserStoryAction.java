@@ -1,8 +1,10 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.workbench.StoriesListView;
 
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -11,24 +13,24 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 
-public class DeleteUserStoryActionDelegate implements IViewActionDelegate {
+public class DeleteUserStoryAction extends Action {
 
 	public static final String ID = "it.uniba.di.cdg.econference.planningpoker.deleteStoryAction";
 	
 	private IViewPart view;
 
-	public DeleteUserStoryActionDelegate() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void init(IViewPart view) {
+	public DeleteUserStoryAction(IViewPart view) {
+		super();
 		this.view = view;
-
+		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
+				PlanningPokerPlugin.ID, "icons/deleteStory.gif" ));
+		setText( "Remove User Story" );
+		setToolTipText( "Remove selected User Story from Backlog" );
 	}
 
+
 	@Override
-	public void run(IAction action) {
+	public void run() {
 		IWorkbenchWindow window = view.getViewSite().getWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
 		StoriesListView storyView = (StoriesListView) page.findView(StoriesListView.ID);
@@ -39,12 +41,6 @@ public class DeleteUserStoryActionDelegate implements IViewActionDelegate {
 			//notify the backlog's content
 			storyView.getManager().notifyItemListToRemote();
 		}
-	}
-
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
