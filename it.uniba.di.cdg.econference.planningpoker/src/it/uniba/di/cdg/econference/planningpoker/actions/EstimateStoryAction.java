@@ -1,20 +1,20 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.IViewActionDelegate;
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
+
 import org.eclipse.ui.IViewPart;
 
-public class EstimateStoryAction extends Action {
+public class EstimateStoryAction extends SingleSelectionAction {
 
-	private IViewPart view;
 	
 	public static final String ID = "it.uniba.di.cdg.econference.planningpoker.EstimateStoryAction";
 	
 	public EstimateStoryAction(IViewPart view) {
-		super();
-		this.view = view;
+		super(view);		
+		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
+				PlanningPokerPlugin.ID, "icons/estimate-story.gif" ));
+		setText("Estimate User Story");
+		setToolTipText("Set selected story as a Story to estimate");
 	}
 
 	@Override

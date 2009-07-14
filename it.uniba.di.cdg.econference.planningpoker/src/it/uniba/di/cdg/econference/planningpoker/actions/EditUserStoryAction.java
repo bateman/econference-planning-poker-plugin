@@ -2,28 +2,22 @@ package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
-import it.uniba.di.cdg.econference.planningpoker.model.StoryPoints;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.workbench.StoriesListView;
 
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 
-public class EditUserStoryAction extends Action {
+public class EditUserStoryAction extends SingleSelectionAction {
 
 	public static final String ID = "it.uniba.di.cdg.econference.planningpoker.actions.editStory";
 	
-	private IViewPart view;
 
 	public EditUserStoryAction(IViewPart view) {
-		super();
-		this.view = view;
+		super(view);
 		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
 				PlanningPokerPlugin.ID, "icons/editStory.gif" ));
 		setText( "Edit User Story" );

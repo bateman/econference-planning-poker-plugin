@@ -103,7 +103,7 @@
                tooltip="Load a new list of User Stories">
          </action>
          <action
-               class="it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryActionDelegate"
+               class="it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryAction"
                icon="icons/new-user-story.gif"
                id="it.uniba.di.cdg.econference.planningpoker.addNewStory"
                label="New User Story"
@@ -122,66 +122,6 @@
             id="it.uniba.di.cdg.econference.planningpoker.PPPerspective"
             name="Planning Poker">
       </perspective>
-   </extension>
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <viewerContribution
-            id="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopup"
-            targetID="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView">
-         <menu
-               id="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenus"
-               label="Story Menu"
-               path="content">
-         </menu>
-         <menu
-               id="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenu2"
-               label="Other Actions"
-               path="additions">
-         </menu>
-         <action
-               class="it.uniba.di.cdg.econference.planningpoker.actions.EstimateStoryActionDelegate"
-               enablesFor="1"
-               icon="icons/colletto_bianco.gif"
-               id="it.uniba.di.cdg.econference.planningpoker.EstimateStoryAction"
-               label="&amp;Estimate Story"
-               menubarPath="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenus"
-               tooltip="Set conversation about selected Story">
-         </action>
-         <action
-               class="it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryActionDelegate"
-               icon="icons/new-user-story.gif"
-               id="it.uniba.di.cdg.econference.planningpoker.addUserStoryAction"
-               label="New User Story"
-               menubarPath="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenus"
-               tooltip="Add new User Story">
-         </action>
-         <action
-               class="it.uniba.di.cdg.econference.planningpoker.actions.EditUserStoryActionDelegate"
-               enablesFor="1"
-               icon="icons/editStory.gif"
-               id="it.uniba.di.cdg.econference.planningpoker.actions.editStory"
-               label="Edit Story"
-               menubarPath="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenus"
-               tooltip="Edit selected User Story">
-         </action>
-         <action
-               class="it.uniba.di.cdg.econference.planningpoker.actions.DeleteUserStoryActionDelegate"
-               enablesFor="1"
-               icon="icons/deleteStory.gif"
-               id="it.uniba.di.cdg.econference.planningpoker.deleteStoryAction"
-               label="Delete Story"
-               menubarPath="it.uniba.di.cdg.econference.planningpoker.StoriesListViewPopupSubMenus"
-               tooltip="Delete selected User Story">
-         </action>
-         <action
-               class="it.uniba.di.cdg.econference.planningpoker.actions.LoadUserStoriesActionDelegate"
-               icon="icons/loadBacklog.gif"
-               id="it.uniba.di.cdg.econference.planningpoker.NewBacklogAction"
-               label="New Backlog"
-               menubarPath="it.uniba.di.cdg.econference.planningpoker.otherActionsPopupMenu"
-               tooltip="Load a new list of User Stories">
-         </action>
-      </viewerContribution>
    </extension>
 
 </plugin>

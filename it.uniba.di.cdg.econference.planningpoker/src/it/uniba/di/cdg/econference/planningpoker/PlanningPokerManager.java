@@ -35,14 +35,7 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 		super.setupUI();
 		getUihelper().switchPerspective( PlanningPokerPerspective.ID );
 		
-		IViewPart viewPart;
-        
-        viewPart = getWorkbenchWindow().getActivePage().showView( WhiteBoardView.ID );
-        whiteBoardView = (IWhiteBoard) viewPart;
-        whiteBoardView.setManager( this );
-        // By default the whiteboard cannot be modified: when the user is given the SCRIBE 
-        // special role than it will be set read-write
-        whiteBoardView.setReadOnly( true );
+		IViewPart viewPart;      
         
         viewPart = getWorkbenchWindow().getActivePage().showView( DeckView.ID );
         deckView = (DeckView) viewPart;
@@ -59,13 +52,6 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
         storiesListView.setManager(this);
         storiesListView.setReadOnly(!Role.MODERATOR.equals(getRole()));
         
-        // By default user can chat freely before the conference is started
-        getTalkView().setReadOnly( false );
-        // Display that there is free talk ongoing
-        getTalkView().setTitleText( FREE_TALK_NOW_MESSAGE );
-        
-        // Ensure that the focus is switched to this new chat
-        ((IViewPart) getTalkView()).setFocus();
 	}
 	
     @Override
@@ -88,12 +74,6 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 		return (IPlanningPokerService)super.getService();
 	}
 	
-	
-	@Override
-	public void addAgendaItem(String newItem) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void notifyCardSelected(IParticipant moderator, String cardValue) {
