@@ -48,10 +48,10 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
 	private IBacklog backlog;
 	private MenuManager  menuMgr;
 	
-	private IAction editStoryAction;
-	private IAction deleteStoryAction;
-	private IAction addStoryAction;
-	private IAction estimateStoryAction;
+	private EditUserStoryAction editStoryAction;
+	private DeleteUserStoryAction deleteStoryAction;
+	private AddUserStoryAction addStoryAction;
+	private EstimateStoryAction estimateStoryAction;
 
 	private IPlanningPokerManager manager;
 
@@ -64,7 +64,7 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
 		@Override
 		public void menuAboutToShow(IMenuManager manager) {
 			manager.add(estimateStoryAction);
-			manager.add(new Separator("content"));			
+			//manager.add(new Separator("content"));			
 			manager.add(editStoryAction);	
 			manager.add(deleteStoryAction);
 			manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));	
@@ -91,9 +91,6 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
 		getSite().registerContextMenu(menuMgr, viewer);	
 	}
 	
-
-	
-
 	@Override
 	public void createPartControl(Composite parent) {	
 			
@@ -233,9 +230,10 @@ public class StoriesListView extends ViewPart implements IStoriesListView {
 	@Override
 	 @SwtAsyncExec
 	public void setReadOnly(boolean readOnly) {	
-		editStoryAction.setEnabled(!readOnly);
-		deleteStoryAction.setEnabled(!readOnly);
-		addStoryAction.setEnabled(!readOnly);
+			editStoryAction.setAccessible(!readOnly);
+			deleteStoryAction.setAccessible(!readOnly);
+			estimateStoryAction.setAccessible(!readOnly);
+			addStoryAction.setEnabled(!readOnly);
 	}
 
 
