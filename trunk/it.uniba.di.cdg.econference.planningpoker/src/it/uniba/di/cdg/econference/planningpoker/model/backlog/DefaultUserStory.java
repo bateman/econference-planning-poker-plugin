@@ -1,9 +1,8 @@
 package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
-import it.uniba.di.cdg.econference.planningpoker.model.StoryPoints;
 
 
-public class SimpleUserStory implements IUserStory {
+public class DefaultUserStory implements IUserStory {
 	
 	public enum PRIORITY { UNKNOWN("Unknow"), HIGH("High"), MEDIUM("Medium"), 
 		LOW("Low");
@@ -21,10 +20,10 @@ public class SimpleUserStory implements IUserStory {
 	private String name;
 	private PRIORITY priority;
 	private String 	description;
-	private StoryPoints points;
+	private Object points;
 	
-	public SimpleUserStory(String name, PRIORITY priority, String description,
-			StoryPoints points) {
+	public DefaultUserStory(String name, PRIORITY priority, String description,
+			Object points) {
 		this.name = name;
 		this.priority = priority;
 		this.description = description;
@@ -50,12 +49,16 @@ public class SimpleUserStory implements IUserStory {
 	}
 	
 	@Override
-	public void setEstimate(StoryPoints points) {
+	public void setEstimate(Object points) {
 		this.points = points;		
 	}
 	@Override
-	public StoryPoints getEstimate() {
+	public Object getEstimate() {
 		return points;
+	}
+	@Override
+	public String getTextForMultiChatSubject() {
+		return getName();
 	}
 
 }
