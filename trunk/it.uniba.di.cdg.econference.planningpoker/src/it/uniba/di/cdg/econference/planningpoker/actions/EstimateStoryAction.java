@@ -1,8 +1,13 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
+import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 
 public class EstimateStoryAction extends SingleSelectionAction {
 
@@ -19,8 +24,21 @@ public class EstimateStoryAction extends SingleSelectionAction {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
-
+		IWorkbenchWindow window = view.getViewSite().getWorkbenchWindow();
+		IWorkbenchPage page = window.getActivePage();
+		BacklogView backlogView = (BacklogView) page.findView(BacklogView.ID);
+		IUserStory selectedStory = backlogView.getSelectedStory();
+		if(selectedStory!=null){			
+			IBacklog backlog = backlogView.getModel().getBacklog();
+			for(int i=0; i < backlog.getUserStories().length; i++){
+				if(backlog.getUserStories()[i].equals(selectedStory)){
+					backlog.setCurrentItemIndex(i);
+					backlogView.getManager().notifyCurrentAgendaItemChanged(String.format("%d",i));
+					break;
+				}
+			}	
+						
+		}
 	}
 
 

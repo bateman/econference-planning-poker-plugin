@@ -3,10 +3,8 @@ package it.uniba.di.cdg.econference.planningpoker.actions;
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
-import it.uniba.di.cdg.econference.planningpoker.workbench.StoriesListView;
+import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -29,18 +27,16 @@ public class EditUserStoryAction extends SingleSelectionAction {
 	public void run() {				
 		IWorkbenchWindow window = view.getViewSite().getWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
-		StoriesListView storyView = (StoriesListView) page.findView(StoriesListView.ID);
-
-		IUserStoryDialog dialog = storyView.getModel().getBacklogFactory().createUserStoryDialog(page.getActivePart().getSite().getShell());
-		ISelection selection = storyView.getViewer().getSelection();
-		if (selection != null && selection instanceof IStructuredSelection) {
-			IStructuredSelection sel = (IStructuredSelection) selection;	
-			IUserStory selectedStory = (IUserStory)sel.getFirstElement();
-			dialog.setStory(selectedStory);
+		BacklogView backlogView = (BacklogView) page.findView(BacklogView.ID);
+		IUserStoryDialog dialog = backlogView.getModel().getFactory().createUserStoryDialog(page.getActivePart().getSite().getShell());
+		IUserStory selectedStory = backlogView.getSelectedStory();
+		if(selectedStory!=null){			
+			dialog.setStory(selectedStory);		
+			dialog.setCardDeck(backlogView.getModel().getCardDeck());
 			dialog.show();
-			if (dialog.getStory() != null) {
-				storyView.getModel().getBacklog().removeUserStory(selectedStory);
-				storyView.getModel().getBacklog().addItem(dialog.getStory());
+			if (dialog.getStory() != null) {				
+				//notify the backlog's content
+				backlogView.getManager().notifyItemListToRemote();
 			}
 		}
 	}
