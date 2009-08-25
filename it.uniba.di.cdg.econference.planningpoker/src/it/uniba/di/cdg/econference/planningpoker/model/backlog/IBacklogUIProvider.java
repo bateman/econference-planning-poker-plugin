@@ -1,12 +1,6 @@
-/**
- * 
- */
 package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
-import it.uniba.di.cdg.xcore.econference.model.IDiscussionItem;
-import it.uniba.di.cdg.xcore.econference.model.IItemList;
-import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -14,16 +8,17 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Shell;
 
 /**
+ * 
+ * This interface allows to draw the backlog in the Table Viewer
+ * 
  * @author Alex
  *
  */
-public interface IBacklog extends IItemList{
+public interface IBacklogUIProvider extends IStructuredContentProvider,
+		ITableLabelProvider {
 	
+	void createColumns(TableViewer viewer);
 
-	IUserStory[] getUserStories();	
-	
-	void removeUserStory(IUserStory story);
-	
-	void setBacklogContent(IUserStory[] stories);
+	IUserStoryDialog getDialog(Shell shell);
 
 }
