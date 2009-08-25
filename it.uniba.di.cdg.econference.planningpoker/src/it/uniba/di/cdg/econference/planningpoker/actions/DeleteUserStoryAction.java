@@ -2,10 +2,10 @@ package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
-import it.uniba.di.cdg.econference.planningpoker.workbench.StoriesListView;
+import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -27,13 +27,18 @@ public class DeleteUserStoryAction extends SingleSelectionAction {
 	public void run() {
 		IWorkbenchWindow window = view.getViewSite().getWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
-		StoriesListView storyView = (StoriesListView) page.findView(StoriesListView.ID);
-		ISelection selection = storyView.getViewer().getSelection();
-		if(selection!=null && selection instanceof IStructuredSelection){
-			IStructuredSelection sel = (IStructuredSelection)selection;
-			storyView.getModel().getBacklog().removeUserStory((IUserStory) sel.getFirstElement());
-			//notify the backlog's content
-			storyView.getManager().notifyItemListToRemote();
+		BacklogView backlogView = (BacklogView) page.findView(BacklogView.ID);
+		IUserStory story = backlogView.getSelectedStory();
+		if(story!=null){	
+				MessageBox messageBox = new MessageBox(backlogView.getViewSite().getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+		        messageBox.setMessage("Do you really want to delete this story?");
+		        messageBox.setText("Deleting User Story");
+		        int response = messageBox.open();
+		        if (response == SWT.YES){		          
+					backlogView.getModel().getBacklog().removeUserStory(story);
+					//notify the backlog's content
+					backlogView.getManager().notifyItemListToRemote();
+		        }
 		}
 	}
 
