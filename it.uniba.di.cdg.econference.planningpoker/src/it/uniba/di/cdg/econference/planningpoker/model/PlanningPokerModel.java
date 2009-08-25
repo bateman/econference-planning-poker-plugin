@@ -1,18 +1,15 @@
 package it.uniba.di.cdg.econference.planningpoker.model;
 
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogAbstractFactory;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.SimpleFactory;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeck;
 import it.uniba.di.cdg.xcore.econference.model.ConferenceModel;
-import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
-import it.uniba.di.cdg.xcore.econference.model.internal.ItemList;
 
 public class PlanningPokerModel extends ConferenceModel implements IPlanningPokerModel {
 
 	/**
 	 * The value of the selected card
 	 */
-	private StoryPoints cardValue;
+	private Object cardValue;
 	
 	/**
 	 * The list of user stories in the backlog
@@ -20,21 +17,24 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 	private IBacklog backlog;
 	
 	
-	private IBacklogAbstractFactory factory;
+	private IModelAbstractFactory factory;
+	
+	private ICardDeck deck;
 
 	
 	
 	 public PlanningPokerModel() {
 	        super();
-	        /* TODO The abstract factory is initialized with the Simple 
+	        /* TODO The abstract factory is initialized with the Default 
 			 * Factory which is the base factory
 			 */		
-	        this.factory = new SimpleFactory();
+	        this.factory = new DefaultModelFactory();
 	        this.backlog = factory.createBacklog();
+	        this.deck = factory.createCardDeck();
 	    }
 	
 	@Override
-	public void setCardValue(StoryPoints cardValue) {
+	public void setCardValue(Object cardValue) {
 		this.cardValue = cardValue;		
 	}
 
@@ -49,19 +49,29 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 	}
 
 	@Override
-	public StoryPoints getCardValue() {
+	public Object getCardValue() {
 		return cardValue;		
 	}
 
 	@Override
-	public IBacklogAbstractFactory getBacklogFactory() {
+	public IModelAbstractFactory getFactory() {
 		return factory;
 	}
 
 	@Override
-	public void setBacklogFactory(IBacklogAbstractFactory factory) {
+	public void setModelFactory(IModelAbstractFactory factory) {
 		this.factory = factory;
 		
+	}
+
+	@Override
+	public ICardDeck getCardDeck() {
+		return deck;
+	}
+
+	@Override
+	public void setCardDeck(ICardDeck deck) {
+		this.deck = deck;		
 	}
 
 
