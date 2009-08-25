@@ -10,10 +10,9 @@ public interface IPlanningPokerManager extends IEConferenceManager{
     /**
      * Notify that this client has selected a card
      * 
-     * @param moderator
-     * @param question
+     * @param cardValue
      */
-    void notifyCardSelected( IParticipant moderator, String cardValue );
+    void notifyCardSelected(String cardValue );
    
     /**
      * 

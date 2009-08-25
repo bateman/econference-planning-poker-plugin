@@ -1,13 +1,11 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
+import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.EstimatesView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective;
-import it.uniba.di.cdg.econference.planningpoker.workbench.StoriesListView;
 import it.uniba.di.cdg.xcore.econference.IEConferenceService;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceManager;
-import it.uniba.di.cdg.xcore.econference.ui.views.IWhiteBoard;
-import it.uniba.di.cdg.xcore.econference.ui.views.WhiteBoardView;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
 import it.uniba.di.cdg.xcore.multichat.model.Privileged;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
@@ -19,16 +17,12 @@ import org.eclipse.ui.WorkbenchException;
 
 public class PlanningPokerManager extends EConferenceManager implements IPlanningPokerManager {
 	
-	// TODO This should go in i18n file
-    private static final String FREE_TALK_NOW_MESSAGE = "Free talk now ...";
-	
-    private IWhiteBoard whiteBoardView;
     
     private DeckView deckView;
     
     private EstimatesView estimatesView;
     
-    private StoriesListView storiesListView;
+    private BacklogView storiesListView;
 	
 	@Override
 	protected void setupUI() throws WorkbenchException {	
@@ -47,8 +41,8 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
         estimatesView.setManager(this);
         estimatesView.setReadOnly(!Role.MODERATOR.equals(getRole()));
         
-        viewPart = getWorkbenchWindow().getActivePage().showView( StoriesListView.ID );
-        storiesListView = (StoriesListView) viewPart;
+        viewPart = getWorkbenchWindow().getActivePage().showView( BacklogView.ID );
+        storiesListView = (BacklogView) viewPart;
         storiesListView.setManager(this);
         storiesListView.setReadOnly(!Role.MODERATOR.equals(getRole()));
         
@@ -76,9 +70,8 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 	
 
 	@Override
-	public void notifyCardSelected(IParticipant moderator, String cardValue) {
-		// TODO Auto-generated method stub
-		
+	public void notifyCardSelected(String cardValue) {
+		getService().notifyCardSelection(cardValue);
 	}
 
 	@Privileged( atleast = Role.MODERATOR )
