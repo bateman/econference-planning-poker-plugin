@@ -10,7 +10,7 @@
       </category>
       <view
             category="it.uniba.di.cdg.econference.planningpoker"
-            class="it.uniba.di.cdg.econference.planningpoker.workbench.StoriesListView"
+            class="it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView"
             icon="icons/user-story.gif"
             id="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
             name="User Stories"
@@ -122,6 +122,36 @@
             id="it.uniba.di.cdg.econference.planningpoker.PPPerspective"
             name="Planning Poker">
       </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="it.uniba.di.cdg.econference.planningpoker.PPPerspective">
+         <view
+               closeable="false"
+               id="it.uniba.di.cdg.xcore.multichat.ui.views.chatRoomView"
+               minimized="false"
+               moveable="true"
+               ratio="0.3"
+               relationship="stack"
+               relative="it.uniba.di.cdg.econference.planningpoker.topLeftFolder"
+               showTitle="true"
+               standalone="false"
+               visible="true">
+         </view>
+         <view
+               closeable="false"
+               id="it.uniba.di.cdg.xcore.econference.ui.views.whiteBoardView"
+               minimized="false"
+               moveable="true"
+               ratio="0.3"
+               relationship="stack"
+               relative="it.uniba.di.cdg.econference.planningpoker.topLeftFolder"
+               showTitle="true"
+               standalone="false"
+               visible="true">
+         </view>
+      </perspectiveExtension>
    </extension>
 
 </plugin>
