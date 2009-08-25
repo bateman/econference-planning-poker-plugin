@@ -1,9 +1,11 @@
 package it.uniba.di.cdg.econference.planningpoker.dialogs;
 
-import it.uniba.di.cdg.econference.planningpoker.model.StoryPoints;
+
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.SimpleUserStory;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.SimpleUserStory.PRIORITY;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory.PRIORITY;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeck;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -23,7 +25,9 @@ import org.eclipse.swt.widgets.Text;
 
 public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStoryDialog {
 
-	private SimpleUserStory story = null;
+	private DefaultUserStory story = null;
+	
+	private ICardDeck deck = null;
 	
 	private Text txt_name;
 	private Text txt_description;
@@ -36,10 +40,14 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 	}
 	
 	public void setStory(IUserStory story){
-		this.story = (SimpleUserStory) story;
+		this.story = (DefaultUserStory) story;
+	}
+	
+	public void setCardDeck(ICardDeck deck){
+		this.deck = deck;
 	}
 
-	public SimpleUserStory getStory() {
+	public DefaultUserStory getStory() {
 		return story;
 	}
 
@@ -77,12 +85,8 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 		label4.setText("Estimate:");
 		cb_estimate = new Combo(parent, SWT.READ_ONLY);
 		//Adding item to the estimation combo
-		for (StoryPoints value : StoryPoints.values()) {
-			if(value == StoryPoints.UNKNOW){
-				cb_estimate.add("Unknow");
-			}else{
-				cb_estimate.add(String.valueOf(value.getPoints()));
-			}
+		for (IPokerCard card : deck.getCards()) {
+			cb_estimate.add(card.getStringValue());
 		}
 		
 		if(story!=null){
@@ -99,7 +103,7 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 	
 	
 	private void fillForm() {
-		SimpleUserStory userStory = (SimpleUserStory)story;
+		DefaultUserStory userStory = (DefaultUserStory)story;
 		txt_name.setText(userStory.getName());
 		
 		PRIORITY priority = userStory.getPriority();
@@ -109,14 +113,15 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 			}
 		}
 		txt_description.setText(userStory.getDescription());
-		StoryPoints points = userStory.getEstimate();		
+		Object points = userStory.getEstimate();		
 			
 		if(points==null){
 			//Select the first element of the combo
 			cb_estimate.select(0);
 		}else{
-			for (int i = 0; i < StoryPoints.values().length; i++) {
-				if(StoryPoints.values()[i]==points){
+			for (int i = 0; i < deck.getCards().length; i++) {
+				IPokerCard card = deck.getCards()[i];
+				if(card.getValue().equals(points)){
 					cb_estimate.select(i);
 				}
 			}
@@ -141,19 +146,19 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 		button.setFont(JFaceResources.getDialogFont());
 		button.setData(Integer.valueOf(okId));
 		button.addSelectionListener(new SelectionAdapter() {
-			private SimpleUserStory.PRIORITY priority;
-			private StoryPoints points;
+			private DefaultUserStory.PRIORITY priority;
+			private Object points;
 
 			public void widgetSelected(SelectionEvent e) {
 				if (txt_name.getText().length() != 0
 						&& txt_description.getText().length() != 0) {
 					
 					priority = PRIORITY.values()[cb_priority.getSelectionIndex()];
-					points = StoryPoints.values()[cb_estimate.getSelectionIndex()];											
+					points = deck.getCards()[cb_estimate.getSelectionIndex()].getValue();											
 					
 					
 					if(story==null){
-						story = new SimpleUserStory(txt_name.getText(),
+						story = new DefaultUserStory(txt_name.getText(),
 								priority, 
 								txt_description.getText(), 
 								points);		
