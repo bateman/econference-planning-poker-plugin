@@ -10,6 +10,7 @@ import it.uniba.di.cdg.econference.planningpoker.actions.EstimateStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.model.ConferenceModelListenerAdapter;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
@@ -23,6 +24,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerRow;
 import org.eclipse.jface.viewers.ViewerRow;
@@ -353,8 +355,15 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		startStopButton.setFocus();
 	}
 
-	public TableViewer getViewer() {
-		return viewer;
+	@Override
+	public IUserStory getSelectedStory() {
+		ISelection selection = this.viewer.getSelection();
+		if(selection!=null && selection instanceof IStructuredSelection){
+			IStructuredSelection sel = (IStructuredSelection)selection;
+			return (IUserStory) sel.getFirstElement();
+		}else{
+			return null;
+		}
 	}
 
 
