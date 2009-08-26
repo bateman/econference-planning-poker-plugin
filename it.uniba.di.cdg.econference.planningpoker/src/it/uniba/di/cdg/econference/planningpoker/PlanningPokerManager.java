@@ -34,7 +34,7 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
         viewPart = getWorkbenchWindow().getActivePage().showView( DeckView.ID );
         deckView = (DeckView) viewPart;
         deckView.setManager(this);
-        deckView.setReadOnly(false);
+        deckView.setReadOnly(Role.MODERATOR.equals(getRole())); //Deck is for participants not for the moderator
         
         viewPart = getWorkbenchWindow().getActivePage().showView( EstimatesView.ID );
         estimatesView = (EstimatesView) viewPart;   

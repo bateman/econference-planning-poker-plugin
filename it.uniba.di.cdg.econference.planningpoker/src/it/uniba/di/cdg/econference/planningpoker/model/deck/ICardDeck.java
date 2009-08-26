@@ -1,7 +1,9 @@
 package it.uniba.di.cdg.econference.planningpoker.model.deck;
 
+import it.uniba.di.cdg.xcore.econference.model.IItemList;
 
-public interface ICardDeck {
+
+public interface ICardDeck extends IItemList {
 	
 	/**
 	 * Get all cards in the deck.
@@ -36,14 +38,22 @@ public interface ICardDeck {
 	IPokerCard getSelectedCard();
 	
 	
+//	/**
+//	 * Set the selected card in the deck
+//	 * 
+//	 * @param index the 0-based index of the cards array
+//	 * that represents the selected card
+//	 * 
+//	 */
+//	void setSelectedCard(int index);
+	
 	/**
-	 * Set the selected card in the deck
+	 * Get the card with that string value 
 	 * 
-	 * @param index the 0-based index of the cards array
-	 * that represents the selected card
-	 * 
+	 * @param cardValue the string value of the card
+	 * @return the card from deck
 	 */
-	void setSelectedCard(int index);
+	IPokerCard getCardFromStringValue(String cardValue);
 		
 
 }
