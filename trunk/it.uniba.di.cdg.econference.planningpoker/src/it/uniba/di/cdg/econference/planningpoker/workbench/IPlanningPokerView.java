@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.workbench;
 
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
+import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 
 public interface IPlanningPokerView {
 
@@ -15,8 +16,15 @@ public interface IPlanningPokerView {
     /**
      * Returns the current multichat controller this view belongs to.
      * 
-     * @return the multichat controller
+     * @return the Planning Poker controller
      */
     IPlanningPokerManager getManager();
+    
+    /**
+    * Returns the current model this view belongs to.
+    * 
+    * @return the Planning Poker model
+    */
+    IPlanningPokerModel getModel();
 	
 }

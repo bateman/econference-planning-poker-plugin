@@ -212,20 +212,16 @@ public class BacklogView extends ViewPart implements IBacklogView {
 
 	}
 
-	@SwtAsyncExec
-	private void refreshBacklogContent() {		
-		viewer.setInput(getModel().getBacklog().getUserStories());
-		viewer.refresh();
-		//System.out.println("Refreshed backlog in the view");
-	}
 
 	 @SwtAsyncExec
     private void changeButtonStatus( ConferenceStatus status ) {
         if (STARTED.compareTo( status ) == 0) {
             startStopButton.setText( "Stop conference" );
             startStopButton.setToolTipText( "Press to stop the conference" );
-            estimateStoryAction.setAccessible(true);
-            handleListener(true);
+            if(!isReadOnly()){   
+            	estimateStoryAction.setAccessible(true);
+            	handleListener(true);
+            }
             //itemList.setEnabled(Role.MODERATOR.equals( getModel().getLocalUser().getRole() ) );
         }
         else {
@@ -260,13 +256,15 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		//changeButtonStatus( getModel().getStatus() );
 		updateActionsAccordingToRole();
 
-		//TODO: remove following line
-		this.setTitle(getModel().getLocalUser().getRole().toString());
+		//remove following line
+		//this.setTitle(getModel().getLocalUser().getRole().toString());
 
 	}
 
+	@SwtAsyncExec
 	private void changeItemList(IBacklog backlog) {
-		refreshBacklogContent();
+		viewer.setInput(backlog.getUserStories());
+		viewer.refresh();
 	}
 	
 	/**
@@ -304,7 +302,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 
 	@Override
 	public boolean isReadOnly() {
-		return startStopButton.isEnabled();
+		return !startStopButton.isEnabled();
 		//return !(getManager() != null && // There is a manager
 				//Role.MODERATOR.equals( getModel().getLocalUser().getRole())); // and we are moderators 
 	}
@@ -318,8 +316,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		deleteStoryAction.setAccessible(!readOnly);		
 		addStoryAction.setEnabled(!readOnly);
 		
-		//estimateStoryAction.setAccessible(!readOnly);
-		//handleListener(readOnly);
+		estimateStoryAction.setAccessible(!readOnly);
+		handleListener(!readOnly);
 	}
 
 	private void handleListener(boolean enable) {
