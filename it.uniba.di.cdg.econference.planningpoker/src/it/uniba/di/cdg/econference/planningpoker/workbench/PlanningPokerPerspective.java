@@ -39,8 +39,9 @@ public class PlanningPokerPerspective implements IPerspectiveFactory {
 
 		//adding the folder for card deck and the estimates view
 		IFolderLayout bottomLeft = layout.createFolder(BOTTOM_LEFT_FOLDER, IPageLayout.BOTTOM, 0.65f, BacklogView.ID);
+		bottomLeft.addView(EstimatesView.ID);
 		bottomLeft.addView(DeckView.ID);
-		bottomLeft.addPlaceholder(EstimatesView.ID);
+		
 
 		//adding the MultiChat View
 		layout.addView( MultiChatTalkView.ID, IPageLayout.RIGHT, 0.45f, WhiteBoardView.ID );

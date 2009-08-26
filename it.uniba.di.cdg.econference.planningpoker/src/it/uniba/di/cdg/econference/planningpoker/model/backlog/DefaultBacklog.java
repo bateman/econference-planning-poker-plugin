@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory.PRIORITY;
+
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 
 import java.util.ArrayList;
@@ -41,20 +42,20 @@ public class DefaultBacklog implements IBacklog {
 	}
 
 
-	public void initializeTestData() {
-		addItem(new DefaultUserStory("Load Backlog", PRIORITY.MEDIUM,
-				"As a Product Owner " +
-				"I would like to load a list of stories in the " +
-				"application as the Backlog so that I can estabilish" +
-				" which user stories should be estimate in the " +
-				"meeting", "UNKNOW"));
-		addItem(new DefaultUserStory("Start Planning Poker Session", 
-				PRIORITY.HIGH,
-				"As a moderator I would like to start a new " +
-				"Planning Poker session so that all participants " +
-				"can join in", "UNKNOW"));
-		
-	}
+//	public void initializeTestData() {
+//		addItem(new DefaultUserStory("Load Backlog", PRIORITY.MEDIUM,
+//				"As a Product Owner " +
+//				"I would like to load a list of stories in the " +
+//				"application as the Backlog so that I can estabilish" +
+//				" which user stories should be estimate in the " +
+//				"meeting", "UNKNOW"));
+//		addItem(new DefaultUserStory("Start Planning Poker Session", 
+//				PRIORITY.HIGH,
+//				"As a moderator I would like to start a new " +
+//				"Planning Poker session so that all participants " +
+//				"can join in", "UNKNOW"));
+//		
+//	}
 
 
 	@Override
@@ -87,14 +88,16 @@ public class DefaultBacklog implements IBacklog {
 
 	@Override
 	public void decode(String encodedItems) {
-		// TODO Inserire il metodo per decodificare le User Story in arrivo
-		//Vedere metdodo decode della classe it.uniba.di.cdg.xcore.econference.model.internal.ItemList
+		/* We use the PacketExtensionProvider to parse the content
+		 * of the backlog when it is received from network
+		 */
 	}
 
 	@Override
 	public String encode() {
-		// TODO Inserire il metodo per codificare le User Story presenti nel backlog
-		//Vedere metodo encode della classe it.uniba.di.cdg.xcore.econference.model.internal.ItemList
+		/*We use the PacketExtensionProvider to encode the content
+		 * of the backlog when it is send across the network
+		 */
 		return null;
 	}
 
@@ -110,15 +113,15 @@ public class DefaultBacklog implements IBacklog {
 
 	@Override
 	public void removeUserStory(IUserStory story) {
+		if(this.current==stories.indexOf(story))
+			setCurrentItemIndex(NO_ITEM_SELECTED);
 		stories.remove(story);
-		
 		for (IItemListListener l : listeners)
-            l.contentChanged(this);
-		
+            l.contentChanged(this);		
 	}
 	
 	@Override
-	public void removeItem(int itemIndex) {
+	public void removeItem(int itemIndex) {	
 		IUserStory item = stories.get( itemIndex );       
 		removeUserStory(item);
         
@@ -133,8 +136,10 @@ public class DefaultBacklog implements IBacklog {
 	@Override
 	public void setCurrentItemIndex(int itemIndex) {
 		if (itemIndex >= size() || itemIndex < -1)
-            throw new IllegalArgumentException( "itemIndex out of range" );
-        this.current = itemIndex;
+            //throw new IllegalArgumentException( "itemIndex out of range" );
+			this.current = NO_ITEM_SELECTED;
+		else
+			this.current = itemIndex;
         
         for (IItemListListener l : listeners)
             l.currentSelectionChanged( current );
