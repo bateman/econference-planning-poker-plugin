@@ -7,9 +7,9 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultBacklogUIP
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultCardDeck;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultCardDeckUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultCardDeckUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeck;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeckUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeckUIHelper;
 
 import org.eclipse.swt.widgets.Shell;
 
@@ -36,9 +36,8 @@ public class DefaultModelFactory implements IModelAbstractFactory {
 	}
 	
 	@Override
-	public ICardDeckUIProvider createCardDeckUIProvider() {
-		return new DefaultCardDeckUIProvider();
+	public ICardDeckUIHelper createCardDeckUIHelper() {
+		return new DefaultCardDeckUIHelper();
 	}
-
 
 }

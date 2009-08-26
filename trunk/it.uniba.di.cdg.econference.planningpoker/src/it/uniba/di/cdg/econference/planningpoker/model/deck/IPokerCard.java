@@ -1,5 +1,6 @@
 package it.uniba.di.cdg.econference.planningpoker.model.deck;
 
+
 public interface IPokerCard {
 	
 	void setValue(Object value);
@@ -7,5 +8,10 @@ public interface IPokerCard {
 	Object getValue();	
 	
 	String getStringValue();
-
+	
+	void setImagePath(String path);
+	
+	String getImagePath();
+	
+	boolean hasImagePath();
 }
