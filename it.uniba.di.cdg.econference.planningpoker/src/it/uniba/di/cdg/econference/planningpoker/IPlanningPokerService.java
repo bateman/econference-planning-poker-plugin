@@ -21,5 +21,12 @@ public interface IPlanningPokerService extends IEConferenceService {
     IPlanningPokerModel getModel();
     
     void notifyCardSelection( String cardValue );
+    
+    /**
+     * Notify the current voter list to remote clients: this method is 
+     * intended to be used if the local user is a moderator and wants to synchronize 
+     * the list of remote clients.
+     */
+    void notifyVoterListToRemote();
 
 }
