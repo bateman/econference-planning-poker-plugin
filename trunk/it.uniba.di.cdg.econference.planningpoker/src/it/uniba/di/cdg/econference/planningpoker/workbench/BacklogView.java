@@ -8,6 +8,7 @@ import it.uniba.di.cdg.econference.planningpoker.actions.DeleteUserStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.EditUserStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.EstimateStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
+import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListenerAdapter;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
@@ -83,7 +84,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	};
 
 
-    private ConferenceModelListenerAdapter conferenceModelListener = new ConferenceModelListenerAdapter() {
+    private PlanningPokerModelListenerAdapter ppModelListener = new PlanningPokerModelListenerAdapter() {
         @Override
         public void statusChanged() {
             System.out.println( "statusChanged()" );
@@ -96,6 +97,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
             changeItemList( getModel().getBacklog() );
         }
     };
+    
 
 	private IItemListListener backlogListener = new ItemListListenerAdapter() {
 		
@@ -238,7 +240,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	public void setManager(IPlanningPokerManager manager) {
 		// Switching conference, so deregister from previous manager ...
 		if (this.manager != null) {
-			getModel().removeListener( conferenceModelListener );
+			getModel().removeListener( ppModelListener );
 			getModel().getBacklog().removeListener( backlogListener );
 		}
 		this.manager = manager;
@@ -248,7 +250,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		viewer.setContentProvider(provider);
 		viewer.setLabelProvider(provider);
 		
-		getModel().addListener( conferenceModelListener );
+		getModel().addListener( ppModelListener );
 		//The backlog could be null if no backlog was specified in the PP XML file        
 		getModel().getBacklog().addListener( backlogListener );
 
@@ -257,7 +259,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		updateActionsAccordingToRole();
 
 		//remove following line
-		//this.setTitle(getModel().getLocalUser().getRole().toString());
+		this.setTitle(getModel().getLocalUser().getRole().toString());
 
 	}
 
@@ -295,7 +297,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 
 	private void updateActionsAccordingToRole() {
 		setReadOnly(getManager() != null && // There is a manager
-				Role.MODERATOR.equals( getModel().getLocalUser().getRole() ) // and we are moderators 
+				!Role.MODERATOR.equals( getModel().getLocalUser().getRole() ) // and we are moderators 
 		);
 
 	}

@@ -3,6 +3,7 @@ package it.uniba.di.cdg.econference.planningpoker.workbench;
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
 import it.uniba.di.cdg.econference.planningpoker.actions.SelectCardAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
+import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListenerAdapter;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeckUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardSelectionListener;
@@ -11,6 +12,7 @@ import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
+import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -63,6 +65,25 @@ public class DeckView extends ViewPart implements IDeckView {
 		
 	};
 	
+	private PlanningPokerModelListenerAdapter ppModelListener = new PlanningPokerModelListenerAdapter(){
+		
+		@Override
+		public void statusChanged() {
+			if(getModel().getStatus().equals(ConferenceStatus.STOPPED))
+				setReadOnly(true);
+			else
+				updateActionsAccordingToRole();
+		}		
+		
+		// We have to check if this participant is still in voter list
+		@Override
+		public void voterListChanged() {
+			updateActionsAccordingToRole();
+		}
+		
+	};
+	
+	
 	@SwtAsyncExec
 	private void addPokerCard(IPokerCard card) {
 		uiHelper.addWidgetFromCard(card,parent);		
@@ -104,17 +125,26 @@ public class DeckView extends ViewPart implements IDeckView {
 	@SwtAsyncExec
 	public void setManager(IPlanningPokerManager manager) {
 		if(this.manager != null){
+			getModel().removeListener(ppModelListener);
 			getModel().getCardDeck().removeListener(deckListener);
 			uiHelper.removeCardSelectionListener(cardSelectionListener);
 		}
 		this.manager = manager;
 		getModel().getCardDeck().addListener(deckListener);
+		getModel().addListener(ppModelListener);
 		
 		deck = getModel().getCardDeck();
 		uiHelper = getModel().getFactory().createCardDeckUIHelper();	
 		uiHelper.addCardSelectionListener(cardSelectionListener);
 		
 		createCardDeck();
+		
+		updateActionsAccordingToRole();
+	}
+
+	private void updateActionsAccordingToRole() {
+		setReadOnly(!(getModel()!=null && getModel().getVoters().isVoter(getModel().getLocalUser())));	
+		
 	}
 
 	@SwtAsyncExec
@@ -131,28 +161,12 @@ public class DeckView extends ViewPart implements IDeckView {
 
 	@Override
 	public boolean isReadOnly() {
-		return getManager().getStatus().equals(ConferenceStatus.STOPPED);
+		return parent.isEnabled();
 	}
 
 	@Override
 	public void setReadOnly(boolean readOnly) {
 		parent.setEnabled(!readOnly);
-//		selectCardAction.setAccessible(!readOnly);
-		if(readOnly){
-//			if(doubleClickListener != null){
-//				viewer.getTable().removeListener(SWT.MouseDoubleClick, doubleClickListener );
-//				doubleClickListener = null;
-//			}
-
-		}else{
-//			if(doubleClickListener == null)
-//				doubleClickListener = new Listener() {
-//				public void handleEvent(Event event) {
-//					selectCardAction.run();
-//				} 
-//			};
-//			viewer.getTable().addListener(SWT.MouseDoubleClick, doubleClickListener );			
-		}		
 	}
 
 	@Override

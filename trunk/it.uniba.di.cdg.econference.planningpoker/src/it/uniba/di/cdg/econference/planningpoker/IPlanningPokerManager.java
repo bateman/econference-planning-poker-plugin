@@ -19,6 +19,14 @@ public interface IPlanningPokerManager extends IEConferenceManager{
      * @return the planning poker service
      */
     IPlanningPokerService getService();
+    
+    
+    /**
+     * 
+     * Notify that voter list has changed
+     * 
+     */
+    void notifyVoterListToRemote();
 	
 
 }

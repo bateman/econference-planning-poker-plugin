@@ -34,7 +34,7 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
         viewPart = getWorkbenchWindow().getActivePage().showView( DeckView.ID );
         deckView = (DeckView) viewPart;
         deckView.setManager(this);
-        deckView.setReadOnly(Role.MODERATOR.equals(getRole())); //Deck is for participants not for the moderator
+        deckView.setReadOnly(true); //Deck is for participants not for the moderator
         
         viewPart = getWorkbenchWindow().getActivePage().showView( EstimatesView.ID );
         estimatesView = (EstimatesView) viewPart;   
@@ -78,5 +78,10 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
     public void notifyItemListToRemote() {
         getService().notifyItemListToRemote();
     }
+	
+	@Privileged( atleast = Role.MODERATOR )
+	public void notifyVoterListToRemote(){
+		getService().notifyVoterListToRemote();
+	}
 
 }

@@ -2,6 +2,7 @@ package it.uniba.di.cdg.econference.planningpoker.model;
 
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeck;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.Voters;
 import it.uniba.di.cdg.xcore.econference.model.ConferenceModel;
 
 public class PlanningPokerModel extends ConferenceModel implements IPlanningPokerModel {
@@ -20,6 +21,8 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 	private IModelAbstractFactory factory;
 	
 	private ICardDeck deck;
+	
+	private Voters voters;
 
 	
 	
@@ -31,6 +34,8 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 	        this.factory = new DefaultModelFactory();
 	        this.backlog = factory.createBacklog();
 	        this.deck = factory.createCardDeck();
+	        
+	        this.voters = new Voters(getParticipants());
 	    }
 	
 	@Override
@@ -74,6 +79,16 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 	@Override
 	public void setCardDeck(ICardDeck deck) {
 		this.deck = deck;		
+	}
+
+	@Override
+	public Voters getVoters() {
+		return voters;
+	}
+
+	@Override
+	public void setVoters(Voters voters) {
+		this.voters = voters;		
 	}
 
 
