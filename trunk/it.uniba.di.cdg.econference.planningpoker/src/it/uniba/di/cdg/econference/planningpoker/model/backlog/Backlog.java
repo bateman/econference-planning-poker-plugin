@@ -1,7 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory.PRIORITY;
 
+import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 
 import java.util.ArrayList;
@@ -9,30 +9,29 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class DefaultBacklog implements IBacklog {
+public class Backlog implements IItemList {
 
 
 	private Set<IItemListListener> listeners;
 	
-	private List<DefaultUserStory> stories;
+	private List<IUserStory> stories;
 
 	private int current;
 
 	
-	public DefaultBacklog() {
+	public Backlog() {
 		 this(NO_ITEM_SELECTED);
 	}
 	
-	public DefaultBacklog(int initialIndex) {
+	public Backlog(int initialIndex) {
 		 current = initialIndex;
 		 listeners  = new HashSet<IItemListListener>();
-		 stories = new ArrayList<DefaultUserStory>();
+		 stories = new ArrayList<IUserStory>();
 	}
 	
 	
 
 
-	@Override
 	public IUserStory[] getUserStories() {
 		IUserStory[] result = new IUserStory[stories.size()];
 		for (int i = 0; i < stories.size(); i++) {
@@ -60,7 +59,7 @@ public class DefaultBacklog implements IBacklog {
 
 	@Override
 	public void addItem(Object item) {
-		stories.add((DefaultUserStory) item);
+		stories.add((IUserStory) item);
 		 for (IItemListListener l : listeners)
 	            l.contentChanged( this );
 	}
@@ -71,11 +70,12 @@ public class DefaultBacklog implements IBacklog {
 		throw new IllegalArgumentException("Cannot add a String item to the Backlog");
 	}
 	
-	@Override
+
+	
 	public void setBacklogContent(IUserStory[] stories) {
 		this.stories.clear();
 		for(IUserStory story : stories)
-			this.stories.add((DefaultUserStory) story);
+			this.stories.add((IUserStory) story);
 		for (IItemListListener l : listeners)
             l.contentChanged( this );		
 	}
@@ -111,7 +111,7 @@ public class DefaultBacklog implements IBacklog {
 		return stories.get(itemIndex);
 	}
 
-	@Override
+
 	public void removeUserStory(IUserStory story) {
 		if(this.current==stories.indexOf(story))
 			setCurrentItemIndex(NO_ITEM_SELECTED);

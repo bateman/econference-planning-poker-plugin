@@ -13,7 +13,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 
-public class DefaultBacklogUIProvider implements IBacklogUIProvider {
+public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 
 	@Override
 	public Object[] getElements(Object inputElement) {
