@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Shell;
  * @author Alex
  *
  */
-public interface IBacklogUIProvider extends IStructuredContentProvider,
+public interface IBacklogViewUIProvider extends IStructuredContentProvider,
 		ITableLabelProvider {
 	
 	void createColumns(TableViewer viewer);

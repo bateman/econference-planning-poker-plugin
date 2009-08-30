@@ -1,5 +1,6 @@
 package it.uniba.di.cdg.econference.planningpoker.model.deck;
 
+import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 
 import java.awt.event.ItemListener;
@@ -8,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class DefaultCardDeck implements ICardDeck{
+public class CardDeck implements IItemList{
 
 	private Set<IItemListListener> listeners;
 	
@@ -31,9 +32,9 @@ public class DefaultCardDeck implements ICardDeck{
 	private static final String IMAGE_FIVE = "icons/deck/5.ico";
 	private static final String IMAGE_EIGHT = "icons/deck/8.ico";
 	private static final String IMAGE_TWENTY = "icons/deck/as.gif";
-	private static final String IMAGE_UNKNOWN = "icons/deck/unknown.gif";
+	private static final String IMAGE_UNKNOWN = "icons/deck/0.ico";
 	
-	public DefaultCardDeck(){
+	public CardDeck(){
 		cards.add(new DefaultPokerCard(UNKNOWN, IMAGE_UNKNOWN));
 		cards.add(new DefaultPokerCard(ONE, IMAGE_ONE));
 		cards.add(new DefaultPokerCard(TWO, IMAGE_TWO));
@@ -48,7 +49,11 @@ public class DefaultCardDeck implements ICardDeck{
 	}
 	
 
-	@Override
+	/**
+	 * Get all cards in the deck.
+	 * 
+	 * @return the array containing all cards
+	 */
 	public IPokerCard[] getCards() {
 		IPokerCard[] result = new IPokerCard[cards.size()];
 		for (int i = 0; i < cards.size(); i++) {
@@ -57,12 +62,22 @@ public class DefaultCardDeck implements ICardDeck{
 		return result;
 	}
 
-	@Override
+	/**
+	 * Return the selected card from deck
+	 * 
+	 * @return selected card
+	 */
 	public IPokerCard getSelectedCard() {
 		return selectedCard;
 	}
 	
-	@Override
+	
+	/**
+	 * Add one new card to deck. This method should be used to 
+	 * edit the deck before starting Planning Poker
+	 * 
+	 * @param card the card to add 
+	 */
 	public void addCard(IPokerCard card) {
 		cards.add(card);		
 		for(IItemListListener l : listeners){
@@ -71,7 +86,12 @@ public class DefaultCardDeck implements ICardDeck{
 	}
 
 
-	@Override
+	/**
+	 * Remove one card from deck. This method should be used to 
+	 * edit the deck before starting Planning Poker
+	 * 
+	 * @param card the card to remove 
+	 */
 	public void removeCard(IPokerCard card) {
 		if(this.selectedCard==cards)
 			setCurrentItemIndex(NO_ITEM_SELECTED);		
@@ -80,7 +100,12 @@ public class DefaultCardDeck implements ICardDeck{
 			l.itemRemoved(card);
 	}
 
-	@Override
+	/**
+	 * Get the card with that string value 
+	 * 
+	 * @param cardValue the string value of the card
+	 * @return the card from deck
+	 */
 	public IPokerCard getCardFromStringValue(String cardValue) {
 		for(IPokerCard card : cards){
 			if(card.getStringValue().equalsIgnoreCase(cardValue))

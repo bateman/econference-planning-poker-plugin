@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-public class DefaultCardDeckUIHelper implements ICardDeckUIHelper {
+public class DefaultDeckViewUIHelper implements IDeckViewUIHelper {
 
 	private String selectedValue;
 	private static final String KEY_VALUE = "value";
@@ -27,7 +27,7 @@ public class DefaultCardDeckUIHelper implements ICardDeckUIHelper {
 	
 	private Set<ICardSelectionListener> listeners;
 	
-	public DefaultCardDeckUIHelper() {
+	public DefaultDeckViewUIHelper() {
 		listeners = new HashSet<ICardSelectionListener>();
 	}
 	

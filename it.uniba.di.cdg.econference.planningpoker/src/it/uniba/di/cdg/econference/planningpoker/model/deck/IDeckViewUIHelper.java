@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Composite;
  *
  */
 
-public interface ICardDeckUIHelper {
+public interface IDeckViewUIHelper {
 
 	void addWidgetFromCard(IPokerCard card, Composite parent);
 
