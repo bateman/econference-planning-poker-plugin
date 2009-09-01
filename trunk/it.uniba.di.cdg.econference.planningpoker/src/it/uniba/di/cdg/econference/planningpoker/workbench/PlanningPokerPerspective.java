@@ -2,10 +2,8 @@ package it.uniba.di.cdg.econference.planningpoker.workbench;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.xcore.econference.ui.views.WhiteBoardView;
-import it.uniba.di.cdg.xcore.multichat.MultiChatPlugin;
 import it.uniba.di.cdg.xcore.multichat.ui.views.ChatRoomView;
 import it.uniba.di.cdg.xcore.multichat.ui.views.MultiChatTalkView;
-
 
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
@@ -39,8 +37,8 @@ public class PlanningPokerPerspective implements IPerspectiveFactory {
 
 		//adding the folder for card deck and the estimates view
 		IFolderLayout bottomLeft = layout.createFolder(BOTTOM_LEFT_FOLDER, IPageLayout.BOTTOM, 0.65f, BacklogView.ID);
-		bottomLeft.addView(EstimatesView.ID);
-		bottomLeft.addView(DeckView.ID);
+		bottomLeft.addPlaceholder(EstimatesView.ID);
+		bottomLeft.addPlaceholder(DeckView.ID);
 		
 
 		//adding the MultiChat View

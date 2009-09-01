@@ -1,32 +1,32 @@
 package it.uniba.di.cdg.econference.planningpoker.model;
 
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogUIProvider;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeck;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeckUIHelper;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
 
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
 public interface IModelAbstractFactory {
-	
-	public IBacklog createBacklog();
 
 	public IUserStoryDialog createUserStoryDialog(Shell shell);
 	
-	public IBacklogUIProvider createBacklogUIProvider();
-	
-	public ICardDeck createCardDeck();
+	public IBacklogViewUIProvider createBacklogViewUIProvider();
 	
 	/**
-	 * The UI Helper takes an ICardDeck implementation, in order to create
+	 * The UI Helper takes the Composite control of the view, in order to create
 	 * the graphic component n the card that are actually in the
 	 * card deck
+	 * @param parent 
 	 * 
-	 * @param deck
-	 * @return
+	 * 
+	 * @return the UI Helper
 	 */
-	public ICardDeckUIHelper createCardDeckUIHelper();
+	public IDeckViewUIHelper createCardDeckViewUIHelper(Composite parent);
+	
+	
+	public IEstimatesViewUIProvider createEstimateViewUIHelper(Composite parent);
 	
 	/*FIXME: the factory should create the packet product too,
 	/* but this plugin has to be independent of the implementation

@@ -1,17 +1,21 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeck;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.Voters;
+import java.util.ArrayList;
+import java.util.List;
+
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
 import it.uniba.di.cdg.xcore.multichat.InvitationEvent;
+import it.uniba.di.cdg.xcore.multichat.service.Invitee;
 
 public class PlanningPokerContext extends EConferenceContext {
+	public static final String ROLE_VOTER = "voter";
 	
+	private Backlog backlog;
+	private CardDeck deck;
 	
-	private IBacklog backlog;
-	private ICardDeck deck;
-	private Voters voters;
+	private List<Invitee> voters;
 	
 	
 	/**
@@ -19,6 +23,7 @@ public class PlanningPokerContext extends EConferenceContext {
      */
     public PlanningPokerContext() {
         super();
+        voters = new ArrayList<Invitee>();
     }
 	
 	  /**
@@ -27,41 +32,43 @@ public class PlanningPokerContext extends EConferenceContext {
      */
     public PlanningPokerContext( String nickName, InvitationEvent invitation ) {
         super( nickName, invitation );
+        voters = new ArrayList<Invitee>();
     }
 
-	public IBacklog getBacklog() {
+	public Backlog getBacklog() {
 		return backlog;
 	}
 
-	public void setBacklog(IBacklog backlog) {
+	public void setBacklog(Backlog backlog) {
 		this.backlog = backlog;
 	}
 	
-	public ICardDeck getCardDeck() {
+	public CardDeck getCardDeck() {
 		return deck;
 	}
 
-	public void setCardDeck(ICardDeck deck) {
+	public void setCardDeck(CardDeck deck) {
 		this.deck = deck;
 	}
 
-	public ICardDeck getDeck() {
+	public CardDeck getDeck() {
 		return deck;
 	}
 
-	public void setDeck(ICardDeck deck) {
+	public void setDeck(CardDeck deck) {
 		this.deck = deck;
 	}
-
-	public Voters getVoters() {
-		return voters;
-	}
-
-	public void setVoters(Voters voters) {
-		this.voters = voters;
+	
+	public void addVoter(Invitee voter){
+		voters.add(voter);
 	}
 	
-	
-	
+	public Invitee[] getVoters(){
+		Invitee[]  result = new Invitee[voters.size()];
+		for (int i = 0; i < voters.size(); i++) {
+			result[0]  = voters.get(0);
+		}
+		return result;
+	}
 	
 }

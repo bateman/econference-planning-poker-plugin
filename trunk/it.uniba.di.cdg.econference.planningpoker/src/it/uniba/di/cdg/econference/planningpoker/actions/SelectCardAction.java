@@ -4,8 +4,6 @@ import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
 
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -27,15 +25,8 @@ public class SelectCardAction extends SingleSelectionAction {
 		DeckView deckView = (DeckView) page.findView(DeckView.ID);
 		IPokerCard selectedCard = deckView.getSelectedCard();
 		if(selectedCard!=null){
-			deckView.getManager().notifyCardSelected(selectedCard.getStringValue());	
+			deckView.getManager().notifyCardSelected(selectedCard);	
 		}
-//		ISelection selection = deckView.getViewer().getSelection();
-//		if(selection!=null && selection instanceof IStructuredSelection){
-//			IStructuredSelection sel = (IStructuredSelection)selection;
-//			IPokerCard selectedCard = (IPokerCard) sel.getFirstElement();
-//			
-//						
-//		}
 	}
 	
 	

@@ -11,12 +11,18 @@ import org.eclipse.swt.widgets.Composite;
 
 public interface IDeckViewUIHelper {
 
-	void addWidgetFromCard(IPokerCard card, Composite parent);
+	void addWidgetFromCard(IPokerCard card);
 
-	void removeWidgetFromCard(IPokerCard card, Composite parent);
+	void removeWidgetFromCard(IPokerCard card);
 	
 	void addCardSelectionListener(ICardSelectionListener listener);
 	
 	void removeCardSelectionListener(ICardSelectionListener listener);
+
+	void setReadOnly(boolean readOnly);
+
+	boolean isReadOnly();
+	
+	void setFocus();
 
 }

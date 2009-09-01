@@ -1,7 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 
@@ -29,10 +29,10 @@ public class EstimateStoryAction extends SingleSelectionAction {
 		BacklogView backlogView = (BacklogView) page.findView(BacklogView.ID);
 		IUserStory selectedStory = backlogView.getSelectedStory();
 		if(selectedStory!=null){			
-			IBacklog backlog = backlogView.getModel().getBacklog();
+			Backlog backlog = backlogView.getModel().getBacklog();
 			for(int i=0; i < backlog.getUserStories().length; i++){
 				if(backlog.getUserStories()[i].equals(selectedStory)){
-					backlog.setCurrentItemIndex(i);
+					//backlog.setCurrentItemIndex(i);
 					backlogView.getManager().notifyCurrentAgendaItemChanged(String.format("%d",i));
 					break;
 				}

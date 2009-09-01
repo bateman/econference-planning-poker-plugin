@@ -14,8 +14,6 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
-import it.uniba.di.cdg.xcore.econference.model.ConferenceModelListenerAdapter;
-import it.uniba.di.cdg.xcore.econference.model.IConferenceModelListener;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
@@ -29,13 +27,9 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerRow;
-import org.eclipse.jface.viewers.ViewerRow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Point;
@@ -47,9 +41,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchActionConstants;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
 
 public class BacklogView extends ViewPart implements IBacklogView {
@@ -223,6 +215,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
         if (STARTED.compareTo( status ) == 0) {
             startStopButton.setText( "Stop conference" );
             startStopButton.setToolTipText( "Press to stop the conference" );
+            startStopButton.setSelection(true);
             if(!isReadOnly()){   
             	estimateStoryAction.setAccessible(true);
             	enableDoubleClickListener(true);
@@ -230,6 +223,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
         }
         else {
             startStopButton.setText( "Start conference" );
+            startStopButton.setSelection(false);
             startStopButton.setToolTipText( "Press to start the conference" );
             getManager().notifyCurrentAgendaItemChanged(String.format("%d", IItemList.NO_ITEM_SELECTED));
             estimateStoryAction.setAccessible(false);
@@ -246,8 +240,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		}
 		this.manager = manager;
 
-		getModel().getFactory().createBacklogUIProvider().createColumns(viewer);
-		IBacklogViewUIProvider provider = getModel().getFactory().createBacklogUIProvider();
+		IBacklogViewUIProvider provider = getModel().getFactory().createBacklogViewUIProvider();
+		provider.createColumns(viewer);
 		viewer.setContentProvider(provider);
 		viewer.setLabelProvider(provider);
 		

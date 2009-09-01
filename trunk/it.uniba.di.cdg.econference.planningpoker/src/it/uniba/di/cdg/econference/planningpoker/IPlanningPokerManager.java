@@ -1,18 +1,17 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.xcore.econference.IEConferenceManager;
-import it.uniba.di.cdg.xcore.econference.IEConferenceService;
-import it.uniba.di.cdg.xcore.multichat.IMultiChatManager;
-import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
 
 public interface IPlanningPokerManager extends IEConferenceManager{
  
     /**
      * Notify that this client has selected a card
      * 
-     * @param cardValue
+     * @param card 
+     * 
      */
-    void notifyCardSelected(String cardValue );
+    void notifyCardSelected(IPokerCard card );
    
     /**
      * 

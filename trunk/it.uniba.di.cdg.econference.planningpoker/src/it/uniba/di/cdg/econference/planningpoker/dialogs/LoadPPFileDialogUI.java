@@ -1,15 +1,13 @@
 package it.uniba.di.cdg.econference.planningpoker.dialogs;
 
-import java.util.Iterator;
-
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerContext;
 import it.uniba.di.cdg.econference.planningpoker.model.internal.PPContextLoader;
-import it.uniba.di.cdg.xcore.econference.EConferenceContext;
-import it.uniba.di.cdg.xcore.econference.model.internal.ConferenceContextLoader;
 import it.uniba.di.cdg.xcore.multichat.service.Invitee;
 import it.uniba.di.cdg.xcore.network.IBackend;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
+
+import java.util.Iterator;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
@@ -150,7 +148,7 @@ public class LoadPPFileDialogUI extends Composite {
         boolean eq = moderatorId.indexOf( currentUserId ) > -1;
         // XXX Avoid sending an invitation to ourselves if we are moderators!!
         if (eq) {
-            for (Iterator it = context.getInvitees().iterator(); it.hasNext(); ) {
+            for (Iterator<Invitee> it = context.getInvitees().iterator(); it.hasNext(); ) {
                 Invitee i = (Invitee) it.next();
                 if (moderatorId.equals( i.getId() )) {
                     it.remove();
@@ -172,7 +170,7 @@ public class LoadPPFileDialogUI extends Composite {
         
         String myNickName = myId;
         
-        for (Iterator it = context.getInvitees().iterator(); it.hasNext(); ) {
+        for (Iterator<Invitee> it = context.getInvitees().iterator(); it.hasNext(); ) {
             Invitee i = (Invitee) it.next();
             if (i.getId().indexOf( myId ) > -1) {
                 myNickName = i.getFullName();

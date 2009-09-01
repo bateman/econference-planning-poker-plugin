@@ -1,62 +1,45 @@
 package it.uniba.di.cdg.econference.planningpoker.model;
 
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeck;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.Voters;
 import it.uniba.di.cdg.xcore.econference.model.ConferenceModel;
+import it.uniba.di.cdg.xcore.multichat.model.IChatRoomModelListener;
 
 public class PlanningPokerModel extends ConferenceModel implements IPlanningPokerModel {
-
-	/**
-	 * The value of the selected card
-	 */
-	private Object cardValue;
 	
 	/**
 	 * The list of user stories in the backlog
 	 */
-	private IBacklog backlog;
+	private Backlog backlog;
 	
-	
+	/**
+	 * The model factory used to create the UIProviders, the type of IUserStory and IPokerCard used
+	 * 
+	 */
 	private IModelAbstractFactory factory;
 	
-	private ICardDeck deck;
+	private CardDeck deck;
 	
-	private Voters voters;
+	
+	private IEstimates estimates;
+	
+	private Voters voters; 
+	
 
-	
-	
 	 public PlanningPokerModel() {
 	        super();
 	        /* TODO The abstract factory is initialized with the Default 
 			 * Factory which is the base factory
-			 */		
-	        this.factory = new DefaultModelFactory();
-	        this.backlog = factory.createBacklog();
-	        this.deck = factory.createCardDeck();
+			 */			       
+	        this.factory = new DefaultModelFactory();	
 	        
-	        this.voters = new Voters(getParticipants());
+	        this.deck = new CardDeck();
+	        this.backlog = new Backlog();
+	        
+	        this.voters = new Voters();	        
 	    }
-	
-	@Override
-	public void setCardValue(Object cardValue) {
-		this.cardValue = cardValue;		
-	}
-
-	@Override
-	public void setBacklog(IBacklog backlog) {
-		this.backlog.setBacklogContent(backlog.getUserStories());		
-	}
-
-	@Override
-	public IBacklog getBacklog() {
-		return backlog;
-	}
-
-	@Override
-	public Object getCardValue() {
-		return cardValue;		
-	}
 
 	@Override
 	public IModelAbstractFactory getFactory() {
@@ -66,30 +49,87 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 	@Override
 	public void setModelFactory(IModelAbstractFactory factory) {
 		this.factory = factory;
-		this.backlog = factory.createBacklog();
-        this.deck = factory.createCardDeck();
-		
+		this.backlog = new Backlog();
+        this.deck = new CardDeck();		
+	}
+	
+	@Override
+	public void setBacklog(Backlog backlog) {
+//		if(this.backlog!=null)
+//			this.backlog.dispose();
+//		this.backlog = backlog;
+//		for (IChatRoomModelListener l : listeners()) {
+//            if (l instanceof IPlanningPokerModelListener) {
+//                ((IPlanningPokerModelListener) l).backlogChanged();
+//            }
+//        }
+		/* We do not set the backlog to the new object to avoid 
+		 * adding the backlogChanged method listener in all views 
+		 */
+		this.backlog.setBacklogContent(backlog.getUserStories());	
+		this.backlog.setCurrentItemIndex(backlog.getCurrentItemIndex());
 	}
 
 	@Override
-	public ICardDeck getCardDeck() {
+	public Backlog getBacklog() {
+		return backlog;
+	}
+
+	@Override
+	public CardDeck getCardDeck() {
 		return deck;
 	}
 
 	@Override
-	public void setCardDeck(ICardDeck deck) {
-		this.deck = deck;		
+	public void setCardDeck(CardDeck deck) {
+		if(this.deck!=null)
+			this.deck.dispose();
+		this.deck = deck;	
+		for (IChatRoomModelListener l : listeners()) {
+            if (l instanceof IPlanningPokerModelListener) {
+                ((IPlanningPokerModelListener) l).cardDeckChanged();
+            }
+        }
 	}
 
+
 	@Override
-	public Voters getVoters() {
+	public IEstimates getEstimates() {		
+		return estimates;
+	}
+
+
+	@Override
+	public void setEstimates(IEstimates estimates) {
+		if(this.estimates!=null)
+			this.estimates.dispose();
+		this.estimates = estimates;
+		for (IChatRoomModelListener l : listeners()) {
+            if (l instanceof IPlanningPokerModelListener) {
+                ((IPlanningPokerModelListener) l).estimatesChanged();
+            }
+        }
+	}
+	
+	@Override
+	public void setVoters(Voters voters) {
+		if(this.voters!=null)
+			this.voters.dispose();
+		this.voters = voters;
+		for (IChatRoomModelListener l : listeners()) {
+            if (l instanceof IPlanningPokerModelListener) {
+                ((IPlanningPokerModelListener) l).votersListChanged();
+            }
+        }
+	}
+	
+	@Override
+	public Voters getVoters(){
 		return voters;
 	}
 
-	@Override
-	public void setVoters(Voters voters) {
-		this.voters = voters;		
-	}
+
+
 
 
 
