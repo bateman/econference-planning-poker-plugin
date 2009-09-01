@@ -1,12 +1,13 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.EstimatesView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective;
 import it.uniba.di.cdg.xcore.econference.IEConferenceService;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceManager;
-import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
+import it.uniba.di.cdg.xcore.econference.model.ConferenceParticipantsSpecialRoles;
 import it.uniba.di.cdg.xcore.multichat.model.Privileged;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
 import it.uniba.di.cdg.xcore.network.BackendException;
@@ -30,11 +31,11 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 		getUihelper().switchPerspective( PlanningPokerPerspective.ID );
 		
 		IViewPart viewPart;      
-        
+        		
         viewPart = getWorkbenchWindow().getActivePage().showView( DeckView.ID );
         deckView = (DeckView) viewPart;
         deckView.setManager(this);
-        deckView.setReadOnly(true); //Deck is for participants not for the moderator
+        deckView.setReadOnly(true); 
         
         viewPart = getWorkbenchWindow().getActivePage().showView( EstimatesView.ID );
         estimatesView = (EstimatesView) viewPart;   
@@ -44,8 +45,11 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
         viewPart = getWorkbenchWindow().getActivePage().showView( BacklogView.ID );
         storiesListView = (BacklogView) viewPart;
         storiesListView.setManager(this);
-        storiesListView.setReadOnly(!Role.MODERATOR.equals(getRole()));
+        storiesListView.setReadOnly(!Role.MODERATOR.equals(getRole()));        
         
+        //Moderator must be able to write the Whiteboard
+       if(Role.MODERATOR.equals(getRole()))
+        		getService().getModel().getLocalUser().setSpecialRole(ConferenceParticipantsSpecialRoles.SCRIBE);      	
 	}
 	
     @Override
@@ -70,8 +74,8 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 	
 
 	@Override
-	public void notifyCardSelected(String cardValue) {
-		getService().notifyCardSelection(cardValue);
+	public void notifyCardSelected(IPokerCard card) {
+		getService().notifyCardSelection(card);
 	}
 
 	@Privileged( atleast = Role.MODERATOR )

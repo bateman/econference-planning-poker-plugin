@@ -1,8 +1,8 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.xcore.econference.IEConferenceService;
-import it.uniba.di.cdg.xcore.econference.model.IConferenceModel;
 import it.uniba.di.cdg.xcore.network.services.Capability;
 import it.uniba.di.cdg.xcore.network.services.ICapability;
 
@@ -20,7 +20,8 @@ public interface IPlanningPokerService extends IEConferenceService {
      */
     IPlanningPokerModel getModel();
     
-    void notifyCardSelection( String cardValue );
+    
+    void notifyCardSelection( IPokerCard card );
     
     /**
      * Notify the current voter list to remote clients: this method is 

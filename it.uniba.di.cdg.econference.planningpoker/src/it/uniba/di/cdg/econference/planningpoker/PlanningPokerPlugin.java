@@ -1,9 +1,6 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
 import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
-import it.uniba.di.cdg.xcore.econference.IEConferenceHelper;
-import it.uniba.di.cdg.xcore.econference.model.storedevents.IStoredEventsModel;
-import it.uniba.di.cdg.xcore.econference.model.storedevents.StoredEventsModel;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
@@ -12,12 +9,14 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 public class PlanningPokerPlugin extends AbstractUIPlugin {
-	// The plug-in ID
-	public static final String ID = "it.uniba.di.cdg.econference.planningpoker";
+	
 	
 	 /**
      * The unique id for this plug-in.
      */
+	public static final String ID = "it.uniba.di.cdg.econference.planningpoker";
+	
+	
 
     // The shared instance.
     private static PlanningPokerPlugin plugin;

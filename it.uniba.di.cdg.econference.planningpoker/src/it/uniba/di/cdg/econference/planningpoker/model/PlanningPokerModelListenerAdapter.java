@@ -6,7 +6,25 @@ public class PlanningPokerModelListenerAdapter extends
 		ConferenceModelListenerAdapter implements IPlanningPokerModelListener{
 
 	@Override
-	public void voterListChanged() {	
+	public void cardDeckChanged() {
+		
+		
+	}
+
+	@Override
+	public void votersListChanged() {
+
+		
+	}
+
+	@Override
+	public void backlogChanged() {		
+		
+	}
+
+	@Override
+	public void estimatesChanged() {		
+		
 	}
 
 }

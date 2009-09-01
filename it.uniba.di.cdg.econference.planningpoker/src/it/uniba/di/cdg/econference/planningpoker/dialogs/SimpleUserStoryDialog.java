@@ -4,7 +4,7 @@ package it.uniba.di.cdg.econference.planningpoker.dialogs;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory.PRIORITY;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeck;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -27,7 +27,7 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 
 	private DefaultUserStory story = null;
 	
-	private ICardDeck deck = null;
+	private CardDeck deck = null;
 	
 	private Text txt_name;
 	private Text txt_description;
@@ -43,7 +43,7 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 		this.story = (DefaultUserStory) story;
 	}
 	
-	public void setCardDeck(ICardDeck deck){
+	public void setCardDeck(CardDeck deck){
 		this.deck = deck;
 	}
 

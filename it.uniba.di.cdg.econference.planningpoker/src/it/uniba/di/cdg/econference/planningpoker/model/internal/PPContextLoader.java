@@ -1,5 +1,6 @@
 package it.uniba.di.cdg.econference.planningpoker.model.internal;
 
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerContext;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.InvalidContextException;
@@ -27,14 +28,15 @@ import org.w3c.dom.NodeList;
 public class PPContextLoader {
     public static final String NAME_KEY = "name";
     public static final String TOPIC_KEY = "topic";
-    public static final String ITEM_LIST_KEY = "itemList";
+    public static final String BACKLOG_KEY = "backlog";
     public static final String DIRECTOR_KEY = "directory";
     public static final String SCRIBE_KEY = "scribe";
     public static final String MODERATOR_KEY = "moderator";
+    public static final String VOTER_KEY = "scribe";
 
-    private EConferenceContext context;
+    private PlanningPokerContext context;
     
-    public PPContextLoader( EConferenceContext context ) {
+    public PPContextLoader( PlanningPokerContext context ) {
         this.context = context;
     }
     
@@ -81,6 +83,15 @@ public class PPContextLoader {
             p = readParticipantFromNode( xPath, node, EConferenceContext.ROLE_SCRIBE  );
             context.setScribe( p );
             participants.add( p );
+            
+            NodeList voters = (NodeList) xPath.evaluate( "voter", supportTeam, XPathConstants.NODESET );
+            for (int i = 0; i < voters.getLength(); i++) {
+                Node n = voters.item( i );
+                p = readParticipantFromNode( xPath, n, PlanningPokerContext.ROLE_VOTER  );             
+                context.addVoter( p );
+                participants.add( p );
+            }
+            
             
             // Other experts
             NodeList experts = (NodeList) xPath.evaluate( "/meeting/participants/*", doc, XPathConstants.NODESET );

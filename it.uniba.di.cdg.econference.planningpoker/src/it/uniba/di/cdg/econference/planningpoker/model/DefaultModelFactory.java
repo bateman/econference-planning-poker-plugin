@@ -2,23 +2,18 @@ package it.uniba.di.cdg.econference.planningpoker.model;
 
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.dialogs.SimpleUserStoryDialog;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultBacklog;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultBacklogUIProvider;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogUIProvider;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultCardDeck;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultCardDeckUIHelper;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeck;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardDeckUIHelper;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultBacklogViewUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultDeckViewUIHelper;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.DefaultEstimatesViewUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
 
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
 public class DefaultModelFactory implements IModelAbstractFactory {
 
-	@Override
-	public IBacklog createBacklog() {
-		return new DefaultBacklog();
-	}
 
 	@Override
 	public IUserStoryDialog createUserStoryDialog(Shell shell) {
@@ -26,18 +21,18 @@ public class DefaultModelFactory implements IModelAbstractFactory {
 	}
 
 	@Override
-	public IBacklogUIProvider createBacklogUIProvider() {
-		return new DefaultBacklogUIProvider();
-	}
-
-	@Override
-	public ICardDeck createCardDeck() {
-		return new DefaultCardDeck();
+	public IBacklogViewUIProvider createBacklogViewUIProvider() {
+		return new DefaultBacklogViewUIProvider();
 	}
 	
 	@Override
-	public ICardDeckUIHelper createCardDeckUIHelper() {
-		return new DefaultCardDeckUIHelper();
+	public IDeckViewUIHelper createCardDeckViewUIHelper(Composite parent) {
+		return new DefaultDeckViewUIHelper(parent);
+	}
+
+	@Override
+	public IEstimatesViewUIProvider createEstimateViewUIHelper(Composite parent) {
+		return new DefaultEstimatesViewUIProvider(parent);
 	}
 
 }

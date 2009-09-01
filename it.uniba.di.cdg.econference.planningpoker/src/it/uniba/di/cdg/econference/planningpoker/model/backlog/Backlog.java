@@ -151,6 +151,11 @@ public class Backlog implements IItemList {
 		return stories.size();
 	}
 
+	public void dispose() {
+		//Perform clean-up operations
+		 listeners.clear();
+	}
+
 
 
 
