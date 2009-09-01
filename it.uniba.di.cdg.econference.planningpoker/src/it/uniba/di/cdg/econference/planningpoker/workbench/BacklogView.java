@@ -8,12 +8,14 @@ import it.uniba.di.cdg.econference.planningpoker.actions.DeleteUserStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.EditUserStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.EstimateStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
+import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModelListener;
 import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListenerAdapter;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklog;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.model.ConferenceModelListenerAdapter;
+import it.uniba.di.cdg.xcore.econference.model.IConferenceModelListener;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
@@ -84,18 +86,18 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	};
 
 
-    private PlanningPokerModelListenerAdapter ppModelListener = new PlanningPokerModelListenerAdapter() {
+    private IPlanningPokerModelListener ppModelListener = new PlanningPokerModelListenerAdapter() {
         @Override
         public void statusChanged() {
             System.out.println( "statusChanged()" );
             changeButtonStatus( getModel().getStatus() );
         }
-
-        @Override
-        public void itemListChanged() {
-            System.out.println( "itemListChanged()" );
-            changeItemList( getModel().getBacklog() );
-        }
+        
+        public void backlogChanged() {
+        	 System.out.println( "itemListChanged()" );
+        	 getModel().getBacklog().addListener(backlogListener);
+             changeItemList( getModel().getBacklog() );  
+        };
     };
     
 
@@ -109,8 +111,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 
 		@Override
 		public void contentChanged(IItemList newBacklog) {
-			changeItemList((IBacklog) newBacklog);	
-			setCurrentStory(newBacklog.getCurrentItemIndex());
+			changeItemList((Backlog) newBacklog);	
+			
 		}
 	};
 
@@ -148,6 +150,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
         startStopButton = new Button(top, SWT.TOGGLE);
         startStopButton.setText("Start conference");
         startStopButton.setLayoutData(gridData);
+        startStopButton.setEnabled(false);
         
         GridData gridDataTable = new org.eclipse.swt.layout.GridData();
         gridDataTable.horizontalAlignment = org.eclipse.swt.layout.GridData.FILL;
@@ -222,17 +225,15 @@ public class BacklogView extends ViewPart implements IBacklogView {
             startStopButton.setToolTipText( "Press to stop the conference" );
             if(!isReadOnly()){   
             	estimateStoryAction.setAccessible(true);
-            	handleListener(true);
+            	enableDoubleClickListener(true);
             }
-            //itemList.setEnabled(Role.MODERATOR.equals( getModel().getLocalUser().getRole() ) );
         }
         else {
             startStopButton.setText( "Start conference" );
             startStopButton.setToolTipText( "Press to start the conference" );
             getManager().notifyCurrentAgendaItemChanged(String.format("%d", IItemList.NO_ITEM_SELECTED));
             estimateStoryAction.setAccessible(false);
-            handleListener(false);            
-            //itemList.setEnabled( false );
+            enableDoubleClickListener(false);            
         }
     }
 
@@ -246,7 +247,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		this.manager = manager;
 
 		getModel().getFactory().createBacklogUIProvider().createColumns(viewer);
-		IBacklogUIProvider provider = getModel().getFactory().createBacklogUIProvider();
+		IBacklogViewUIProvider provider = getModel().getFactory().createBacklogUIProvider();
 		viewer.setContentProvider(provider);
 		viewer.setLabelProvider(provider);
 		
@@ -264,7 +265,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	}
 
 	@SwtAsyncExec
-	private void changeItemList(IBacklog backlog) {
+	private void changeItemList(Backlog backlog) {		
+		setCurrentStory(backlog.getCurrentItemIndex());
 		viewer.setInput(backlog.getUserStories());
 		viewer.refresh();
 	}
@@ -318,11 +320,14 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		deleteStoryAction.setAccessible(!readOnly);		
 		addStoryAction.setEnabled(!readOnly);
 		
-		estimateStoryAction.setAccessible(!readOnly);
-		handleListener(!readOnly);
+		//only if planning poker has been already started, it is possible estimate a story
+		if(getModel()!=null && getModel().getStatus().equals(ConferenceStatus.STARTED)){
+			estimateStoryAction.setAccessible(!readOnly);
+			enableDoubleClickListener(!readOnly);
+		}
 	}
 
-	private void handleListener(boolean enable) {
+	private void enableDoubleClickListener(boolean enable) {
 		if(!enable){
 			if(doubleClickListener != null){
 				viewer.getTable().removeListener(SWT.MouseDoubleClick, doubleClickListener );
@@ -332,9 +337,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		}else{
 			if(doubleClickListener == null)
 				doubleClickListener = new Listener() {
-				public void handleEvent(Event event) {			
-					estimateStoryAction.run();
-					//getManager().setStatus(ConferenceStatus.STARTED);
+				public void handleEvent(Event event) {						
+					estimateStoryAction.run();					
 				} 
 			};
 			viewer.getTable().addListener(SWT.MouseDoubleClick, doubleClickListener );			
