@@ -26,7 +26,7 @@ public interface IModelAbstractFactory {
 	public IDeckViewUIHelper createCardDeckViewUIHelper(Composite parent);
 	
 	
-	public IEstimatesViewUIProvider createEstimateViewUIHelper(Composite parent);
+	public IEstimatesViewUIProvider createEstimateViewUIHelper();
 	
 	/*FIXME: the factory should create the packet product too,
 	/* but this plugin has to be independent of the implementation

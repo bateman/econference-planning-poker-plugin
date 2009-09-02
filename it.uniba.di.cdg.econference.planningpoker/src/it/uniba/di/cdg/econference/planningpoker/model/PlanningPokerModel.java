@@ -94,19 +94,19 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 
 
 	@Override
-	public IEstimates getEstimates() {		
+	public IEstimates getEstimateSession() {		
 		return estimates;
 	}
 
 
 	@Override
-	public void setEstimates(IEstimates estimates) {
+	public void openEstimateSession(IEstimates estimates) {
 		if(this.estimates!=null)
 			this.estimates.dispose();
 		this.estimates = estimates;
 		for (IChatRoomModelListener l : listeners()) {
             if (l instanceof IPlanningPokerModelListener) {
-                ((IPlanningPokerModelListener) l).estimatesChanged();
+                ((IPlanningPokerModelListener) l).estimateSessionOpened();
             }
         }
 	}
@@ -127,9 +127,6 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 	public Voters getVoters(){
 		return voters;
 	}
-
-
-
 
 
 

@@ -249,8 +249,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		//The backlog could be null if no backlog was specified in the PP XML file        
 		getModel().getBacklog().addListener( backlogListener );
 
-		changeItemList( getModel().getBacklog() );
-		//changeButtonStatus( getModel().getStatus() );
+		changeItemList( getModel().getBacklog() );		
 		updateActionsAccordingToRole();
 
 		//remove following line

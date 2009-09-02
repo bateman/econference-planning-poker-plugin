@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
 import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.EstimatesView;
@@ -8,6 +9,7 @@ import it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspect
 import it.uniba.di.cdg.xcore.econference.IEConferenceService;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceManager;
 import it.uniba.di.cdg.xcore.econference.model.ConferenceParticipantsSpecialRoles;
+import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
 import it.uniba.di.cdg.xcore.multichat.model.Privileged;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
 import it.uniba.di.cdg.xcore.network.BackendException;
@@ -29,6 +31,8 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 	protected void setupUI() throws WorkbenchException {	
 		super.setupUI();
 		getUihelper().switchPerspective( PlanningPokerPerspective.ID );
+		
+		 boolean conferenceStopped = ConferenceStatus.STOPPED.equals( getService().getModel().getStatus() );
 		
 		IViewPart viewPart;      
         		
@@ -53,7 +57,7 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 	}
 	
     @Override
-    protected IEConferenceService setupChatService() throws BackendException {
+    protected IPlanningPokerService setupChatService() throws BackendException {
         IBackend backend = getBackendHelper().getRegistry().getBackend( getContext().getBackendId() );
         
         return (IPlanningPokerService) backend.createService( 
@@ -82,10 +86,16 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
     public void notifyItemListToRemote() {
         getService().notifyItemListToRemote();
     }
-	
-	@Privileged( atleast = Role.MODERATOR )
-	public void notifyVoterListToRemote(){
-		getService().notifyVoterListToRemote();
+
+	@Override
+	public void notifyEstimateSessionStatusChange(IEstimates estimates) {
+		getService().notifyEstimateSessionStatusChange(estimates);
+		
 	}
+	
+//	@Privileged( atleast = Role.MODERATOR )
+//	public void notifyVoterListToRemote(){
+//		getService().notifyVoterListToRemote();
+//	}
 
 }

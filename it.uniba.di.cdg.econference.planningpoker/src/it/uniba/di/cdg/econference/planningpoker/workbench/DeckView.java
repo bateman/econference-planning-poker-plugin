@@ -10,8 +10,8 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardSelectionListener;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates.EstimateStatus;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
-import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 
@@ -66,15 +66,6 @@ public class DeckView extends ViewPart implements IDeckView {
 
 	};
 	
-	private IItemListListener backlogListener = new ItemListListenerAdapter() {
-
-		public void currentSelectionChanged(int currItemIndex) {
-			updateActionsAccordingToRole();			
-		};
-
-
-	};
-	
 	
 	private ICardSelectionListener cardSelectionListener = new ICardSelectionListener(){
 
@@ -95,30 +86,10 @@ public class DeckView extends ViewPart implements IDeckView {
 			createCardDeck();
 		};
 		
-		@Override
-		public void backlogChanged() {
-			getModel().getBacklog().addListener(backlogListener);
-		};
 		
-//		@Override
-//		public void localUserChanged() {
-//			System.out.println("Deck View: participant changed ");
-//			updateActionsAccordingToRole();
-//		}
-//		
-//		@Override
-//		public void changed(IParticipant participant) {
-//			System.out.println("Deck View: participant changed "+participant.getId());
-//			updateActionsAccordingToRole();
-//		}
-//		
-//		@Override
-//		public void statusChanged() {
-//			if(getModel().getStatus().equals(ConferenceStatus.STOPPED))
-//				setReadOnly(true);
-//			else
-//				updateActionsAccordingToRole();			
-//		}		
+		public void estimateSessionOpened() {
+			updateActionsAccordingToRole();	
+		};	
 	
 	};
 
@@ -166,13 +137,11 @@ public class DeckView extends ViewPart implements IDeckView {
 			getModel().removeListener(ppModelListener);
 			getModel().getCardDeck().removeListener(deckListener);
 			getModel().getVoters().removeListener(voterListener);
-			getModel().getBacklog().removeListener(backlogListener);
 			uiHelper.removeCardSelectionListener(cardSelectionListener);
 		}
 		this.manager = manager;
 		getModel().getCardDeck().addListener(deckListener);
 		getModel().getVoters().addListener(voterListener);
-		getModel().getBacklog().addListener(backlogListener);
 		getModel().addListener(ppModelListener);
 		
 		uiHelper = getModel().getFactory().createCardDeckViewUIHelper(parent);	
@@ -187,7 +156,7 @@ public class DeckView extends ViewPart implements IDeckView {
 
 	private void updateActionsAccordingToRole() {
 		setReadOnly(!(getModel()!=null && 
-				getModel().getBacklog().getCurrentItemIndex()!=IItemList.NO_ITEM_SELECTED &&
+				getModel().getEstimateSession().getStatus()!=EstimateStatus.CLOSED &&
 				getModel().getLocalUser().getSpecialRole().equals(PlanningPokerParticipantsSpecialRoles.VOTER)));	
 		
 	}

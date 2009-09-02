@@ -1,6 +1,5 @@
 package it.uniba.di.cdg.econference.planningpoker.model.deck;
 
-import org.eclipse.swt.widgets.Composite;
 
 /**
  * This class helps Deck View to create the deck graphically.

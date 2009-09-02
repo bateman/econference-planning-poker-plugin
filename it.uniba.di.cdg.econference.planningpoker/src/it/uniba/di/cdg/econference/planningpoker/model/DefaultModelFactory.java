@@ -31,8 +31,8 @@ public class DefaultModelFactory implements IModelAbstractFactory {
 	}
 
 	@Override
-	public IEstimatesViewUIProvider createEstimateViewUIHelper(Composite parent) {
-		return new DefaultEstimatesViewUIProvider(parent);
+	public IEstimatesViewUIProvider createEstimateViewUIHelper() {
+		return new DefaultEstimatesViewUIProvider();
 	}
 
 }
