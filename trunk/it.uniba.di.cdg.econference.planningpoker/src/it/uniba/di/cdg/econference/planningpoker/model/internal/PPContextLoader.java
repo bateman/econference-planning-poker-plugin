@@ -2,10 +2,7 @@ package it.uniba.di.cdg.econference.planningpoker.model.internal;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerContext;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
-import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.InvalidContextException;
-import it.uniba.di.cdg.xcore.econference.model.internal.DiscussionItem;
-import it.uniba.di.cdg.xcore.econference.model.internal.ItemList;
 import it.uniba.di.cdg.xcore.multichat.service.Invitee;
 
 import java.io.FileInputStream;
@@ -18,7 +15,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;

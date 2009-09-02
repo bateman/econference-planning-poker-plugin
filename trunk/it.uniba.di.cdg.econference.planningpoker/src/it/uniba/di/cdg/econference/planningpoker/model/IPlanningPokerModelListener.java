@@ -1,5 +1,6 @@
 package it.uniba.di.cdg.econference.planningpoker.model;
 
+
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModelListener;
 
 public interface IPlanningPokerModelListener extends IConferenceModelListener {
@@ -19,10 +20,12 @@ public interface IPlanningPokerModelListener extends IConferenceModelListener {
 	 */
 	void cardDeckChanged();
 	
+	
 	/**
-	 * A new estimates list has replaced the old one
+	 * A new estimates session has replaced the old one
 	 */
-	void estimatesChanged();
+	void estimateSessionOpened();
+	
 
 }
 

@@ -1,30 +1,31 @@
 package it.uniba.di.cdg.econference.planningpoker.model.estimates;
 
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates.EstimateStatus;
 
 public interface IEstimateListener {
 	
 	void estimateAdded(String userId, IPokerCard card);
 	
 	void estimateRemoved(String userId, IPokerCard card);
-		
-	/**
-	 * 
-	 * Fired when all voters made their estimation.
-	 * Only, in this case participant can see the estimates
-	 * 
-	 */
-	void estimatesCompleted();
 	
 	
 	/**
-	 * Fired when a new Object Estimates is created. This happened
-	 * when a new estimation about a User Story has to be done.
+	 * <p>The estimate was created or closed<p>
 	 * 
-	 * @param storyId the id of the story associated to this estimate list 
+	 * @param status see {@link EstimateStatus}
 	 * 
-	 * @param id the id of this estimate list
+	 * @see EstimateStatus EstimateStatus
+	 * 
+	 * @param storyId the unique identifier for the current 
+	 * story to estimate
+	 * 
+	 * @param estimateId the unique identifier for the current
+	 * estimation( Remeber that there could be many estimations
+	 * for a single User Story)
+	 * 
 	 */
-	void estimateListCreated(Object storyId, Object id);
+	void estimateStatusChanged(EstimateStatus status, 
+			String storyId, String estimateId);
 
 }

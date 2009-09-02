@@ -92,7 +92,7 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 	@Override
 	public void createColumns(TableViewer viewer) {
 		String[] titles = new String[] {"Name","Priority","Description","Estimate"};
-		int[] bounds = new int[] {50,50,200,50};
+		int[] bounds = new int[] {70,50,260,70};
 
 		for (int i = 0; i < titles.length; i++) {
 			TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);

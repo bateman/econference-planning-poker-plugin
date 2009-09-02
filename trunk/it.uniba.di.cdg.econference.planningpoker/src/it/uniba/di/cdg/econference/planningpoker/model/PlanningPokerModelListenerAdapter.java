@@ -23,8 +23,8 @@ public class PlanningPokerModelListenerAdapter extends
 	}
 
 	@Override
-	public void estimatesChanged() {		
-		
+	public void estimateSessionOpened() {
+				
 	}
 
 }

@@ -19,33 +19,58 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
  */
 public interface IEstimates{
 	
-	void addEstimate(String userId, IPokerCard card);
-	
-	IPokerCard getEstimate(String userId);
-	
-	int numberOfEstimates();
-	
-	void addListener( IEstimateListener l );
-	    
-    void removeListener( IEstimateListener l );
-    
-    void setUserStoryId(Object storyId);    
-    
-    Object getUserStoryId();
-        
-    void setId(Object date);
-    
-    Object getId();
-    
-    void removeUserEstimate(String userId);
-    
-    void setTotalVoters(int totalVoters);
-    
-    Object[] getAllEstimates();
+	/**
+	 * The state of the estimation
+	 * <li>CREATED: means that a voter can add her estimate</li>
+	 * <li>CLOSED: means that estimate was closed and nobady 
+	 * can add estimation</li>
+	 * <li>COMPLETED: when all voters made their estimation. 
+	 * Only, in this case participant can see the estimate</li>
+	 * 
+	 */
+	public enum EstimateStatus  {CREATED, CLOSED, COMPLETED};
 
-    /**
-     * Perform clean up operation
-     */
-	void dispose();
+	void addEstimate(String userId, IPokerCard card);
+
+	IPokerCard getEstimate(String userId);
+
+	int numberOfEstimates();
+
+	void addListener( IEstimateListener l );
+
+	void removeListener( IEstimateListener l );
+
+	void removeUserEstimate(String userId);
+
+	void setTotalVoters(int totalVoters);
+
+	Object[] getAllEstimates();
+
+	void setUserStoryId(String storyId);    
+
+	String getUserStoryId();
+
+	void setId(String date);
+
+	String getId();
+	
+	EstimateStatus getStatus();
+	
+	void setStatus(EstimateStatus status);
+	
+	/**
+	 * 
+	 * Check if passed session estimate is the same session estimate
+	 * 
+	 * @param estimates 
+	 * 
+	 * @return true if estimates have same Story Id and Estimate Id
+	 */
+	boolean equals(IEstimates estimates);
+
+	/**
+	 * Perform clean up operation
+	 */
+	 void dispose();
 
 }

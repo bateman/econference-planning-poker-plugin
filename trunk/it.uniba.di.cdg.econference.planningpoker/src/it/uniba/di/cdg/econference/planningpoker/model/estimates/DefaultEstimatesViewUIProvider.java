@@ -10,16 +10,12 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 
 public class DefaultEstimatesViewUIProvider implements IEstimatesViewUIProvider {
 
-	private Composite parent;
+	public DefaultEstimatesViewUIProvider() {
 
-
-	public DefaultEstimatesViewUIProvider(Composite parent) {
-		this.parent = parent;
 	}
 	
 	@Override
@@ -85,7 +81,7 @@ public class DefaultEstimatesViewUIProvider implements IEstimatesViewUIProvider 
 	@Override
 	public void createColumns(TableViewer viewer) {
 		String[] titles = new String[] {"Participant","Estimate",};
-		int[] bounds = new int[] {50,50,200,50};
+		int[] bounds = new int[] {200,80};
 
 		for (int i = 0; i < titles.length; i++) {
 			TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);

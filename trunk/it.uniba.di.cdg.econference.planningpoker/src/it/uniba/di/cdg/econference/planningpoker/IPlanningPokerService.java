@@ -2,6 +2,7 @@ package it.uniba.di.cdg.econference.planningpoker;
 
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
 import it.uniba.di.cdg.xcore.econference.IEConferenceService;
 import it.uniba.di.cdg.xcore.network.services.Capability;
 import it.uniba.di.cdg.xcore.network.services.ICapability;
@@ -22,12 +23,16 @@ public interface IPlanningPokerService extends IEConferenceService {
     
     
     void notifyCardSelection( IPokerCard card );
+
+
+	void notifyEstimateSessionStatusChange(IEstimates estimates);
     
-    /**
-     * Notify the current voter list to remote clients: this method is 
-     * intended to be used if the local user is a moderator and wants to synchronize 
-     * the list of remote clients.
-     */
-    void notifyVoterListToRemote();
+//    
+//    /**
+//     * Notify the current voter list to remote clients: this method is 
+//     * intended to be used if the local user is a moderator and wants to synchronize 
+//     * the list of remote clients.
+//     */
+//    void notifyVoterListToRemote();
 
 }

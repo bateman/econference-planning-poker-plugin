@@ -14,18 +14,19 @@ public static final int NO_VOTERS = -1;
 	private Set<IEstimateListener> listeners;
 	private HashMap<String, IPokerCard> estimates;
 		
-	private Object date;
-	private Object storyId;
+	private String date;
+	private String storyId;
 	private int totalVoters;
+	private EstimateStatus status;
 	
-	public Estimates(Object date, Object storyId) {
+	public Estimates(String storyId, String date) {
 		this.date = date;
+		this.storyId = storyId;
+		this.status = EstimateStatus.CREATED;
 		listeners = new HashSet<IEstimateListener>();
 		estimates = new HashMap<String, IPokerCard>();
 		totalVoters = NO_VOTERS;
-		for(IEstimateListener l : listeners){
-			l.estimateListCreated(storyId, date);
-		}
+		
 	}	
 	
 	@Override
@@ -40,7 +41,7 @@ public static final int NO_VOTERS = -1;
 			}
 			if(numberOfEstimates() == totalVoters){
 				for(IEstimateListener l : listeners){
-					l.estimatesCompleted();
+					l.estimateStatusChanged(EstimateStatus.COMPLETED, getUserStoryId(), getId());
 				}
 			}
 		}
@@ -70,12 +71,12 @@ public static final int NO_VOTERS = -1;
 	}
 
 	@Override
-	public Object getId() {
+	public String getId() {
 		return date;
 	}
 
 	@Override
-	public void setId(Object date) {
+	public void setId(String date) {
 		this.date = date;
 	}
 
@@ -88,7 +89,7 @@ public static final int NO_VOTERS = -1;
 			estimates.remove(userId);
 			if(numberOfEstimates() == totalVoters){
 				for(IEstimateListener l : listeners)
-					l.estimatesCompleted();
+					l.estimateStatusChanged(EstimateStatus.COMPLETED, getUserStoryId(), getId());
 			}
 		}
 	}
@@ -116,19 +117,40 @@ public static final int NO_VOTERS = -1;
 	}
 
 	@Override
-	public Object getUserStoryId() {
+	public String getUserStoryId() {
 		return storyId;
 	}
 
 	@Override
-	public void setUserStoryId(Object storyId) {
+	public void setUserStoryId(String storyId) {
 		this.storyId = storyId;
 		
 	}
 
 	@Override
 	public void dispose() {
+		//FIXME: rimuovere i listener e inserirli in un metodo apposito 
+		for(IEstimateListener l : listeners)
+			l.estimateStatusChanged(EstimateStatus.CLOSED, getUserStoryId(), getId());
 		listeners.clear();		
+	}
+
+	@Override
+	public EstimateStatus getStatus() {
+		return status;
+	}
+
+	@Override
+	public void setStatus(EstimateStatus status) {
+		this.status = status;	
+		for(IEstimateListener l : listeners)
+			l.estimateStatusChanged(status, getUserStoryId(), getId());
+	}
+
+	@Override
+	public boolean equals(IEstimates estimates) {
+		return getUserStoryId().equals(estimates.getUserStoryId()) &&
+			getId().equals(estimates.getId());
 	}
 	
 }

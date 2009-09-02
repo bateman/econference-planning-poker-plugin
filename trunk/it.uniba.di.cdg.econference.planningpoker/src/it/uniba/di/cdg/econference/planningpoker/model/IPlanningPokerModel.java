@@ -7,14 +7,13 @@ import it.uniba.di.cdg.econference.planningpoker.model.estimates.Voters;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel;
 
 public interface IPlanningPokerModel extends IConferenceModel {
-		
+	
+	
 	void setBacklog(Backlog backlog);
 	
 	void setModelFactory(IModelAbstractFactory factory);
 	
-	void setCardDeck(CardDeck deck);
-	
-	void setEstimates(IEstimates estimates);
+	void setCardDeck(CardDeck deck);	
 	
 	void setVoters(Voters voters);
 	
@@ -23,11 +22,11 @@ public interface IPlanningPokerModel extends IConferenceModel {
 	IModelAbstractFactory getFactory();	
 
 	CardDeck getCardDeck();
-
-	IEstimates getEstimates();
-
+	
 	Voters getVoters();
+
+	IEstimates getEstimateSession();
 	
-	
-	
+	void openEstimateSession(IEstimates estimates);
+
 }
