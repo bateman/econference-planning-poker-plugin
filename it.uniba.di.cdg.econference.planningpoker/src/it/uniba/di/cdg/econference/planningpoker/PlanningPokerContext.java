@@ -28,10 +28,12 @@ public class PlanningPokerContext extends EConferenceContext {
 	
 	  /**
      * @param nickName
+	 * @param personalStatus 
+	 * @param role 
      * @param invitation
      */
-    public PlanningPokerContext( String nickName, InvitationEvent invitation ) {
-        super( nickName, invitation );
+    public PlanningPokerContext( String nickName, String personalStatus, InvitationEvent invitation ) {
+        super( nickName, personalStatus, invitation );
         voters = new ArrayList<Invitee>();
     }
 

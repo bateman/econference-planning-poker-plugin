@@ -140,7 +140,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
         gridData.verticalAlignment = org.eclipse.swt.layout.GridData.CENTER;
 		
         startStopButton = new Button(top, SWT.TOGGLE);
-        startStopButton.setText("Start conference");
+        startStopButton.setText("Start meeting");
         startStopButton.setLayoutData(gridData);
         startStopButton.setEnabled(false);
         
@@ -213,8 +213,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	 @SwtAsyncExec
     private void changeButtonStatus( ConferenceStatus status ) {
         if (STARTED.compareTo( status ) == 0) {
-            startStopButton.setText( "Stop conference" );
-            startStopButton.setToolTipText( "Press to stop the conference" );
+            startStopButton.setText( "Stop meeting" );
+            startStopButton.setToolTipText( "Press to stop the meeting" );
             startStopButton.setSelection(true);
             if(!isReadOnly()){   
             	estimateStoryAction.setAccessible(true);
@@ -222,9 +222,9 @@ public class BacklogView extends ViewPart implements IBacklogView {
             }
         }
         else {
-            startStopButton.setText( "Start conference" );
+            startStopButton.setText( "Start meeting" );
             startStopButton.setSelection(false);
-            startStopButton.setToolTipText( "Press to start the conference" );
+            startStopButton.setToolTipText( "Press to start the meeting" );
             getManager().notifyCurrentAgendaItemChanged(String.format("%d", IItemList.NO_ITEM_SELECTED));
             estimateStoryAction.setAccessible(false);
             enableDoubleClickListener(false);            

@@ -5,15 +5,16 @@ import it.uniba.di.cdg.econference.planningpoker.actions.SelectCardAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModelListener;
 import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListenerAdapter;
-import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerParticipantsSpecialRoles;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardSelectionListener;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListener;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates.EstimateStatus;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
+import it.uniba.di.cdg.xcore.multichat.model.ParticipantSpecialPrivileges;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
@@ -36,19 +37,30 @@ public class DeckView extends ViewPart implements IDeckView {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	private ICardSelectionListener cardSelectionListener = new ICardSelectionListener(){
+
+		@Override
+		public void cardSelected(IPokerCard card) {
+			selectedCard = card;
+			selectCardAction.run();	
+		}
+		
+	};
+	
 	private IItemListListener deckListener = new ItemListListenerAdapter(){
 		
 		// Fired when a new card is added to deck
 		@Override
 		public void itemAdded(Object item) {
-			System.out.println( "pokerCardAdded()" );
+			System.out.println( "DeckView: pokerCardAdded()" );
 			addPokerCard((IPokerCard) item);
 		}		
 
 		//Fired when a card was removed from deck
 		@Override
 		public void itemRemoved(Object item) {
-			System.out.println( "pokerCardRemoved()" );
+			System.out.println( "DeckView: pokerCardRemoved()" );
 			removePokerCard((IPokerCard) item);
 		}
 	};
@@ -63,19 +75,8 @@ public class DeckView extends ViewPart implements IDeckView {
 			updateActionsAccordingToRole();
 		};
 
-
 	};
 	
-	
-	private ICardSelectionListener cardSelectionListener = new ICardSelectionListener(){
-
-		@Override
-		public void cardSelected(IPokerCard card) {
-			selectedCard = card;
-			selectCardAction.run();	
-		}
-		
-	};
 	
 	private IPlanningPokerModelListener ppModelListener = new PlanningPokerModelListenerAdapter(){
 		
@@ -88,12 +89,29 @@ public class DeckView extends ViewPart implements IDeckView {
 		
 		
 		public void estimateSessionOpened() {
+			getModel().getEstimateSession().addListener(estimatesListener);
 			updateActionsAccordingToRole();	
-		};	
+		};		
 	
 	};
 
+	private IEstimateListener estimatesListener = new IEstimateListener(){
 
+		@Override
+		public void estimateAdded(String userId, IPokerCard card) {}
+
+		@Override
+		public void estimateRemoved(String userId, IPokerCard card) {}
+
+		@Override
+		public void estimateStatusChanged(EstimateStatus status,
+				String storyId, String estimateId) {
+			if(EstimateStatus.CLOSED.equals(status) ||
+					EstimateStatus.COMPLETED.equals(status))
+				updateActionsAccordingToRole();
+		}
+
+	};
 	
 	
 	@SwtAsyncExec
@@ -107,10 +125,10 @@ public class DeckView extends ViewPart implements IDeckView {
 	}
 
 	@Override
+	//Part control is created in the uiHelper in its constructor	
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
 		
-		//Part control is created in the uiHelper in its constructor	
 		makeActions();
 	}
 	
@@ -151,13 +169,13 @@ public class DeckView extends ViewPart implements IDeckView {
 				
 		createCardDeck();
 		
-		//updateActionsAccordingToRole();
 	}
 
 	private void updateActionsAccordingToRole() {
-		setReadOnly(!(getModel()!=null && 
-				getModel().getEstimateSession().getStatus()!=EstimateStatus.CLOSED &&
-				getModel().getLocalUser().getSpecialRole().equals(PlanningPokerParticipantsSpecialRoles.VOTER)));	
+		setReadOnly(!(getModel()!=null &&
+				getModel().getEstimateSession()!= null &&
+				getModel().getEstimateSession().getStatus()==EstimateStatus.CREATED &&
+				getModel().getLocalUser().hasSpecialPrivilege(ParticipantSpecialPrivileges.VOTER)));	
 		
 	}
 

@@ -12,8 +12,10 @@ import it.uniba.di.cdg.xcore.network.INetworkBackendHelper;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
 import it.uniba.di.cdg.xcore.ui.IUIHelper;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
+import it.uniba.di.cdg.xcore.ui.util.NotEmptyStringValidator;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -37,7 +39,7 @@ public class PlanningPokerHelper extends EConferenceHelper {
 	@Override
 	public IPlanningPokerManager open(EConferenceContext context) {
 		IPlanningPokerManager manager = null;
-
+			
         try {
             final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
@@ -92,27 +94,33 @@ public class PlanningPokerHelper extends EConferenceHelper {
     /* (non-Javadoc)
      * @see it.uniba.di.cdg.xcore.econference.IEConferenceHelper#askUserAcceptInvitation(it.uniba.di.cdg.xcore.multichat.InvitationEvent)
      */
-    public PlanningPokerContext askUserAcceptInvitation( InvitationEvent invitation ) {
-        // Skip invitations which do not interest us ...
-        if (!ECONFERENCE_REASON.equals( invitation.getReason() ))
-            return null;
+	public PlanningPokerContext askUserAcceptInvitation( InvitationEvent invitation ) {
+		// Skip invitations which do not interest us ...
+		if (!ECONFERENCE_REASON.equals( invitation.getReason() ))
+			return null;
 
-        IBackend backend = backendHelper.getRegistry().getBackend( invitation.getBackendId() );
+		IBackend backend = backendHelper.getRegistry().getBackend( invitation.getBackendId() );
 
-        String message = String
-                .format(
-                        "User %s has invited you to join to a Planning Poker session."
-                                + "\nIf you want to accept, choose your display name and press Yes, otherwise press Cancel.",
-                        invitation.getInviter() );
-        String chosenNickNamer = uihelper.askFreeQuestion( "Invitation received", message, backend
-                .getUserAccount().getId() );
-        if (chosenNickNamer != null) {
-            PlanningPokerContext context = new PlanningPokerContext( chosenNickNamer, invitation );
-            return context;
-        } else
-            invitation.decline( "No reason" );
+		String message = String
+		.format(
+				"User %s has invited you to join to a Planning Poker session." +
+				"If you want to accept, choose your possible display role in" +
+				"the meeting and your display name and press Yes, otherwise" +
+				"press Cancel.", invitation.getInviter() );				
+		String[] userInputs = new String[]{"Role: ", "Nickname: "};
+		String[] defaultValues = new String[]{"", backend.getUserAccount().getId()};
+		IInputValidator[] validators = new IInputValidator[]{null, new NotEmptyStringValidator()};
+		String[]  userInput = uihelper.askUserInput( "Invitation received", message,userInputs, defaultValues, validators  );
+		if (userInput != null) {
+			String chosenRole = userInput[0];
+			String chosenNickNamer = userInput[1];			
+			PlanningPokerContext context = new PlanningPokerContext( chosenNickNamer,chosenRole,
+					invitation );
+			return context;
+		} else
+			invitation.decline( "No reason" );
 
-        return null;
-    }
+		return null;
+	}
 
 }

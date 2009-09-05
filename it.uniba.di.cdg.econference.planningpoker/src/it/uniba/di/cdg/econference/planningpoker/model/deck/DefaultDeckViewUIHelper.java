@@ -1,15 +1,9 @@
 package it.uniba.di.cdg.econference.planningpoker.model.deck;
 
-import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
-
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -41,10 +35,10 @@ public class DefaultDeckViewUIHelper implements IDeckViewUIHelper {
 
 	@Override
 	public void addWidgetFromCard(final IPokerCard card) {		
-		Image image = null;
 		Button button = new Button(parent, SWT.TOGGLE );
 		button.setData(KEY_VALUE, card.getStringValue());
 		button.setBackground(parent.getDisplay().getSystemColor(DEFAULT_COLOR));
+		button.setText(card.getStringValue());
 		button.addListener(SWT.Selection, new Listener(){
 			@Override
 			public void handleEvent(Event event) {		
@@ -57,11 +51,11 @@ public class DefaultDeckViewUIHelper implements IDeckViewUIHelper {
 				
 		});
 				
-		if(card.hasImagePath()){
-			URL url = Platform.getBundle(PlanningPokerPlugin.ID).getEntry(card.getImagePath());
-			image = ImageDescriptor.createFromURL(url).createImage();			
-			button.setImage(image);
-		}
+//		if(card.hasImagePath()){
+//			URL url = Platform.getBundle(PlanningPokerPlugin.ID).getEntry(card.getImagePath());
+//			image = ImageDescriptor.createFromURL(url).createImage();			
+//			button.setImage(image);
+//		}
 		parent.layout();
 		
 	}
