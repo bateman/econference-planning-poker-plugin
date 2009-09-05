@@ -1,7 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.model;
 
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
-import it.uniba.di.cdg.econference.planningpoker.dialogs.SimpleUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.dialogs.DefaultUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultBacklogViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultDeckViewUIHelper;
@@ -17,7 +17,7 @@ public class DefaultModelFactory implements IModelAbstractFactory {
 
 	@Override
 	public IUserStoryDialog createUserStoryDialog(Shell shell) {
-		return new SimpleUserStoryDialog(shell);
+		return new DefaultUserStoryDialog(shell);
 	}
 
 	@Override
