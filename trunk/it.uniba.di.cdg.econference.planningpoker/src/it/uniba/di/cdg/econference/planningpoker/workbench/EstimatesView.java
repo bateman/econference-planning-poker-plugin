@@ -80,25 +80,22 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		@Override
 		public void estimateAdded(String userId, IPokerCard card) {	
 			System.out.println("estimated added from "+userId+" value: "+card.getStringValue());
-			changeEstimatesList(getModel().getEstimateSession().getAllEstimates());
-			setTableVisible(false);
-			
+			changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);			
 		}
 
 		@Override
 		public void estimateRemoved(String userId, IPokerCard card) {
 			System.out.println("estimated removed from "+userId+" value: "+card.getStringValue());
-			changeEstimatesList(getModel().getEstimateSession().getAllEstimates());
-			setTableVisible(false);
+			changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);			
 		}
 		
 		public void estimateStatusChanged(EstimateStatus status, String storyId, String estimateId) {
 			if(EstimateStatus.COMPLETED.equals(status)){
 				//TODO: implementare il metodo per memorizzare queste stime nella history
-				setTableVisible(true);	
+				changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), true);	
 			}else{
-				setTableVisible(false);									
-			}				
+				changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);
+			}
 			
 		};
 		
@@ -110,6 +107,11 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		public void estimateSessionOpened() {
 			getModel().getEstimateSession().setTotalVoters(getModel().getVoters().size());
 			getModel().getEstimateSession().addListener(estimatesListener);			
+		};
+		
+		public void statusChanged() {
+			if(ConferenceStatus.STOPPED.equals(getModel().getStatus()))
+				getModel().getEstimateSession().dispose();
 		};
 			
 	};
@@ -177,7 +179,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	        
 		}else{
 			if(actionsComposite!=null)
-				actionsComposite.dispose();
+				actionsComposite.setLayout(null);
 		}
 		root.layout();
 	}
@@ -226,16 +228,16 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		viewer.setContentProvider(provider);
 		viewer.setLabelProvider(provider);
 		
-		
-		
 	}
 	
 	@SwtAsyncExec
-	private void changeEstimatesList(Object[] estimates) {
+	private void changeEstimatesList(Object[] estimates, boolean visible) {
 		//trasform the userId in a Participant object
-		for (int i = 0; i < estimates.length; i++) {
+		for (int i = 0; i < estimates.length; i++) {			
 			Object[] object = (Object[]) estimates[i];
-			object[0] = getModel().getParticipant((String) object[0]);			
+			object[0] = getModel().getParticipant((String) object[0]);		
+			if(!visible)
+				object[1] = null;
 		}		
 		viewer.setInput(estimates);
 		viewer.refresh();
@@ -250,19 +252,9 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 
 	@Override
 	public void setReadOnly(boolean readOnly) {	
-		//TODO: inserire i metodi per nascondere gli stimatori
-		setTableVisible(!readOnly);		
 		setActionsCompositeVisibility(!readOnly);
 	}
 	
-	@SwtAsyncExec
-	private void setTableVisible(boolean visible){
-		if(!Role.MODERATOR.equals( getModel().getLocalUser().getRole())){			
-			viewer.getTable().setVisible(visible);			
-		}
-		
-		
-	}
 
 	@Override
 	public IPlanningPokerModel getModel() {

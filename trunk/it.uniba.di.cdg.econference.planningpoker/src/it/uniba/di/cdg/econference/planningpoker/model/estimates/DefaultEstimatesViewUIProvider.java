@@ -52,7 +52,10 @@ public class DefaultEstimatesViewUIProvider implements IEstimatesViewUIProvider 
 			label = participant.getNickName();
 		break;
 		case 1: {
-			label = card.getStringValue();
+			if(card!=null)
+				label = card.getStringValue();
+			else //votes are hidden
+				label = "Hidden";
 		}
 		break;
 		}

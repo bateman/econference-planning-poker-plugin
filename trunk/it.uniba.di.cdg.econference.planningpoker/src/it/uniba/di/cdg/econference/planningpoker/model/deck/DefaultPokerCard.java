@@ -17,8 +17,7 @@ public class DefaultPokerCard implements IPokerCard {
 	public static final String IMAGE_TWO = "icons/deck/2.ico";
 	public static final String IMAGE_THREE = "icons/deck/3.ico";
 	public static final String IMAGE_FIVE = "icons/deck/5.ico";
-	public static final String IMAGE_EIGHT = "icons/deck/8.ico";
-	public static final String IMAGE_TWENTY = "icons/deck/as.gif";
+	public static final String IMAGE_EIGHT = "icons/deck/8.ico";	
 	public static final String IMAGE_UNKNOWN = "icons/deck/0.ico";
 	
 	private String value;
