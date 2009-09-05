@@ -9,13 +9,9 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -23,7 +19,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStoryDialog {
+public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStoryDialog {
 
 	private DefaultUserStory story = null;
 	
@@ -34,7 +30,7 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 	private Combo cb_priority;
 	private Combo cb_estimate;
 
-	public SimpleUserStoryDialog(Shell parentShell) {		
+	public DefaultUserStoryDialog(Shell parentShell) {		
 		super(parentShell);
 		
 	}
@@ -53,41 +49,86 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 
 
 	@Override
-	protected Control createContents(Composite parent) {	
-		Control control = super.createContents(parent);
-		setTitle("New User Story");
-		return control;
+	protected void configureShell(Shell newShell) {
+		newShell.setText("Default User Story Editor");
+		super.configureShell(newShell);
 	}
 	
 	@Override
-	protected Control createDialogArea(Composite parent) {
-		GridLayout layout = new GridLayout(2,false);
-		layout.verticalSpacing = 8;
-		parent.setLayout(layout);
-		Label label1 = new Label(parent, SWT.NONE);
+	protected Control createDialogArea(Composite parent) {	
+		setTitle("Create new User Story");
+
+		Composite root = (Composite) super.createDialogArea(parent);
+		root.setLayout(new GridLayout(2, false));
+				
+		GridData gd = new GridData();
+		
+		//Couse of strange behaviour of Grid layout in the Title Area Dialog
+		Label emptyLabel = new Label(root, SWT.NONE);		
+		emptyLabel.setLayoutData(gd);
+				
+		gd = new GridData();
+		
+		Label label1 = new Label(root, SWT.NONE);
 		label1.setText("Name:");
-		txt_name = new Text(parent, SWT.BORDER | SWT.SINGLE);
-		Label label2 = new Label(parent, SWT.NONE);
-		label2.setText("Priority:");				
-		cb_priority = new Combo(parent, SWT.READ_ONLY);
+		label1.setLayoutData(gd);
+		
+		gd = new GridData();
+		gd.horizontalAlignment = SWT.FILL;
+		gd.grabExcessHorizontalSpace = true;
+
+		
+		txt_name = new Text(root, SWT.BORDER | SWT.SINGLE);
+		txt_name.setLayoutData(gd);
+		
+		gd = new GridData();
+		
+		Label label2 = new Label(root, SWT.NONE);
+		label2.setText("Priority:");
+		label2.setLayoutData(gd);
+		
+		gd = new GridData();
+		gd.horizontalAlignment = SWT.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		
+		cb_priority = new Combo(root, SWT.READ_ONLY);
 		//Adding item to the priority combo
 		for (PRIORITY value : PRIORITY.values()) {
 			cb_priority.add(value.getName());
 			
 		}		
-		Label label3 = new Label(parent, SWT.NONE);
+		cb_priority.setLayoutData(gd);
+		
+		gd = new GridData();
+		
+		Label label3 = new Label(root, SWT.NONE);
 		label3.setText("Description:");		
-		GridData gd = new GridData(GridData.FILL_BOTH);
+		label3.setLayoutData(gd);		
+		
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
 		gd.heightHint = 80;
-		txt_description = new Text(parent, SWT.BORDER | SWT.WRAP | SWT.MULTI | SWT.V_SCROLL);
+		gd.grabExcessVerticalSpace = true;
+				
+		txt_description = new Text(root, SWT.WRAP | SWT.MULTI | SWT.BORDER | SWT.V_SCROLL);
 		txt_description.setLayoutData(gd);
-		Label label4 = new Label(parent, SWT.NONE);
+		
+		gd = new GridData();
+		
+		Label label4 = new Label(root, SWT.NONE);
 		label4.setText("Estimate:");
-		cb_estimate = new Combo(parent, SWT.READ_ONLY);
+		label4.setLayoutData(gd);
+		
+		gd = new GridData();
+		gd.horizontalAlignment = SWT.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		
+		cb_estimate = new Combo(root, SWT.READ_ONLY);
 		//Adding item to the estimation combo
+		if(deck!=null)
 		for (IPokerCard card : deck.getCards()) {
 			cb_estimate.add(card.getStringValue());
 		}
+		cb_estimate.setLayoutData(gd);
 		
 		if(story!=null){
 			//fill the dialog area with data of the Story to edit
@@ -98,11 +139,14 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 			cb_estimate.select(0);
 		}
 		
-		return parent;
+		root.pack();
+		
+		return root;
 	}
 	
 	
 	private void fillForm() {
+		setTitle("Edit the User Story");
 		DefaultUserStory userStory = (DefaultUserStory)story;
 		txt_name.setText(userStory.getName());
 		
@@ -131,64 +175,44 @@ public class SimpleUserStoryDialog extends TitleAreaDialog implements IUserStory
 
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
-		createOkButton(parent, IDialogConstants.OK_ID,
+		createButton(parent, IDialogConstants.OK_ID,
 				IDialogConstants.OK_LABEL, true);
 		createButton(parent, IDialogConstants.CANCEL_ID,
 				IDialogConstants.CANCEL_LABEL, false);
 	}
 
-
-	private Button createOkButton(Composite parent, int okId, String okLabel,
-			boolean defaultButton) {
-		((GridLayout) parent.getLayout()).numColumns++;
-		Button button = new Button(parent, SWT.NONE);
-		button.setText(okLabel);
-		button.setFont(JFaceResources.getDialogFont());
-		button.setData(Integer.valueOf(okId));
-		button.addSelectionListener(new SelectionAdapter() {
-			private DefaultUserStory.PRIORITY priority;
-			private Object points;
-
-			public void widgetSelected(SelectionEvent e) {
-				if (txt_name.getText().length() != 0
-						&& txt_description.getText().length() != 0) {
-					
-					priority = PRIORITY.values()[cb_priority.getSelectionIndex()];
-					points = deck.getCards()[cb_estimate.getSelectionIndex()].getValue();											
-					
-					
-					if(story==null){
-						story = new DefaultUserStory(txt_name.getText(),
-								priority, 
-								txt_description.getText(), 
-								points);		
-					}else{
-						story.setName(txt_name.getText());
-						story.setPriority(priority);
-						story.setDescription(txt_description.getText());
-						story.setEstimate(points);
-					}
-					buttonPressed(((Integer) e.widget.getData()).intValue());
-
-
-				} else {
-					setErrorMessage("Please enter all data");
-				}
-			}
-		});
-		if (defaultButton) {
-			Shell shell = parent.getShell();
-			if (shell != null) {
-				shell.setDefaultButton(button);
-			}
-		}
-		setButtonLayoutData(button);
-		return button;	
-	}
-
 	@Override
 	public void show() {
 		this.open();		
+	}
+	
+	@Override
+	protected void okPressed() {
+		DefaultUserStory.PRIORITY priority;
+		Object points;
+		if (txt_name.getText().length() != 0
+				&& txt_description.getText().length() != 0) {
+			
+			priority = PRIORITY.values()[cb_priority.getSelectionIndex()];
+			points = deck.getCards()[cb_estimate.getSelectionIndex()].getValue();											
+			
+			
+			if(story==null){
+				story = new DefaultUserStory(txt_name.getText(),
+						priority, 
+						txt_description.getText(), 
+						points);		
+			}else{
+				story.setName(txt_name.getText());
+				story.setPriority(priority);
+				story.setDescription(txt_description.getText());
+				story.setEstimate(points);
+			}
+			super.okPressed();
+		} else {
+			setErrorMessage("Please enter all data");
+		}
+		
 	}
 
 

@@ -2,7 +2,7 @@ package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 
-import it.uniba.di.cdg.econference.planningpoker.dialogs.SimpleUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.dialogs.DefaultUserStoryDialog;
 
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TableViewer;
@@ -109,7 +109,7 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 	
 	@Override
 	public IUserStoryDialog getDialog(Shell shell) {
-		return new SimpleUserStoryDialog(shell);
+		return new DefaultUserStoryDialog(shell);
 	}
 
 }
