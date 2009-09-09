@@ -17,7 +17,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 public class LoadPPFileDialogUI extends Composite {
@@ -31,8 +30,7 @@ public class LoadPPFileDialogUI extends Composite {
 	    private Button selectFileButton = null;
 	    private Text selectedFileNameText = null;
 	    private Button sendInvitationsCheckBox = null;
-	    private CLabel cLabel = null;
-	    private Label label = null;
+	    private CLabel cLabel = null;	   
 	    private Text nickNameText = null;
 
 	    private PlanningPokerContext context;
@@ -128,8 +126,7 @@ public class LoadPPFileDialogUI extends Composite {
 	        cLabel = new CLabel(fileNameComposite, SWT.NONE);
 	        cLabel.setText("Nickname:");
 	        nickNameText = new Text(fileNameComposite, SWT.BORDER);
-	        nickNameText.setLayoutData(gridData11);
-	        label = new Label(fileNameComposite, SWT.NONE);
+	        nickNameText.setLayoutData(gridData11);	        
 		
 	}
 	

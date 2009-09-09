@@ -8,6 +8,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultDeckViewUIHel
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.DefaultEstimatesViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.internal.DefaultBacklogContextLoader;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
@@ -33,6 +34,11 @@ public class DefaultModelFactory implements IModelAbstractFactory {
 	@Override
 	public IEstimatesViewUIProvider createEstimateViewUIHelper() {
 		return new DefaultEstimatesViewUIProvider();
+	}
+	
+	@Override
+	public IBacklogContextLoader createBacklogContextLoader(){
+		return new DefaultBacklogContextLoader();
 	}
 
 }

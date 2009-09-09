@@ -115,9 +115,10 @@ public class Backlog implements IItemList {
 	public void removeUserStory(IUserStory story) {
 		if(this.current==stories.indexOf(story))
 			setCurrentItemIndex(NO_ITEM_SELECTED);
-		stories.remove(story);
 		for (IItemListListener l : listeners)
-            l.contentChanged(this);		
+            l.itemRemoved(story);	
+		stories.remove(story);
+			
 	}
 	
 	@Override
@@ -154,6 +155,10 @@ public class Backlog implements IItemList {
 	public void dispose() {
 		//Perform clean-up operations
 		 listeners.clear();
+	}
+	
+	public int indexOf(IUserStory story){
+		return stories.indexOf(story);
 	}
 
 

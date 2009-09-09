@@ -8,6 +8,7 @@ import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.EstimatesView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective;
 import it.uniba.di.cdg.xcore.econference.IEConferenceManager;
+import it.uniba.di.cdg.xcore.econference.IEConferenceService.AgendaOperation;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceManager;
 import it.uniba.di.cdg.xcore.econference.model.ConferenceModelListenerAdapter;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel;
@@ -105,8 +106,8 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 	
 
 	@Override
-	public void notifyCardSelected(IPokerCard card) {
-		getService().notifyCardSelection(card);
+	public void notifyCardSelected(String storyId, IPokerCard card) {
+		getService().notifyCardSelection(storyId, card);
 	}
 
 	@Privileged( atleast = Role.MODERATOR )
@@ -119,6 +120,13 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 		getService().notifyEstimateSessionStatusChange(estimates);
 		
 	}
+
+	@Override
+	public void notifyRemoveBacklogItem(String itemIndex) {
+	    getService().notifyAgendaOperation( AgendaOperation.REMOVE, itemIndex );
+		
+	}
+	
 	
 //	@Privileged( atleast = Role.MODERATOR )
 //	public void notifyVoterListToRemote(){

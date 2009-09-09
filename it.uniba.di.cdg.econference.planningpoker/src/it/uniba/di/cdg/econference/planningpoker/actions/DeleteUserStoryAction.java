@@ -36,8 +36,11 @@ public class DeleteUserStoryAction extends SingleSelectionAction {
 		        int response = messageBox.open();
 		        if (response == SWT.YES){		          
 					backlogView.getModel().getBacklog().removeUserStory(story);
+					int itemIndex = backlogView.getModel().getBacklog().indexOf(story);
+					backlogView.getManager().notifyRemoveBacklogItem(String.valueOf(itemIndex));
 					//notify the backlog's content
 					backlogView.getManager().notifyItemListToRemote();
+					
 		        }
 		}
 	}

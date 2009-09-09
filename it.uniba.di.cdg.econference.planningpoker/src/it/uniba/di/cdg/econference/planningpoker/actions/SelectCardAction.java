@@ -25,7 +25,8 @@ public class SelectCardAction extends SingleSelectionAction {
 		DeckView deckView = (DeckView) page.findView(DeckView.ID);
 		IPokerCard selectedCard = deckView.getSelectedCard();
 		if(selectedCard!=null){
-			deckView.getManager().notifyCardSelected(selectedCard);	
+			String storyId = deckView.getModel().getEstimateSession().getUserStoryId();
+			deckView.getManager().notifyCardSelected(storyId, selectedCard);	
 		}
 	}
 	

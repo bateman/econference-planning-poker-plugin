@@ -128,7 +128,7 @@ public static final int NO_VOTERS = -1;
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose() {		
 		estimates.clear();
 		for(IEstimateListener l : listeners)
 			l.estimateStatusChanged(EstimateStatus.CLOSED, getUserStoryId(), getId());

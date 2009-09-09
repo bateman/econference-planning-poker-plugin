@@ -31,7 +31,6 @@ public class JoinPPDialog extends Dialog {
 	        FillLayout layout = new FillLayout( SWT.VERTICAL );
 	        composite.setLayout( layout );
 	        
-	        //TODO: decidere se creare un nuovo dialogUI per il Planning Poker
 	        ui = new LoadPPFileDialogUI( composite, SWT.NONE );
 
 	        return composite;

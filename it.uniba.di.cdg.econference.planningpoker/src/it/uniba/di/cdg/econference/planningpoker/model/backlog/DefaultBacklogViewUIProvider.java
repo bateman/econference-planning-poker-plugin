@@ -44,27 +44,25 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 		String label ="";
 		switch(columnIndex){
 		case 0: // Name 
-			label = story.getName();
+			label = story.getStoryText();
 		break;
 		case 1: {//PRIORITY
 			DefaultUserStory.PRIORITY priority = story.getPriority();
 			if(priority == DefaultUserStory.PRIORITY.HIGH){
 				label = "High";
-			}else if(priority == DefaultUserStory.PRIORITY.MEDIUM){
+			}else if(priority == DefaultUserStory.PRIORITY.NORMAL){
 				label = "Medium";
 			}else if(priority == DefaultUserStory.PRIORITY.LOW){
 				label = "Low";
 			}else if(priority == DefaultUserStory.PRIORITY.UNKNOWN){
-				label = "Unknow";
+				label = "?";
 			}
-		}
+		}		
 		break;
-		case 2:{ //Description
-			label = story.getDescription();
-		}
-		break;
-		case 3:{
-			label = story.getEstimate().toString();					
+		case 2:{
+			label = story.getEstimate().toString();	
+			if(label=="")
+				label ="?";
 		}
 		}
 		return label;
@@ -91,8 +89,8 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 	
 	@Override
 	public void createColumns(TableViewer viewer) {
-		String[] titles = new String[] {"Name","Priority","Description","Estimate"};
-		int[] bounds = new int[] {70,50,260,70};
+		String[] titles = new String[] {"Story Text","Priority","Estimate"};
+		int[] bounds = new int[] {360,50,70};
 
 		for (int i = 0; i < titles.length; i++) {
 			TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
