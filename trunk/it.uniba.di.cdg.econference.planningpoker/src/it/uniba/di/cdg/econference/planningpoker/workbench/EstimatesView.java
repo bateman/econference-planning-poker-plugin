@@ -4,6 +4,7 @@ import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModelListener;
 import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListenerAdapter;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.Estimates;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListener;
@@ -53,19 +54,19 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		@Override
 		public void currentSelectionChanged( int currItemIndex ) {
 				createEstimationList(String.valueOf(currItemIndex));
-		}		
+		}			
 
 	};
 	
 	private IItemListListener voterListener = new ItemListListenerAdapter() {
 		
 		public void itemAdded(Object item) {
-			if(getModel().getEstimateSession()!=null)
+			if(isEstimateSessionValid())
 				getModel().getEstimateSession().setTotalVoters(getModel().getVoters().size());
 		};
 		
 		public void itemRemoved(Object item) {	
-			if(getModel().getEstimateSession()!=null){
+			if(isEstimateSessionValid()){
 				getModel().getEstimateSession().setTotalVoters(getModel().getVoters().size());
 				getModel().getEstimateSession().removeUserEstimate((String) item);	
 			}
@@ -80,7 +81,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		@Override
 		public void estimateAdded(String userId, IPokerCard card) {	
 			System.out.println("estimated added from "+userId+" value: "+card.getStringValue());
-			changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);			
+			changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);	
 		}
 
 		@Override
@@ -89,31 +90,39 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 			changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);			
 		}
 		
+		@SwtAsyncExec
 		public void estimateStatusChanged(EstimateStatus status, String storyId, String estimateId) {
 			if(EstimateStatus.COMPLETED.equals(status)){
 				//TODO: implementare il metodo per memorizzare queste stime nella history
-				changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), true);	
+				changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), true);
+				if(!isReadOnly())
+					restimationButton.setEnabled(true);
 			}else{
 				changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);
+				if(!isReadOnly())
+					restimationButton.setEnabled(false);
 			}
 			
 		};
 		
 	};
 	
-	
+
 	private IPlanningPokerModelListener ppListener = new PlanningPokerModelListenerAdapter(){
-		
+
 		public void estimateSessionOpened() {
 			getModel().getEstimateSession().setTotalVoters(getModel().getVoters().size());
 			getModel().getEstimateSession().addListener(estimatesListener);			
 		};
-		
+
 		public void statusChanged() {
 			if(ConferenceStatus.STOPPED.equals(getModel().getStatus()))
-				getModel().getEstimateSession().dispose();
+				if(getModel().getEstimateSession()!=null){
+					getModel().getEstimateSession().setStatus(EstimateStatus.CLOSED);
+					getManager().getService().notifyEstimateSessionStatusChange(getModel().getEstimateSession());
+				}
 		};
-			
+
 	};
 
 	
@@ -138,6 +147,11 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		
 		        
         
+	}
+	
+	private boolean isEstimateSessionValid(){
+		return getModel()!=null && getModel().getEstimateSession()!=null 
+		&& getModel().getEstimateSession().getStatus().equals(EstimateStatus.CREATED);
 	}
 	
 	@SwtAsyncExec
@@ -173,20 +187,36 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	        acceptButton.addSelectionListener(new SelectionAdapter(){
 	        	@Override
 	        	public void widgetSelected(SelectionEvent e) {
-	        		setReadOnly(false);
+	        		setFinalEstimate(finalEstimateText.getText());
 	        	}
 	        });	      	    
 	        
 		}else{
-			if(actionsComposite!=null)
-				actionsComposite.setLayout(null);
+			if(actionsComposite!=null && !actionsComposite.isDisposed())
+				actionsComposite.dispose();
 		}
-		root.layout();
+		root.layout(true);
 	}
 	
+	protected void setFinalEstimate(String estimate) {
+		boolean contextOk = !isReadOnly() && getModel().getEstimateSession()!=null 
+			&& getModel().getEstimateSession().getStatus()!= EstimateStatus.CLOSED;
+		
+		if(contextOk){
+			boolean estimateOk = estimate!=null && estimate!="" ;
+			if(estimateOk){				
+				int index = getModel().getBacklog().getCurrentItemIndex();
+				((IUserStory)getModel().getBacklog().getItem(index)).setEstimate(estimate);
+				getManager().notifyItemListToRemote();
+				getModel().getEstimateSession().setStatus(EstimateStatus.CLOSED);
+				getManager().notifyEstimateSessionStatusChange(getModel().getEstimateSession());
+			}
+		}		
+		
+	}
+
 	private void createEstimationList(String storyId) {
-		if(getManager().getRole().equals(Role.MODERATOR) &&
-				getModel().getStatus().equals(ConferenceStatus.STARTED)&&
+		if(!isReadOnly() && getModel().getStatus().equals(ConferenceStatus.STARTED)&&
 					getModel().getBacklog().getCurrentItemIndex()!=IItemList.NO_ITEM_SELECTED
 					&& ( getModel().getEstimateSession()==null
 					|| !getModel().getEstimateSession().getUserStoryId().equals(storyId))){			
@@ -199,7 +229,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 
 	@Override
 	public void setFocus() {
-		// TODO Auto-generated method stub
+		viewer.getTable().setFocus();
 
 	}
 
@@ -247,6 +277,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	@Override
 	public boolean isReadOnly() {
 		return !(getManager() != null && // There is a manager
+				getModel()!= null &&
 				Role.MODERATOR.equals( getModel().getLocalUser().getRole())); // and we are moderators 
 	}
 

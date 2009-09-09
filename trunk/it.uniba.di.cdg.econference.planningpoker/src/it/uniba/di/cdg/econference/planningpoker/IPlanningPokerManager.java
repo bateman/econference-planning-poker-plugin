@@ -15,10 +15,12 @@ public interface IPlanningPokerManager extends IEConferenceManager{
     /**
      * Notify that this client has selected a card
      * 
-     * @param card 
+     * @param storyId the id of estimated User Story
+     * 
+     * @param card the selected card
      * 
      */
-    void notifyCardSelected(IPokerCard card );
+    void notifyCardSelected(String storyId, IPokerCard card );
    
     
     /**
@@ -27,6 +29,15 @@ public interface IPlanningPokerManager extends IEConferenceManager{
      * @param estimates the estimate session
      */
 	void notifyEstimateSessionStatusChange(IEstimates estimates);
+	
+	
+	 /**
+     * Remove a user story from backlog: the remote clients will be notified
+     * 
+	 * @param itemIndex 
+     * 
+     */
+    void notifyRemoveBacklogItem( String itemIndex );
 	
 
 }

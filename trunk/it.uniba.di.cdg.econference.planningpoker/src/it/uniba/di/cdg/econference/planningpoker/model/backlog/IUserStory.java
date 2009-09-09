@@ -2,9 +2,18 @@ package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
 public interface IUserStory {
 
-	public void setEstimate(Object points);
+	void setEstimate(Object points);
 	
-	public Object getEstimate();
+	Object getEstimate();
 	
-	public String getTextForMultiChatSubject();
+	String getTextForMultiChatSubject();
+	
+	void setNotes(String notes);
+	
+	String getNotes();	
+	
+	void setId(String id);
+	
+	String getId();
+	
 }

@@ -1,6 +1,9 @@
 package it.uniba.di.cdg.econference.planningpoker.model.internal;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerContext;
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
+import it.uniba.di.cdg.econference.planningpoker.model.IBacklogContextLoader;
+import it.uniba.di.cdg.econference.planningpoker.model.IModelAbstractFactory;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
 import it.uniba.di.cdg.xcore.econference.model.InvalidContextException;
 import it.uniba.di.cdg.xcore.multichat.service.Invitee;
@@ -30,7 +33,7 @@ public class PPContextLoader {
     public static final String MODERATOR_KEY = "moderator";
     public static final String VOTER_KEY = "scribe";
 
-    private PlanningPokerContext context;
+    protected PlanningPokerContext context;
     
     public PPContextLoader( PlanningPokerContext context ) {
         this.context = context;
@@ -99,6 +102,20 @@ public class PPContextLoader {
             }
             // Add all the people to the conference
             context.setInvitees( participants );
+            
+            //Setting the model factory
+            String stringFactory = xPath.evaluate( "/meeting/factory/@type", doc );            
+            if (stringFactory!=null && stringFactory!="") { 
+            	IModelAbstractFactory modelFactory = PlanningPokerPlugin.getFactoryFromString(stringFactory);
+            	if(modelFactory!=null)
+            	PlanningPokerPlugin.getDefault().setModelFactory(modelFactory);
+            }
+            
+			IBacklogContextLoader backlogLoader = PlanningPokerPlugin
+					.getDefault().getModelFactory()
+					.createBacklogContextLoader();			
+			context.setBacklog(backlogLoader.load(doc));
+
         } catch (Exception e) {
             throw new InvalidContextException( e );
         } 

@@ -81,7 +81,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
     private IPlanningPokerModelListener ppModelListener = new PlanningPokerModelListenerAdapter() {
         @Override
         public void statusChanged() {
-            System.out.println( "statusChanged()" );
+            //System.out.println( "statusChanged()" );
             changeButtonStatus( getModel().getStatus() );
         }
         
@@ -89,6 +89,14 @@ public class BacklogView extends ViewPart implements IBacklogView {
         	 System.out.println( "itemListChanged()" );
         	 getModel().getBacklog().addListener(backlogListener);
              changeItemList( getModel().getBacklog() );  
+        };
+        
+        public void whiteBoardChanged() {
+        	int currItemIndex = getModel().getBacklog().getCurrentItemIndex();
+        	if(currItemIndex!=IItemList.NO_ITEM_SELECTED){
+        		IUserStory story = (IUserStory) getModel().getBacklog().getItem(currItemIndex);	
+        		story.setNotes(getModel().getWhiteBoardText());
+        	}
         };
     };
     
@@ -98,7 +106,10 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		@SwtAsyncExec
 		@Override
 		public void currentSelectionChanged( int currItemIndex ) {
-			setCurrentStory(currItemIndex);		
+			if(currItemIndex!=IItemList.NO_ITEM_SELECTED){
+				setCurrentStory(currItemIndex);
+				setWhiteBoardText(currItemIndex);
+			}
 		}
 
 		@Override
@@ -110,6 +121,13 @@ public class BacklogView extends ViewPart implements IBacklogView {
 
 
 	public BacklogView() {
+	}
+
+	protected void setWhiteBoardText(int currItemIndex) {
+		if(!isReadOnly()){
+			IUserStory story = (IUserStory) getModel().getBacklog().getItem(currItemIndex);	
+			getManager().notifyWhiteBoardChanged(story.getNotes());	
+			}		
 	}
 
 	private void makeActions(){
@@ -162,7 +180,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		startStopButton.addSelectionListener( new SelectionAdapter() {
             @Override
             public void widgetSelected( SelectionEvent e ) {
-                if (STARTED.compareTo( getModel().getStatus()) == 0) {                	
+                if (STARTED.equals( getModel().getStatus())) {                	
                 	getManager().setStatus( STOPPED );                    
                 } else {                 	
                 	getManager().setStatus( STARTED );
@@ -212,7 +230,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 
 	 @SwtAsyncExec
     private void changeButtonStatus( ConferenceStatus status ) {
-        if (STARTED.compareTo( status ) == 0) {
+        if (STARTED.equals( status )) {
             startStopButton.setText( "Stop meeting" );
             startStopButton.setToolTipText( "Press to stop the meeting" );
             startStopButton.setSelection(true);
@@ -271,7 +289,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	@SwtAsyncExec
 	private void setCurrentStory(int currItemIndex){
 		//Coloring the table row of the current story
-		if(currItemIndex!=IItemList.NO_ITEM_SELECTED){
+		if(currItemIndex!=IItemList.NO_ITEM_SELECTED){			
 			clearTableSelection();
 			TableItem item = viewer.getTable().getItem(currItemIndex);
 			//item.setBackground(viewer.getTable().getDisplay().getSystemColor(CURRENT_SOTORY_COLOR));

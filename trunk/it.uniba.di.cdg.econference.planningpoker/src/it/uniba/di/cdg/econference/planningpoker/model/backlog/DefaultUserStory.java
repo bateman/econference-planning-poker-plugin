@@ -1,64 +1,128 @@
 package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
+import java.util.Calendar;
+import java.util.Date;
+
 
 
 public class DefaultUserStory implements IUserStory {
 	
-	public enum PRIORITY { UNKNOWN("Unknow"), HIGH("High"), MEDIUM("Medium"), 
+	public enum PRIORITY { UNKNOWN("Unknow"), HIGH("High"), NORMAL("Normal"), 
 		LOW("Low");
 	
-	private String name;
+	private String priority;
 	
 	private PRIORITY(String name){
-		this.name = name;
+		this.priority = name;
 	}
 	
 	public String getName() {
-		return name;
+		return priority;
 	} };
-
-	private String name;
+	
+	
+	
+	private String id;
+	private Date createdOn;
+	private Date lastUpdate;
+	private String storyText;
 	private PRIORITY priority;
-	private String 	description;
+	private String 	notes;
 	private Object points;
 	
-	public DefaultUserStory(String name, PRIORITY priority, String description,
+	public DefaultUserStory(String id, String storyText, PRIORITY priority, String notes,
 			Object points) {
-		this.name = name;
+		this.id = id;
+		this.createdOn = Calendar.getInstance().getTime();
+		this.lastUpdate = createdOn;
+		this.storyText = storyText;
 		this.priority = priority;
-		this.description = description;
-		this.points = points;		
+		this.notes = notes;
+		this.points = points;			
 	}
-	public String getName() {
-		return name;
+	
+	public DefaultUserStory(String id, Date createdOn, Date lastUpdate,
+			String storyText, PRIORITY priority, String notes, Object points) {
+		super();
+		this.id = id;
+		this.createdOn = createdOn;
+		this.lastUpdate = lastUpdate;
+		this.storyText = storyText;
+		this.priority = priority;
+		this.notes = notes;
+		this.points = points;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public String getStoryText() {
+		return storyText;
 	}
+
+	public void setStoryText(String storyText) {
+		this.storyText = storyText;
+	}
+
+	
 	public PRIORITY getPriority() {
 		return priority;
 	}
+	
 	public void setPriority(PRIORITY priority) {
 		this.priority = priority;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
 	}
 	
 	@Override
 	public void setEstimate(Object points) {
 		this.points = points;		
 	}
+	
 	@Override
 	public Object getEstimate() {
 		return points;
 	}
+	
 	@Override
 	public String getTextForMultiChatSubject() {
-		return getName();
+		return getStoryText();
 	}
+	
+	@Override
+	public String getNotes() {
+		return notes;
+	}
+	
+	@Override
+	public void setNotes(String notes) {
+		this.notes = notes;		
+	}
+
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(String id) {
+		this.id = id;		
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
+
+
+	
+	
 
 }

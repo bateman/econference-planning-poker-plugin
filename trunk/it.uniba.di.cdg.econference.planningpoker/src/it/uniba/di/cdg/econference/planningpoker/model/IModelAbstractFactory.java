@@ -10,9 +10,9 @@ import org.eclipse.swt.widgets.Shell;
 
 public interface IModelAbstractFactory {
 
-	public IUserStoryDialog createUserStoryDialog(Shell shell);
+	IUserStoryDialog createUserStoryDialog(Shell shell);
 	
-	public IBacklogViewUIProvider createBacklogViewUIProvider();
+	IBacklogViewUIProvider createBacklogViewUIProvider();
 	
 	/**
 	 * The UI Helper takes the Composite control of the view, in order to create
@@ -23,10 +23,13 @@ public interface IModelAbstractFactory {
 	 * 
 	 * @return the UI Helper
 	 */
-	public IDeckViewUIHelper createCardDeckViewUIHelper(Composite parent);
+	IDeckViewUIHelper createCardDeckViewUIHelper(Composite parent);
 	
 	
-	public IEstimatesViewUIProvider createEstimateViewUIHelper();
+	IEstimatesViewUIProvider createEstimateViewUIHelper();
+	
+	
+	IBacklogContextLoader createBacklogContextLoader();	
 	
 	/*FIXME: the factory should create the packet product too,
 	/* but this plugin has to be independent of the implementation

@@ -79,18 +79,18 @@ public class PlanningPokerHelper extends EConferenceHelper {
 
 	@Override
 	public void openFromFile() {
-		 final JoinPPDialog dlg = new JoinPPDialog( null );
-	        if (dlg.open() == Dialog.OK) {
-	            // 1. Open a file dialog, asking the conference file name
-	            IPlanningPokerManager manager = open( dlg.getContext() );
+		final JoinPPDialog dlg = new JoinPPDialog( null );
+		if (dlg.open() == Dialog.OK) {
+			// 1. Open a file dialog, asking the conference file name
+			IPlanningPokerManager manager = open( dlg.getContext() );
 
-	            if (dlg.isSendInvitations()) {
-	                for (Invitee i : dlg.getContext().getInvitees())
-	                    manager.inviteNewParticipant( i.getId() );
-	            }
-	        }
+			if (dlg.isSendInvitations()) {
+				for (Invitee i : dlg.getContext().getInvitees())
+					manager.inviteNewParticipant( i.getId() );
+			}
+		}
 	}
-	
+
     /* (non-Javadoc)
      * @see it.uniba.di.cdg.xcore.econference.IEConferenceHelper#askUserAcceptInvitation(it.uniba.di.cdg.xcore.multichat.InvitationEvent)
      */
@@ -104,8 +104,8 @@ public class PlanningPokerHelper extends EConferenceHelper {
 		String message = String
 		.format(
 				"User %s has invited you to join to a Planning Poker session." +
-				"If you want to accept, choose your possible display role in" +
-				"the meeting and your display name and press Yes, otherwise" +
+				"If you want to accept, choose your own role in the meeting and " +
+				"your display name then press Yes, otherwise " +
 				"press Cancel.", invitation.getInviter() );				
 		String[] userInputs = new String[]{"Role: ", "Nickname: "};
 		String[] defaultValues = new String[]{"", backend.getUserAccount().getId()};
