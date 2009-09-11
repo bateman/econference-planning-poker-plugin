@@ -48,15 +48,8 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 		break;
 		case 1: {//PRIORITY
 			DefaultUserStory.PRIORITY priority = story.getPriority();
-			if(priority == DefaultUserStory.PRIORITY.HIGH){
-				label = "High";
-			}else if(priority == DefaultUserStory.PRIORITY.NORMAL){
-				label = "Medium";
-			}else if(priority == DefaultUserStory.PRIORITY.LOW){
-				label = "Low";
-			}else if(priority == DefaultUserStory.PRIORITY.UNKNOWN){
-				label = "?";
-			}
+			label = priority.getName();
+
 		}		
 		break;
 		case 2:{
