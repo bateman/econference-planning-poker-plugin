@@ -28,7 +28,7 @@ public class AddUserStoryAction extends Action {
 		super();
 		this.view = view;
 		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
-				PlanningPokerPlugin.ID, "icons/new-user-story.gif" ));
+				PlanningPokerPlugin.ID, "icons/backlog/new-user-story.gif" ));
 		setText("New User Story");
 		setToolTipText("Add new User Story to the Backlog");		
 	}

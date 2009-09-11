@@ -17,7 +17,7 @@ public class EstimateStoryAction extends SingleSelectionAction {
 	public EstimateStoryAction(IViewPart view) {
 		super(view);		
 		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
-				PlanningPokerPlugin.ID, "icons/estimate-story.gif" ));
+				PlanningPokerPlugin.ID, "icons/backlog/estimate-story.gif" ));
 		setText("Estimate User Story");
 		setToolTipText("Set selected story as a Story to estimate");
 	}

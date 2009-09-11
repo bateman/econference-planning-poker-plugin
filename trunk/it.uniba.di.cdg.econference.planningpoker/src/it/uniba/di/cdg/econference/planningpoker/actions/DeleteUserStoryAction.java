@@ -17,7 +17,7 @@ public class DeleteUserStoryAction extends SingleSelectionAction {
 	public DeleteUserStoryAction(IViewPart view) {
 		super(view);
 		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
-				PlanningPokerPlugin.ID, "icons/deleteStory.gif" ));
+				PlanningPokerPlugin.ID, "icons/backlog/deleteStory.gif" ));
 		setText( "Remove User Story" );
 		setToolTipText( "Remove selected User Story from Backlog" );
 		
