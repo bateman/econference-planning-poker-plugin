@@ -270,9 +270,6 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		changeItemList( getModel().getBacklog() );		
 		updateActionsAccordingToRole();
 
-		//remove following line
-		this.setTitle(getModel().getLocalUser().getRole().toString());
-
 	}
 
 	@SwtAsyncExec

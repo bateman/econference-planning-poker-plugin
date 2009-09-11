@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
 import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
@@ -108,6 +109,11 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 	@Override
 	public void notifyCardSelected(String storyId, IPokerCard card) {
 		getService().notifyCardSelection(storyId, card);
+	}
+	
+	@Override
+	public void notifyCardDeckToRemote(CardDeck deck){
+		getService().notifyCardDeckToRemote(deck);
 	}
 
 	@Privileged( atleast = Role.MODERATOR )

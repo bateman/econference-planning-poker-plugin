@@ -11,11 +11,14 @@ public class CardDeck{
 
 	private Set<IItemListListener> listeners;
 	
-	private List<IPokerCard> cards = new ArrayList<IPokerCard>();	
+	private List<IPokerCard> cards;	
+	private List<IPokerCard> hiddenCards; 
 	
 	
 	public CardDeck(){				
 		listeners = new HashSet<IItemListListener>();
+		cards = new ArrayList<IPokerCard>();	
+		hiddenCards = new ArrayList<IPokerCard>();	
 	}
 	
 
@@ -104,7 +107,21 @@ public class CardDeck{
 		listeners.clear();		
 	}
 
-
+	public void addHiddenCard(IPokerCard card){
+		hiddenCards.add(card);
+	}
+	
+	public void removeHiddenCard(IPokerCard card){
+		hiddenCards.remove(card);
+	}
+	
+	public IPokerCard[] getHiddenCards(){
+		IPokerCard[] result = new IPokerCard[hiddenCards.size()];
+		for (int i = 0; i < hiddenCards.size(); i++) {
+			result[i] = hiddenCards.get(i);
+		}
+		return result;
+	}
 
 
 

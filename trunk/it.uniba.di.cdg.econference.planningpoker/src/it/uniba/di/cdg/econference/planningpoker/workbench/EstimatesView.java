@@ -53,7 +53,12 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		@SwtAsyncExec
 		@Override
 		public void currentSelectionChanged( int currItemIndex ) {
+			if(!isReadOnly() && getModel().getStatus().equals(ConferenceStatus.STARTED)&&
+					getModel().getBacklog().getCurrentItemIndex()!=IItemList.NO_ITEM_SELECTED
+					&& ( getModel().getEstimateSession()==null
+					|| !getModel().getEstimateSession().getUserStoryId().equals(String.valueOf(currItemIndex)))){	//TODO: sostituire l'index con l'id della story				
 				createEstimationList(String.valueOf(currItemIndex));
+			}
 		}			
 
 	};
@@ -120,6 +125,9 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 				if(getModel().getEstimateSession()!=null){
 					getModel().getEstimateSession().setStatus(EstimateStatus.CLOSED);
 					getManager().getService().notifyEstimateSessionStatusChange(getModel().getEstimateSession());
+					viewer.getTable().clearAll();
+					if(!isReadOnly())
+						restimationButton.setEnabled(false);											
 				}
 		};
 
@@ -144,9 +152,6 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		
 		viewer = new TableViewer(root, SWT.HIDE_SELECTION | SWT.BORDER);
 		viewer.getTable().setLayoutData(gridDataTable);
-		
-		        
-        
 	}
 	
 	private boolean isEstimateSessionValid(){
@@ -180,6 +185,16 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	        restimationButton = new Button(actionsComposite, SWT.PUSH );
 	        restimationButton.setText("Repeat");
 	        restimationButton.setEnabled(false);
+	        restimationButton.addSelectionListener(new SelectionAdapter(){
+	        	@Override
+	        	public void widgetSelected(SelectionEvent e) {
+	        		if(!isReadOnly()){
+	        			int currItemIndex = getModel().getBacklog().getCurrentItemIndex();
+	        			createEstimationList(String.valueOf(currItemIndex));
+	        		}
+	        	}
+	        });	
+	        
 	        
 	        acceptButton = new Button(actionsComposite, SWT.PUSH );
 	        acceptButton.setText("Accept");
@@ -210,21 +225,16 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 				getManager().notifyItemListToRemote();
 				getModel().getEstimateSession().setStatus(EstimateStatus.CLOSED);
 				getManager().notifyEstimateSessionStatusChange(getModel().getEstimateSession());
+				viewer.getTable().clearAll();
 			}
 		}		
 		
 	}
 
 	private void createEstimationList(String storyId) {
-		if(!isReadOnly() && getModel().getStatus().equals(ConferenceStatus.STARTED)&&
-					getModel().getBacklog().getCurrentItemIndex()!=IItemList.NO_ITEM_SELECTED
-					&& ( getModel().getEstimateSession()==null
-					|| !getModel().getEstimateSession().getUserStoryId().equals(storyId))){			
-			String date = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY).format(new Date());
-			IEstimates estimates = new Estimates(storyId,date);
-			getManager().notifyEstimateSessionStatusChange(estimates);			
-		}
-		
+		String date = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY).format(new Date());
+		IEstimates estimates = new Estimates(storyId,date);
+		getManager().notifyEstimateSessionStatusChange(estimates);			
 	}
 
 	@Override

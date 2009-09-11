@@ -1,5 +1,6 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
+import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
 import it.uniba.di.cdg.xcore.econference.IEConferenceManager;
@@ -38,6 +39,13 @@ public interface IPlanningPokerManager extends IEConferenceManager{
      * 
      */
     void notifyRemoveBacklogItem( String itemIndex );
+
+    /**
+     * Notify that deck has changed
+     * @param deck the new deck
+     * 
+     */
+	void notifyCardDeckToRemote(CardDeck deck);
 	
 
 }

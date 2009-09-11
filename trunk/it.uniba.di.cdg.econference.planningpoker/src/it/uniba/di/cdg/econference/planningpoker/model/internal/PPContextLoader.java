@@ -4,6 +4,7 @@ import it.uniba.di.cdg.econference.planningpoker.PlanningPokerContext;
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.IBacklogContextLoader;
 import it.uniba.di.cdg.econference.planningpoker.model.IModelAbstractFactory;
+import it.uniba.di.cdg.econference.planningpoker.utils.XMLUtils;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
 import it.uniba.di.cdg.xcore.econference.model.InvalidContextException;
 import it.uniba.di.cdg.xcore.multichat.service.Invitee;
@@ -14,8 +15,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
@@ -41,7 +40,7 @@ public class PPContextLoader {
     
     public void load( InputStream is ) throws InvalidContextException {
         try {
-            Document doc = loadDocument( is );
+            Document doc = XMLUtils.loadDocument( is );
             
             XPathFactory factory = XPathFactory.newInstance();
             XPath xPath = factory.newXPath();
@@ -149,17 +148,4 @@ public class PPContextLoader {
         return p;
     }
 
-    /**
-     * XML DOM helper.
-     * 
-     * @param is
-     * @return the XML DOM document object
-     * @throws Exception
-     */
-    private Document loadDocument( InputStream is ) throws Exception {
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        Document doc = builder.parse( is );
-        return doc;
-    }
 }

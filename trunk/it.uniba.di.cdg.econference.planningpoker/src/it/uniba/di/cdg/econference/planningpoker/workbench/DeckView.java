@@ -54,14 +54,14 @@ public class DeckView extends ViewPart implements IDeckView {
 		@Override
 		public void itemAdded(Object item) {
 			System.out.println( "DeckView: pokerCardAdded()" );
-			addPokerCard((IPokerCard) item);
+			changeCardDeck();
 		}		
 
 		//Fired when a card was removed from deck
 		@Override
 		public void itemRemoved(Object item) {
 			System.out.println( "DeckView: pokerCardRemoved()" );
-			removePokerCard((IPokerCard) item);
+			changeCardDeck();
 		}
 	};
 	
@@ -84,7 +84,8 @@ public class DeckView extends ViewPart implements IDeckView {
 		public void cardDeckChanged() {
 			System.out.println("Deck View: deck changed ");
 			getModel().getCardDeck().addListener(deckListener);
-			createCardDeck();
+			deck = getModel().getCardDeck();
+			changeCardDeck();
 		};
 		
 		
@@ -113,16 +114,6 @@ public class DeckView extends ViewPart implements IDeckView {
 
 	};
 	
-	
-	@SwtAsyncExec
-	private void addPokerCard(IPokerCard card) {
-		uiHelper.addWidgetFromCard(card);		
-	}
-	
-	@SwtAsyncExec
-	private void removePokerCard(IPokerCard card) {
-		uiHelper.removeWidgetFromCard(card);		
-	}
 
 	@Override
 	//Part control is created in the uiHelper in its constructor	
@@ -162,12 +153,12 @@ public class DeckView extends ViewPart implements IDeckView {
 		getModel().getVoters().addListener(voterListener);
 		getModel().addListener(ppModelListener);
 		
-		uiHelper = getModel().getFactory().createCardDeckViewUIHelper(parent);	
-		uiHelper.addCardSelectionListener(cardSelectionListener);
-		
 		deck = getModel().getCardDeck();
-				
-		createCardDeck();
+		
+		uiHelper = getModel().getFactory().createCardDeckViewUIHelper(parent, deck);	
+		uiHelper.addCardSelectionListener(cardSelectionListener);
+	
+		changeCardDeck();
 		
 	}
 
@@ -180,11 +171,8 @@ public class DeckView extends ViewPart implements IDeckView {
 	}
 
 	@SwtAsyncExec
-	private void createCardDeck() {
-		IPokerCard[] cards = deck.getCards();
-		for (IPokerCard card : cards) {
-			uiHelper.addWidgetFromCard(card);
-		}		
+	private void changeCardDeck() {
+		uiHelper.setCardDeck(deck);
 	}
 
 	public IPlanningPokerModel getModel() {

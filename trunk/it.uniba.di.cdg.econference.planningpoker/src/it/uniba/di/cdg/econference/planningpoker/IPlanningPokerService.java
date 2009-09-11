@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates.EstimateStatus;
@@ -41,6 +42,14 @@ public interface IPlanningPokerService extends IEConferenceService {
      *   
      */
 	void notifyEstimateSessionStatusChange(IEstimates estimates);
+
+
+	/**
+	 * <p>Notify that deck has changed</p>
+	 * @param deck the new deck
+	 * 
+	 */
+	void notifyCardDeckToRemote(CardDeck deck);
     
 //    
 //    /**

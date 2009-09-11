@@ -4,6 +4,7 @@ import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.dialogs.DefaultUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultBacklogViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.DefaultEstimatesViewUIProvider;
@@ -27,8 +28,8 @@ public class DefaultModelFactory implements IModelAbstractFactory {
 	}
 	
 	@Override
-	public IDeckViewUIHelper createCardDeckViewUIHelper(Composite parent) {
-		return new DefaultDeckViewUIHelper(parent);
+	public IDeckViewUIHelper createCardDeckViewUIHelper(Composite parent, CardDeck deck) {
+		return new DefaultDeckViewUIHelper(parent,deck);
 	}
 
 	@Override
