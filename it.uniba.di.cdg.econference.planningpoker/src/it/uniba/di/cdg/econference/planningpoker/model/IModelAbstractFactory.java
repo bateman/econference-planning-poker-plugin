@@ -2,6 +2,7 @@ package it.uniba.di.cdg.econference.planningpoker.model;
 
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
 
@@ -19,11 +20,12 @@ public interface IModelAbstractFactory {
 	 * the graphic component n the card that are actually in the
 	 * card deck
 	 * @param parent 
+	 * @param deck 
 	 * 
 	 * 
 	 * @return the UI Helper
 	 */
-	IDeckViewUIHelper createCardDeckViewUIHelper(Composite parent);
+	IDeckViewUIHelper createCardDeckViewUIHelper(Composite parent, CardDeck deck);
 	
 	
 	IEstimatesViewUIProvider createEstimateViewUIHelper();

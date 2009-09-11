@@ -20,21 +20,46 @@ public class DefaultDeckViewUIHelper implements IDeckViewUIHelper {
 	
 	private Set<ICardSelectionListener> listeners;
 	private Composite parent;
+	private CardDeck deck;
 	
-	public DefaultDeckViewUIHelper(Composite parent) {
+	public DefaultDeckViewUIHelper(Composite parent, CardDeck deck) {
 		this.parent = parent;
+		this.deck = deck;
 		listeners = new HashSet<ICardSelectionListener>();
 		createPartControl();
+	}
+	
+	@Override
+	public void setCardDeck(CardDeck deck){
+		this.deck = deck;
+		paintDeck();
 	}
 	
 	private void createPartControl() {
 		FillLayout layout = new FillLayout();
 		layout.type = SWT.HORIZONTAL;
-		parent.setLayout(layout);		
+		parent.setLayout(layout);	
+		paintDeck();
 	}
 
-	@Override
-	public void addWidgetFromCard(final IPokerCard card) {		
+	private void paintDeck() {
+		cleanPartControl();
+		for (int i = 0; i < deck.getCards().length; i++) {
+			addWidgetFromCard(deck.getCards()[i]);
+		}		
+	}
+	
+
+	public void cleanPartControl() {
+		Control[] controls = parent.getChildren();
+		for(Control control: controls){
+			if(control instanceof Button){
+				control.dispose();
+			}
+		}		
+	}
+
+	private void addWidgetFromCard(final IPokerCard card) {		
 		Button button = new Button(parent, SWT.TOGGLE );
 		button.setData(KEY_VALUE, card.getStringValue());
 		button.setBackground(parent.getDisplay().getSystemColor(DEFAULT_COLOR));
@@ -80,25 +105,16 @@ public class DefaultDeckViewUIHelper implements IDeckViewUIHelper {
 		setSelectedButton(null);
 	}
 		
-//	public void setSelectedValue(String value){
-//		this.selectedValue = value;
-//	}
-//	
-//	public String getSelectedValue(){
-//		return selectedValue;
-//	}
-	
 
-
-	@Override
-	public void removeWidgetFromCard(IPokerCard card) {
-		Control[] controls = parent.getChildren();
-		for(Control control: controls){
-			if(control.getData(KEY_VALUE).equals(card.getStringValue())){
-				control.dispose();
-			}
-		}		
-	}	
+//	@Override
+//	public void removeWidgetFromCard(IPokerCard card) {
+//		Control[] controls = parent.getChildren();
+//		for(Control control: controls){
+//			if(control.getData(KEY_VALUE).equals(card.getStringValue())){
+//				control.dispose();
+//			}
+//		}		
+//	}	
 	
 	@Override
 	public void addCardSelectionListener(ICardSelectionListener listener){

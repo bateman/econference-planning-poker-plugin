@@ -82,7 +82,7 @@ public class DefaultUserStory implements IUserStory {
 	
 	@Override
 	public String getTextForMultiChatSubject() {
-		return getStoryText();
+		return getId();
 	}
 	
 	@Override

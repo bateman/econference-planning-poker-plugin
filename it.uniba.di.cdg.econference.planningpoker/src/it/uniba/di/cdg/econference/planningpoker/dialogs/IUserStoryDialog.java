@@ -5,14 +5,14 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 
 public interface IUserStoryDialog {
 
-	public void show();
+	int show();
 	
 	//set a Story to edit
-	public void setStory(IUserStory story);
+	void setStory(IUserStory story);
 	
 	//return created or modified story 
-	public IUserStory getStory();
+	IUserStory getStory();
 	
-	public void setCardDeck(CardDeck deck);
+	void setCardDeck(CardDeck deck);
 
 }

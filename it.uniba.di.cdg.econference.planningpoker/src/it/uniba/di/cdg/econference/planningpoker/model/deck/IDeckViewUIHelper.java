@@ -10,9 +10,11 @@ package it.uniba.di.cdg.econference.planningpoker.model.deck;
 
 public interface IDeckViewUIHelper {
 
-	void addWidgetFromCard(IPokerCard card);
+	//void addWidgetFromCard(IPokerCard card);
 
-	void removeWidgetFromCard(IPokerCard card);
+	//void removeWidgetFromCard(IPokerCard card);
+	
+	void setCardDeck(CardDeck deck);
 	
 	void addCardSelectionListener(ICardSelectionListener listener);
 	

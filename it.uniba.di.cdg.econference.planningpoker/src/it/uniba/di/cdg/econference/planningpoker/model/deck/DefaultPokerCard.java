@@ -3,7 +3,7 @@ package it.uniba.di.cdg.econference.planningpoker.model.deck;
 
 public class DefaultPokerCard implements IPokerCard {
 	
-	public static final String UNKNOWN ="Unknown";
+	public static final String UNKNOWN ="?";
 	public static final String ONE ="1";
 	public static final String TWO ="2";
 	public static final String THREE ="3";

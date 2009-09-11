@@ -1,6 +1,5 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
-import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
 
@@ -12,8 +11,6 @@ public class SelectCardAction extends SingleSelectionAction {
 
 	public SelectCardAction(IViewPart view) {
 		super(view);
-		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
-				PlanningPokerPlugin.ID, "icons/estimate-story.gif" ));
 		setText("Select this card");
 		setToolTipText("Select the card representing your estimate");
 	}

@@ -92,19 +92,8 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 		gd.grabExcessHorizontalSpace = true;
 		
 		gd = new GridData();
-		
-		Label notesLabel = new Label(root, SWT.NONE);
-		notesLabel.setText("Notes:");
-		notesLabel.setLayoutData(gd);
-		
-		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-		gd.heightHint = 90;
-		gd.grabExcessVerticalSpace = true;
-
-		
-		txt_notes = new Text(root, SWT.BORDER | SWT.SINGLE);
-		txt_notes.setLayoutData(gd);
-		
+		gd.horizontalAlignment = SWT.FILL;
+		gd.grabExcessHorizontalSpace = true;
 		
 		cb_priority = new Combo(root, SWT.READ_ONLY);
 		//Adding item to the priority combo
@@ -113,6 +102,20 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 			
 		}		
 		cb_priority.setLayoutData(gd);
+		
+		Label notesLabel = new Label(root, SWT.NONE);
+		notesLabel.setText("Notes:");
+		notesLabel.setLayoutData(gd);
+		
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | 
+				GridData.VERTICAL_ALIGN_FILL);
+		gd.heightHint = 90;
+		gd.widthHint = 350;
+		gd.grabExcessVerticalSpace = true;
+
+		
+		txt_notes = new Text(root, SWT.BORDER  | SWT.V_SCROLL | SWT.H_SCROLL );
+		txt_notes.setLayoutData(gd);		
 		
 		gd = new GridData();		
 		
@@ -184,8 +187,8 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 	}
 
 	@Override
-	public void show() {
-		this.open();		
+	public int show() {
+		return this.open();		
 	}
 	
 	@Override
