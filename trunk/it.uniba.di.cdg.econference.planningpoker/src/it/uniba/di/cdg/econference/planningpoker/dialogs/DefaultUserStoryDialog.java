@@ -1,6 +1,10 @@
 package it.uniba.di.cdg.econference.planningpoker.dialogs;
 
 
+import java.util.Calendar;
+import java.util.Date;
+
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory.PRIORITY;
@@ -25,10 +29,13 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 	
 	private CardDeck deck = null;
 	
-	private Text story_txt_name;
+	private Text txt_story_text;
 	private Text txt_notes;
 	private Combo cb_priority;
 	private Combo cb_estimate;
+	private Text txt_id;
+
+	private Backlog backlog;
 
 	public DefaultUserStoryDialog(Shell parentShell) {		
 		super(parentShell);
@@ -41,6 +48,10 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 	
 	public void setCardDeck(CardDeck deck){
 		this.deck = deck;
+	}
+	
+	public void setBacklog(Backlog backlog){
+		this.backlog = backlog;
 	}
 
 	public DefaultUserStory getStory() {
@@ -66,6 +77,18 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 		//Couse of strange behaviour of Grid layout in the Title Area Dialog
 		Label emptyLabel = new Label(root, SWT.NONE);		
 		emptyLabel.setLayoutData(gd);
+		
+		gd = new GridData();
+		
+		Label labelId = new Label(root, SWT.NONE);
+		labelId.setText("Id:");
+		labelId.setLayoutData(gd);
+		
+		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
+		gd.grabExcessVerticalSpace = true;
+		
+		txt_id = new Text(root, SWT.BORDER | SWT.SINGLE);
+		txt_id.setLayoutData(gd);
 				
 		gd = new GridData();
 		
@@ -78,8 +101,8 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 		gd.grabExcessVerticalSpace = true;
 
 		
-		story_txt_name = new Text(root, SWT.BORDER | SWT.SINGLE);
-		story_txt_name.setLayoutData(gd);
+		txt_story_text = new Text(root, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL );
+		txt_story_text.setLayoutData(gd);
 		
 		gd = new GridData();
 		
@@ -114,7 +137,7 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 		gd.grabExcessVerticalSpace = true;
 
 		
-		txt_notes = new Text(root, SWT.BORDER  | SWT.V_SCROLL | SWT.H_SCROLL );
+		txt_notes = new Text(root, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL );
 		txt_notes.setLayoutData(gd);		
 		
 		gd = new GridData();		
@@ -153,7 +176,9 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 	private void fillForm() {
 		setTitle("Edit the User Story");
 		DefaultUserStory userStory = (DefaultUserStory)story;
-		story_txt_name.setText(userStory.getStoryText());
+		txt_id.setEditable(false);
+		txt_id.setText(userStory.getId());		
+		txt_story_text.setText(userStory.getStoryText());		
 		
 		PRIORITY priority = userStory.getPriority();
 		for (int i = 0; i < PRIORITY.values().length; i++) {
@@ -176,6 +201,8 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 			}
 		}
 		
+		txt_story_text.setFocus();
+		
 	}
 
 	@Override
@@ -195,7 +222,7 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 	protected void okPressed() {
 		DefaultUserStory.PRIORITY priority;
 		Object points;
-		if (story_txt_name.getText().length() != 0) {
+		if (validateInput()) {
 			
 			priority = PRIORITY.values()[cb_priority.getSelectionIndex()];
 			points = deck.getCards()[cb_estimate.getSelectionIndex()].getValue();											
@@ -203,27 +230,38 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 			
 			if(story==null){
 				story = new DefaultUserStory(
-						getNewId(),
-						story_txt_name.getText(),
+						txt_id.getText(),
+						txt_story_text.getText(),
 						priority, 
 						txt_notes.getText(), 
 						points);		
 			}else{
-				story.setStoryText(story_txt_name.getText());
+				story.setStoryText(txt_story_text.getText());
 				story.setPriority(priority);
 				story.setNotes(txt_notes.getText());
 				story.setEstimate(points);
+				story.setLastUpdate(Calendar.getInstance().getTime());
 			}
 			super.okPressed();
-		} else {
-			setErrorMessage("Please enter all data");
-		}
-		
+		}		
 	}
-
-	private String getNewId() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private boolean validateInput() {
+		if(txt_id.getText().length() != 0 && txt_story_text.getText().length() != 0){
+			if(story==null){
+				//We have to check if new inserted id doesn't exists in the backlog
+				for (int i = 0; i < backlog.getUserStories().length; i++) {
+					if(backlog.getUserStories()[i].getId().equals(story.getId())){
+						setErrorMessage("Id already exisisting");
+						return false;
+					}
+				}
+			}
+			return true;
+		}else{
+			setErrorMessage("Please enter all data");
+			return false;
+		}
 	}
 
 
