@@ -2,6 +2,12 @@ package it.uniba.di.cdg.econference.planningpoker.workbench;
 
 import static it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus.STARTED;
 import static it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus.STOPPED;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
 import it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.DeleteUserStoryAction;
@@ -13,13 +19,19 @@ import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListene
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
+import it.uniba.di.cdg.econference.planningpoker.utils.XMLUtils;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
+import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
+import it.uniba.di.cdg.xcore.econference.IEConferenceHelper;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
+import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -52,6 +64,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	private MenuManager  menuMgr;
 	
 	protected Button startStopButton = null;
+	
+	private static final String DEFAULT_LOG_FILENAME = "backlog.xml";
 
 	private EditUserStoryAction editStoryAction;
 	private DeleteUserStoryAction deleteStoryAction;
@@ -78,12 +92,23 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	};
 
 
-    private IPlanningPokerModelListener ppModelListener = new PlanningPokerModelListenerAdapter() {
-        @Override
-        public void statusChanged() {
-            //System.out.println( "statusChanged()" );
-            changeButtonStatus( getModel().getStatus() );
-        }
+	private IPlanningPokerModelListener ppModelListener = new PlanningPokerModelListenerAdapter() {
+		@Override
+		@SwtAsyncExec
+		public void statusChanged() {
+			//System.out.println( "statusChanged()" );
+			changeButtonStatus( getModel().getStatus() );
+			if(getModel().getStatus().equals(STARTED)){
+				if(!isReadOnly()){   
+					estimateStoryAction.setAccessible(true);
+					enableDoubleClickListener(true);
+				}
+			}else{ 
+				estimateStoryAction.setAccessible(false);
+				enableDoubleClickListener(false);  
+				getModel().getBacklog().setCurrentItemIndex(IItemList.NO_ITEM_SELECTED);
+			}
+		}
         
         public void backlogChanged() {
         	 System.out.println( "itemListChanged()" );
@@ -106,10 +131,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		@SwtAsyncExec
 		@Override
 		public void currentSelectionChanged( int currItemIndex ) {
-			if(currItemIndex!=IItemList.NO_ITEM_SELECTED){
-				setCurrentStory(currItemIndex);
-				setWhiteBoardText(currItemIndex);
-			}
+			setCurrentStory(currItemIndex);
+			setWhiteBoardText(currItemIndex);
 		}
 
 		@Override
@@ -123,11 +146,16 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	public BacklogView() {
 	}
 
-	protected void setWhiteBoardText(int currItemIndex) {
+	
+	protected void setWhiteBoardText(int currItemIndex) {		
 		if(!isReadOnly()){
-			IUserStory story = (IUserStory) getModel().getBacklog().getItem(currItemIndex);	
-			getManager().notifyWhiteBoardChanged(story.getNotes());	
-			}		
+			if(currItemIndex!=IItemList.NO_ITEM_SELECTED){
+				IUserStory story = (IUserStory) getModel().getBacklog().getItem(currItemIndex);	
+				getManager().notifyWhiteBoardChanged(story.getNotes());	
+			}else{
+				getManager().notifyWhiteBoardChanged("");	
+			}
+		}		
 	}
 
 	private void makeActions(){
@@ -233,19 +261,12 @@ public class BacklogView extends ViewPart implements IBacklogView {
         if (STARTED.equals( status )) {
             startStopButton.setText( "Stop meeting" );
             startStopButton.setToolTipText( "Press to stop the meeting" );
-            startStopButton.setSelection(true);
-            if(!isReadOnly()){   
-            	estimateStoryAction.setAccessible(true);
-            	enableDoubleClickListener(true);
-            }
+            startStopButton.setSelection(true);           
         }
         else {
             startStopButton.setText( "Start meeting" );
             startStopButton.setSelection(false);
-            startStopButton.setToolTipText( "Press to start the meeting" );
-            getManager().notifyCurrentAgendaItemChanged(String.format("%d", IItemList.NO_ITEM_SELECTED));
-            estimateStoryAction.setAccessible(false);
-            enableDoubleClickListener(false);            
+            startStopButton.setToolTipText( "Press to start the meeting" );         
         }
     }
 
@@ -376,6 +397,101 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		}else{
 			return null;
 		}
+	}
+	
+	public void doSave( IProgressMonitor monitor ) {
+
+        String fileName = UiPlugin.getUIHelper().requestFileNameForSaving( "*.xml" );
+        if (fileName == null)
+            return;
+
+        writeBacklogContent( monitor, fileName );
+    }
+
+
+	private void writeBacklogContent(IProgressMonitor monitor, String fileName) {
+		if(getModel()!=null && getModel().getBacklog()!=null){
+			String textToSave = XMLUtils.convertDefaultBacklogToStandardXML(getModel().getBacklog());
+
+			monitor.beginTask( "Saving backlog ...", 1 );
+
+			OutputStreamWriter osw = null;
+			try {
+				osw = new OutputStreamWriter( new FileOutputStream( fileName ) );
+
+				osw.write( textToSave );
+				monitor.worked( 1 );
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (osw != null)
+						osw.close();
+				} catch (IOException e) { 
+				}
+				monitor.done();
+			}
+		}
+
+	}
+
+
+	@Override
+	public void doSaveAs() {
+		// TODO Auto-generated method stub		
+	}
+
+
+	@Override
+	public boolean isDirty() {
+		return true;
+	}
+
+
+	@Override
+	public boolean isSaveAsAllowed() {		
+		return true;
+	}
+
+
+	@Override
+	public boolean isSaveOnCloseNeeded() {
+		  try {
+	            IEConferenceHelper helper = EConferencePlugin.getDefault().getHelper();
+	            if (helper.getBooleanPreference( IEConferenceHelper.AUTO_SAVE_LOGS ) == true) {
+	                System.out.println( "autosave decisions log" );
+	                String defaultDir = helper
+	                        .getStringPreference( IEConferenceHelper.AUTO_SAVE_LOGS_DIR )
+	                        + File.separator
+	                        // FIXME calling getName on context returns NULL!!!!!
+	                        + manager.getService().getContext().getRoom() + File.separator;
+	                File targetDir = new File( defaultDir );
+	                if (!targetDir.exists()) {
+	                    if (!targetDir.mkdirs()) {
+	                        throw new IOException( "Unable to create target dir: "
+	                                + targetDir.getAbsolutePath() );
+	                    }
+	                }
+	                System.out.println( "saving " + targetDir );
+	                File targetFile = new File( defaultDir, DEFAULT_LOG_FILENAME );
+	                if (!targetFile.exists()) {
+	                    if (!targetFile.createNewFile()) {
+	                        throw new IOException( "Unable to create target file: "
+	                                + targetFile.getAbsoluteFile() );
+	                    }
+	                }
+	                writeBacklogContent( new NullProgressMonitor(), defaultDir + DEFAULT_LOG_FILENAME );
+	                return false;
+	            } else {
+	                System.out.println( "must save decisions log manually" );
+	                return true;
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            System.out.println( "must save decisions log manually" );
+	            return true;
+	        }
 	}
 
 

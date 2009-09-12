@@ -100,12 +100,10 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 			if(EstimateStatus.COMPLETED.equals(status)){
 				//TODO: implementare il metodo per memorizzare queste stime nella history
 				changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), true);
-				if(!isReadOnly())
-					restimationButton.setEnabled(true);
+				setRestimateButtonEnable(true);	
 			}else{
-				changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);
-				if(!isReadOnly())
-					restimationButton.setEnabled(false);
+				changeEstimatesList(null, false);				
+				setRestimateButtonEnable(false);	
 			}
 			
 		};
@@ -125,9 +123,8 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 				if(getModel().getEstimateSession()!=null){
 					getModel().getEstimateSession().setStatus(EstimateStatus.CLOSED);
 					getManager().getService().notifyEstimateSessionStatusChange(getModel().getEstimateSession());
-					viewer.getTable().clearAll();
-					if(!isReadOnly())
-						restimationButton.setEnabled(false);											
+					changeEstimatesList(null, false);	
+					setRestimateButtonEnable(false);										
 				}
 		};
 
@@ -137,6 +134,12 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	
 	public EstimatesView() {
 		// TODO Auto-generated constructor stub
+	}
+
+	@SwtAsyncExec
+	private void setRestimateButtonEnable(boolean enable) {
+		if(!isReadOnly())
+			restimationButton.setEnabled(enable);			
 	}
 
 	@Override
@@ -272,15 +275,16 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	
 	@SwtAsyncExec
 	private void changeEstimatesList(Object[] estimates, boolean visible) {
-		//trasform the userId in a Participant object
-		for (int i = 0; i < estimates.length; i++) {			
-			Object[] object = (Object[]) estimates[i];
-			object[0] = getModel().getParticipant((String) object[0]);		
-			if(!visible)
-				object[1] = null;
-		}		
+		if(estimates!=null){
+			for (int i = 0; i < estimates.length; i++) {			
+				Object[] object = (Object[]) estimates[i];
+				object[0] = getModel().getParticipant((String) object[0]);		
+				if(!visible)
+					object[1] = null;
+			}	
+		}
 		viewer.setInput(estimates);
-		viewer.refresh();
+		viewer.refresh();	
 	}
 
 

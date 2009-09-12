@@ -23,8 +23,13 @@ public class LoadBacklogDialog extends Dialog {
 
 
 	public LoadBacklogDialog(Shell parent) {
-		super(parent);
-		// TODO Auto-generated constructor stub
+		super(parent);		
+	}
+	
+	@Override
+	protected void configureShell(Shell newShell) {
+		newShell.setText("Load new Backlog");
+		super.configureShell(newShell);
 	}
 	
 	@Override

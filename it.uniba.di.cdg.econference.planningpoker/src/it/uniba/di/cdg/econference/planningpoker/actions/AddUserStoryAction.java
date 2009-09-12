@@ -2,6 +2,8 @@ package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 
 import org.eclipse.jface.action.Action;
@@ -39,14 +41,14 @@ public class AddUserStoryAction extends Action {
 		IWorkbenchWindow window = view.getViewSite().getWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
 		BacklogView backlogView = (BacklogView) page.findView(BacklogView.ID);
-//		IParticipant participant = storyView.getModel().getLocalUser();
-//		participant.addPropertyChangeListener(propListener);
-//		role = participant.getRole();
-		IUserStoryDialog dialog = backlogView.getModel().getFactory().createUserStoryDialog(page.getActivePart().getSite().getShell());
+		IUserStoryDialog dialog = backlogView.getModel().getFactory().createUserStoryDialog(window.getShell());		
 		dialog.setCardDeck(backlogView.getModel().getCardDeck());
+		Backlog backlog = backlogView.getModel().getBacklog();
+		dialog.setBacklog(backlog);
 		dialog.show();
-		if (dialog.getStory() != null) {
-			backlogView.getModel().getBacklog().addItem(dialog.getStory());
+		IUserStory newStory = dialog.getStory();
+		if (newStory != null) {
+			backlogView.getModel().getBacklog().addItem(newStory);
 			//notify the backlog's content
 			backlogView.getManager().notifyItemListToRemote();		
 		}

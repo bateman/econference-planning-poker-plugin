@@ -30,7 +30,7 @@ public class DeleteUserStoryAction extends SingleSelectionAction {
 		BacklogView backlogView = (BacklogView) page.findView(BacklogView.ID);
 		IUserStory story = backlogView.getSelectedStory();
 		if(story!=null){	
-				MessageBox messageBox = new MessageBox(backlogView.getViewSite().getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+				MessageBox messageBox = new MessageBox(window.getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
 		        messageBox.setMessage("Do you really want to delete this story?");
 		        messageBox.setText("Deleting User Story");
 		        int response = messageBox.open();
