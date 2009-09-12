@@ -2,8 +2,10 @@ package it.uniba.di.cdg.econference.planningpoker.model.estimates;
 
 
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
+import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
 
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
@@ -85,14 +87,14 @@ public class DefaultEstimatesViewUIProvider implements IEstimatesViewUIProvider 
 	public void createColumns(TableViewer viewer) {
 		String[] titles = new String[] {"Participant","Estimate",};
 		int[] bounds = new int[] {200,80};
-
+		AutoResizeTableLayout layout = (AutoResizeTableLayout) viewer.getTable().getLayout();
 		for (int i = 0; i < titles.length; i++) {
 			TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
 			column.getColumn().setText(titles[i]);
-			column.getColumn().setWidth(bounds[i]);
+			//column.getColumn().setWidth(bounds[i]);
 			column.getColumn().setResizable(true);
 			column.getColumn().setMoveable(true);
-			//column.setEditingSupport(new SimpleBacklogEditingSupport(viewer,i));
+			layout.addColumnData(new ColumnWeightData(bounds[i]));
 		}
 		Table table = viewer.getTable();
 		table.setHeaderVisible(true);

@@ -3,7 +3,9 @@ package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 
 import it.uniba.di.cdg.econference.planningpoker.dialogs.DefaultUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 
+import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
@@ -84,13 +86,14 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 	public void createColumns(TableViewer viewer) {
 		String[] titles = new String[] {"Story Text","Priority","Estimate"};
 		int[] bounds = new int[] {360,50,70};
-
+		AutoResizeTableLayout layout = (AutoResizeTableLayout) viewer.getTable().getLayout();
 		for (int i = 0; i < titles.length; i++) {
 			TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
 			column.getColumn().setText(titles[i]);
-			column.getColumn().setWidth(bounds[i]);
+			//column.getColumn().setWidth(bounds[i]);
 			column.getColumn().setResizable(true);
-			column.getColumn().setMoveable(true);
+			column.getColumn().setMoveable(true);			
+			layout.addColumnData(new ColumnWeightData(bounds[i]));
 			//column.setEditingSupport(new SimpleBacklogEditingSupport(viewer,i));
 		}
 		Table table = viewer.getTable();

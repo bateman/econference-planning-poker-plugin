@@ -19,6 +19,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListene
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
+import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 import it.uniba.di.cdg.econference.planningpoker.utils.XMLUtils;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
@@ -198,6 +199,11 @@ public class BacklogView extends ViewPart implements IBacklogView {
         
 		viewer = new TableViewer(top, SWT.FULL_SELECTION | SWT.BORDER );	
 		viewer.getTable().setLayoutData(gridDataTable);
+		
+		//Adding the auto-resize layout
+		AutoResizeTableLayout layout = new AutoResizeTableLayout(viewer.getTable());
+		viewer.getTable().setLayout(layout);
+		
 		getSite().setSelectionProvider(viewer);		
 		        
 		createContextMenu();
