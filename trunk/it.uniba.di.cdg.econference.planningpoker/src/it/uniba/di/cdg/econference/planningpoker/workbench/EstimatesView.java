@@ -11,6 +11,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListen
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates.EstimateStatus;
+import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
@@ -18,6 +19,7 @@ import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
 
+import java.awt.dnd.Autoscroll;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -155,6 +157,10 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		
 		viewer = new TableViewer(root, SWT.HIDE_SELECTION | SWT.BORDER);
 		viewer.getTable().setLayoutData(gridDataTable);
+		
+		//Adding auto-resize columns
+		AutoResizeTableLayout layout = new AutoResizeTableLayout(viewer.getTable());
+		viewer.getTable().setLayout(layout);
 	}
 	
 	private boolean isEstimateSessionValid(){
