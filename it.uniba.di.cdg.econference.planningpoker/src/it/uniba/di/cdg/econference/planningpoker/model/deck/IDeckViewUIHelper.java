@@ -20,7 +20,7 @@ public interface IDeckViewUIHelper {
 	
 	void removeCardSelectionListener(ICardSelectionListener listener);
 
-	void setReadOnly(boolean readOnly);
+	void setDeckEnable(boolean enable);
 
 	boolean isReadOnly();
 	

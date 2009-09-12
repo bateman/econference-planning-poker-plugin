@@ -12,22 +12,28 @@ import it.uniba.di.cdg.xcore.ui.UiPlugin;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.w3c.dom.Document;
 
-public class LoadUserStoriesActionDelegate implements IViewActionDelegate {
+public class ImportBacklogAction extends Action {
 
 	private IViewPart view;
 	
+	public ImportBacklogAction(IViewPart view) {
+		super();
+		this.view = view;	
+		setText("Import Backlog");
+		setToolTipText("Import a new Backlog");
+		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
+				PlanningPokerPlugin.ID, "icons/backlog/import16x16.png" ));
+	}
 
 	@Override
-	public void run(IAction action) {
+	public void run() {
 		if (NetworkPlugin.getDefault().getHelper().getOnlineBackends().size() == 0) {
             UiPlugin.getUIHelper().showErrorMessage( "Please, connect first!" );
             return;
@@ -70,16 +76,4 @@ public class LoadUserStoriesActionDelegate implements IViewActionDelegate {
 			
 		}
 	}
-
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void init(IViewPart view) {		
-		this.view = view;		
-	}
-
 }

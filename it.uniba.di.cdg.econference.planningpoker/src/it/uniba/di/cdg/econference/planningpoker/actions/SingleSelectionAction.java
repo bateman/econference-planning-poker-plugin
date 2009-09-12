@@ -10,11 +10,11 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPart;
 
 /**
- * This class is associated to a view and model an action that 
- * is enable only if one element is selected on the View
+ * <p>This class is associated to a view and model an action that 
+ * is enable only if one element is selected on the View.</p>
  * 
- * The action for delete, edit and estimate User Stories in the
- * BacklogView are an examples of this kind of action
+ * <p>The action for delete, edit and estimate User Stories in the
+ * BacklogView are an examples of this kind of action</p>
  * 
  * @author Alex
  *
@@ -34,8 +34,8 @@ public class SingleSelectionAction extends Action {
 	
 	/**
 	 * 
-	 * This method works like setEnable method.
-	 * We have created a different method for distinguish between the
+	 * <p>This method works like setEnable method.</p>
+	 * <p>We have created a different method for distinguish between the</p>
 	 * <ul>
 	 * <li>action enabling in relation to the selection</li>
 	 * <li>action enabling permanently (for example because only the moderator can use the action)</li> 
