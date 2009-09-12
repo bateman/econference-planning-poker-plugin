@@ -19,7 +19,6 @@ import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
 
-import java.awt.dnd.Autoscroll;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;

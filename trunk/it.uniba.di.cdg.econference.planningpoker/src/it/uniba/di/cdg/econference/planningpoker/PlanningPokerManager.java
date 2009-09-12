@@ -50,7 +50,7 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
         viewPart = getWorkbenchWindow().getActivePage().showView( DeckView.ID );
         deckView = (DeckView) viewPart;
         deckView.setManager(this);
-        deckView.setReadOnly(true); 
+        deckView.setReadOnly(!Role.MODERATOR.equals(getRole())); 
         
         viewPart = getWorkbenchWindow().getActivePage().showView( EstimatesView.ID );
         estimatesView = (EstimatesView) viewPart;   

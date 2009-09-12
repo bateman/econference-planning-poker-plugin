@@ -11,7 +11,7 @@
       <view
             category="it.uniba.di.cdg.econference.planningpoker"
             class="it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView"
-            icon="icons/user-story.gif"
+            icon="icons/backlog/user-story.gif"
             id="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
             name="User Stories"
             restorable="true">
@@ -19,7 +19,7 @@
       <view
             category="it.uniba.di.cdg.econference.planningpoker"
             class="it.uniba.di.cdg.econference.planningpoker.workbench.DeckView"
-            icon="icons/cards.gif"
+            icon="icons/deck/deck16x16.png"
             id="it.uniba.di.cdg.econference.planningpoker.DeckView"
             name="Cards Deck"
             restorable="true">
@@ -56,15 +56,6 @@
                   name="it.uniba.di.cdg.econference.planningpoker.additions">
             </separator>
          </menu>
-         <action
-               class="it.uniba.di.cdg.econference.planningpoker.actions.LoadUserStoriesActionDelegate"
-               icon="icons/new-stories-list.gif"
-               id="it.uniba.di.cdg.econference.planningpoker.loadUserStories"
-               label="Load User Stories"
-               menubarPath="it.uniba.di.cdg.econference.planningpoker.workbenchMenu/content"
-               style="push"
-               toolbarPath="Normal/additions">
-         </action>
       </actionSet>
       <actionSet
             description="Planning Poker actions"
@@ -89,31 +80,6 @@
       </actionSet>
    </extension>
    <extension
-         point="org.eclipse.ui.viewActions">
-      <viewContribution
-            id="it.uniba.di.cdg.econference.planningpoker.StoriesListViewAction"
-            targetID="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView">
-         <action
-               class="it.uniba.di.cdg.econference.planningpoker.actions.LoadUserStoriesActionDelegate"
-               icon="icons/loadBacklog.gif"
-               id="it.uniba.di.cdg.econference.planningpoker.NewBacklogAction"
-               label="New Backlog"
-               style="push"
-               toolbarPath="additions"
-               tooltip="Load a new list of User Stories">
-         </action>
-         <action
-               class="it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryAction"
-               icon="icons/new-user-story.gif"
-               id="it.uniba.di.cdg.econference.planningpoker.addNewStory"
-               label="New User Story"
-               style="push"
-               toolbarPath="additions"
-               tooltip="Add a new Story in the list">
-         </action>
-      </viewContribution>
-   </extension>
-   <extension
          point="org.eclipse.ui.perspectives">
       <perspective
             class="it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective"
@@ -133,8 +99,7 @@
                minimized="false"
                moveable="true"
                ratio="0.3"
-               relationship="stack"
-               relative="it.uniba.di.cdg.econference.planningpoker.topLeftFolder"
+               relationship="stack"               
                showTitle="true"
                standalone="false"
                visible="true">
@@ -146,12 +111,61 @@
                moveable="true"
                ratio="0.3"
                relationship="stack"
-               relative="it.uniba.di.cdg.econference.planningpoker.topLeftFolder"
                showTitle="true"
                standalone="false"
                visible="true">
          </view>
       </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="palnningpoker.participantContribution"
+            objectClass="it.uniba.di.cdg.xcore.multichat.model.IParticipant">
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.MakeVoterAction"
+               enablesFor="1"
+               icon="icons/grantVoter16x16.png"
+               id="it.uniba.di.cdg.econference.planningpoker.action.popup.makeVoterAction"
+               label="Grant the user voter privilege"
+               tooltip="Permit to select a card from deck">
+            <enablement>
+               <and>
+                  <objectState
+                        name="myRole"
+                        value="MODERATOR">
+                  </objectState>
+                  <not>
+                     <objectState
+                           name="specialRole"
+                           value="VOTER">
+                     </objectState>
+                  </not>
+               </and>
+            </enablement>
+         </action>
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.UnMakeVoterAction"
+               enablesFor="1"
+               icon="icons/revokeVoter16x16.png"
+               id="it.uniba.di.cdg.econference.planningpoker.action.popup.unmakeVoterAction"
+               label="Revoke the voter privilege"
+               tooltip="Make this user uncapable of selecting a card from deck">
+            <enablement>
+               <and>
+                  <objectState
+                        name="myRole"
+                        value="MODERATOR">
+                  </objectState>
+                  <objectState
+                        name="specialRole"
+                        value="VOTER">
+                  </objectState>
+               </and>
+            </enablement>
+         </action>
+      </objectContribution>
    </extension>
 
 </plugin>

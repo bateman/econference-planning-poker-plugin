@@ -14,17 +14,9 @@ import org.eclipse.ui.IWorkbenchWindow;
 public class AddUserStoryAction extends Action {
 
 	public static final String ID = "it.uniba.di.cdg.econference.planningpoker.addUserStoryAction";
-	
-	
-	//private Role role;
+
 
 	private IViewPart view;
-	
-//	private IPropertyChangeListener propListener = new IPropertyChangeListener() {
-//		public void propertyChange(PropertyChangeEvent event) {
-//			action.setEnabled(Role.MODERATOR.equals(role));
-//		}
-//	};
 	
 	public AddUserStoryAction(IViewPart view) {
 		super();

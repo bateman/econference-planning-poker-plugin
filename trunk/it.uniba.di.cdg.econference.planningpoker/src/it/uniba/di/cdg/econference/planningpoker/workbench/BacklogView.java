@@ -13,6 +13,8 @@ import it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.DeleteUserStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.EditUserStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.EstimateStoryAction;
+import it.uniba.di.cdg.econference.planningpoker.actions.ExportBacklogAction;
+import it.uniba.di.cdg.econference.planningpoker.actions.ImportBacklogAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModelListener;
 import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListenerAdapter;
@@ -54,6 +56,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.ViewPart;
 
@@ -72,6 +75,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	private DeleteUserStoryAction deleteStoryAction;
 	private AddUserStoryAction addStoryAction;
 	private EstimateStoryAction estimateStoryAction;
+	private ImportBacklogAction importBacklogAction;
+	private ExportBacklogAction exportBacklogAction;
 
 	private IPlanningPokerManager manager;
 
@@ -91,7 +96,6 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		}
 
 	};
-
 
 	private IPlanningPokerModelListener ppModelListener = new PlanningPokerModelListenerAdapter() {
 		@Override
@@ -162,10 +166,22 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	private void makeActions(){
 		editStoryAction = new EditUserStoryAction(this);
 		deleteStoryAction = new DeleteUserStoryAction(this);
-		addStoryAction = new AddUserStoryAction(this);
+		addStoryAction = new AddUserStoryAction(this);		
 		estimateStoryAction = new EstimateStoryAction(this);
 		estimateStoryAction.setAccessible(false);
+		
+		importBacklogAction = new ImportBacklogAction(this);
+		exportBacklogAction = new ExportBacklogAction(this);
 	}
+	
+    /**
+     * Add actions to the action and menu bars (local to this view).
+     * @param bars
+     */
+    protected void contributeToActionBars( IActionBars bars ) {
+        bars.getToolBarManager().add( exportBacklogAction );
+        bars.getToolBarManager().add( importBacklogAction );
+    }
 
 	private void createContextMenu(){		
 		menuMgr = new MenuManager("StoriesListViewActionPopup");
@@ -208,6 +224,9 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		        
 		createContextMenu();
 		makeActions();
+		
+		contributeToActionBars( getViewSite().getActionBars() );
+		
 		makeStyledCellTable();  
 		
 		
@@ -354,6 +373,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		editStoryAction.setAccessible(!readOnly);
 		deleteStoryAction.setAccessible(!readOnly);		
 		addStoryAction.setEnabled(!readOnly);
+		importBacklogAction.setEnabled(!readOnly);
+		exportBacklogAction.setEnabled(!readOnly);
 		
 		//only if planning poker has been already started, it is possible estimate a story
 		if(getModel()!=null && getModel().getStatus().equals(ConferenceStatus.STARTED)){

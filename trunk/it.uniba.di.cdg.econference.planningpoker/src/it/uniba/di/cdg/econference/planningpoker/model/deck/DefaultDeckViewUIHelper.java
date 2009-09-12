@@ -128,8 +128,8 @@ public class DefaultDeckViewUIHelper implements IDeckViewUIHelper {
 	}
 
 	@Override
-	public void setReadOnly(boolean readOnly) {
-		parent.setEnabled(!readOnly);	
+	public void setDeckEnable(boolean enable) {
+		parent.setEnabled(enable);	
 		clearSelection();
 	}
 

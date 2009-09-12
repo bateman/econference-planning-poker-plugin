@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.workbench;
 
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
+import it.uniba.di.cdg.econference.planningpoker.actions.EditDeckAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.SelectCardAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModelListener;
@@ -17,6 +18,7 @@ import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 import it.uniba.di.cdg.xcore.multichat.model.ParticipantSpecialPrivileges;
 
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.ViewPart;
 
 public class DeckView extends ViewPart implements IDeckView {
@@ -32,6 +34,8 @@ public class DeckView extends ViewPart implements IDeckView {
 	
 	private IPokerCard selectedCard;
 	private SelectCardAction selectCardAction; 
+	
+	private EditDeckAction editBacklogAction;
 
 	public DeckView() {
 		// TODO Auto-generated constructor stub
@@ -68,11 +72,11 @@ public class DeckView extends ViewPart implements IDeckView {
 	private IItemListListener voterListener = new ItemListListenerAdapter() {
 
 		public void itemAdded(Object item) {
-			updateActionsAccordingToRole();
+			updateActionsAccordingToContext();
 		};
 
 		public void itemRemoved(Object item) {	
-			updateActionsAccordingToRole();
+			updateActionsAccordingToContext();
 		};
 
 	};
@@ -91,7 +95,7 @@ public class DeckView extends ViewPart implements IDeckView {
 		
 		public void estimateSessionOpened() {
 			getModel().getEstimateSession().addListener(estimatesListener);
-			updateActionsAccordingToRole();	
+			updateActionsAccordingToContext();	
 		};		
 	
 	};
@@ -109,35 +113,36 @@ public class DeckView extends ViewPart implements IDeckView {
 				String storyId, String estimateId) {
 			if(EstimateStatus.CLOSED.equals(status) ||
 					EstimateStatus.COMPLETED.equals(status))
-				updateActionsAccordingToRole();
+				updateActionsAccordingToContext();
 		}
 
 	};
-	
 
 	@Override
 	//Part control is created in the uiHelper in its constructor	
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
-		
 		makeActions();
+		contributeToActionBars( getViewSite().getActionBars() );
 	}
+	
+	/**
+     * Add actions to the action and menu bars (local to this view).
+     * @param bars
+     */
+    protected void contributeToActionBars( IActionBars bars ) {
+        bars.getToolBarManager().add( editBacklogAction );       
+    }
 	
 	private void makeActions(){
 		selectCardAction = new SelectCardAction(this);
+		editBacklogAction = new EditDeckAction(this);
 	}
 	
 	@Override
 	public IPokerCard getSelectedCard() {
 		return selectedCard;
 	}
-
-	@Override
-	public void setSelectedCard(IPokerCard selectedCard) {
-		this.selectedCard = selectedCard;
-
-	}
-
 
 	@Override
 	@SwtAsyncExec
@@ -162,8 +167,8 @@ public class DeckView extends ViewPart implements IDeckView {
 		
 	}
 
-	private void updateActionsAccordingToRole() {
-		setReadOnly(!(getModel()!=null &&
+	private void updateActionsAccordingToContext() {
+		setDeckEnable((getModel()!=null &&
 				getModel().getEstimateSession()!= null &&
 				getModel().getEstimateSession().getStatus()==EstimateStatus.CREATED &&
 				getModel().getLocalUser().hasSpecialPrivilege(ParticipantSpecialPrivileges.VOTER)));	
@@ -186,14 +191,20 @@ public class DeckView extends ViewPart implements IDeckView {
 
 	@Override
 	@SwtAsyncExec
-	public void setReadOnly(boolean readOnly) {
-		//System.out.println("SET READ ONLY "+readOnly);
-		uiHelper.setReadOnly(readOnly);			
+	public void setReadOnly(boolean readOnly) {		
+		updateActionsAccordingToContext();	
+		editBacklogAction.setEnabled(!readOnly);
 	}
 
 	@Override
 	public void setFocus() {
 		//uiHelper.setFocus();	
+	}
+	
+	@SwtAsyncExec
+	@Override	
+	public void setDeckEnable(boolean enable){
+		uiHelper.setDeckEnable(enable);	
 	}
 
 	@Override
