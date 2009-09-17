@@ -250,7 +250,7 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 			if(story==null){
 				//We have to check if new inserted id doesn't exists in the backlog
 				for (int i = 0; i < backlog.getUserStories().length; i++) {
-					if(backlog.getUserStories()[i].getId().equals(story.getId())){
+					if(backlog.getUserStories()[i].getId().equals(txt_id.getText())){
 						setErrorMessage("Id already exisisting");
 						return false;
 					}

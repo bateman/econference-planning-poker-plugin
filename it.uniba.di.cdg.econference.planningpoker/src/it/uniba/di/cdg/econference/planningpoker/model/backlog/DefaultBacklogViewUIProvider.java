@@ -4,12 +4,15 @@ import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 
 import it.uniba.di.cdg.econference.planningpoker.dialogs.DefaultUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
+import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 
+import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
@@ -83,17 +86,40 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 	
 	
 	@Override
+	@SwtAsyncExec
 	public void createColumns(TableViewer viewer) {
 		String[] titles = new String[] {"Story Text","Priority","Estimate"};
-		int[] bounds = new int[] {360,50,70};
+		int[] bounds = new int[] {350,60,70};
 		AutoResizeTableLayout layout = (AutoResizeTableLayout) viewer.getTable().getLayout();
 		for (int i = 0; i < titles.length; i++) {
+			final int index = i;
 			TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
 			column.getColumn().setText(titles[i]);
 			//column.getColumn().setWidth(bounds[i]);
 			column.getColumn().setResizable(true);
 			column.getColumn().setMoveable(true);			
-			layout.addColumnData(new ColumnWeightData(bounds[i]));
+			layout.addColumnData(new ColumnWeightData(bounds[i]));	
+			column.setLabelProvider(new CellLabelProvider() {
+				
+				@Override
+				public void update(ViewerCell cell) {
+					DefaultUserStory story = (DefaultUserStory) cell.getElement();
+					switch(index){
+					case 0:
+						cell.setText(story.getStoryText());
+						break;
+					case 1:
+						cell.setText(story.getPriority().getName());
+						break;
+					case 2:
+						cell.setText(story.getEstimate().toString());
+						break;
+					}
+					
+					
+					
+				}
+			});
 			//column.setEditingSupport(new SimpleBacklogEditingSupport(viewer,i));
 		}
 		Table table = viewer.getTable();

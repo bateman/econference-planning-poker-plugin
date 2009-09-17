@@ -305,9 +305,10 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		this.manager = manager;
 
 		IBacklogViewUIProvider provider = getModel().getFactory().createBacklogViewUIProvider();
-		provider.createColumns(viewer);
 		viewer.setContentProvider(provider);
-		viewer.setLabelProvider(provider);
+		//viewer.setLabelProvider(provider);
+		provider.createColumns(viewer);
+		
 		
 		getModel().addListener( ppModelListener );
 		//The backlog could be null if no backlog was specified in the PP XML file        
