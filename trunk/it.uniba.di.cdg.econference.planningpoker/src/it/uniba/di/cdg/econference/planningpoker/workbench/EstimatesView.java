@@ -59,6 +59,8 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 					&& ( getModel().getEstimateSession()==null
 					|| !getModel().getEstimateSession().getUserStoryId().equals(String.valueOf(currItemIndex)))){	//TODO: sostituire l'index con l'id della story				
 				createEstimationList(String.valueOf(currItemIndex));
+				if(!isReadOnly())
+					finalEstimateText.setText("");
 			}
 		}			
 

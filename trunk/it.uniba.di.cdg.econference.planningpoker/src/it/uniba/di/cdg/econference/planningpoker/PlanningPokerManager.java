@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
+
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
@@ -36,10 +37,10 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
     private EstimatesView estimatesView;
     
     private BacklogView storiesListView;
-	
-    
+        
 	@Override
-	protected void setupUI() throws WorkbenchException {	
+	protected void setupUI() throws WorkbenchException {
+		    
 		super.setupUI();
 		getUihelper().switchPerspective( PlanningPokerPerspective.ID );
 		
@@ -72,9 +73,10 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
      */
     @Override
     protected void setupListeners() {
-    	 EConferenceManager.CONFERENCE_STARTED_MESSAGE = "The meeting has been STARTED";
-         EConferenceManager.CONFERENCE_STOPPED_MESSAGE = "The meeting has been STOPPED";
-         
+    	 
+        CONFERENCE_STARTED_MESSAGE = "The meeting has been STARTED";
+        CONFERENCE_STOPPED_MESSAGE = "The meeting has been STOPPED";
+        
         super.setupListeners();                             
         
         final IPlanningPokerModel model = (IPlanningPokerModel) getService().getModel();     

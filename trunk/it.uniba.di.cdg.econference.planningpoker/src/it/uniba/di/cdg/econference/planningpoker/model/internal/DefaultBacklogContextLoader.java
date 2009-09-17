@@ -52,7 +52,7 @@ public class DefaultBacklogContextLoader implements IBacklogContextLoader {
 
 						String estimate = xPath.evaluate( XMLUtils.ELEMENT_STORY_ESTIMATE, storyNode );
 						if(estimate == null || estimate=="")
-							estimate ="Unknown";
+							estimate ="?";
 
 						result.addItem(new DefaultUserStory(id, XMLUtils.getDateFromString(createdOn), 
 								XMLUtils.getDateFromString(lastUpdate), 

@@ -71,6 +71,7 @@ public class ImportBacklogAction extends Action {
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					UiPlugin.getUIHelper().showErrorMessage( "Could not import this Backlog file: " + e.getMessage() );
 				}				
 			}
 			
