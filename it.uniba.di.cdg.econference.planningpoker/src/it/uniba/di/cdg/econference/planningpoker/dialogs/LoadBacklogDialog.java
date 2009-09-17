@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Text;
 
 public class LoadBacklogDialog extends Dialog {
 
-	public static final String[] FILE_EXT = new String[] { "*.ecx","*.xml" };
+	public static final String[] FILE_EXT = new String[] {"*.xml", "*.ecx" };
 	private Text selectedFileNameText;
 	private String fileName;
 

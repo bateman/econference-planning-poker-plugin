@@ -46,9 +46,9 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		plugin = this;
-		EConferencePlugin defaultPlugin = EConferencePlugin.getDefault(); 
-		defaultPlugin.setHelper(new PlanningPokerHelper( UiPlugin.getUIHelper(), NetworkPlugin.getDefault().getHelper()));        
+		EConferencePlugin defaultPlugin = EConferencePlugin.getDefault();
+        defaultPlugin.setHelper(new PlanningPokerHelper( UiPlugin.getUIHelper(), NetworkPlugin.getDefault().getHelper()));
+		plugin = this;		       
 		factory = new DefaultModelFactory();
 	}
 	
@@ -79,17 +79,6 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
         return plugin;
     }
 
-
-
-    /**
-     * Returns the helper for this plug-in.
-     * 
-     * @return
-     */
- /*   public IEConferenceHelper getHelper() {
-        return helper;
-    }*/
-    
     
 	/**
 	 * Returns an image descriptor for the image file at the given

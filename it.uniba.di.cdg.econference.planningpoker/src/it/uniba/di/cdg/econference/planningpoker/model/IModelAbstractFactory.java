@@ -11,9 +11,12 @@ import org.eclipse.swt.widgets.Shell;
 
 public interface IModelAbstractFactory {
 
+
 	IUserStoryDialog createUserStoryDialog(Shell shell);
 	
 	IBacklogViewUIProvider createBacklogViewUIProvider();
+	
+	IBacklogContextLoader createBacklogContextLoader();	
 	
 	/**
 	 * The UI Helper takes the Composite control of the view, in order to create
@@ -29,14 +32,5 @@ public interface IModelAbstractFactory {
 	
 	
 	IEstimatesViewUIProvider createEstimateViewUIHelper();
-	
-	
-	IBacklogContextLoader createBacklogContextLoader();	
-	
-	/*FIXME: the factory should create the packet product too,
-	/* but this plugin has to be independent of the implementation
-	 * plugin, like jabber or smack?
-	 */
-	//public IBacklogPacket createBacklogJabberPacket();
 
 }

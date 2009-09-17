@@ -13,7 +13,7 @@
             class="it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView"
             icon="icons/backlog/user-story.gif"
             id="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
-            name="User Stories"
+            name="Backlog"
             restorable="true">
       </view>
       <view
@@ -21,7 +21,7 @@
             class="it.uniba.di.cdg.econference.planningpoker.workbench.DeckView"
             icon="icons/deck/deck16x16.png"
             id="it.uniba.di.cdg.econference.planningpoker.DeckView"
-            name="Cards Deck"
+            name="Deck"
             restorable="true">
       </view>
       <view
@@ -142,6 +142,12 @@
                            value="VOTER">
                      </objectState>
                   </not>
+                  <and>
+                     <objectState
+                           name="service"
+                           value="planning-poker">
+                     </objectState>
+                  </and>
                </and>
             </enablement>
          </action>
@@ -166,6 +172,18 @@
             </enablement>
          </action>
       </objectContribution>
+   </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench"
+            name="eConference3P">
+         <property
+               name="appName"
+               value="eConference3P">
+         </property>
+      </product>
    </extension>
 
 </plugin>

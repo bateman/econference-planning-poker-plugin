@@ -1,5 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.utils;
 
+import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class AutoResizeTableLayout extends TableLayout implements
         table.addControlListener(this);
     }
     
+    @SwtAsyncExec
     public void addColumnData(ColumnLayoutData data) {
         columns.add(data);
         super.addColumnData(data);
@@ -44,6 +47,7 @@ public class AutoResizeTableLayout extends TableLayout implements
         }
     }
     
+    @SwtAsyncExec
     private void autoSizeColumns() {
         int width = table.getClientArea().width;     
         if (width <= 1) {
