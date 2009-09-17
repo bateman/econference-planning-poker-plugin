@@ -24,41 +24,44 @@ public class DefaultBacklogContextLoader implements IBacklogContextLoader {
 
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath = factory.newXPath();            
-			
+
 			Node backlog = (Node) xPath.evaluate( "//backlog", doc, XPathConstants.NODE );  
-			
-			NodeList stories = (NodeList) xPath.evaluate( "story", backlog, XPathConstants.NODESET );            
 
-			if(stories.getLength()>0){				
-				result = new Backlog();
-				for (int i = 0; i < stories.getLength(); i++) {            	
-					Node storyNode = stories.item( i );
+			if(backlog!=null){
 
-					String id = xPath.evaluate( XMLUtils.ELEMENT_STORY_ID, storyNode ); 
+				NodeList stories = (NodeList) xPath.evaluate( "story", backlog, XPathConstants.NODESET );            
 
-					if(id!=null && id!=""){   
-						
-						String createdOn = xPath.evaluate( XMLUtils.ELEMENT_STORY_CREATED_ON, storyNode );
-						
-						String lastUpdate = xPath.evaluate( XMLUtils.ELEMENT_STORY_LAST_UPDATE, storyNode );
+				if(stories.getLength()>0){				
+					result = new Backlog();
+					for (int i = 0; i < stories.getLength(); i++) {            	
+						Node storyNode = stories.item( i );
 
-						String priorityString = xPath.evaluate( XMLUtils.ELEMENT_STORY_PRIORITY, storyNode );												
-						
-						PRIORITY priority = PRIORITY.valueOf(priorityString.toUpperCase());	   
+						String id = xPath.evaluate( XMLUtils.ELEMENT_STORY_ID, storyNode ); 
 
-						String storyText = xPath.evaluate( XMLUtils.ELEMENT_STORY_TEXT, storyNode );
+						if(id!=null && id!=""){   
 
-						String notes = xPath.evaluate( XMLUtils.ELEMENT_STORY_NOTES, storyNode );
+							String createdOn = xPath.evaluate( XMLUtils.ELEMENT_STORY_CREATED_ON, storyNode );
 
-						String estimate = xPath.evaluate( XMLUtils.ELEMENT_STORY_ESTIMATE, storyNode );
-						if(estimate == null || estimate=="")
-							estimate ="?";
+							String lastUpdate = xPath.evaluate( XMLUtils.ELEMENT_STORY_LAST_UPDATE, storyNode );
 
-						result.addItem(new DefaultUserStory(id, XMLUtils.getDateFromString(createdOn), 
-								XMLUtils.getDateFromString(lastUpdate), 
-								storyText,priority,notes,estimate));
-					}else{
-						System.err.println("Parsed User Story without id");
+							String priorityString = xPath.evaluate( XMLUtils.ELEMENT_STORY_PRIORITY, storyNode );												
+
+							PRIORITY priority = PRIORITY.valueOf(priorityString.toUpperCase());	   
+
+							String storyText = xPath.evaluate( XMLUtils.ELEMENT_STORY_TEXT, storyNode );
+
+							String notes = xPath.evaluate( XMLUtils.ELEMENT_STORY_NOTES, storyNode );
+
+							String estimate = xPath.evaluate( XMLUtils.ELEMENT_STORY_ESTIMATE, storyNode );
+							if(estimate == null || estimate=="")
+								estimate ="?";
+
+							result.addItem(new DefaultUserStory(id, XMLUtils.getDateFromString(createdOn), 
+									XMLUtils.getDateFromString(lastUpdate), 
+									storyText,priority,notes,estimate));
+						}else{
+							System.err.println("Parsed User Story without id");
+						}
 					}
 				}
 			}

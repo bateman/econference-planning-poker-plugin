@@ -4,6 +4,7 @@ import it.uniba.di.cdg.econference.planningpoker.PlanningPokerContext;
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.IBacklogContextLoader;
 import it.uniba.di.cdg.econference.planningpoker.model.IModelAbstractFactory;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.utils.XMLUtils;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
 import it.uniba.di.cdg.xcore.econference.model.InvalidContextException;
@@ -116,8 +117,12 @@ public class PPContextLoader {
 
     			IBacklogContextLoader backlogLoader = PlanningPokerPlugin
     			.getDefault().getModelFactory()
-    			.createBacklogContextLoader();			
-    			context.setBacklog(backlogLoader.load(doc));
+    			.createBacklogContextLoader();	
+    			
+    			Backlog backlog = backlogLoader.load(doc);
+    			
+    			if(backlog!=null)
+    				context.setBacklog(backlog);
             }else{
             	throw new InvalidContextException("Wrong Planning Poker file. Invalid service name: "+service);
             }

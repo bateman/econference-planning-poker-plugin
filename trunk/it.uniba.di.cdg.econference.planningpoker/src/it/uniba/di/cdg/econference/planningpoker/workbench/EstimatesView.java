@@ -18,6 +18,7 @@ import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
+import it.uniba.di.cdg.xcore.network.messages.SystemMessage;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -47,6 +48,8 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	private Button restimationButton;
 	private Button acceptButton;
 	private Text finalEstimateText;
+	
+	private static String SYSTEM_MESSAGE = "SYSTEM MESSAGE"; 
 	
 	
 	private IItemListListener backlogListener = new ItemListListenerAdapter() {
@@ -88,6 +91,8 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 
 		@Override
 		public void estimateAdded(String userId, IPokerCard card) {	
+			getManager().getTalkView().appendMessage( new SystemMessage( SYSTEM_MESSAGE+": "
+					+getModel().getParticipant(userId).getNickName()+" HAS ESTIMATED" ));
 			System.out.println("estimated added from "+userId+" value: "+card.getStringValue());
 			changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);	
 		}
@@ -101,6 +106,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		@SwtAsyncExec
 		public void estimateStatusChanged(EstimateStatus status, String storyId, String estimateId) {
 			if(EstimateStatus.COMPLETED.equals(status)){
+				getManager().getTalkView().appendMessage( new SystemMessage( SYSTEM_MESSAGE+ ": ESTIMATES ARE AVAILABLE" ));
 				//TODO: implementare il metodo per memorizzare queste stime nella history
 				changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), true);
 				setRestimateButtonEnable(true);	
@@ -200,6 +206,8 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	        	public void widgetSelected(SelectionEvent e) {
 	        		if(!isReadOnly()){
 	        			int currItemIndex = getModel().getBacklog().getCurrentItemIndex();
+	        			getManager().getTalkView().appendMessage( new SystemMessage( SYSTEM_MESSAGE+": MODERATOR HAS ESTABILISHED" +
+	        					"THE NEED OF RE-ESTIMATE" ));
 	        			createEstimationList(String.valueOf(currItemIndex));
 	        		}
 	        	}
@@ -276,7 +284,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 			getModel().getFactory().createEstimateViewUIHelper();
 		provider.createColumns(viewer);
 		viewer.setContentProvider(provider);
-		viewer.setLabelProvider(provider);
+		//viewer.setLabelProvider(provider);
 		
 	}
 	
