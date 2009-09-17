@@ -63,9 +63,11 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
         storiesListView.setManager(this);
         storiesListView.setReadOnly(!Role.MODERATOR.equals(getRole()));        
         
-        //Moderator must be able to write the Whiteboard
-       if(Role.MODERATOR.equals(getRole()))
-        		getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.SCRIBE);      	
+        //Moderator must be able to write the Whiteboard while participant has the voter privileges as default
+        if(Role.MODERATOR.equals(getRole()))
+        	getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.SCRIBE);   
+        else
+        	getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.VOTER);   
 	}
 	
 	 /* (non-Javadoc)
