@@ -49,6 +49,14 @@ public class CardDeck{
 		}
 	}
 	
+	
+	public void addCard(IPokerCard card, int index){
+		cards.add(index, card);
+		for(IItemListListener l : listeners){
+			l.itemAdded(card);
+		}
+	}
+	
 	/**
 	 * Remove one card from deck. This method should be used to 
 	 * edit the deck before starting Planning Poker

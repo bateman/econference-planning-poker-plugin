@@ -1,11 +1,13 @@
 package it.uniba.di.cdg.econference.planningpoker.dialogs;
 
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 
 import org.eclipse.jface.dialogs.TitleAreaDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -22,6 +24,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 public class DefaultDeckEditorDialog extends TitleAreaDialog implements IDeckEditorDialog {
@@ -142,21 +145,37 @@ public class DefaultDeckEditorDialog extends TitleAreaDialog implements IDeckEdi
 //		newCard.setLayoutData(gd);
 //		
 //		gd = new GridData();
+		gd.horizontalAlignment = SWT.CENTER;
 		
-		gd.verticalSpan = 2;
+		Label availableLabel = new Label(root, SWT.NONE);
+		availableLabel.setText("Available Cards");
+		availableLabel.setLayoutData(gd);
+		
+		gd = new GridData();
+		gd.horizontalSpan = 2;
+		gd.horizontalAlignment = SWT.CENTER;
+		
+		Label actualLabel = new Label(root, SWT.NONE);
+		actualLabel.setText("Selected Cards");
+		actualLabel.setLayoutData(gd);
+				
+		gd = new GridData();
+		
+		gd.verticalSpan = 4;
 		gd.widthHint = 150;
 		gd.heightHint = 120;
 		
-		actualCardsViewer = new TableViewer(root, SWT.FULL_SELECTION | SWT.BORDER | SWT.H_SCROLL  | SWT.V_SCROLL);	
-		actualCardsViewer.getTable().setLayoutData(gd);
-		actualCardsViewer.setContentProvider(contentProvider);
-		actualCardsViewer.setLabelProvider(labelProvider);
+		availableCardsViewer = new TableViewer(root, SWT.FULL_SELECTION | SWT.BORDER | SWT.H_SCROLL  | SWT.V_SCROLL);	
+		availableCardsViewer.getTable().setLayoutData(gd);
+		availableCardsViewer.setContentProvider(contentProvider);
+		availableCardsViewer.setLabelProvider(labelProvider);
 		
 		gd = new GridData();	
-		gd.widthHint = 25;
+		gd.widthHint = 30;
+		gd.verticalAlignment = SWT.TOP;
 		
 		Button removeCard = new Button(root, SWT.PUSH);
-		removeCard.setText(">>");
+		removeCard.setText("<<");
 		removeCard.setLayoutData(gd);
 		removeCard.addSelectionListener(new SelectionAdapter(){
 	    	@Override
@@ -166,22 +185,61 @@ public class DefaultDeckEditorDialog extends TitleAreaDialog implements IDeckEdi
 		});
 
 		gd = new GridData();
-		gd.verticalSpan = 2;
+		gd.verticalSpan = 4;
 		gd.widthHint = 150;
 		gd.heightHint = 120;
 		
-		availableCardsViewer = new TableViewer(root, SWT.FULL_SELECTION | SWT.BORDER | SWT.H_SCROLL  | SWT.V_SCROLL);	
-		availableCardsViewer.getTable().setLayoutData(gd);
-		availableCardsViewer.setContentProvider(contentProvider);
-		availableCardsViewer.setLabelProvider(labelProvider);
-		
+		actualCardsViewer = new TableViewer(root, SWT.FULL_SELECTION | SWT.BORDER | SWT.H_SCROLL  | SWT.V_SCROLL);	
+		actualCardsViewer.getTable().setLayoutData(gd);
+		actualCardsViewer.setContentProvider(contentProvider);
+		actualCardsViewer.setLabelProvider(labelProvider);
 		
 		gd = new GridData();
-		gd.widthHint = 25;
+		gd.widthHint = 30;
+		gd.verticalAlignment = SWT.CENTER;
+		
+		Button upButton = new Button(root, SWT.PUSH);
+		ImageDescriptor upImage = PlanningPokerPlugin.imageDescriptorFromPlugin(
+				PlanningPokerPlugin.ID, "icons/deck/up16x16.png" );
+		if(upImage!=null){
+			upButton.setImage(upImage.createImage());
+		}else{
+			upButton.setText("Up");
+		}
+		upButton.setLayoutData(gd);
+		upButton.addSelectionListener(new SelectionAdapter(){
+        	@Override
+        	public void widgetSelected(SelectionEvent e) {
+        		moveCardUp();
+        	}
+		});
+		
+		gd = new GridData();
+		gd.widthHint = 30;
+		gd.verticalAlignment = SWT.CENTER;
+
+		Button downButton = new Button(root, SWT.PUSH);
+		ImageDescriptor downImage = PlanningPokerPlugin.imageDescriptorFromPlugin(
+				PlanningPokerPlugin.ID, "icons/deck/down16x16.png" );
+		if(downImage!=null){
+			downButton.setImage(downImage.createImage());
+		}else{
+			downButton.setText("Down");
+		}
+		downButton.setLayoutData(gd);
+		downButton.addSelectionListener(new SelectionAdapter(){
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				moveCardDown();
+			}
+		});
+		
+		gd = new GridData();
+		gd.widthHint = 30;
 		gd.verticalAlignment = SWT.BOTTOM;
 		
 		Button addCard = new Button(root, SWT.PUSH);
-		addCard.setText("<<");
+		addCard.setText(">>");
 		addCard.setLayoutData(gd);
 		addCard.addSelectionListener(new SelectionAdapter(){
         	@Override
@@ -190,10 +248,47 @@ public class DefaultDeckEditorDialog extends TitleAreaDialog implements IDeckEdi
         	}
 		});
 		
+			
+		
 		fillLists();
 		
 		
 		return root;
+	}
+
+	protected void moveCardDown() {
+		IPokerCard card = getSelectedCard(actualCardsViewer);
+		if(card!=null){
+			int index = indexOf(card);
+			if(index!=-1 && index!=deck.size()-1){
+				deck.removeCard(index);	
+				deck.addCard(card, ++index);
+			}
+			fillLists();
+		}			
+	}
+
+	protected void moveCardUp() {
+		IPokerCard card = getSelectedCard(actualCardsViewer);
+		if(card!=null){
+			int index = indexOf(card);
+			if(index!=-1 && index!=0){
+				deck.removeCard(index);	
+				deck.addCard(card, --index);
+			}
+			fillLists();
+		}		
+	}	
+
+	private int indexOf(IPokerCard card) {
+		int index  = -1;
+		for (int i = 0; i < deck.getCards().length; i++) {
+			IPokerCard currentCard = deck.getCard(i);
+			if(currentCard.equals(card)){
+				index = i;
+			}
+		}
+		return index;
 	}
 
 	@SwtAsyncExec
