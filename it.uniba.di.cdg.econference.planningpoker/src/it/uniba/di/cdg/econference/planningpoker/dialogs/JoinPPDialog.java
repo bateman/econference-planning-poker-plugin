@@ -17,6 +17,7 @@ public class JoinPPDialog extends Dialog {
 	private LoadPPFileDialogUI ui;
 	private String fileName;
 	private String nickName;
+	private String status;
 	private boolean sendInvitations;
 
 	public JoinPPDialog(Shell parentShell) {
@@ -40,10 +41,12 @@ public class JoinPPDialog extends Dialog {
     protected void okPressed() {
         fileName = ui.getFileName();
         nickName = ui.getNickName();
+        status = ui.getPersonalStatus();
         sendInvitations = ui.sendInvitations();
         
         if (validate()) {
             getContext().setNickName( nickName );
+            getContext().setPersonalStatus(status);
             super.okPressed();
         } else {
             UiPlugin.getUIHelper().showErrorMessage( "Please fill all required fields" );

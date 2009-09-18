@@ -17,6 +17,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 public class LoadPPFileDialogUI extends Composite {
@@ -32,8 +33,11 @@ public class LoadPPFileDialogUI extends Composite {
 	    private Button sendInvitationsCheckBox = null;
 	    private CLabel cLabel = null;	   
 	    private Text nickNameText = null;
+	    private CLabel cLabel1;
+	    private Text statusText;
 
 	    private PlanningPokerContext context;
+
 	
 	public LoadPPFileDialogUI(Composite parent, int style) {
 		super(parent, style);
@@ -126,7 +130,16 @@ public class LoadPPFileDialogUI extends Composite {
 	        cLabel = new CLabel(fileNameComposite, SWT.NONE);
 	        cLabel.setText("Nickname:");
 	        nickNameText = new Text(fileNameComposite, SWT.BORDER);
-	        nickNameText.setLayoutData(gridData11);	        
+	        nickNameText.setLayoutData(gridData11);	 
+	        //Empty label to leave the grid data cell blank
+	        Label emptyLabel = new Label(fileNameComposite, SWT.NONE);
+	        emptyLabel.setLayoutData(gridData11);
+	        
+	        cLabel1 = new CLabel(fileNameComposite, SWT.NONE);
+	        cLabel1.setText("Role:");
+	        statusText = new Text(fileNameComposite, SWT.BORDER);
+	        statusText.setLayoutData(gridData11);
+	        statusText.setToolTipText("Insert your personal role in the Planning Poker team");
 		
 	}
 	
@@ -184,6 +197,10 @@ public class LoadPPFileDialogUI extends Composite {
 
 	public String getNickName() {
 		 return nickNameText.getText();
+	}
+	
+	public String getPersonalStatus(){
+		return statusText.getText();
 	}
 
 	public boolean sendInvitations() {

@@ -48,10 +48,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	private Button restimationButton;
 	private Button acceptButton;
 	private Text finalEstimateText;
-	
-	private static String SYSTEM_MESSAGE = "SYSTEM MESSAGE"; 
-	
-	
+		
 	private IItemListListener backlogListener = new ItemListListenerAdapter() {
 		
 		@SwtAsyncExec
@@ -91,8 +88,8 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 
 		@Override
 		public void estimateAdded(String userId, IPokerCard card) {	
-			getManager().getTalkView().appendMessage( new SystemMessage( SYSTEM_MESSAGE+": "
-					+getModel().getParticipant(userId).getNickName()+" HAS ESTIMATED" ));
+			getManager().getTalkView().appendMessage( new SystemMessage( 
+					getModel().getParticipant(userId).getNickName()+" HAS ESTIMATED" ));
 			System.out.println("estimated added from "+userId+" value: "+card.getStringValue());
 			changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);	
 		}
@@ -106,7 +103,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		@SwtAsyncExec
 		public void estimateStatusChanged(EstimateStatus status, String storyId, String estimateId) {
 			if(EstimateStatus.COMPLETED.equals(status)){
-				getManager().getTalkView().appendMessage( new SystemMessage( SYSTEM_MESSAGE+ ": ESTIMATES ARE AVAILABLE" ));
+				getManager().getTalkView().appendMessage( new SystemMessage("ESTIMATES ARE AVAILABLE" ));
 				//TODO: implementare il metodo per memorizzare queste stime nella history
 				changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), true);
 				setRestimateButtonEnable(true);	
@@ -141,8 +138,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 
 	
 	
-	public EstimatesView() {
-		// TODO Auto-generated constructor stub
+	public EstimatesView() {		
 	}
 
 	@SwtAsyncExec
@@ -205,9 +201,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	        	@Override
 	        	public void widgetSelected(SelectionEvent e) {
 	        		if(!isReadOnly()){
-	        			int currItemIndex = getModel().getBacklog().getCurrentItemIndex();
-	        			getManager().getTalkView().appendMessage( new SystemMessage( SYSTEM_MESSAGE+": MODERATOR HAS ESTABILISHED" +
-	        					"THE NEED OF RE-ESTIMATE" ));
+	        			int currItemIndex = getModel().getBacklog().getCurrentItemIndex();	        			
 	        			createEstimationList(String.valueOf(currItemIndex));
 	        		}
 	        	}
@@ -231,6 +225,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		root.layout(true);
 	}
 	
+	@SwtAsyncExec
 	protected void setFinalEstimate(String estimate) {
 		boolean contextOk = !isReadOnly() && getModel().getEstimateSession()!=null 
 			&& getModel().getEstimateSession().getStatus()!= EstimateStatus.CLOSED;
@@ -244,6 +239,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 				getModel().getEstimateSession().setStatus(EstimateStatus.CLOSED);
 				getManager().notifyEstimateSessionStatusChange(getModel().getEstimateSession());
 				viewer.getTable().clearAll();
+				getManager().getTalkView().appendMessage( new SystemMessage("THIS STORY HAS ESTIMATED WITH: "+ estimate));
 			}
 		}		
 		
@@ -282,9 +278,9 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		
 		IEstimatesViewUIProvider provider = 
 			getModel().getFactory().createEstimateViewUIHelper();
-		provider.createColumns(viewer);
-		viewer.setContentProvider(provider);
-		//viewer.setLabelProvider(provider);
+		viewer.setContentProvider(provider);	
+		provider.createColumns(viewer);	
+		viewer.refresh();	
 		
 	}
 	

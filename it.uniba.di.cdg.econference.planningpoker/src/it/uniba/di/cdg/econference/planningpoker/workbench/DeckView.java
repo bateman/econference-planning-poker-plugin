@@ -145,7 +145,6 @@ public class DeckView extends ViewPart implements IDeckView {
 	}
 
 	@Override
-	@SwtAsyncExec
 	public void setManager(IPlanningPokerManager manager) {
 		if(this.manager != null){
 			getModel().removeListener(ppModelListener);

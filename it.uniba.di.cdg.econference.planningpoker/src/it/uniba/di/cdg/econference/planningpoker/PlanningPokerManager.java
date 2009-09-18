@@ -1,83 +1,97 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
-
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
 import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.EstimatesView;
+import it.uniba.di.cdg.econference.planningpoker.workbench.IBacklogView;
+import it.uniba.di.cdg.econference.planningpoker.workbench.IDeckView;
+import it.uniba.di.cdg.econference.planningpoker.workbench.IEstimatesView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective;
-import it.uniba.di.cdg.xcore.econference.IEConferenceManager;
 import it.uniba.di.cdg.xcore.econference.IEConferenceService.AgendaOperation;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceManager;
-import it.uniba.di.cdg.xcore.econference.model.ConferenceModelListenerAdapter;
-import it.uniba.di.cdg.xcore.econference.model.IConferenceModel;
-import it.uniba.di.cdg.xcore.econference.model.IItemList;
-import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
-import it.uniba.di.cdg.xcore.multichat.model.ChatRoomModelAdapter;
+import it.uniba.di.cdg.xcore.econference.ui.views.AgendaView;
+import it.uniba.di.cdg.xcore.econference.ui.views.IAgendaView;
+import it.uniba.di.cdg.xcore.econference.ui.views.IWhiteBoard;
+import it.uniba.di.cdg.xcore.econference.ui.views.WhiteBoardView;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
 import it.uniba.di.cdg.xcore.multichat.model.ParticipantSpecialPrivileges;
 import it.uniba.di.cdg.xcore.multichat.model.Privileged;
+import it.uniba.di.cdg.xcore.multichat.model.SpecialPrivilegesAction;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
+import it.uniba.di.cdg.xcore.multichat.ui.views.ChatRoomView;
+import it.uniba.di.cdg.xcore.multichat.ui.views.IChatRoomView;
+import it.uniba.di.cdg.xcore.multichat.ui.views.IMultiChatTalkView;
+import it.uniba.di.cdg.xcore.multichat.ui.views.MultiChatTalkView;
 import it.uniba.di.cdg.xcore.network.BackendException;
 import it.uniba.di.cdg.xcore.network.IBackend;
-import it.uniba.di.cdg.xcore.network.messages.SystemMessage;
-import it.uniba.di.cdg.xcore.network.model.tv.ITalkModel;
 
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.WorkbenchException;
 
 public class PlanningPokerManager extends EConferenceManager implements IPlanningPokerManager {
 	
-	
-    private DeckView deckView;
-    
-    private EstimatesView estimatesView;
-    
-    private BacklogView storiesListView;
         
 	@Override
 	protected void setupUI() throws WorkbenchException {
-		    
-		super.setupUI();
 		getUihelper().switchPerspective( PlanningPokerPerspective.ID );
+
+		IViewPart viewPart;  
 		
-		 boolean conferenceStopped = ConferenceStatus.STOPPED.equals( getService().getModel().getStatus() );
+		viewPart = getWorkbenchWindow().getActivePage().showView( MultiChatTalkView.ID );
+		talkView = (IMultiChatTalkView) viewPart;
+		talkView.setTitleText( getContext().getRoom() );
+		talkView.setModel( getService().getTalkModel() );
+
+		viewPart = (IViewPart) getWorkbenchWindow().getActivePage().findView( ChatRoomView.ID );
+		roomView = (IChatRoomView) viewPart;
+		roomView.setManager( this );
 		
-		IViewPart viewPart;      
-        		
-        viewPart = getWorkbenchWindow().getActivePage().showView( DeckView.ID );
-        deckView = (DeckView) viewPart;
-        deckView.setManager(this);
-        deckView.setReadOnly(!Role.MODERATOR.equals(getRole())); 
+
+		viewPart = getWorkbenchWindow().getActivePage().showView( WhiteBoardView.ID );
+		IWhiteBoard whiteBoardView = (IWhiteBoard) viewPart;
+		whiteBoardView.setManager( this );
+		// By default the whiteboard cannot be modified: when the user is given the SCRIBE 
+		// special role than it will be set read-write
+		whiteBoardView.setReadOnly( true );
+
+		viewPart = getWorkbenchWindow().getActivePage().showView( DeckView.ID );
+		IDeckView deckView = (DeckView) viewPart;
+		deckView.setManager(this);
+        deckView.setReadOnly(!Role.MODERATOR.equals(getRole()));        
         
         viewPart = getWorkbenchWindow().getActivePage().showView( EstimatesView.ID );
-        estimatesView = (EstimatesView) viewPart;   
+        IEstimatesView estimatesView = (EstimatesView) viewPart;   
         estimatesView.setManager(this);
         estimatesView.setReadOnly(!Role.MODERATOR.equals(getRole()));
         
         viewPart = getWorkbenchWindow().getActivePage().showView( BacklogView.ID );
-        storiesListView = (BacklogView) viewPart;
+        IBacklogView storiesListView = (BacklogView) viewPart;
         storiesListView.setManager(this);
         storiesListView.setReadOnly(!Role.MODERATOR.equals(getRole()));        
         
         //Moderator must be able to write the Whiteboard while participant has the voter privileges as default
-        if(Role.MODERATOR.equals(getRole()))
-        	getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.SCRIBE);   
-        else
-        	getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.VOTER);   
+        if(Role.MODERATOR.equals(getRole())){
+        	//getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.SCRIBE);  
+        	getService().notifyChangedSpecialPrivilege(getService().getModel().getLocalUser(), ParticipantSpecialPrivileges.SCRIBE, 
+        			SpecialPrivilegesAction.GRANT);
+        }else{
+        	//getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.VOTER);
+        	getService().notifyChangedSpecialPrivilege(getService().getModel().getLocalUser(), ParticipantSpecialPrivileges.VOTER, 
+        			SpecialPrivilegesAction.GRANT);
+        }
 	}
 	
 	 /* (non-Javadoc)
      * @see it.uniba.di.cdg.xcore.multichat.MultiChat#setupListeners()
      */
     @Override
-    protected void setupListeners() {
-    	 
-        CONFERENCE_STARTED_MESSAGE = "The meeting has been STARTED";
-        CONFERENCE_STOPPED_MESSAGE = "The meeting has been STOPPED";
+    protected void setupListeners() {     
+        conferenceStarteMessage = "The meeting has been STARTED";
+        conferenceStoppedMessage = "The meeting has been STOPPED";
         
         super.setupListeners();                             
         

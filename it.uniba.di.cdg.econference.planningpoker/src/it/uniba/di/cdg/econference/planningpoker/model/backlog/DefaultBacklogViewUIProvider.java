@@ -86,7 +86,6 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 	
 	
 	@Override
-	@SwtAsyncExec
 	public void createColumns(TableViewer viewer) {
 		String[] titles = new String[] {"Story Text","Priority","Estimate"};
 		int[] bounds = new int[] {350,60,70};
