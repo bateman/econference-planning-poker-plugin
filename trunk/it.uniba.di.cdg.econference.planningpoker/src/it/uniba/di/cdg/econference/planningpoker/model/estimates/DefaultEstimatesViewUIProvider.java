@@ -87,7 +87,6 @@ public class DefaultEstimatesViewUIProvider implements IEstimatesViewUIProvider 
 	
 	
 	@Override
-	@SwtAsyncExec
 	public void createColumns(TableViewer viewer) {
 		String[] titles = new String[] {"Participant","Estimate",};
 		int[] bounds = new int[] {200,80};
@@ -109,9 +108,12 @@ public class DefaultEstimatesViewUIProvider implements IEstimatesViewUIProvider 
 					case 0:
 						cell.setText(((IParticipant)result[0]).getNickName());
 						break;
-					case 1:
-						
-						cell.setText(((IPokerCard)result[1]).getStringValue());
+					case 1:	
+						IPokerCard card = (IPokerCard)result[1];
+						if(card!=null)
+							cell.setText(card.getStringValue());
+						else //votes are hidden
+							cell.setText("Hidden");						
 						break;
 					}
 					

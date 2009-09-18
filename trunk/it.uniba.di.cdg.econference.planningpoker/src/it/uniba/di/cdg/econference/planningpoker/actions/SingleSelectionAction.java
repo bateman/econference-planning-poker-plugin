@@ -74,7 +74,7 @@ public class SingleSelectionAction extends Action {
 		listener = null;
 	}
 	
-	@SwtAsyncExec
+	
 	private void setEnabled(IStructuredSelection selection) {		
 		//This action is enable only if one element is selected
 		boolean enabled = selection.size() == 1;

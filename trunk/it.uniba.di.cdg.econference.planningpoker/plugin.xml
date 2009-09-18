@@ -83,39 +83,11 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective"
-            fixed="false"
+            fixed="true"
             icon="icons/poker.gif"
             id="it.uniba.di.cdg.econference.planningpoker.PPPerspective"
             name="Planning Poker">
       </perspective>
-   </extension>
-   <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension
-            targetID="it.uniba.di.cdg.econference.planningpoker.PPPerspective">
-         <view
-               closeable="false"
-               id="it.uniba.di.cdg.xcore.multichat.ui.views.chatRoomView"
-               minimized="false"
-               moveable="true"
-               ratio="0.3"
-               relationship="stack"               
-               showTitle="true"
-               standalone="false"
-               visible="true">
-         </view>
-         <view
-               closeable="false"
-               id="it.uniba.di.cdg.xcore.econference.ui.views.whiteBoardView"
-               minimized="false"
-               moveable="true"
-               ratio="0.3"
-               relationship="stack"
-               showTitle="true"
-               standalone="false"
-               visible="true">
-         </view>
-      </perspectiveExtension>
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
@@ -184,6 +156,72 @@
                value="eConference3P">
          </property>
       </product>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective">
+         <view
+               closeable="false"
+               id="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
+               minimized="false"
+               moveable="true"
+               ratio="0.5"
+               relationship="top"
+               relative="it.uniba.di.cdg.xcore.multichat.ui.views.chatRoomView"
+               showTitle="true"
+               standalone="false"
+               visible="false">
+         </view>
+         <view
+               closeable="false"
+               id="it.uniba.di.cdg.xcore.econference.ui.views.whiteBoardView"
+               minimized="false"
+               moveable="true"
+               ratio="0.4"
+               relationship="right"
+               relative="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
+               showTitle="true"
+               standalone="false"
+               visible="false">
+         </view>
+         <view
+               closeable="false"
+               id="it.uniba.di.cdg.xcore.multichat.ui.views.multiChatTalkView"
+               minimized="false"
+               moveable="true"
+               ratio=".5"
+               relationship="right"
+               relative="it.uniba.di.cdg.xcore.multichat.ui.views.chatRoomView"
+               showTitle="true"
+               standalone="false"
+               visible="false">
+         </view>
+         <view
+               closeable="false"
+               id="it.uniba.di.cdg.econference.planningpoker.DeckView"
+               minimized="false"
+               moveable="true"
+               ratio="0.6"
+               relationship="bottom"
+               relative="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
+               showTitle="true"
+               standalone="false"
+               visible="false">
+         </view>
+         <view
+               closeable="false"
+               id="it.uniba.di.cdg.econference.planningpoker.EstimatesView"
+               minimized="false"
+               moveable="true"
+               ratio="0.6"
+               relationship="stack"
+               relative="it.uniba.di.cdg.econference.planningpoker.DeckView"
+               showTitle="true"
+               standalone="false"
+               visible="false">
+         </view>
+      </perspectiveExtension>
    </extension>
 
 </plugin>
