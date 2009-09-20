@@ -25,20 +25,20 @@ public class PlanningPokerPerspective implements IPerspectiveFactory {
 
         
         layout.addPlaceholder( ChatRoomView.ID + ":*", IPageLayout.LEFT, 0.2f, editorAreaId );
-        layout.addView( ChatRoomView.ID, IPageLayout.LEFT, 0.4f, editorAreaId );
+        layout.addView( ChatRoomView.ID, IPageLayout.LEFT, 0.7f, editorAreaId );
         layout.addShowViewShortcut( ChatRoomView.ID );
 
         //adding the whiteboard view
-        layout.addPlaceholder(WhiteBoardView.ID, IPageLayout.RIGHT,0.4f,ChatRoomView.ID); 
+        layout.addPlaceholder(WhiteBoardView.ID, IPageLayout.RIGHT,0.7f,ChatRoomView.ID); 
 
-        layout.addPlaceholder( MultiChatTalkView.ID, IPageLayout.RIGHT, 0.40f, editorAreaId );
+        layout.addPlaceholder( MultiChatTalkView.ID, IPageLayout.RIGHT, 0.05f, editorAreaId );
 
         //adding the backlog view (this view has to be located under the ChatRoomView and the WhiteBoardView)
         layout.addPlaceholder(BacklogView.ID, IPageLayout.BOTTOM, 0.25f, ChatRoomView.ID);  
 
         layout.addPerspectiveShortcut( ID );
 
-        IFolderLayout bottomLeft = layout.createFolder(BOTTOM_LEFT_FOLDER, IPageLayout.BOTTOM, 0.65f, BacklogView.ID);
+        IFolderLayout bottomLeft = layout.createFolder(BOTTOM_LEFT_FOLDER, IPageLayout.BOTTOM, 0.6f, BacklogView.ID);
 		bottomLeft.addPlaceholder(EstimatesView.ID);
 		bottomLeft.addPlaceholder(DeckView.ID);
 		
