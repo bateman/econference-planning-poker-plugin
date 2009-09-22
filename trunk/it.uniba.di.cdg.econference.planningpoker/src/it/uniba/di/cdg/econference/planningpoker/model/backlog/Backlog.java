@@ -2,17 +2,16 @@ package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
 
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
-import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Backlog implements IItemList {
+public class Backlog {
 
 
-	private Set<IItemListListener> listeners;
+	private Set<IBacklogListener> listeners;
 	
 	private List<IUserStory> stories;
 
@@ -20,12 +19,12 @@ public class Backlog implements IItemList {
 
 	
 	public Backlog() {
-		 this(NO_ITEM_SELECTED);
+		 this(IItemList.NO_ITEM_SELECTED);
 	}
 	
 	public Backlog(int initialIndex) {
 		 current = initialIndex;
-		 listeners  = new HashSet<IItemListListener>();
+		 listeners  = new HashSet<IBacklogListener>();
 		 stories = new ArrayList<IUserStory>();
 	}
 	
@@ -41,33 +40,10 @@ public class Backlog implements IItemList {
 	}
 
 
-//	public void initializeTestData() {
-//		addItem(new DefaultUserStory("Load Backlog", PRIORITY.MEDIUM,
-//				"As a Product Owner " +
-//				"I would like to load a list of stories in the " +
-//				"application as the Backlog so that I can estabilish" +
-//				" which user stories should be estimate in the " +
-//				"meeting", "UNKNOW"));
-//		addItem(new DefaultUserStory("Start Planning Poker Session", 
-//				PRIORITY.HIGH,
-//				"As a moderator I would like to start a new " +
-//				"Planning Poker session so that all participants " +
-//				"can join in", "UNKNOW"));
-//		
-//	}
-
-
-	@Override
-	public void addItem(Object item) {
+	public void addUserStory(IUserStory item) {
 		stories.add((IUserStory) item);
-		 for (IItemListListener l : listeners)
+		 for (IBacklogListener l : listeners)
 	            l.contentChanged( this );
-	}
-
-	@Override
-	public void addItem(String itemText) {
-		// TODO Auto-generated method stub
-		throw new IllegalArgumentException("Cannot add a String item to the Backlog");
 	}
 	
 
@@ -76,78 +52,59 @@ public class Backlog implements IItemList {
 		this.stories.clear();
 		for(IUserStory story : stories)
 			this.stories.add((IUserStory) story);
-		for (IItemListListener l : listeners)
+		for (IBacklogListener l : listeners)
             l.contentChanged( this );		
 	}
 
-	@Override
-	public void addListener(IItemListListener listener) {
+	public void addListener(IBacklogListener listener) {
 		listeners.add(listener);
 		
 	}
 
-	@Override
-	public void decode(String encodedItems) {
-		/* We use the PacketExtensionProvider to parse the content
-		 * of the backlog when it is received from network
-		 */
-	}
 
-	@Override
-	public String encode() {
-		/*We use the PacketExtensionProvider to encode the content
-		 * of the backlog when it is send across the network
-		 */
-		return null;
-	}
 
-	@Override
 	public int getCurrentItemIndex() {
 		return current;
 	}
 
-	@Override
-	public Object getItem(int itemIndex) {
+	public Object getUserStory(int itemIndex) {
 		return stories.get(itemIndex);
 	}
 
 
 	public void removeUserStory(IUserStory story) {
 		if(this.current==stories.indexOf(story))
-			setCurrentItemIndex(NO_ITEM_SELECTED);
-		for (IItemListListener l : listeners)
+			setCurrentItemIndex(IItemList.NO_ITEM_SELECTED);
+		for (IBacklogListener l : listeners)
             l.itemRemoved(story);	
 		stories.remove(story);
 			
 	}
 	
-	@Override
 	public void removeItem(int itemIndex) {	
 		IUserStory item = stories.get( itemIndex );       
 		removeUserStory(item);
         
 	}
 
-	@Override
-	public void removeListener(IItemListListener listener) {
+
+	public void removeListener(IBacklogListener listener) {
 		listeners.remove(listener);
 		
 	}
 
-	@Override
 	public void setCurrentItemIndex(int itemIndex) {
 		if (itemIndex >= size() || itemIndex < -1)
             //throw new IllegalArgumentException( "itemIndex out of range" );
-			this.current = NO_ITEM_SELECTED;
+			this.current = IItemList.NO_ITEM_SELECTED;
 		else
 			this.current = itemIndex;
         
-        for (IItemListListener l : listeners)
+        for (IBacklogListener l : listeners)
             l.currentSelectionChanged( current );
 		
 	}
 
-	@Override
 	public int size() {		
 		return stories.size();
 	}
@@ -161,10 +118,25 @@ public class Backlog implements IItemList {
 		return stories.indexOf(story);
 	}
 
-
-
-
-
+	public IUserStory getStoryById(String id){
+		for (IUserStory story : getUserStories()) {
+			if(story.getId().equals(id))
+				return story;
+		}
+		return null;		
+	}
+	
+	
+	public void assignEstimateToStory(String storyId, String estimate){
+		IUserStory story = getStoryById(storyId);
+		if(story!=null){
+			story.setEstimate(estimate);
+		}
+		for (IBacklogListener l : listeners){
+			l.contentChanged(this);
+            l.estimateAssigned(storyId, estimate);
+		}
+	}
 
 
 }

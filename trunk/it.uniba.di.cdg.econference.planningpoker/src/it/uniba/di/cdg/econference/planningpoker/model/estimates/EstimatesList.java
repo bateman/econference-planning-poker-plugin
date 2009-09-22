@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Estimates implements IEstimates {
+public class EstimatesList implements IEstimatesList {
 
 public static final int NO_VOTERS = -1;
 	
@@ -19,7 +19,7 @@ public static final int NO_VOTERS = -1;
 	private int totalVoters;
 	private EstimateStatus status;
 	
-	public Estimates(String storyId, String date) {
+	public EstimatesList(String storyId, String date) {
 		this.date = date;
 		this.storyId = storyId;
 		this.status = EstimateStatus.CREATED;
@@ -30,19 +30,19 @@ public static final int NO_VOTERS = -1;
 	}	
 	
 	@Override
-	public void addEstimate(String userId,IPokerCard card) {
+	public void addEstimate(Estimate estimate) {
 		if(totalVoters!=NO_VOTERS){
-			if(estimates.containsKey(userId)){
-				estimates.remove(userId);
+			String participantId = estimate.getParticipantId();
+			IPokerCard card = estimate.getCard();
+			if(estimates.containsKey(participantId)){
+				estimates.remove(participantId);
 			}
-			estimates.put(userId, card);
+			estimates.put(participantId, card);
 			for(IEstimateListener l : listeners){
-				l.estimateAdded(userId, card);
+				l.estimateAdded(estimate);
 			}
 			if(numberOfEstimates() == totalVoters){
-				for(IEstimateListener l : listeners){
-					l.estimateStatusChanged(EstimateStatus.COMPLETED, getUserStoryId(), getId());
-				}
+				setStatus(EstimateStatus.COMPLETED);	
 			}
 		}
 		
@@ -55,8 +55,8 @@ public static final int NO_VOTERS = -1;
 	}
 
 	@Override
-	public IPokerCard getEstimate(String UserId) {		
-		return estimates.get(UserId);
+	public Estimate getEstimate(String userId) {		
+		return new Estimate(userId,estimates.get(userId));
 	}
 
 	@Override
@@ -84,12 +84,11 @@ public static final int NO_VOTERS = -1;
 	public void removeUserEstimate(String userId) {
 		if(estimates.containsKey(userId)){			
 			for(IEstimateListener l : listeners){
-				l.estimateRemoved(userId, estimates.get(userId));
+				l.estimateRemoved(getEstimate(userId));
 			}
 			estimates.remove(userId);
 			if(numberOfEstimates() == totalVoters){
-				for(IEstimateListener l : listeners)
-					l.estimateStatusChanged(EstimateStatus.COMPLETED, getUserStoryId(), getId());
+				setStatus(EstimateStatus.COMPLETED);				
 			}
 		}
 	}
@@ -101,16 +100,23 @@ public static final int NO_VOTERS = -1;
 	}
 
 	//TODO: utilizzare un design pattern strutturale per crare un oggetto composto dallo userId + la IPokerCard
-	@Override
-	public Object[] getAllEstimates() { 
-		Object[] result = new Object[numberOfEstimates()];
+	
+	/**
+	 * 
+	 * @return an object array where each item contains a bidimensional object array in which:
+	 * <ul>
+	 * <li>in the 0-position there is the participant id</li>
+	 * <li>in the 1-position there is the {@link IPokerCard} object</li>
+	 * </ul>
+	 * 
+	 */
+	@Override	
+	public Estimate[] getAllEstimates() { 
+		Estimate[] result = new Estimate[numberOfEstimates()];
 		int index = 0;
 		for (Iterator<String> iterator = estimates.keySet().iterator(); iterator.hasNext();) {
 			String key = (String) iterator.next();
-			Object[] estimate = new Object[2];
-			estimate[0] = key;
-			estimate[1] = estimates.get(key);
-			result[index] = estimate;
+			result[index] = new Estimate(key, estimates.get(key));
 			index++;
 		}
 		return result;
@@ -130,8 +136,6 @@ public static final int NO_VOTERS = -1;
 	@Override
 	public void dispose() {		
 		estimates.clear();
-		for(IEstimateListener l : listeners)
-			l.estimateStatusChanged(EstimateStatus.CLOSED, getUserStoryId(), getId());
 		listeners.clear();		
 	}
 
@@ -148,9 +152,10 @@ public static final int NO_VOTERS = -1;
 	}
 
 	@Override
-	public boolean equals(IEstimates estimates) {
+	public boolean equals(IEstimatesList estimates) {
 		return getUserStoryId().equals(estimates.getUserStoryId()) &&
 			getId().equals(estimates.getId());
 	}
+
 	
 }

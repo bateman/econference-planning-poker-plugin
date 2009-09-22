@@ -3,13 +3,15 @@ package it.uniba.di.cdg.econference.planningpoker;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
 import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.EstimatesView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.IBacklogView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.IDeckView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.IEstimatesView;
+import it.uniba.di.cdg.econference.planningpoker.workbench.PPWhiteBoardView;
 import it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective;
 import it.uniba.di.cdg.xcore.econference.IEConferenceService.AgendaOperation;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceManager;
@@ -51,7 +53,7 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 		roomView.setManager( this );
 		
 
-		viewPart = getWorkbenchWindow().getActivePage().showView( WhiteBoardView.ID );
+		viewPart = getWorkbenchWindow().getActivePage().showView( PPWhiteBoardView.ID );
 		IWhiteBoard whiteBoardView = (IWhiteBoard) viewPart;
 		whiteBoardView.setManager( this );
 		// By default the whiteboard cannot be modified: when the user is given the SCRIBE 
@@ -140,14 +142,20 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
     }
 
 	@Override
-	public void notifyEstimateSessionStatusChange(IEstimates estimates) {
-		getService().notifyEstimateSessionStatusChange(estimates);
+	public void notifyEstimateSessionStatusChange(IEstimatesList estimates, EstimateStatus status) {
+		getService().notifyEstimateSessionStatusChange(estimates, status);
 		
 	}
 
 	@Override
 	public void notifyRemoveBacklogItem(String itemIndex) {
 	    getService().notifyAgendaOperation( AgendaOperation.REMOVE, itemIndex );
+		
+	}
+
+	@Override
+	public void notifyEstimateAssigned(String storyId, String estimateValue) {
+		getService().notifyEstimateAssigned(storyId, estimateValue);
 		
 	}
 	

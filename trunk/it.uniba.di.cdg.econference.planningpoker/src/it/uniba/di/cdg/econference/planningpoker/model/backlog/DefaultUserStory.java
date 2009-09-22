@@ -7,18 +7,18 @@ import java.util.Date;
 
 public class DefaultUserStory implements IUserStory {
 	
-	public enum PRIORITY { UNKNOWN("Unknow"), HIGH("High"), NORMAL("Normal"), 
-		LOW("Low");
-	
-	private String priority;
-	
-	private PRIORITY(String name){
-		this.priority = name;
-	}
-	
-	public String getName() {
-		return priority;
-	} };
+//	public enum STATUS { UNKNOWN("Unknow"), OPEN("Open"), CLOSED("Closed"), 
+//		LOW("Low");
+//	
+//	private String status;
+//	
+//	private STATUS(String name){
+//		this.status = name;
+//	}
+//	
+//	public String getName() {
+//		return status;
+//	} };
 	
 	
 	
@@ -26,48 +26,51 @@ public class DefaultUserStory implements IUserStory {
 	private Date createdOn;
 	private Date lastUpdate;
 	private String storyText;
-	private PRIORITY priority;
+	private String status;
 	private String 	notes;
 	private Object points;
 	
-	public DefaultUserStory(String id, String storyText, PRIORITY priority, String notes,
+	public DefaultUserStory(String id, String storyText, String status, String notes,
 			Object points) {
 		this.id = id;
 		this.createdOn = Calendar.getInstance().getTime();
 		this.lastUpdate = createdOn;
 		this.storyText = storyText;
-		this.priority = priority;
+		this.status = status;
 		this.notes = notes;
 		this.points = points;			
 	}
 	
 	public DefaultUserStory(String id, Date createdOn, Date lastUpdate,
-			String storyText, PRIORITY priority, String notes, Object points) {
+			String storyText, String status, String notes, Object points) {
 		super();
 		this.id = id;
 		this.createdOn = createdOn;
 		this.lastUpdate = lastUpdate;
 		this.storyText = storyText;
-		this.priority = priority;
+		this.status = status;
 		this.notes = notes;
 		this.points = points;
 	}
 
+	@Override
 	public String getStoryText() {
 		return storyText;
 	}
 
+	@Override
 	public void setStoryText(String storyText) {
 		this.storyText = storyText;
 	}
 
-	
-	public PRIORITY getPriority() {
-		return priority;
+
+	public String getStatus() {
+		return status;
 	}
 	
-	public void setPriority(PRIORITY priority) {
-		this.priority = priority;
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 	@Override

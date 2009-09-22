@@ -2,6 +2,14 @@ package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
 public interface IUserStory {
 
+	void setId(String id);
+	
+	String getId();
+	
+	void setStoryText(String storyText);
+	
+	String getStoryText();
+	
 	void setEstimate(Object points);
 	
 	Object getEstimate();
@@ -10,10 +18,5 @@ public interface IUserStory {
 	
 	void setNotes(String notes);
 	
-	String getNotes();	
-	
-	void setId(String id);
-	
-	String getId();
-	
+	String getNotes();
 }

@@ -1,10 +1,8 @@
 package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
-import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
-
 import it.uniba.di.cdg.econference.planningpoker.dialogs.DefaultUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
-import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -51,9 +49,8 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 		case 0: // Name 
 			label = story.getStoryText();
 		break;
-		case 1: {//PRIORITY
-			DefaultUserStory.PRIORITY priority = story.getPriority();
-			label = priority.getName();
+		case 1: {//STATUS
+			label = story.getStatus();
 
 		}		
 		break;
@@ -87,7 +84,7 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 	
 	@Override
 	public void createColumns(TableViewer viewer) {
-		String[] titles = new String[] {"Story Text","Priority","Estimate"};
+		String[] titles = new String[] {"Story Text","Status","Estimate"};
 		int[] bounds = new int[] {350,60,70};
 		AutoResizeTableLayout layout = (AutoResizeTableLayout) viewer.getTable().getLayout();
 		for (int i = 0; i < titles.length; i++) {
@@ -108,7 +105,7 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 						cell.setText(story.getStoryText());
 						break;
 					case 1:
-						cell.setText(story.getPriority().getName());
+						cell.setText(story.getStatus());
 						break;
 					case 2:
 						cell.setText(story.getEstimate().toString());

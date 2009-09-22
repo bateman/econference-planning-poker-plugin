@@ -2,12 +2,6 @@ package it.uniba.di.cdg.econference.planningpoker.workbench;
 
 import static it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus.STARTED;
 import static it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus.STOPPED;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
 import it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.DeleteUserStoryAction;
@@ -19,6 +13,8 @@ import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModelListener;
 import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListenerAdapter;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListener;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListenerAdapter;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
@@ -27,11 +23,14 @@ import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.econference.IEConferenceHelper;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
-import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
-import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -47,7 +46,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -111,7 +109,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 			}else{ 
 				estimateStoryAction.setAccessible(false);
 				enableDoubleClickListener(false);  
-				getModel().getBacklog().setCurrentItemIndex(IItemList.NO_ITEM_SELECTED);
+				getManager().getService().notifyCurrentAgendaItemChanged(String.valueOf(IItemList.NO_ITEM_SELECTED));
 			}
 		}
         
@@ -124,14 +122,14 @@ public class BacklogView extends ViewPart implements IBacklogView {
         public void whiteBoardChanged() {
         	int currItemIndex = getModel().getBacklog().getCurrentItemIndex();
         	if(currItemIndex!=IItemList.NO_ITEM_SELECTED){
-        		IUserStory story = (IUserStory) getModel().getBacklog().getItem(currItemIndex);	
+        		IUserStory story = (IUserStory) getModel().getBacklog().getUserStory(currItemIndex);	
         		story.setNotes(getModel().getWhiteBoardText());
         	}
         };
     };
     
 
-	private IItemListListener backlogListener = new ItemListListenerAdapter() {
+	private IBacklogListener backlogListener = new IBacklogListenerAdapter() {
 		
 		@SwtAsyncExec
 		@Override
@@ -141,8 +139,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		}
 
 		@Override
-		public void contentChanged(IItemList newBacklog) {
-			changeItemList((Backlog) newBacklog);	
+		public void contentChanged(Backlog newBacklog) {
+			changeItemList(newBacklog);	
 			
 		}
 	};
@@ -154,11 +152,11 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	
 	protected void setWhiteBoardText(int currItemIndex) {		
 		if(!isReadOnly()){
-			if(currItemIndex!=IItemList.NO_ITEM_SELECTED){
-				IUserStory story = (IUserStory) getModel().getBacklog().getItem(currItemIndex);	
+			if(currItemIndex!=IItemList.NO_ITEM_SELECTED){				
+				IUserStory story = (IUserStory) getModel().getBacklog().getUserStory(currItemIndex);	
 				getManager().notifyWhiteBoardChanged(story.getNotes());	
 			}else{
-				getManager().notifyWhiteBoardChanged("");	
+				getManager().notifyWhiteBoardChanged("");				
 			}
 		}		
 	}
@@ -225,9 +223,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		createContextMenu();
 		makeActions();
 		
-		contributeToActionBars( getViewSite().getActionBars() );
-		
-		makeStyledCellTable();  
+		contributeToActionBars( getViewSite().getActionBars() ); 
 		
 		
 		startStopButton.addSelectionListener( new SelectionAdapter() {
@@ -240,44 +236,6 @@ public class BacklogView extends ViewPart implements IBacklogView {
                 }
             }
         });
-	}
-
-	private void makeStyledCellTable() {
-		/*
-		 * NOTE: MeasureItem, PaintItem and EraseItem are called repeatedly.
-		 * Therefore, it is critical for performance that these methods be as
-		 * efficient as possible.
-		 */
-		Listener paintListener = new Listener() {
-			public void handleEvent(Event event) {
-				switch (event.type) {
-				case SWT.MeasureItem: {
-					TableItem item = (TableItem) event.item;
-					String text = item.getText(event.index);
-					Point size = event.gc.textExtent(text);
-					event.width = size.x;
-					event.height = Math.max(event.height, size.y);
-					break;
-				}
-				case SWT.PaintItem: {
-					TableItem item = (TableItem) event.item;
-					String text = item.getText(event.index);
-					Point size = event.gc.textExtent(text);
-					int offset2 = event.index == 0 ? Math.max(0, (event.height - size.y) / 2) : 0;
-					event.gc.drawText(text, event.x, event.y + offset2, true);
-					break;
-				}
-				case SWT.EraseItem: {
-					event.detail &= ~SWT.FOREGROUND;
-					break;
-				}
-				}
-			}
-		};
-		viewer.getTable().addListener(SWT.MeasureItem, paintListener);
-		viewer.getTable().addListener(SWT.PaintItem, paintListener);
-		viewer.getTable().addListener(SWT.EraseItem, paintListener);	
-
 	}
 
 
@@ -323,8 +281,17 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	private void changeItemList(Backlog backlog) {		
 		setCurrentStory(backlog.getCurrentItemIndex());
 		viewer.setInput(backlog.getUserStories());
-		viewer.refresh();
+		refreshView();
 	}
+	
+	
+	 /**
+     * Refresh the whole view. 
+     */
+    @SwtAsyncExec
+    private void refreshView() {
+    	viewer.refresh();
+    }
 	
 	/**
 	 * Highlight the table row of the current user story to estimate
@@ -437,7 +404,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
     }
 
 
-	private void writeBacklogContent(IProgressMonitor monitor, String fileName) {
+	private void writeBacklogContent(IProgressMonitor monitor, String fileName) throws IllegalArgumentException {
 		if(getModel()!=null && getModel().getBacklog()!=null){
 			String textToSave = XMLUtils.convertDefaultBacklogToStandardXML(getModel().getBacklog());
 

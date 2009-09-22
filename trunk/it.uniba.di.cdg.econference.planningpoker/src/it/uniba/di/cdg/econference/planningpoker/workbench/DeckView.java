@@ -10,8 +10,9 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardSelectionListener;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.Estimate;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListener;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates.EstimateStatus;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
@@ -103,10 +104,10 @@ public class DeckView extends ViewPart implements IDeckView {
 	private IEstimateListener estimatesListener = new IEstimateListener(){
 
 		@Override
-		public void estimateAdded(String userId, IPokerCard card) {}
+		public void estimateAdded(Estimate estimate) {}
 
 		@Override
-		public void estimateRemoved(String userId, IPokerCard card) {}
+		public void estimateRemoved(Estimate estimate) {}
 
 		@Override
 		public void estimateStatusChanged(EstimateStatus status,
