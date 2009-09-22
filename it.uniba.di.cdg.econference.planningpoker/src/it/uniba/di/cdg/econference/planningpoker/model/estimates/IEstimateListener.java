@@ -1,13 +1,23 @@
 package it.uniba.di.cdg.econference.planningpoker.model.estimates;
 
-import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates.EstimateStatus;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
 
 public interface IEstimateListener {
 	
-	void estimateAdded(String userId, IPokerCard card);
+	/**
+	 * An estimate was added to the list
+	 * 
+	 * @param estimate
+	 */
+	void estimateAdded(Estimate estimate);
 	
-	void estimateRemoved(String userId, IPokerCard card);
+	
+	/**
+	 * An estimate was removed from the list
+	 * 
+	 * @param estimate
+	 */
+	void estimateRemoved(Estimate estimate);
 	
 	
 	/**

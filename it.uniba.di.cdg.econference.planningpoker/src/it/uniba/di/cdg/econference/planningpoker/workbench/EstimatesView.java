@@ -4,13 +4,16 @@ import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModelListener;
 import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListenerAdapter;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListener;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListenerAdapter;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.Estimates;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.Estimate;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListener;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates.EstimateStatus;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
@@ -19,6 +22,7 @@ import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
 import it.uniba.di.cdg.xcore.network.messages.SystemMessage;
+import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -33,6 +37,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
@@ -49,20 +54,24 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	private Button acceptButton;
 	private Text finalEstimateText;
 		
-	private IItemListListener backlogListener = new ItemListListenerAdapter() {
+	private IBacklogListener backlogListener = new IBacklogListenerAdapter() {
 		
-		@SwtAsyncExec
 		@Override
 		public void currentSelectionChanged( int currItemIndex ) {
-			if(!isReadOnly() && getModel().getStatus().equals(ConferenceStatus.STARTED)&&
-					getModel().getBacklog().getCurrentItemIndex()!=IItemList.NO_ITEM_SELECTED
-					&& ( getModel().getEstimateSession()==null
-					|| !getModel().getEstimateSession().getUserStoryId().equals(String.valueOf(currItemIndex)))){	//TODO: sostituire l'index con l'id della story				
-				createEstimationList(String.valueOf(currItemIndex));
-				if(!isReadOnly())
-					finalEstimateText.setText("");
+			if(!isReadOnly() //Only the moderator can create the new estimate session
+					&& getModel().getBacklog().getCurrentItemIndex()!=IItemList.NO_ITEM_SELECTED //Only if one user story is being estimated
+					&& ( getModel().getEstimateSession()==null 
+					|| !getModel().getEstimateSession()
+					.getUserStoryId().equals(String.valueOf(currItemIndex))))//only if the current estimated story is the same
+			
+			{	//TODO: sostituire l'index con l'id della story				
+				createEstimationList(String.valueOf(currItemIndex));							
 			}
-		}			
+		}	
+		
+		public void estimateAssigned(String storyId, String estimateValue) {
+			appendSystemMessage("Story "+storyId+ " HAS BEEN ESTIMATED WITH: "+ estimateValue);			
+		};
 
 	};
 	
@@ -87,31 +96,40 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	private IEstimateListener estimatesListener = new IEstimateListener(){
 
 		@Override
-		public void estimateAdded(String userId, IPokerCard card) {	
-			getManager().getTalkView().appendMessage( new SystemMessage( 
-					getModel().getParticipant(userId).getNickName()+" HAS ESTIMATED" ));
-			System.out.println("estimated added from "+userId+" value: "+card.getStringValue());
+		public void estimateAdded(Estimate estimate) {	
+			appendSystemMessage(getModel().getParticipant(estimate.getParticipantId())
+					.getNickName()+" made his estimation" );
+			System.out.println("estimated added from "+estimate.getParticipantId()+
+					" value: "+estimate.getCard().getStringValue());
 			changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);	
 		}
 
 		@Override
-		public void estimateRemoved(String userId, IPokerCard card) {
-			System.out.println("estimated removed from "+userId+" value: "+card.getStringValue());
+		public void estimateRemoved(Estimate estimate) {
+			System.out.println("estimated removed from "+estimate.getParticipantId()+
+					" value: "+estimate.getCard().getStringValue());
 			changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);			
 		}
 		
-		@SwtAsyncExec
+		@Override
 		public void estimateStatusChanged(EstimateStatus status, String storyId, String estimateId) {
 			if(EstimateStatus.COMPLETED.equals(status)){
-				getManager().getTalkView().appendMessage( new SystemMessage("ESTIMATES ARE AVAILABLE" ));
+				appendSystemMessage("All estimates are AVAILABLE");
 				//TODO: implementare il metodo per memorizzare queste stime nella history
 				changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), true);
+				suggestFinalEstimate();
 				setRestimateButtonEnable(true);	
-			}else{
-				changeEstimatesList(null, false);				
+				setAcceptButtonEnable(true);
+				appendSystemMessage("Card selection is DISABLED");
+			}else if(EstimateStatus.CLOSED.equals(status)){
+				clearTableContent();
+				setFinalEstimateText("");
 				setRestimateButtonEnable(false);	
+				setAcceptButtonEnable(false);
+				appendSystemMessage("Card selection is DISABLED");
+			}else if(EstimateStatus.REPEATED.equals(status)){
+				getManager().getTalkView().appendMessage("Moderator decide to RE-ESTIMATE this story");
 			}
-			
 		};
 		
 	};
@@ -121,30 +139,122 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 
 		public void estimateSessionOpened() {
 			getModel().getEstimateSession().setTotalVoters(getModel().getVoters().size());
-			getModel().getEstimateSession().addListener(estimatesListener);			
+			getModel().getEstimateSession().addListener(estimatesListener);		
+			setFinalEstimateText("");
+			setAcceptButtonEnable(true);
+			appendSystemMessage("Card selection is ENABLED");
 		};
 
 		public void statusChanged() {
 			if(ConferenceStatus.STOPPED.equals(getModel().getStatus()))
 				if(getModel().getEstimateSession()!=null){
-					getModel().getEstimateSession().setStatus(EstimateStatus.CLOSED);
-					getManager().getService().notifyEstimateSessionStatusChange(getModel().getEstimateSession());
-					changeEstimatesList(null, false);	
-					setRestimateButtonEnable(false);										
+					getManager().getService().notifyEstimateSessionStatusChange(getModel()
+							.getEstimateSession(), EstimateStatus.CLOSED);					
 				}
 		};
 
 	};
 
-	
-	
-	public EstimatesView() {		
+
+
+	@SwtAsyncExec
+	protected void appendSystemMessage(String string) {
+		getManager().getTalkView().appendMessage( new SystemMessage(string));		
 	}
+
+
+	@SwtAsyncExec
+	protected void clearTableContent() {
+		viewer.getTable().clearAll();	
+	}
+
+	/**
+	 * <p>Suggest a value for the final estimate performing the average of all the estiamate values.
+	 * This method works only if estimate values are numeric</p>
+	 * 
+	 */
+	@SwtAsyncExec
+	protected void suggestFinalEstimate() {
+		if(!isReadOnly()){
+			Estimate[] estimates = getModel().getEstimateSession().getAllEstimates();
+			IPokerCard currCard;
+			double sum = 0;
+			int total = 0;
+			for (Estimate estimate : estimates) {
+				currCard = estimate.getCard();
+				try{
+					sum+= Double.parseDouble(currCard.getStringValue());
+					total++;
+				}catch(NumberFormatException e){
+					//Do nothing
+				}
+			}
+			if(total!=0 && sum!=0){
+				double average = sum/total;
+				//Let's get the most near card value
+				String cardValue = findMostNearCardValue(average);
+				if(cardValue!=null){
+					setFinalEstimateText(cardValue);
+				}
+			}
+		}		
+	}
+
+	@SwtAsyncExec
+	private void setFinalEstimateText(String estimate) {
+		if(!isReadOnly())
+			finalEstimateText.setText(estimate);		
+	}
+
+	/**
+	 * <p>Get the most near card value to the parameter value</p> 
+	 * @param target the number to which we need to approach
+	 * @return 
+	 */
+	private String findMostNearCardValue(double target) {
+		String candidateCardValue = null;
+		Double currValue = null;
+		Double currDistance;
+		Double minDistance;	
+		IPokerCard[] cards = getModel().getCardDeck().getCards();		
+		for (IPokerCard currCard : cards) {
+			try{
+				currValue  = Double.parseDouble(currCard.getStringValue());
+				candidateCardValue = currCard.getStringValue();
+				break;
+			}catch(NumberFormatException e){ //Do nothing 	
+			}			
+		}
+		if(currValue!=null){//There are at least one numeric value		
+			minDistance = Math.abs(currValue - target);	
+			//Let's find the minimum distance
+			for (IPokerCard currCard : cards) {
+				try{
+					currValue  = Double.parseDouble(currCard.getStringValue());
+					currDistance = Math.abs(currValue - target);
+					if(currDistance<minDistance){
+						currDistance = minDistance;
+						candidateCardValue = currCard.getStringValue();
+					}
+				}catch(NumberFormatException e){ //Do nothing 
+
+				}			
+			}			
+		}
+		return candidateCardValue;		
+	}
+
 
 	@SwtAsyncExec
 	private void setRestimateButtonEnable(boolean enable) {
 		if(!isReadOnly())
 			restimationButton.setEnabled(enable);			
+	}
+	
+	@SwtAsyncExec
+	protected void setAcceptButtonEnable(boolean enable) {
+		if(!isReadOnly())
+			acceptButton.setEnabled(enable);		
 	}
 
 	@Override
@@ -158,8 +268,10 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
         gridDataTable.grabExcessVerticalSpace = true;
         gridDataTable.verticalAlignment = org.eclipse.swt.layout.GridData.FILL;
 		
-		viewer = new TableViewer(root, SWT.HIDE_SELECTION | SWT.BORDER);
+		viewer = new TableViewer(root, SWT.FULL_SELECTION | SWT.BORDER);
 		viewer.getTable().setLayoutData(gridDataTable);
+		
+		getSite().setSelectionProvider(viewer);
 		
 		//Adding auto-resize columns
 		AutoResizeTableLayout layout = new AutoResizeTableLayout(viewer.getTable());
@@ -188,35 +300,53 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 			actionsComposite.setLayout(topLayout);
 			actionsComposite.setLayoutData(gridData);
 			
+			RowLayout rowLayout = new RowLayout();
+			rowLayout.pack = true;
+			//topLayout.type = SWT.HORIZONTAL;
 			
-			finalEstimateText = new Text(actionsComposite, SWT.PUSH | SWT.BORDER);
+			Composite topComposite = new Composite(actionsComposite, SWT.PUSH);
+			topComposite.setLayout(rowLayout);
+			
+			Label finalEstimateLabel = new Label(topComposite, SWT.PUSH);
+			finalEstimateLabel.setText("Estimate:");
+			
+			finalEstimateText = new Text(topComposite, SWT.SINGLE | SWT.PUSH | SWT.BORDER);
 	        finalEstimateText.setText("");        
 	        finalEstimateText.setEnabled(true);
-	        finalEstimateText.setEditable(true);
+	        finalEstimateText.setEditable(true);	     
 	        
-	        restimationButton = new Button(actionsComposite, SWT.PUSH );
-	        restimationButton.setText("Repeat");
-	        restimationButton.setEnabled(false);
-	        restimationButton.addSelectionListener(new SelectionAdapter(){
-	        	@Override
-	        	public void widgetSelected(SelectionEvent e) {
-	        		if(!isReadOnly()){
-	        			int currItemIndex = getModel().getBacklog().getCurrentItemIndex();	        			
-	        			createEstimationList(String.valueOf(currItemIndex));
-	        		}
-	        	}
-	        });	
+	        rowLayout = new RowLayout();
+	        rowLayout.pack = false;
 	        
+	        Composite bottomComposite = new Composite(actionsComposite, SWT.PUSH);
+	        bottomComposite.setLayout(rowLayout);
 	        
-	        acceptButton = new Button(actionsComposite, SWT.PUSH );
+	        acceptButton = new Button(bottomComposite, SWT.PUSH );
 	        acceptButton.setText("Accept");
-	        acceptButton.setEnabled(true);
+	        acceptButton.setEnabled(false);
 	        acceptButton.addSelectionListener(new SelectionAdapter(){
 	        	@Override
 	        	public void widgetSelected(SelectionEvent e) {
 	        		setFinalEstimate(finalEstimateText.getText());
 	        	}
-	        });	      	    
+	        });	
+	        
+	        restimationButton = new Button(bottomComposite, SWT.PUSH );
+	        restimationButton.setText("Repeat");
+	        restimationButton.setEnabled(false);	        
+	        restimationButton.addSelectionListener(new SelectionAdapter(){
+	        	@Override
+	        	public void widgetSelected(SelectionEvent e) {
+	        		if(!isReadOnly()){	        				        				
+	        			getManager().notifyEstimateSessionStatusChange(getModel().getEstimateSession(),EstimateStatus.REPEATED);
+	        			int currItemIndex = getModel().getBacklog().getCurrentItemIndex();
+	        			createEstimationList(((IUserStory)getModel().getBacklog().getUserStory(currItemIndex)).getId());
+	        		}
+	        	}
+	        });	
+	        
+	        
+	           	    
 	        
 		}else{
 			if(actionsComposite!=null && !actionsComposite.isDisposed())
@@ -225,30 +355,45 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		root.layout(true);
 	}
 	
-	@SwtAsyncExec
 	protected void setFinalEstimate(String estimate) {
+
 		boolean contextOk = !isReadOnly() && getModel().getEstimateSession()!=null 
-			&& getModel().getEstimateSession().getStatus()!= EstimateStatus.CLOSED;
-		
+		&& getModel().getEstimateSession().getStatus()!= EstimateStatus.CLOSED;
 		if(contextOk){
-			boolean estimateOk = estimate!=null && estimate!="" ;
-			if(estimateOk){				
+			if(validateEstimate(estimate)){					
 				int index = getModel().getBacklog().getCurrentItemIndex();
-				((IUserStory)getModel().getBacklog().getItem(index)).setEstimate(estimate);
-				getManager().notifyItemListToRemote();
-				getModel().getEstimateSession().setStatus(EstimateStatus.CLOSED);
-				getManager().notifyEstimateSessionStatusChange(getModel().getEstimateSession());
-				viewer.getTable().clearAll();
-				getManager().getTalkView().appendMessage( new SystemMessage("THIS STORY HAS ESTIMATED WITH: "+ estimate));
+				IUserStory currStory = (IUserStory)getModel().getBacklog().getUserStory(index);			
+				getManager().notifyEstimateAssigned(currStory.getId(), estimate);	
+				getManager().notifyEstimateSessionStatusChange(getModel().getEstimateSession(), EstimateStatus.CLOSED);
 			}
-		}		
-		
+		}
+	}
+
+	private boolean validateEstimate(String estimate) {
+		boolean notEmpty = estimate!=null && estimate!="" ;
+		if(notEmpty){
+			//let's check if the estimate value is one of card deck values
+			IPokerCard card = getModel().getCardDeck().getCardFromStringValue(estimate);			
+			if(card!=null){
+				return true;
+			}else{
+				boolean yesPressed = UiPlugin.getUIHelper().askYesNoQuestion(
+						"Warning", "Actually, there is not cards in the deck with this estimate value. " +
+								"Are you sure want to assign this value?");
+				if(yesPressed)
+					return true;
+				else
+					return false;
+			}
+		}else{
+			return false;
+		}
 	}
 
 	private void createEstimationList(String storyId) {
 		String date = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY).format(new Date());
-		IEstimates estimates = new Estimates(storyId,date);
-		getManager().notifyEstimateSessionStatusChange(estimates);			
+		IEstimatesList estimates = new EstimatesList(storyId,date);
+		getManager().notifyEstimateSessionStatusChange(estimates, EstimateStatus.CREATED);			
 	}
 
 	@Override
@@ -279,25 +424,46 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		IEstimatesViewUIProvider provider = 
 			getModel().getFactory().createEstimateViewUIHelper();
 		viewer.setContentProvider(provider);	
+		//viewer.setLabelProvider(provider);
 		provider.createColumns(viewer);	
-		viewer.refresh();	
+		
+		refreshView();	
 		
 	}
 	
-	@SwtAsyncExec
-	private void changeEstimatesList(Object[] estimates, boolean visible) {
+	private void changeEstimatesList(Estimate[] estimates, boolean visible) {
+		Object[] result = new Object[estimates.length];
 		if(estimates!=null){
-			for (int i = 0; i < estimates.length; i++) {			
-				Object[] object = (Object[]) estimates[i];
-				object[0] = getModel().getParticipant((String) object[0]);		
+			for (int i = 0; i < estimates.length; i++) {	
+				//This array will contains the IParticipant and the IPokerCard
+				Object[] singleItem = new Object[2];
+				Estimate estimate = (Estimate) estimates[i];
+				singleItem[0] = getModel().getParticipant(estimate.getParticipantId());		
 				if(!visible)
-					object[1] = null;
+					singleItem[1] = null;
+				else
+					singleItem[1] = estimate.getCard();
+				result[i] = singleItem;
 			}	
+			setViewerContent(result);
 		}
-		viewer.setInput(estimates);
-		viewer.refresh();	
+				
+	}
+		
+	@SwtAsyncExec
+	private void setViewerContent(Object[] content){
+		if(content!=null && content.length>0)
+		viewer.setInput(content);
+		viewer.refresh();
 	}
 
+	 /**
+     * Refresh the whole view. 
+     */
+    @SwtAsyncExec
+    private void refreshView() {
+    	viewer.refresh();
+    }
 
 	@Override
 	public boolean isReadOnly() {
@@ -315,6 +481,14 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	@Override
 	public IPlanningPokerModel getModel() {
 		return getManager().getService().getModel();
+	}
+
+	/**
+	 * For test only
+	 * @return
+	 */
+	public TableViewer getViewer() {
+		return viewer;
 	}
 
 }

@@ -2,7 +2,7 @@ package it.uniba.di.cdg.econference.planningpoker.model;
 
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimates;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.Voters;
 import it.uniba.di.cdg.xcore.econference.model.ConferenceModel;
 import it.uniba.di.cdg.xcore.multichat.model.IChatRoomModelListener;
@@ -23,7 +23,7 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 	private CardDeck deck;
 	
 	
-	private IEstimates estimates;
+	private IEstimatesList estimates;
 	
 	private Voters voters; 
 	
@@ -94,13 +94,13 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 
 
 	@Override
-	public IEstimates getEstimateSession() {		
+	public IEstimatesList getEstimateSession() {		
 		return estimates;
 	}
 
 
 	@Override
-	public void openEstimateSession(IEstimates estimates) {
+	public void openEstimateSession(IEstimatesList estimates) {
 		if(this.estimates!=null)
 			this.estimates.dispose();
 		this.estimates = estimates;

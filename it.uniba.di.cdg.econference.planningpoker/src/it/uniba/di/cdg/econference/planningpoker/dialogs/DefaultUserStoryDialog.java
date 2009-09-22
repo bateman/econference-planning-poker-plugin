@@ -4,7 +4,6 @@ package it.uniba.di.cdg.econference.planningpoker.dialogs;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory.PRIORITY;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 
@@ -30,7 +29,7 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 	
 	private Text txt_story_text;
 	private Text txt_notes;
-	private Combo cb_priority;
+	private Text txt_status;
 	private Combo cb_estimate;
 	private Text txt_id;
 
@@ -96,17 +95,15 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 		label1.setLayoutData(gd);
 		
 		gd = new GridData(GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-		gd.heightHint = 50;
 		gd.grabExcessVerticalSpace = true;
 
-		
-		txt_story_text = new Text(root, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL );
+		txt_story_text = new Text(root, SWT.BORDER | SWT.SINGLE | SWT.H_SCROLL );
 		txt_story_text.setLayoutData(gd);
 		
 		gd = new GridData();
 		
 		Label label2 = new Label(root, SWT.NONE);
-		label2.setText("Priority:");
+		label2.setText("Status:");
 		label2.setLayoutData(gd);
 		
 		gd = new GridData();
@@ -117,13 +114,8 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 		gd.horizontalAlignment = SWT.FILL;
 		gd.grabExcessHorizontalSpace = true;
 		
-		cb_priority = new Combo(root, SWT.READ_ONLY);
-		//Adding item to the priority combo
-		for (PRIORITY value : PRIORITY.values()) {
-			cb_priority.add(value.getName());
-			
-		}		
-		cb_priority.setLayoutData(gd);
+		txt_status = new Text(root, SWT.SINGLE | SWT.BORDER );				
+		txt_status.setLayoutData(gd);
 		
 		Label notesLabel = new Label(root, SWT.NONE);
 		notesLabel.setText("Notes:");
@@ -161,8 +153,7 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 			//fill the dialog area with data of the Story to edit
 			fillForm();
 		}else{
-			//Select the first element of the Combos
-			cb_priority.select(0);
+			//Select the first element of the Combos			
 			cb_estimate.select(0);
 		}
 		
@@ -178,13 +169,7 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 		txt_id.setEditable(false);
 		txt_id.setText(userStory.getId());		
 		txt_story_text.setText(userStory.getStoryText());		
-		
-		PRIORITY priority = userStory.getPriority();
-		for (int i = 0; i < PRIORITY.values().length; i++) {
-			if(PRIORITY.values()[i]==priority){
-				cb_priority.select(i);
-			}
-		}
+		txt_status.setText(userStory.getStatus());
 		txt_notes.setText(userStory.getNotes());
 		Object points = userStory.getEstimate();		
 			
@@ -219,11 +204,9 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 	
 	@Override
 	protected void okPressed() {
-		DefaultUserStory.PRIORITY priority;
 		Object points;
 		if (validateInput()) {
 			
-			priority = PRIORITY.values()[cb_priority.getSelectionIndex()];
 			points = deck.getCards()[cb_estimate.getSelectionIndex()].getValue();											
 			
 			
@@ -231,12 +214,12 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 				story = new DefaultUserStory(
 						txt_id.getText(),
 						txt_story_text.getText(),
-						priority, 
+						txt_status.getText(), 
 						txt_notes.getText(), 
 						points);		
 			}else{
 				story.setStoryText(txt_story_text.getText());
-				story.setPriority(priority);
+				story.setStatus(txt_status.getText());
 				story.setNotes(txt_notes.getText());
 				story.setEstimate(points);
 				story.setLastUpdate(Calendar.getInstance().getTime());
@@ -251,7 +234,7 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 				//We have to check if new inserted id doesn't exists in the backlog
 				for (int i = 0; i < backlog.getUserStories().length; i++) {
 					if(backlog.getUserStories()[i].getId().equals(txt_id.getText())){
-						setErrorMessage("Id already exisisting");
+						setErrorMessage("Id already exists");
 						return false;
 					}
 				}

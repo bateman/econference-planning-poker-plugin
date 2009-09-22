@@ -1,7 +1,5 @@
 package it.uniba.di.cdg.econference.planningpoker.utils;
 
-import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
-
 import java.util.ArrayList;
 import java.util.List;
 

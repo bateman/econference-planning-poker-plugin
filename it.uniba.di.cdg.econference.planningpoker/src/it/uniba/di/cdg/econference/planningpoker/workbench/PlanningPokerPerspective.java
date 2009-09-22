@@ -1,7 +1,6 @@
 package it.uniba.di.cdg.econference.planningpoker.workbench;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
-import it.uniba.di.cdg.xcore.econference.ui.views.WhiteBoardView;
 import it.uniba.di.cdg.xcore.multichat.ui.views.ChatRoomView;
 import it.uniba.di.cdg.xcore.multichat.ui.views.MultiChatTalkView;
 
@@ -29,7 +28,7 @@ public class PlanningPokerPerspective implements IPerspectiveFactory {
         layout.addShowViewShortcut( ChatRoomView.ID );
 
         //adding the whiteboard view
-        layout.addPlaceholder(WhiteBoardView.ID, IPageLayout.RIGHT,0.7f,ChatRoomView.ID); 
+        layout.addPlaceholder(PPWhiteBoardView.ID, IPageLayout.RIGHT,0.7f,ChatRoomView.ID); 
 
         layout.addPlaceholder( MultiChatTalkView.ID, IPageLayout.RIGHT, 0.05f, editorAreaId );
 

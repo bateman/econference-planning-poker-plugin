@@ -3,7 +3,7 @@ package it.uniba.di.cdg.econference.planningpoker.model.internal;
 import it.uniba.di.cdg.econference.planningpoker.model.IBacklogContextLoader;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory.PRIORITY;
+import it.uniba.di.cdg.econference.planningpoker.utils.DateUtils;
 import it.uniba.di.cdg.econference.planningpoker.utils.XMLUtils;
 import it.uniba.di.cdg.xcore.econference.model.InvalidContextException;
 
@@ -44,9 +44,9 @@ public class DefaultBacklogContextLoader implements IBacklogContextLoader {
 
 							String lastUpdate = xPath.evaluate( XMLUtils.ELEMENT_STORY_LAST_UPDATE, storyNode );
 
-							String priorityString = xPath.evaluate( XMLUtils.ELEMENT_STORY_PRIORITY, storyNode );												
+							String status = xPath.evaluate( XMLUtils.ELEMENT_STORY_STATUS, storyNode );												
 
-							PRIORITY priority = PRIORITY.valueOf(priorityString.toUpperCase());	   
+							//STATUS status = STATUS.valueOf(statusString.toUpperCase());	   
 
 							String storyText = xPath.evaluate( XMLUtils.ELEMENT_STORY_TEXT, storyNode );
 
@@ -56,9 +56,9 @@ public class DefaultBacklogContextLoader implements IBacklogContextLoader {
 							if(estimate == null || estimate=="")
 								estimate ="?";
 
-							result.addItem(new DefaultUserStory(id, XMLUtils.getDateFromString(createdOn), 
-									XMLUtils.getDateFromString(lastUpdate), 
-									storyText,priority,notes,estimate));
+							result.addUserStory(new DefaultUserStory(id, DateUtils.getDateFromString(createdOn), 
+									DateUtils.getDateFromString(lastUpdate), 
+									storyText,status,notes,estimate));
 						}else{
 							System.err.println("Parsed User Story without id");
 						}
