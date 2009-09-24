@@ -233,7 +233,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 					currValue  = Double.parseDouble(currCard.getStringValue());
 					currDistance = Math.abs(currValue - target);
 					if(currDistance<minDistance){
-						currDistance = minDistance;
+						minDistance = currDistance;
 						candidateCardValue = currCard.getStringValue();
 					}
 				}catch(NumberFormatException e){ //Do nothing 
@@ -313,7 +313,9 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 			finalEstimateText = new Text(topComposite, SWT.SINGLE | SWT.PUSH | SWT.BORDER);
 	        finalEstimateText.setText("");        
 	        finalEstimateText.setEnabled(true);
-	        finalEstimateText.setEditable(true);	     
+	        finalEstimateText.setEditable(true);	
+	        finalEstimateText.setToolTipText("The estimate that should " +
+	        		"be assigned to the current story");
 	        
 	        rowLayout = new RowLayout();
 	        rowLayout.pack = false;
