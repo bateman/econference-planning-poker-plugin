@@ -56,7 +56,7 @@ public class PPWhiteBoardView extends WhiteBoardView implements IWhiteBoard {
 				setAccessible(true);
 			}
 		}else{
-			super.setReadOnly(false);
+			super.setReadOnly(true);
 		}
 	}	
 	
