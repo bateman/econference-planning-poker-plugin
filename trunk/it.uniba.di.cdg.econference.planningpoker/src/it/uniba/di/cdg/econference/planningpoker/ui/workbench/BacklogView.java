@@ -1,4 +1,4 @@
-package it.uniba.di.cdg.econference.planningpoker.workbench;
+package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 
 import static it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus.STARTED;
 import static it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus.STOPPED;

@@ -1,4 +1,4 @@
-package it.uniba.di.cdg.econference.planningpoker.workbench;
+package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 
 import org.eclipse.ui.ISaveablePart;
 

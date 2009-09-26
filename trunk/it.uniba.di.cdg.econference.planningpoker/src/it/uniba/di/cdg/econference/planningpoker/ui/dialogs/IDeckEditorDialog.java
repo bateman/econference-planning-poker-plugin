@@ -1,4 +1,4 @@
-package it.uniba.di.cdg.econference.planningpoker.dialogs;
+package it.uniba.di.cdg.econference.planningpoker.ui.dialogs;
 
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 

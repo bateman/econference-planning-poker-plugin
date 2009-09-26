@@ -1,10 +1,10 @@
 package it.uniba.di.cdg.econference.planningpoker.model;
 
-import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.IUserStoryDialog;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;

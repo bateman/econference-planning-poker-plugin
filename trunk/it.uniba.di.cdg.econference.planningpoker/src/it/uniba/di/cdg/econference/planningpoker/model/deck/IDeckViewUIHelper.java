@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.model.deck;
 
 
+
 /**
  * This class helps Deck View to create the deck graphically.
  *  

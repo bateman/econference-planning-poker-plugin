@@ -5,8 +5,8 @@ import java.util.List;
 
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
+import it.uniba.di.cdg.jabber.InvitationEvent;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
-import it.uniba.di.cdg.xcore.multichat.InvitationEvent;
 import it.uniba.di.cdg.xcore.multichat.service.Invitee;
 
 public class PlanningPokerContext extends EConferenceContext {

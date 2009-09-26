@@ -1,4 +1,9 @@
-package it.uniba.di.cdg.econference.planningpoker.model.deck;
+package it.uniba.di.cdg.econference.planningpoker.ui;
+
+import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardSelectionListener;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 
 import java.util.HashSet;
 import java.util.Set;
