@@ -12,9 +12,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.estimates.Estimate;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
-import it.uniba.di.cdg.jabber.IPacketExtension;
 import it.uniba.di.cdg.jabber.JabberBackend;
-import it.uniba.di.cdg.jabber.PacketExtensionAdapter;
 import it.uniba.di.cdg.smackproviders.AgendaOperationPacket;
 import it.uniba.di.cdg.smackproviders.CurrentAgendaItemPacket;
 import it.uniba.di.cdg.smackproviders.SmackCommons;
@@ -28,7 +26,6 @@ import it.uniba.di.cdg.xcore.network.model.tv.ITalkModel;
 
 import org.jivesoftware.smack.PacketListener;
 import org.jivesoftware.smack.packet.Packet;
-import org.jivesoftware.smack.packet.PacketExtension;
 
 
 public class JabberPlanningPokerService extends JabberEConferenceService implements	IPlanningPokerService {

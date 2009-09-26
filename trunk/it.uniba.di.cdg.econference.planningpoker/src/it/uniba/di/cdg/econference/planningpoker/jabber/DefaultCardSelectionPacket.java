@@ -1,16 +1,15 @@
 package it.uniba.di.cdg.econference.planningpoker.jabber;
 
+import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultPokerCard;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
+import it.uniba.di.cdg.jabber.IPacketExtension;
+import it.uniba.di.cdg.jabber.PacketExtensionAdapter;
+
 import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.PacketExtension;
 import org.jivesoftware.smack.provider.PacketExtensionProvider;
 import org.xmlpull.v1.XmlPullParser;
-
-import it.uniba.di.cdg.econference.planningpoker.jabber.DefaultBacklogPacket.Provider;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultPokerCard;
-import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
-import it.uniba.di.cdg.jabber.IPacketExtension;
-import it.uniba.di.cdg.jabber.PacketExtensionAdapter;
 
 
 

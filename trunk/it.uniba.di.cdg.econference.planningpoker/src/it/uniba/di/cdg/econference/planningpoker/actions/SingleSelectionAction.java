@@ -1,7 +1,5 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
-import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;

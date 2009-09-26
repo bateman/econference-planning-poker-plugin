@@ -1,15 +1,10 @@
 package it.uniba.di.cdg.econference.planningpoker.jabber;
 
 import static it.uniba.di.cdg.smackproviders.SmackCommons.CDG_NAMESPACE;
+import it.uniba.di.cdg.jabber.IPacketExtension;
 
 import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Packet;
-
-import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultPokerCard;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimatesList;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
-import it.uniba.di.cdg.jabber.IPacketExtension;
 
 
 public class EstimateSessionStatusPacket implements IPacketExtension {

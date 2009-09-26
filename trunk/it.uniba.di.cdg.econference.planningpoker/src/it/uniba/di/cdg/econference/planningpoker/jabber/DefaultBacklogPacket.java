@@ -1,18 +1,16 @@
 package it.uniba.di.cdg.econference.planningpoker.jabber;
 
-import org.jivesoftware.smack.filter.PacketFilter;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
+import it.uniba.di.cdg.econference.planningpoker.utils.DateUtils;
+import it.uniba.di.cdg.jabber.IPacketExtension;
 
+import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Packet;
 import org.jivesoftware.smack.packet.PacketExtension;
 import org.jivesoftware.smack.provider.PacketExtensionProvider;
 import org.jivesoftware.smack.util.StringUtils;
 import org.xmlpull.v1.XmlPullParser;
-
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
-import it.uniba.di.cdg.econference.planningpoker.utils.DateUtils;
-import it.uniba.di.cdg.jabber.IPacketExtension;
-import it.uniba.di.cdg.jabber.PacketExtensionAdapter;
 
 public class DefaultBacklogPacket implements IPacketExtension{
 
