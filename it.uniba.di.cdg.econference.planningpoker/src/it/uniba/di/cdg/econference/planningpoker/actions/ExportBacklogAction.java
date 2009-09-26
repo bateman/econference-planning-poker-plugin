@@ -1,7 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
-import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.BacklogView;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.action.Action;

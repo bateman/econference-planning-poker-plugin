@@ -1,11 +1,11 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
-import it.uniba.di.cdg.econference.planningpoker.dialogs.LoadBacklogDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.IBacklogContextLoader;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
+import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.LoadBacklogDialog;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.BacklogView;
 import it.uniba.di.cdg.econference.planningpoker.utils.XMLUtils;
-import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 

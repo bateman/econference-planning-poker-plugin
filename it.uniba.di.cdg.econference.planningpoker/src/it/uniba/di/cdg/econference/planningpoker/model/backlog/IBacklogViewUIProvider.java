@@ -1,6 +1,6 @@
 package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
-import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.IUserStoryDialog;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;

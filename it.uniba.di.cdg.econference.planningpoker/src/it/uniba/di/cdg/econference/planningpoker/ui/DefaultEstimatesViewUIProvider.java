@@ -1,7 +1,8 @@
-package it.uniba.di.cdg.econference.planningpoker.model.estimates;
+package it.uniba.di.cdg.econference.planningpoker.ui;
 
 
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
 

@@ -10,13 +10,17 @@ Require-Bundle: org.eclipse.ui,
  it.uniba.di.cdg.xcore.ui;bundle-version="1.0.0",
  org.aspectj.runtime,
  it.uniba.di.cdg.xcore.multichat;bundle-version="1.0.0",
- it.uniba.di.cdg.xcore.network;bundle-version="1.0.0"
+ it.uniba.di.cdg.xcore.network;bundle-version="1.0.0",
+ it.uniba.di.cdg.jabber;bundle-version="1.0.0",
+ org.jivesoftware.smack;bundle-version="3.1.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: it.uniba.di.cdg.econference.planningpoker,
- it.uniba.di.cdg.econference.planningpoker.dialogs,
  it.uniba.di.cdg.econference.planningpoker.model,
  it.uniba.di.cdg.econference.planningpoker.model.backlog,
  it.uniba.di.cdg.econference.planningpoker.model.deck,
  it.uniba.di.cdg.econference.planningpoker.model.estimates,
+ it.uniba.di.cdg.econference.planningpoker.ui,
+ it.uniba.di.cdg.econference.planningpoker.ui.dialogs,
+ it.uniba.di.cdg.econference.planningpoker.ui.workbench,
  it.uniba.di.cdg.econference.planningpoker.utils

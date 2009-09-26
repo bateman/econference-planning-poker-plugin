@@ -10,15 +10,15 @@
       </category>
       <view
             category="it.uniba.di.cdg.econference.planningpoker"
-            class="it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView"
-            icon="icons/backlog/user-story.gif"
+            class="it.uniba.di.cdg.econference.planningpoker.ui.workbench.BacklogView"
+            icon="icons/backlog/backlog16x16.png"
             id="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
             name="Backlog"
             restorable="true">
       </view>
       <view
             category="it.uniba.di.cdg.econference.planningpoker"
-            class="it.uniba.di.cdg.econference.planningpoker.workbench.DeckView"
+            class="it.uniba.di.cdg.econference.planningpoker.ui.workbench.DeckView"
             icon="icons/deck/deck16x16.png"
             id="it.uniba.di.cdg.econference.planningpoker.DeckView"
             name="Deck"
@@ -26,10 +26,18 @@
       </view>
       <view
             category="it.uniba.di.cdg.econference.planningpoker"
-            class="it.uniba.di.cdg.econference.planningpoker.workbench.EstimatesView"
+            class="it.uniba.di.cdg.econference.planningpoker.ui.workbench.EstimatesView"
             icon="icons/hand_money_16.gif"
             id="it.uniba.di.cdg.econference.planningpoker.EstimatesView"
             name="Estimates"
+            restorable="true">
+      </view>
+      <view
+            category="it.uniba.di.cdg.econference.planningpoker"
+            class="it.uniba.di.cdg.econference.planningpoker.ui.workbench.PPWhiteBoardView"
+            icon="icons/notes16x16.png"
+            id="it.uniba.di.cdg.econference.planningpoker.views.PPWhiteBoardView"
+            name="User Story Notes"
             restorable="true">
       </view>
    </extension>
@@ -82,7 +90,7 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            class="it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective"
+            class="it.uniba.di.cdg.econference.planningpoker.ui.workbench.PlanningPokerPerspective"
             fixed="true"
             icon="icons/poker.gif"
             id="it.uniba.di.cdg.econference.planningpoker.PPPerspective"
@@ -190,7 +198,7 @@
                id="it.uniba.di.cdg.xcore.multichat.ui.views.multiChatTalkView"
                minimized="false"
                moveable="true"
-               ratio=".5"
+               ratio="0.5"
                relationship="right"
                relative="it.uniba.di.cdg.xcore.multichat.ui.views.chatRoomView"
                showTitle="true"
@@ -222,6 +230,33 @@
                visible="false">
          </view>
       </perspectiveExtension>
+   </extension>
+   <extension
+         point="it.uniba.di.cdg.jabber.packets">
+      <packetExtension
+            class="it.uniba.di.cdg.econference.planningpoker.jabber.EstimateAssignedPacket"
+            targetClass="it.uniba.di.cdg.econference.planningpoker.jabber.EstimateAssignedPacket">
+      </packetExtension>
+      <packetExtension
+            class="it.uniba.di.cdg.econference.planningpoker.jabber.EstimateSessionStatusPacket"
+            targetClass="it.uniba.di.cdg.econference.planningpoker.jabber.EstimateSessionStatusPacket">
+      </packetExtension>
+      <packetExtension
+            class="it.uniba.di.cdg.econference.planningpoker.jabber.DefaultBacklogPacket">
+      </packetExtension>
+      <packetExtension
+            class="it.uniba.di.cdg.econference.planningpoker.jabber.DefaultCardSelectionPacket">
+      </packetExtension>
+      <packetExtension
+            class="it.uniba.di.cdg.econference.planningpoker.jabber.DefaultDeckPacket">
+      </packetExtension>
+   </extension>
+   <extension
+         point="it.uniba.di.cdg.jabber.services">
+      <service
+            class="it.uniba.di.cdg.econference.planningpoker.jabber.JabberPlanningPokerService"
+            name="planning-poker">
+      </service>
    </extension>
 
 </plugin>

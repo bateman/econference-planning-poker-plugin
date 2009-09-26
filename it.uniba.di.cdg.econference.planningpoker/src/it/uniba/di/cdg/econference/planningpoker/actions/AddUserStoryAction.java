@@ -1,10 +1,10 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
-import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
-import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
+import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.IUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.BacklogView;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.ui.IViewPart;

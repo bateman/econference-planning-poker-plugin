@@ -1,18 +1,20 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
+import it.uniba.di.cdg.econference.planningpoker.jabber.JabberPlanningPokerService;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
-import it.uniba.di.cdg.econference.planningpoker.workbench.BacklogView;
-import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
-import it.uniba.di.cdg.econference.planningpoker.workbench.EstimatesView;
-import it.uniba.di.cdg.econference.planningpoker.workbench.IBacklogView;
-import it.uniba.di.cdg.econference.planningpoker.workbench.IDeckView;
-import it.uniba.di.cdg.econference.planningpoker.workbench.IEstimatesView;
-import it.uniba.di.cdg.econference.planningpoker.workbench.PPWhiteBoardView;
-import it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.BacklogView;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.DeckView;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.EstimatesView;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.IBacklogView;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.IDeckView;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.IEstimatesView;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.PPWhiteBoardView;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.PlanningPokerPerspective;
+import it.uniba.di.cdg.jabber.JabberBackend;
 import it.uniba.di.cdg.xcore.econference.IEConferenceService.AgendaOperation;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceManager;
 import it.uniba.di.cdg.xcore.econference.ui.views.AgendaView;
@@ -24,12 +26,14 @@ import it.uniba.di.cdg.xcore.multichat.model.ParticipantSpecialPrivileges;
 import it.uniba.di.cdg.xcore.multichat.model.Privileged;
 import it.uniba.di.cdg.xcore.multichat.model.SpecialPrivilegesAction;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
+import it.uniba.di.cdg.xcore.multichat.service.IMultiChatService;
 import it.uniba.di.cdg.xcore.multichat.ui.views.ChatRoomView;
 import it.uniba.di.cdg.xcore.multichat.ui.views.IChatRoomView;
 import it.uniba.di.cdg.xcore.multichat.ui.views.IMultiChatTalkView;
 import it.uniba.di.cdg.xcore.multichat.ui.views.MultiChatTalkView;
 import it.uniba.di.cdg.xcore.network.BackendException;
 import it.uniba.di.cdg.xcore.network.IBackend;
+import it.uniba.di.cdg.xcore.network.services.INetworkService;
 
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.WorkbenchException;
@@ -109,9 +113,10 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
     protected IPlanningPokerService setupChatService() throws BackendException {
         IBackend backend = getBackendHelper().getRegistry().getBackend( getContext().getBackendId() );
         
-        return (IPlanningPokerService) backend.createService( 
+        IPlanningPokerService service =(IPlanningPokerService) backend.createService( 
         		IPlanningPokerService.PLANNINGPOKER_SERVICE, 
                 getContext() );
+        return service;
     }
     
     @Override

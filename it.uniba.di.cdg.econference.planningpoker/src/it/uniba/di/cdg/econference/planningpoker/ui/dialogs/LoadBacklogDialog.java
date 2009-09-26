@@ -1,4 +1,4 @@
-package it.uniba.di.cdg.econference.planningpoker.dialogs;
+package it.uniba.di.cdg.econference.planningpoker.ui.dialogs;
 
 import static it.uniba.di.cdg.xcore.util.Misc.isEmpty;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;

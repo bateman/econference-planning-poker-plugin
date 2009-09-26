@@ -1,10 +1,10 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
-import it.uniba.di.cdg.econference.planningpoker.dialogs.JoinPPDialog;
-import it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective;
+import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.JoinPPDialog;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.PlanningPokerPerspective;
+import it.uniba.di.cdg.jabber.InvitationEvent;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceHelper;
-import it.uniba.di.cdg.xcore.multichat.InvitationEvent;
 import it.uniba.di.cdg.xcore.multichat.IMultiChatManager.IMultiChatListener;
 import it.uniba.di.cdg.xcore.multichat.service.Invitee;
 import it.uniba.di.cdg.xcore.network.IBackend;

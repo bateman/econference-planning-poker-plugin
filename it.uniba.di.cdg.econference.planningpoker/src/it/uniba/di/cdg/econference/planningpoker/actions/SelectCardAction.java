@@ -1,7 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
-import it.uniba.di.cdg.econference.planningpoker.workbench.DeckView;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.DeckView;
 
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;

@@ -1,4 +1,4 @@
-package it.uniba.di.cdg.econference.planningpoker.workbench;
+package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.xcore.multichat.ui.views.ChatRoomView;

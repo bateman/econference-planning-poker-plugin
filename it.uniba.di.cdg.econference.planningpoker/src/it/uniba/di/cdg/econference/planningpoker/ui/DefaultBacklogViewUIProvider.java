@@ -1,7 +1,9 @@
-package it.uniba.di.cdg.econference.planningpoker.model.backlog;
+package it.uniba.di.cdg.econference.planningpoker.ui;
 
-import it.uniba.di.cdg.econference.planningpoker.dialogs.DefaultUserStoryDialog;
-import it.uniba.di.cdg.econference.planningpoker.dialogs.IUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.DefaultUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 
 import org.eclipse.jface.viewers.CellLabelProvider;

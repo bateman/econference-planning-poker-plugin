@@ -1,4 +1,4 @@
-package it.uniba.di.cdg.econference.planningpoker.workbench;
+package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.xcore.ui.views.IActivatableView;
