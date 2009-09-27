@@ -1,6 +1,5 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
-import it.uniba.di.cdg.econference.planningpoker.model.DefaultModelFactory;
 import it.uniba.di.cdg.econference.planningpoker.model.IModelAbstractFactory;
 import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
@@ -23,14 +22,7 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
     // The shared instance.
     private static PlanningPokerPlugin plugin;
     
-    
-    /**
-     * The factory used to build the Backlog, the Card Deck and dialogs
-     * 
-     */
-    private IModelAbstractFactory factory;
-    
-    
+    private PlanningPokerHelper helper;
 
     /**
      * The constructor.
@@ -45,22 +37,15 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
 	 */
 	public void start(BundleContext context) throws Exception {
-		super.start(context);
+		super.start(context);		
+		helper = new PlanningPokerHelper(UiPlugin.getUIHelper(), NetworkPlugin.getDefault().getHelper());
 		EConferencePlugin defaultPlugin = EConferencePlugin.getDefault();
-        defaultPlugin.setHelper(new PlanningPokerHelper( UiPlugin.getUIHelper(), NetworkPlugin.getDefault().getHelper()));
-		plugin = this;		       
-		factory = new DefaultModelFactory();
+        defaultPlugin.setHelper(helper);
+		plugin = this;		       		
 	}
 	
 	
-	public void setModelFactory(IModelAbstractFactory factory){
-		this.factory = factory;
-		//TODO: inserire un listener per notificare a tutti che la factory è cambiata
-	}
-	
-	public IModelAbstractFactory getModelFactory(){
-		return factory;
-	}
+
     
 
     /**
@@ -90,6 +75,15 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return imageDescriptorFromPlugin(ID, path);
 	}
+	
+    /**
+     * Returns the helper for this plug-in.
+     * 
+     * @return
+     */
+    public IPlanningPokerHelper getHelper() {
+        return (IPlanningPokerHelper) helper;
+    }
 
 
 	/**

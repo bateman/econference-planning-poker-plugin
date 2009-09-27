@@ -4,6 +4,7 @@ package it.uniba.di.cdg.econference.planningpoker.ui.dialogs;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 
@@ -36,8 +37,7 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 	private Backlog backlog;
 
 	public DefaultUserStoryDialog(Shell parentShell) {		
-		super(parentShell);
-		
+		super(parentShell);		
 	}
 	
 	public void setStory(IUserStory story){

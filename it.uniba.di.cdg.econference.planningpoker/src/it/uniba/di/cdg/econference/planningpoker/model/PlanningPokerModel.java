@@ -41,17 +41,6 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 	        this.voters = new Voters();	        
 	    }
 
-	@Override
-	public IModelAbstractFactory getFactory() {
-		return factory;
-	}
-
-	@Override
-	public void setModelFactory(IModelAbstractFactory factory) {
-		this.factory = factory;
-		this.backlog = new Backlog();
-        this.deck = new CardDeck();		
-	}
 	
 	@Override
 	public void setBacklog(Backlog backlog) {

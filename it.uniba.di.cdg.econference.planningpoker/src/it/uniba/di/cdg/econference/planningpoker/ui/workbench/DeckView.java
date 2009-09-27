@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.actions.EditDeckAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.SelectCardAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
@@ -160,7 +161,7 @@ public class DeckView extends ViewPart implements IDeckView {
 		
 		deck = getModel().getCardDeck();
 		
-		uiHelper = getModel().getFactory().createCardDeckViewUIHelper(parent, deck);	
+		uiHelper = PlanningPokerPlugin.getDefault().getHelper().getCardDeckViewUIHelper(parent, deck);	
 		uiHelper.addCardSelectionListener(cardSelectionListener);
 	
 		changeCardDeck();

@@ -3,7 +3,7 @@ package it.uniba.di.cdg.econference.planningpoker.actions;
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
-import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.IUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.ui.workbench.BacklogView;
 
 import org.eclipse.jface.action.Action;
@@ -33,7 +33,7 @@ public class AddUserStoryAction extends Action {
 		IWorkbenchWindow window = view.getViewSite().getWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
 		BacklogView backlogView = (BacklogView) page.findView(BacklogView.ID);
-		IUserStoryDialog dialog = backlogView.getModel().getFactory().createUserStoryDialog(window.getShell());		
+		IUserStoryDialog dialog = PlanningPokerPlugin.getDefault().getHelper().getUserStoryDialog(window.getShell());		
 		dialog.setCardDeck(backlogView.getModel().getCardDeck());
 		Backlog backlog = backlogView.getModel().getBacklog();
 		dialog.setBacklog(backlog);

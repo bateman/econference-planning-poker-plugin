@@ -1,7 +1,5 @@
-package it.uniba.di.cdg.econference.planningpoker.ui.dialogs;
+package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 
 public interface IUserStoryDialog {

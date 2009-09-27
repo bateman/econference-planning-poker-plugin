@@ -1,8 +1,8 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
-import it.uniba.di.cdg.econference.planningpoker.model.IBacklogContextLoader;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogContextLoader;
 import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.LoadBacklogDialog;
 import it.uniba.di.cdg.econference.planningpoker.ui.workbench.BacklogView;
 import it.uniba.di.cdg.econference.planningpoker.utils.XMLUtils;
@@ -58,8 +58,7 @@ public class ImportBacklogAction extends Action {
 				try {
 					is = new FileInputStream( fileName );
 					IBacklogContextLoader backlogLoader = PlanningPokerPlugin
-					.getDefault().getModelFactory()
-					.createBacklogContextLoader();						
+					.getDefault().getHelper().getBacklogContextLoader();						
 					doc = XMLUtils.loadDocument(is);
 					backlog = backlogLoader.load(doc);
 					backlogView.getModel().setBacklog(backlog);

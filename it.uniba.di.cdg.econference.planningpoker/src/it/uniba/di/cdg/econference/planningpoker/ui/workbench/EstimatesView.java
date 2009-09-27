@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModelListener;
 import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListenerAdapter;
@@ -423,8 +424,8 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		getModel().getBacklog().addListener(backlogListener);
 		getModel().getVoters().addListener(voterListener);
 		
-		IEstimatesViewUIProvider provider = 
-			getModel().getFactory().createEstimateViewUIHelper();
+		IEstimatesViewUIProvider provider = PlanningPokerPlugin.getDefault()
+			.getHelper().getEstimateViewUIProvider();
 		viewer.setContentProvider(provider);	
 		//viewer.setLabelProvider(provider);
 		provider.createColumns(viewer);	

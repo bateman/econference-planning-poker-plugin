@@ -7,23 +7,30 @@ import it.uniba.di.cdg.econference.planningpoker.model.estimates.Voters;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel;
 
 public interface IPlanningPokerModel extends IConferenceModel {
+
 	
+	/**
+	 * Get the current backlog in the model
+	 * @return the current backlog
+	 */
+	Backlog getBacklog();
 	
+	/**
+	 * <p>Set the backlog content</p>
+	 * 
+	 * @param backlog
+	 */
 	void setBacklog(Backlog backlog);
 	
-	void setModelFactory(IModelAbstractFactory factory);
+
+	
+	CardDeck getCardDeck();
 	
 	void setCardDeck(CardDeck deck);	
 	
-	void setVoters(Voters voters);
-	
-	Backlog getBacklog();
-	
-	IModelAbstractFactory getFactory();	
-
-	CardDeck getCardDeck();
-	
 	Voters getVoters();
+	
+	void setVoters(Voters voters);
 
 	IEstimatesList getEstimateSession();
 	

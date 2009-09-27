@@ -1,6 +1,5 @@
 package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
-import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.IUserStoryDialog;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -18,7 +17,5 @@ public interface IBacklogViewUIProvider extends IStructuredContentProvider,
 		ITableLabelProvider {
 	
 	void createColumns(TableViewer viewer);
-
-	IUserStoryDialog getDialog(Shell shell);
 
 }
