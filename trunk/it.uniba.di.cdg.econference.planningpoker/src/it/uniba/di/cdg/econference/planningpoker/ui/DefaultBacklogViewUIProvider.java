@@ -2,8 +2,6 @@ package it.uniba.di.cdg.econference.planningpoker.ui;
 
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStoryDialog;
-import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.DefaultUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 
 import org.eclipse.jface.viewers.CellLabelProvider;
@@ -15,7 +13,6 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 
 public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
