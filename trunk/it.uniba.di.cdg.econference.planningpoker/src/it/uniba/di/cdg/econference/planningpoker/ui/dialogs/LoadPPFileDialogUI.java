@@ -1,7 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.ui.dialogs;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerContext;
-import it.uniba.di.cdg.econference.planningpoker.model.internal.PPContextLoader;
+import it.uniba.di.cdg.econference.planningpoker.model.PPContextLoader;
 import it.uniba.di.cdg.xcore.multichat.service.Invitee;
 import it.uniba.di.cdg.xcore.network.IBackend;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;

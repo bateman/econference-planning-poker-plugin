@@ -1,5 +1,13 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
+import it.uniba.di.cdg.econference.planningpoker.model.DefaultModelFactory;
+import it.uniba.di.cdg.econference.planningpoker.model.IModelAbstractFactory;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogContextLoader;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.JoinPPDialog;
 import it.uniba.di.cdg.econference.planningpoker.ui.workbench.PlanningPokerPerspective;
 import it.uniba.di.cdg.jabber.InvitationEvent;
@@ -17,15 +25,23 @@ import it.uniba.di.cdg.xcore.ui.util.NotEmptyStringValidator;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
-public class PlanningPokerHelper extends EConferenceHelper {
+public class PlanningPokerHelper extends EConferenceHelper implements IPlanningPokerHelper {
 	
 
 	private IUIHelper uihelper;
 	private INetworkBackendHelper backendHelper;
+	
+	 /**
+     * The factory used to build the Backlog, the Card Deck the Story dialog and the
+     * UIProviders
+     * 
+     */
+	private IModelAbstractFactory factory;
 
 	
     public PlanningPokerHelper(IUIHelper uihelper,
@@ -33,6 +49,7 @@ public class PlanningPokerHelper extends EConferenceHelper {
 		super(uihelper, backendHelper);		
 		this.uihelper = uihelper;
 		this.backendHelper = backendHelper;
+		factory = new DefaultModelFactory();
 	}
 
 
@@ -122,5 +139,36 @@ public class PlanningPokerHelper extends EConferenceHelper {
 
 		return null;
 	}
+	
+	
+	/**
+	 * Set the model factory
+	 * @param factory see {@link IModelAbstractFactory}
+	 */
+	public void setModelFactory(IModelAbstractFactory factory){
+		this.factory = factory;		
+	}
+	
+	public IUserStoryDialog getUserStoryDialog(Shell shell){
+		return factory.createUserStoryDialog(shell);
+	}
+	
+	public IBacklogContextLoader getBacklogContextLoader(){
+		return factory.createBacklogContextLoader();
+	}
+	
+	public IBacklogViewUIProvider getBacklogViewUIProvider(){
+		return factory.createBacklogViewUIProvider();
+	}
+	
+	public IEstimatesViewUIProvider getEstimateViewUIProvider(){
+		return factory.createEstimateViewUIProvider();
+	}
+	
+	public IDeckViewUIHelper getCardDeckViewUIHelper(Composite parent, CardDeck deck){
+		return factory.createCardDeckViewUIHelper(parent, deck);
+	}
+	
+	
 
 }

@@ -3,6 +3,7 @@ package it.uniba.di.cdg.econference.planningpoker.ui.dialogs;
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultPokerCard;
+import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckEditorDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 

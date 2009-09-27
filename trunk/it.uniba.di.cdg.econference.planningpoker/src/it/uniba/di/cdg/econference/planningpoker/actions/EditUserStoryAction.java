@@ -2,7 +2,7 @@ package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
-import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.IUserStoryDialog;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.ui.workbench.BacklogView;
 
 import org.eclipse.ui.IViewPart;
@@ -28,7 +28,7 @@ public class EditUserStoryAction extends SingleSelectionAction {
 		IWorkbenchWindow window = view.getViewSite().getWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
 		BacklogView backlogView = (BacklogView) page.findView(BacklogView.ID);
-		IUserStoryDialog dialog = backlogView.getModel().getFactory().createUserStoryDialog(page.getActivePart().getSite().getShell());
+		IUserStoryDialog dialog = PlanningPokerPlugin.getDefault().getHelper().getUserStoryDialog(window.getShell());
 		IUserStory selectedStory = backlogView.getSelectedStory();
 		if(selectedStory!=null){			
 			dialog.setStory(selectedStory);		
