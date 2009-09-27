@@ -14,12 +14,6 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 	 */
 	private Backlog backlog;
 	
-	/**
-	 * The model factory used to create the UIProviders, the type of IUserStory and IPokerCard used
-	 * 
-	 */
-	private IModelAbstractFactory factory;
-	
 	private CardDeck deck;
 	
 	
@@ -30,10 +24,7 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 
 	 public PlanningPokerModel() {
 	        super();
-	        /* TODO The abstract factory is initialized with the Default 
-			 * Factory which is the base factory
-			 */			       
-	        this.factory = new DefaultModelFactory();	
+	        new DefaultModelFactory();	
 	        
 	        this.deck = new CardDeck();
 	        this.backlog = new Backlog();
