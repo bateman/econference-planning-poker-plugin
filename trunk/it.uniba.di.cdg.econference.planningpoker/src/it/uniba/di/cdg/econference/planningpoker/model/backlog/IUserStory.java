@@ -10,7 +10,7 @@ public interface IUserStory {
 	
 	String getStoryText();
 	
-	void setEstimate(Object points);
+	void setEstimate(String points);
 	
 	Object getEstimate();
 	
