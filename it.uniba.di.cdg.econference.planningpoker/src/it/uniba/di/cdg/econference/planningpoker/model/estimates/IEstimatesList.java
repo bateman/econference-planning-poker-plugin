@@ -52,7 +52,7 @@ public interface IEstimatesList{
 	 * <p>Add an estimate to the list of estimates</p>
 	 * @param estimate see {@link Estimate}
 	 */
-	void addEstimate(Estimate estimate);
+	void addEstimate(IEstimate estimate);
 	
 	/**
 	 * 
@@ -61,7 +61,7 @@ public interface IEstimatesList{
 	 * @param userId the participant id
 	 * 
 	 */
-	void removeUserEstimate(String userId);
+	void removeEstimate(String userId);
 
 	/**
 	 * 
@@ -69,7 +69,7 @@ public interface IEstimatesList{
 	 * @param userId the participant id
 	 * @return the user estimate
 	 */
-	Estimate getEstimate(String userId);
+	IEstimate getEstimate(String userId);
 
 	/**
 	 * Total number of estimates in the list
@@ -84,7 +84,7 @@ public interface IEstimatesList{
 	 * 
 	 * @return an arrya of {@link Estimate} objects
 	 */
-	Estimate[] getAllEstimates();
+	IEstimate[] getAllEstimates();
 
 	
 

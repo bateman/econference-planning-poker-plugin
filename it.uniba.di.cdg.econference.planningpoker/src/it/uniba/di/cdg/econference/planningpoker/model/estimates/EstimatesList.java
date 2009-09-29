@@ -12,7 +12,7 @@ public class EstimatesList implements IEstimatesList {
 public static final int NO_VOTERS = -1;
 	
 	private Set<IEstimateListener> listeners;
-	private HashMap<String, IPokerCard> estimates;
+	private HashMap<String, IEstimate> estimates;
 		
 	private String date;
 	private String storyId;
@@ -24,20 +24,20 @@ public static final int NO_VOTERS = -1;
 		this.storyId = storyId;
 		this.status = EstimateStatus.CREATED;
 		listeners = new HashSet<IEstimateListener>();
-		estimates = new HashMap<String, IPokerCard>();
+		estimates = new HashMap<String, IEstimate>();
 		totalVoters = NO_VOTERS;
 		
 	}	
 	
 	@Override
-	public void addEstimate(Estimate estimate) {
+	public void addEstimate(IEstimate estimate) {
 		if(totalVoters!=NO_VOTERS){
 			String participantId = estimate.getParticipantId();
 			IPokerCard card = estimate.getCard();
 			if(estimates.containsKey(participantId)){
 				estimates.remove(participantId);
 			}
-			estimates.put(participantId, card);
+			estimates.put(participantId, estimate);
 			for(IEstimateListener l : listeners){
 				l.estimateAdded(estimate);
 			}
@@ -55,8 +55,8 @@ public static final int NO_VOTERS = -1;
 	}
 
 	@Override
-	public Estimate getEstimate(String userId) {		
-		return new Estimate(userId,estimates.get(userId));
+	public IEstimate getEstimate(String userId) {		
+		return estimates.get(userId);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public static final int NO_VOTERS = -1;
 	}
 
 	@Override
-	public void removeUserEstimate(String userId) {
+	public void removeEstimate(String userId) {
 		if(estimates.containsKey(userId)){			
 			for(IEstimateListener l : listeners){
 				l.estimateRemoved(getEstimate(userId));
@@ -111,12 +111,12 @@ public static final int NO_VOTERS = -1;
 	 * 
 	 */
 	@Override	
-	public Estimate[] getAllEstimates() { 
-		Estimate[] result = new Estimate[numberOfEstimates()];
+	public IEstimate[] getAllEstimates() { 
+		IEstimate[] result = new IEstimate[numberOfEstimates()];
 		int index = 0;
 		for (Iterator<String> iterator = estimates.keySet().iterator(); iterator.hasNext();) {
 			String key = (String) iterator.next();
-			result[index] = new Estimate(key, estimates.get(key));
+			result[index] = estimates.get(key);
 			index++;
 		}
 		return result;
