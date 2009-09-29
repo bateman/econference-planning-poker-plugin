@@ -204,10 +204,10 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 	
 	@Override
 	protected void okPressed() {
-		Object points;
+		String points;
 		if (validateInput()) {
 			
-			points = deck.getCards()[cb_estimate.getSelectionIndex()].getValue();											
+			points = deck.getCards()[cb_estimate.getSelectionIndex()].getStringValue();											
 			
 			
 			if(story==null){
