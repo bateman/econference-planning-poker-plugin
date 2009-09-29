@@ -33,7 +33,6 @@ public static final int NO_VOTERS = -1;
 	public void addEstimate(IEstimate estimate) {
 		if(totalVoters!=NO_VOTERS){
 			String participantId = estimate.getParticipantId();
-			IPokerCard card = estimate.getCard();
 			if(estimates.containsKey(participantId)){
 				estimates.remove(participantId);
 			}

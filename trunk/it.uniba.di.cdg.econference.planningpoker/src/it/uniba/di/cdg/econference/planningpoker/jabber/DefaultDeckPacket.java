@@ -3,7 +3,6 @@ package it.uniba.di.cdg.econference.planningpoker.jabber;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultPokerCard;
 import it.uniba.di.cdg.jabber.IPacketExtension;
-import it.uniba.di.cdg.jabber.PacketExtensionAdapter;
 
 import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Packet;
@@ -87,7 +86,7 @@ public class DefaultDeckPacket implements IPacketExtension{
 			xml+=String.format("</%s>", ELEMENT_HIDDEN_CARD);
 		}
 		xml += String.format("</%s>", ELEMENT_NAME);
-		//System.out.println(xml);
+		System.out.println(xml);
 		return xml;
 	}
 	
@@ -97,6 +96,10 @@ public class DefaultDeckPacket implements IPacketExtension{
 	}
 	
 	public static class Provider implements PacketExtensionProvider {
+		
+		public Provider() {
+		}
+		
 		public PacketExtension parseExtension(XmlPullParser xpp)
 		throws Exception {
 			CardDeck deck = new CardDeck();
@@ -158,7 +161,7 @@ public class DefaultDeckPacket implements IPacketExtension{
 				xpp.next();
 				eventType = xpp.getEventType();
 			}	
-			return PacketExtensionAdapter.adaptToTargetPacketExtension(new DefaultDeckPacket(deck));
+			return new DefaultDeckPacket(deck);
 		}
 
 	}
