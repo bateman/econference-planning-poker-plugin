@@ -9,7 +9,7 @@ public interface IEstimateListener {
 	 * 
 	 * @param estimate
 	 */
-	void estimateAdded(Estimate estimate);
+	void estimateAdded(IEstimate estimate);
 	
 	
 	/**
@@ -17,7 +17,7 @@ public interface IEstimateListener {
 	 * 
 	 * @param estimate
 	 */
-	void estimateRemoved(Estimate estimate);
+	void estimateRemoved(IEstimate estimate);
 	
 	
 	/**

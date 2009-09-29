@@ -11,6 +11,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.Estimate;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimatesList;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimate;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListener;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
@@ -86,7 +87,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		public void itemRemoved(Object item) {	
 			if(isEstimateSessionValid()){
 				getModel().getEstimateSession().setTotalVoters(getModel().getVoters().size());
-				getModel().getEstimateSession().removeUserEstimate((String) item);	
+				getModel().getEstimateSession().removeEstimate((String) item);	
 			}
 		};
 		
@@ -97,7 +98,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	private IEstimateListener estimatesListener = new IEstimateListener(){
 
 		@Override
-		public void estimateAdded(Estimate estimate) {	
+		public void estimateAdded(IEstimate estimate) {	
 			appendSystemMessage(getModel().getParticipant(estimate.getParticipantId())
 					.getNickName()+" made his estimation" );
 			System.out.println("estimated added from "+estimate.getParticipantId()+
@@ -106,7 +107,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		}
 
 		@Override
-		public void estimateRemoved(Estimate estimate) {
+		public void estimateRemoved(IEstimate estimate) {
 			System.out.println("estimated removed from "+estimate.getParticipantId()+
 					" value: "+estimate.getCard().getStringValue());
 			changeEstimatesList(getModel().getEstimateSession().getAllEstimates(), false);			
@@ -129,7 +130,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 				setAcceptButtonEnable(false);
 				appendSystemMessage("Card selection is DISABLED");
 			}else if(EstimateStatus.REPEATED.equals(status)){
-				getManager().getTalkView().appendMessage("Moderator decide to RE-ESTIMATE this story");
+				getManager().getTalkView().appendMessage("Moderator established to RE-ESTIMATE this story");
 			}
 		};
 		
@@ -177,11 +178,11 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	@SwtAsyncExec
 	protected void suggestFinalEstimate() {
 		if(!isReadOnly()){
-			Estimate[] estimates = getModel().getEstimateSession().getAllEstimates();
+			IEstimate[] estimates = getModel().getEstimateSession().getAllEstimates();
 			IPokerCard currCard;
 			double sum = 0;
 			int total = 0;
-			for (Estimate estimate : estimates) {
+			for (IEstimate estimate : estimates) {
 				currCard = estimate.getCard();
 				try{
 					sum+= Double.parseDouble(currCard.getStringValue());
@@ -434,13 +435,13 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 		
 	}
 	
-	private void changeEstimatesList(Estimate[] estimates, boolean visible) {
+	private void changeEstimatesList(IEstimate[] estimates, boolean visible) {
 		Object[] result = new Object[estimates.length];
 		if(estimates!=null){
 			for (int i = 0; i < estimates.length; i++) {	
 				//This array will contains the IParticipant and the IPokerCard
 				Object[] singleItem = new Object[2];
-				Estimate estimate = (Estimate) estimates[i];
+				IEstimate estimate = (IEstimate) estimates[i];
 				singleItem[0] = getModel().getParticipant(estimate.getParticipantId());		
 				if(!visible)
 					singleItem[1] = null;

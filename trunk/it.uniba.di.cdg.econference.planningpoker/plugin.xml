@@ -234,21 +234,19 @@
    <extension
          point="it.uniba.di.cdg.jabber.packets">
       <packetExtension
-            class="it.uniba.di.cdg.econference.planningpoker.jabber.EstimateAssignedPacket"
-            targetClass="it.uniba.di.cdg.econference.planningpoker.jabber.EstimateAssignedPacket">
-      </packetExtension>
-      <packetExtension
-            class="it.uniba.di.cdg.econference.planningpoker.jabber.EstimateSessionStatusPacket"
-            targetClass="it.uniba.di.cdg.econference.planningpoker.jabber.EstimateSessionStatusPacket">
-      </packetExtension>
-      <packetExtension
             class="it.uniba.di.cdg.econference.planningpoker.jabber.DefaultBacklogPacket">
       </packetExtension>
       <packetExtension
-            class="it.uniba.di.cdg.econference.planningpoker.jabber.DefaultCardSelectionPacket">
+            class="it.uniba.di.cdg.econference.planningpoker.jabber.EstimateSessionStatusPacket">
+      </packetExtension>
+      <packetExtension
+            class="it.uniba.di.cdg.econference.planningpoker.jabber.EstimateAssignedPacket">
       </packetExtension>
       <packetExtension
             class="it.uniba.di.cdg.econference.planningpoker.jabber.DefaultDeckPacket">
+      </packetExtension>
+      <packetExtension
+            class="it.uniba.di.cdg.econference.planningpoker.jabber.DefaultCardSelectionPacket">
       </packetExtension>
    </extension>
    <extension
