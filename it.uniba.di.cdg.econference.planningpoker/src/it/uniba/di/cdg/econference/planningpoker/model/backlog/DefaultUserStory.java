@@ -28,10 +28,10 @@ public class DefaultUserStory implements IUserStory {
 	private String storyText;
 	private String status;
 	private String 	notes;
-	private Object points;
+	private String points;
 	
 	public DefaultUserStory(String id, String storyText, String status, String notes,
-			Object points) {
+			String points) {
 		this.id = id;
 		this.createdOn = Calendar.getInstance().getTime();
 		this.lastUpdate = createdOn;
@@ -42,7 +42,7 @@ public class DefaultUserStory implements IUserStory {
 	}
 	
 	public DefaultUserStory(String id, Date createdOn, Date lastUpdate,
-			String storyText, String status, String notes, Object points) {
+			String storyText, String status, String notes, String points) {
 		super();
 		this.id = id;
 		this.createdOn = createdOn;
@@ -74,7 +74,7 @@ public class DefaultUserStory implements IUserStory {
 	}
 	
 	@Override
-	public void setEstimate(Object points) {
+	public void setEstimate(String points) {
 		this.points = points;		
 	}
 	
