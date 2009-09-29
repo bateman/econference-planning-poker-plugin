@@ -3,7 +3,6 @@ package it.uniba.di.cdg.econference.planningpoker.jabber;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.jabber.IPacketExtension;
-import it.uniba.di.cdg.jabber.PacketExtensionAdapter;
 
 import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Packet;
@@ -113,6 +112,10 @@ public class DefaultCardSelectionPacket implements IPacketExtension {
 	}
 	
 	public static class Provider implements PacketExtensionProvider {
+		
+		public Provider() {	
+		}
+		
 		public PacketExtension parseExtension(XmlPullParser xpp) throws Exception {
 			String who ="";
 			String storyId = "";
@@ -132,7 +135,7 @@ public class DefaultCardSelectionPacket implements IPacketExtension {
 				xpp.next();
 				eventType = xpp.getEventType();
 			}			
-			return PacketExtensionAdapter.adaptToTargetPacketExtension(new DefaultCardSelectionPacket(who, storyId, card));
+			return new DefaultCardSelectionPacket(who, storyId, card);
 		}
 
 	}

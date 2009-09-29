@@ -107,9 +107,6 @@ public class JabberPlanningPokerService extends JabberEConferenceService impleme
 				try{
 				final DefaultBacklogPacket ext = (DefaultBacklogPacket) packet.getExtension(
 						DefaultBacklogPacket.ELEMENT_NAME, DefaultBacklogPacket.ELEMENT_NS);
-//				PacketExtension extension = (PacketExtension) packet.getExtension(
-//							DefaultBacklogPacket.ELEMENT_NAME, DefaultBacklogPacket.ELEMENT_NS);
-//				final DefaultBacklogPacket ext = (DefaultBacklogPacket)extension;
 				getModel().setBacklog(ext.getBacklog());	
 				System.out.println("Received parsed backlog with " + ext.getBacklog().getUserStories().length 
 						+" user stories and the story number "+ext.getBacklog().getCurrentItemIndex()+ " selected");

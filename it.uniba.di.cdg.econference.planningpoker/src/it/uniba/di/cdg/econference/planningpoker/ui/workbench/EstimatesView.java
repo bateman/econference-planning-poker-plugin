@@ -9,7 +9,6 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListener;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListenerAdapter;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.Estimate;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimate;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListener;

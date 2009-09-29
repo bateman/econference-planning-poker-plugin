@@ -25,23 +25,23 @@ public class DefaultBacklogPacket implements IPacketExtension{
      */
 	public static final String ELEMENT_NAME = "backlog";
 	
-	private static final String ELEMENT_STORY = "story";
+	public static final String ELEMENT_STORY = "story";
 	
-	private static final String ELEMENT_STORY_ID = "id";
+	public static final String ELEMENT_STORY_ID = "id";
 	
-	private static final String ELEMENT_STORY_TEXT = "story-text";
+	public static final String ELEMENT_STORY_TEXT = "story-text";
 	
-	private static final String ELEMENT_STORY_NOTES = "notes";
+	public static final String ELEMENT_STORY_NOTES = "notes";
 	
-	private static final String ELEMENT_STORY_STATUS = "status";
+	public static final String ELEMENT_STORY_STATUS = "status";
 	
-	private static final String ELEMENT_STORY_ESTIMATE = "estimate";
+	public static final String ELEMENT_STORY_ESTIMATE = "estimate";
 	
-	private static final String ELEMENT_CURRENT_STORY = "current-story";
+	public static final String ELEMENT_CURRENT_STORY = "current-story";
 	
-	private static final String ELEMENT_STORY_CREATED_ON = "created-on";
+	public static final String ELEMENT_STORY_CREATED_ON = "created-on";
 	
-	private static final String ELEMENT_STORY_LAST_UPDATE = "last-update";
+	public static final String ELEMENT_STORY_LAST_UPDATE = "last-update";
 	
 	
 	
@@ -106,11 +106,16 @@ public class DefaultBacklogPacket implements IPacketExtension{
 	}
 
 	@Override
-	public Object getProvider() {		
-		return new Provider();
+	public Object getProvider() {	
+		Provider provider = new Provider();
+		return provider;
 	}
 	
 	public static class Provider implements PacketExtensionProvider {
+		
+		public Provider() {
+		}
+		
 		public PacketExtension parseExtension(XmlPullParser xpp)
 		throws Exception {
 			Backlog backlog = new Backlog();
