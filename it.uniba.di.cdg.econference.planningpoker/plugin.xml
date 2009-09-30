@@ -91,7 +91,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="it.uniba.di.cdg.econference.planningpoker.ui.workbench.PlanningPokerPerspective"
-            fixed="true"
+            fixed="false"
             icon="icons/poker.gif"
             id="it.uniba.di.cdg.econference.planningpoker.PPPerspective"
             name="Planning Poker">
@@ -172,7 +172,6 @@
          <view
                closeable="false"
                id="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
-               minimized="false"
                moveable="true"
                ratio="0.5"
                relationship="top"
@@ -184,7 +183,6 @@
          <view
                closeable="false"
                id="it.uniba.di.cdg.xcore.econference.ui.views.whiteBoardView"
-               minimized="false"
                moveable="true"
                ratio="0.4"
                relationship="right"
@@ -196,7 +194,6 @@
          <view
                closeable="false"
                id="it.uniba.di.cdg.xcore.multichat.ui.views.multiChatTalkView"
-               minimized="false"
                moveable="true"
                ratio="0.5"
                relationship="right"
@@ -208,7 +205,6 @@
          <view
                closeable="false"
                id="it.uniba.di.cdg.econference.planningpoker.DeckView"
-               minimized="false"
                moveable="true"
                ratio="0.6"
                relationship="bottom"
@@ -220,7 +216,6 @@
          <view
                closeable="false"
                id="it.uniba.di.cdg.econference.planningpoker.EstimatesView"
-               minimized="false"
                moveable="true"
                ratio="0.6"
                relationship="stack"
