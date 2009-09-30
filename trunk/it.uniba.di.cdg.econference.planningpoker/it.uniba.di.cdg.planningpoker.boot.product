@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="eConference3P" uid="it.uniba.cdg.it.planningpoker" id="it.uniba.di.cdg.econference.planningpoker.product" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="0.1" useFeatures="false" includeLaunchers="true">
+<product name="eConference + Planning Poker Plugin" id="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <configIni use="default">
    </configIni>
@@ -10,7 +10,11 @@
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
-   <launcher name="econference">
+   <windowImages/>
+
+   <splash
+      startupProgressRect="5,275,445,15" />
+   <launcher>
       <solaris/>
       <win useIco="false">
          <bmp/>
@@ -24,6 +28,8 @@
       <plugin id="com.ibm.icu"/>
       <plugin id="it.uniba.di.cdg.collaborativeworkbench.boot"/>
       <plugin id="it.uniba.di.cdg.econference.planningpoker"/>
+      <plugin id="it.uniba.di.cdg.jabber"/>
+      <plugin id="it.uniba.di.cdg.xcore.chat"/>
       <plugin id="it.uniba.di.cdg.xcore.econference"/>
       <plugin id="it.uniba.di.cdg.xcore.multichat"/>
       <plugin id="it.uniba.di.cdg.xcore.network"/>
@@ -54,6 +60,18 @@
       <plugin id="org.eclipse.ui.workbench"/>
       <plugin id="org.jivesoftware.smack"/>
    </plugins>
+
+   <features>
+      <feature id="it.uniba.di.cdg.collaborativeworkbench.boot_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.econference.planningpoker" version="1.0.0.qualifier"/>
+      <feature id="it.uniba.di.cdg.jabber_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.xcore.chat_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.xcore.econference_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.xcore.multichat_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.xcore_feature" version="1.0.0"/>
+      <feature id="org.eclipse.rcp" version="3.5.0.v20090519-9SA0FwxFv6x089WEf-TWh11"/>
+      <feature id="org.aspectj.runtime_feature" version="1.0.0"/>
+   </features>
 
 
 </product>
