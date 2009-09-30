@@ -20,7 +20,7 @@ public class PlanningPokerPerspective implements IPerspectiveFactory {
 	public void createInitialLayout(IPageLayout layout) {
         String editorAreaId = layout.getEditorArea();
         layout.setEditorAreaVisible( false );
-        layout.setFixed( true );
+        //layout.setFixed( true );
 
         
         layout.addPlaceholder( ChatRoomView.ID + ":*", IPageLayout.LEFT, 0.2f, editorAreaId );
