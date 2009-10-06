@@ -3,6 +3,7 @@
 
 <product name="eConference + Planning Poker Plugin" id="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
+
    <configIni use="default">
    </configIni>
 
@@ -10,7 +11,7 @@
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
-   <windowImages/>
+   <windowImages i16="/it.uniba.di.cdg.collaborativeworkbench.boot/cw_16x16.gif" i32="/it.uniba.di.cdg.collaborativeworkbench.boot/cw_32x32.gif"/>
 
    <splash
       startupProgressRect="5,275,445,15" />
@@ -20,6 +21,7 @@
          <bmp/>
       </win>
    </launcher>
+
 
    <vm>
    </vm>
