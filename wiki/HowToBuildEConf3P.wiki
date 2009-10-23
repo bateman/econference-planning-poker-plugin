@@ -35,12 +35,7 @@ Now, enter {{{http://econference-planning-poker-plugin.googlecode.com/svn/trunk/
 <br>
 <br>
 
-Once Subclipse has finished fetching data from the new repository, you will see the repository name show up in the tree table viewer on the left pane (Fig. 7). Browse _Trunk_, then select all the plugins and right-click and choose _Checkout..._ from the menu. 
-
-<p align=center> <br>
-<p align=center>*Figure 7. Checking out the prokects into the workspace*</p>
-<br>
-<br>
+Once Subclipse has finished fetching data from the new repository, you will see the repository name show up in the tree table viewer on the left pane. Browse _Trunk_, then select all the plugins and right-click and choose _Checkout..._ from the menu. 
 
 A 2-steps wizard will guide you. You are going to checkout each plugin as a separate project into your workspace. It could take a while, so be patient.
 
