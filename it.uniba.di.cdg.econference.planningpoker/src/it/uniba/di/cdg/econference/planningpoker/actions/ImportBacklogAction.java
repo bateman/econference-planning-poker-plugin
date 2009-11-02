@@ -47,7 +47,7 @@ public class ImportBacklogAction extends Action {
 			return;
 		}		
 		
-		final LoadBacklogDialog dlg = new LoadBacklogDialog( null );
+		final LoadBacklogDialog dlg = new LoadBacklogDialog( window.getShell() );
 		if (dlg.open() == Dialog.OK) {
 			
 			String fileName = dlg.getFileName();
