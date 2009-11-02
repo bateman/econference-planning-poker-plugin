@@ -89,7 +89,7 @@ public class CreateStandardXML {
 						i.setAttribute("Description",idM);
 					
 					
-					i.setAttribute("EndDate",createActualDate());
+					i.setAttribute("EndDate","2010-10-27 00:00:00.0");
 					i.setAttribute("Height","250");
 
 					if (!idM.equals("")){
