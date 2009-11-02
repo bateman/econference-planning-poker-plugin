@@ -22,7 +22,7 @@ public class DefaultBacklogContexLoaderTest {
 	public void setUp() throws Exception {
 		
 		backlogLoader = new DefaultBacklogContextLoader();
-		is = new FileInputStream( "Standard.xml" );
+		is = new FileInputStream( "StandardTest.xml" );
 		
 
 	}
