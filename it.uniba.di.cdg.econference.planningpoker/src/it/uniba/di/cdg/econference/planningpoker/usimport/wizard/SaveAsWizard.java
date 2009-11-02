@@ -33,7 +33,7 @@ public class SaveAsWizard extends WizardPage implements MouseListener{
 	public SaveAsWizard() {
 		super("SaveAs");
 		setTitle("Save results");
-		setDescription("Insert file name to save results");
+		setDescription("Enter file name to save results");
 	}
 
 	public void createControl(Composite parent) {
@@ -45,7 +45,7 @@ public class SaveAsWizard extends WizardPage implements MouseListener{
 		saveText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 		Font f=new Font(composite.getDisplay(), "Arial", 9, SWT.ITALIC);
 		saveText.setFont(f);
-		saveText.setText("Insert file name...");
+		saveText.setText("Enter file name...");
 		saveText.addModifyListener(new ModifyListener() {
 			public void modifyText(ModifyEvent event) {
 
