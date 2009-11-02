@@ -7,6 +7,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckEditorDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ILabelProviderListener;
@@ -255,6 +256,13 @@ public class DefaultDeckEditorDialog extends TitleAreaDialog implements IDeckEdi
 		
 		
 		return root;
+	}
+	
+	
+	@Override
+	protected void createButtonsForButtonBar(Composite parent) {
+			createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL,
+					true);
 	}
 
 	protected void moveCardDown() {
