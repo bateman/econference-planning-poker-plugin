@@ -1,6 +1,5 @@
 package it.uniba.di.cdg.econference.agile.planningpoker.test;
 
-import static org.junit.Assert.*;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.Voters;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 

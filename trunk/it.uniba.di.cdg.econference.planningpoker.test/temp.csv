@@ -1,0 +1,7 @@
+ID,Type,Status,Milestone,Summary,AllLabels
+1,Story,Accepted,Release1.0,first user story,Type-StoryPriority-MediumMilestone-Release1.0
+2,Story,Accepted,Release1.0,second user story,Type-StoryPriority-MediumMilestone-Release1.0
+3,Story,Accepted,"",Third user story,Type-StoryPriority-Medium
+4,Story,Accepted,"",Fourth User story,Type-StoryPriority-Medium
+5,Story,Accepted,Release2.0,Fifth US,Type-StoryPriority-MediumMilestone-Release2.0
+6,Story,New,"",test new issue,Type-StoryPriority-Medium

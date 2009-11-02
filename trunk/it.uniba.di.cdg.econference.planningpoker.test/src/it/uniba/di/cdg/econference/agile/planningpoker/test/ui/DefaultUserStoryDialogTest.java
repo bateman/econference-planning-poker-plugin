@@ -1,5 +1,7 @@
 package it.uniba.di.cdg.econference.agile.planningpoker.test.ui;
 
+import java.util.Calendar;
+
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
 import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.DefaultUserStoryDialog;
 import junit.framework.TestCase;
@@ -18,15 +20,14 @@ public class DefaultUserStoryDialogTest extends TestCase{
 		Display display = new Display();
 		Shell shell = new Shell(display);
 		
-		story = new DefaultUserStory("id1", "storytext 1", "Closed", "some notes", null);
+		story = new DefaultUserStory("id1","milestone1", "Milestone 1", Calendar.getInstance().getTime(), "text", "notes", "");
     	dus = new DefaultUserStoryDialog(shell);
     	dus.setStory(story);
 	}
 	
 	
 	public void testDialog() {			
-		if(dus.show() == Dialog.OK){							
-		}else{
+		if(dus.show() != Dialog.OK){									
 			assertEquals(dus.getStory(), story);
 		}
 		

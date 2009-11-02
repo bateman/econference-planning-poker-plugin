@@ -1,19 +1,20 @@
 package it.uniba.di.cdg.econference.agile.planningpoker.test;
 
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListener;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIProvider;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListener;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
+
+import java.util.Calendar;
 
 import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 
 
 
-public class IBacklogTest extends MockObjectTestCase {
+public class BacklogTest extends MockObjectTestCase {
 	
 	private Backlog backlog;
 	
@@ -24,8 +25,8 @@ public class IBacklogTest extends MockObjectTestCase {
 	protected void setUp() throws Exception {
 		this.backlog = new Backlog();
 		 
-		story1 = new DefaultUserStory("id1","story1","Closed","asfdasd","8");
-		story2 = new DefaultUserStory("id2","story2","Unknown","fasdfad","Unknown");
+		story1 = new DefaultUserStory("id1","milestone1", "Milestone 1", Calendar.getInstance().getTime(), "text", "notes", "8");
+		story2 = new DefaultUserStory("id2","milestone2", "Milestone 2", Calendar.getInstance().getTime(), "text2", "notes2", "?");
 	}
 
 	protected void tearDown() throws Exception {

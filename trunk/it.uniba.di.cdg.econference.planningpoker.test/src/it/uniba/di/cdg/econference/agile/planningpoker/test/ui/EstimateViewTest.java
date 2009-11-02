@@ -25,9 +25,6 @@ import org.eclipse.ui.PlatformUI;
  */
 public class EstimateViewTest extends TestCase
 {
-	private static final String VIEW_ID =
-		EstimatesView.ID;
-	
 	private IViewPart viewPart;
 
 	private EstimatesView estimatesView;
