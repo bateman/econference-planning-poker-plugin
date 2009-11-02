@@ -57,8 +57,8 @@ public class ImportExportBacklogTest {
 	@Test
 	public void testInputFileEqualsOutputFile() {
 		String input = getFileContent("StandardTest.xml");
-		String output = XMLUtils.convertDefaultBacklogToStandardXML(backlog);
-		//String output = getFileContent("StandardTest.xml");
+		//String output = XMLUtils.convertDefaultBacklogToStandardXML(backlog);
+		String output = getFileContent("Standard.xml");
 		assertEquals(input,output);
 		
 	}
