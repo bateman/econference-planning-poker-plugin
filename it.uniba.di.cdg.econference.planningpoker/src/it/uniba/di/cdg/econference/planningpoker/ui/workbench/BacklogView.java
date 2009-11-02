@@ -10,6 +10,7 @@ import it.uniba.di.cdg.econference.planningpoker.actions.EditUserStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.EstimateStoryAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.ExportBacklogAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.ImportBacklogAction;
+import it.uniba.di.cdg.econference.planningpoker.actions.ImportBacklogFromCDEAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModelListener;
 import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModelListenerAdapter;
@@ -76,6 +77,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	private EstimateStoryAction estimateStoryAction;
 	private ImportBacklogAction importBacklogAction;
 	private ExportBacklogAction exportBacklogAction;
+	private ImportBacklogFromCDEAction importBacklogFromCDEAction;
 
 	private IPlanningPokerManager manager;
 
@@ -146,6 +148,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		}
 	};
 
+	
+
 
 	public BacklogView() {
 	}
@@ -171,6 +175,8 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		
 		importBacklogAction = new ImportBacklogAction(this);
 		exportBacklogAction = new ExportBacklogAction(this);
+		
+		importBacklogFromCDEAction = new ImportBacklogFromCDEAction(this);
 	}
 	
     /**
@@ -180,6 +186,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
     protected void contributeToActionBars( IActionBars bars ) {
         bars.getToolBarManager().add( exportBacklogAction );
         bars.getToolBarManager().add( importBacklogAction );
+        bars.getToolBarManager().add(importBacklogFromCDEAction);
     }
 
 	private void createContextMenu(){		
@@ -344,6 +351,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		addStoryAction.setEnabled(!readOnly);
 		importBacklogAction.setEnabled(!readOnly);
 		exportBacklogAction.setEnabled(!readOnly);
+		importBacklogFromCDEAction.setEnabled(!readOnly);
 		
 		//only if planning poker has been already started, it is possible estimate a story
 		if(getModel()!=null && getModel().getStatus().equals(ConferenceStatus.STARTED)){

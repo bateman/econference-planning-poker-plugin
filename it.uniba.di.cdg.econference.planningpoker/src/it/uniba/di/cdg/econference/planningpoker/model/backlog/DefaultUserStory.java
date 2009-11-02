@@ -1,54 +1,31 @@
 package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
-import java.util.Calendar;
 import java.util.Date;
 
 
 
 public class DefaultUserStory implements IUserStory {
 	
-//	public enum STATUS { UNKNOWN("Unknow"), OPEN("Open"), CLOSED("Closed"), 
-//		LOW("Low");
-//	
-//	private String status;
-//	
-//	private STATUS(String name){
-//		this.status = name;
-//	}
-//	
-//	public String getName() {
-//		return status;
-//	} };
-	
-	
 	
 	private String id;
-	private Date createdOn;
-	private Date lastUpdate;
-	private String storyText;
-	private String status;
+	private String storyText;	
 	private String 	notes;
 	private String points;
+	private String milestoneId;
+	private String milestoneName;
+	private Date milestoneCreationDate;
+
 	
-	public DefaultUserStory(String id, String storyText, String status, String notes,
-			String points) {
-		this.id = id;
-		this.createdOn = Calendar.getInstance().getTime();
-		this.lastUpdate = createdOn;
-		this.storyText = storyText;
-		this.status = status;
-		this.notes = notes;
-		this.points = points;			
-	}
+
 	
-	public DefaultUserStory(String id, Date createdOn, Date lastUpdate,
-			String storyText, String status, String notes, String points) {
+	public DefaultUserStory(String id, String milestoneId, String milestoneName,
+			Date milestoneCreationDate, String storyText, String notes, String points) {
 		super();
 		this.id = id;
-		this.createdOn = createdOn;
-		this.lastUpdate = lastUpdate;
+		this.milestoneId = milestoneId;
+		this.milestoneCreationDate = milestoneCreationDate;
 		this.storyText = storyText;
-		this.status = status;
+		this.milestoneName = milestoneName;
 		this.notes = notes;
 		this.points = points;
 	}
@@ -61,16 +38,6 @@ public class DefaultUserStory implements IUserStory {
 	@Override
 	public void setStoryText(String storyText) {
 		this.storyText = storyText;
-	}
-
-
-	public String getStatus() {
-		return status;
-	}
-	
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 	
 	@Override
@@ -107,22 +74,33 @@ public class DefaultUserStory implements IUserStory {
 	public void setId(String id) {
 		this.id = id;		
 	}
-
-	public Date getCreatedOn() {
-		return createdOn;
+	
+	public String getMilestoneId() {
+		return milestoneId;
 	}
 
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
+	public void setMilestoneId(String milestoneId) {
+		this.milestoneId = milestoneId;
+	}
+	
+	
+	public String getMilestoneName() {
+		return milestoneName;
 	}
 
-	public Date getLastUpdate() {
-		return lastUpdate;
+	public void setMilestoneName(String milestoneDescription) {
+		this.milestoneName = milestoneDescription;
 	}
 
-	public void setLastUpdate(Date lastUpdate) {
-		this.lastUpdate = lastUpdate;
+	public Date getMilestoneCreationDate() {
+		return milestoneCreationDate;
 	}
+
+	public void setMilestoneCreationDate(Date milestoneCreationDate) {
+		this.milestoneCreationDate = milestoneCreationDate;
+	}
+
+
 
 
 	

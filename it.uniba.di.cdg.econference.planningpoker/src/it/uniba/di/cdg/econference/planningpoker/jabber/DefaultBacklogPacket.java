@@ -30,18 +30,22 @@ public class DefaultBacklogPacket implements IPacketExtension{
 	public static final String ELEMENT_STORY_ID = "id";
 	
 	public static final String ELEMENT_STORY_TEXT = "story-text";
+
+	public static final String ELEMENT_MILESTONE_ID = "milestone-id";
+	
+	public static final String ELEMENT_MILESTONE_DESCRIPTION = "milestone-description";
+	
+	public static final String ELEMENT_MILESTONE_CREATION_DATE = "milestone-created-on";
 	
 	public static final String ELEMENT_STORY_NOTES = "notes";
-	
-	public static final String ELEMENT_STORY_STATUS = "status";
 	
 	public static final String ELEMENT_STORY_ESTIMATE = "estimate";
 	
 	public static final String ELEMENT_CURRENT_STORY = "current-story";
 	
-	public static final String ELEMENT_STORY_CREATED_ON = "created-on";
+
 	
-	public static final String ELEMENT_STORY_LAST_UPDATE = "last-update";
+	
 	
 	
 	
@@ -90,13 +94,14 @@ public class DefaultBacklogPacket implements IPacketExtension{
 			DefaultUserStory story = (DefaultUserStory) backlog.getUserStories()[i];
 			xml+=String.format("<%s>", ELEMENT_STORY);			
 			xml+=String.format("<%s>%s</%s>", ELEMENT_STORY_ID, StringUtils.escapeForXML(story.getId()), ELEMENT_STORY_ID );
-			xml+=String.format("<%s>%s</%s>", ELEMENT_STORY_CREATED_ON, 
-					StringUtils.escapeForXML(DateUtils.formatDate(story.getCreatedOn())), ELEMENT_STORY_CREATED_ON );
-			xml+=String.format("<%s>%s</%s>", ELEMENT_STORY_LAST_UPDATE,
-					StringUtils.escapeForXML(DateUtils.formatDate(story.getLastUpdate())), ELEMENT_STORY_LAST_UPDATE );
+			xml+=String.format("<%s>%s</%s>", ELEMENT_MILESTONE_CREATION_DATE, 
+					StringUtils.escapeForXML(DateUtils.formatDate(story.getMilestoneCreationDate())), ELEMENT_MILESTONE_CREATION_DATE );
+			xml+=String.format("<%s>%s</%s>", ELEMENT_MILESTONE_ID,
+					StringUtils.escapeForXML(story.getMilestoneId()), ELEMENT_MILESTONE_ID );
+			xml+=String.format("<%s>%s</%s>", ELEMENT_MILESTONE_DESCRIPTION, StringUtils.escapeForXML(story.getMilestoneName()), ELEMENT_MILESTONE_DESCRIPTION);
 			xml+=String.format("<%s>%s</%s>", ELEMENT_STORY_TEXT, StringUtils.escapeForXML(story.getStoryText()), ELEMENT_STORY_TEXT );
 			xml+=String.format("<%s>%s</%s>", ELEMENT_STORY_NOTES, StringUtils.escapeForXML(story.getNotes()), ELEMENT_STORY_NOTES);
-			xml+=String.format("<%s>%s</%s>", ELEMENT_STORY_STATUS, StringUtils.escapeForXML(story.getStatus().toString()), ELEMENT_STORY_STATUS);
+			
 			xml+=String.format("<%s>%s</%s>", ELEMENT_STORY_ESTIMATE, StringUtils.escapeForXML(story.getEstimate().toString()), ELEMENT_STORY_ESTIMATE);
 			xml+=String.format("</%s>", ELEMENT_STORY);
 		}
@@ -134,10 +139,10 @@ public class DefaultBacklogPacket implements IPacketExtension{
 					//We are in the story tag -> <story>....</story>  
 					String storyText = "";
 					String id ="";
-					String createdOn = "";
-					String lastUpdate = "";
+					String milestoneId = "";
+					String milestoneCreationDate = "";
+					String milestoneDescription = "";
 					String notes="";
-					String status = "";
 					String estimate = "";
 					boolean noUserStory = true;
 					while(!(eventType == XmlPullParser.END_TAG&& xpp.getName().equalsIgnoreCase(ELEMENT_STORY))){
@@ -154,16 +159,16 @@ public class DefaultBacklogPacket implements IPacketExtension{
 							id = xpp.getText();
 							//System.out.println("Tag Description "+xpp.getText());
 						}else if(eventType == XmlPullParser.START_TAG && 
-							xpp.getName().equalsIgnoreCase(ELEMENT_STORY_CREATED_ON)){	            	 
+							xpp.getName().equalsIgnoreCase(ELEMENT_MILESTONE_CREATION_DATE)){	            	 
 							if(! (xpp.next() == XmlPullParser.END_TAG && 
-									xpp.getName().equalsIgnoreCase(ELEMENT_STORY_CREATED_ON)))
-							createdOn = xpp.getText();
+									xpp.getName().equalsIgnoreCase(ELEMENT_MILESTONE_CREATION_DATE)))
+							milestoneCreationDate = xpp.getText();
 							//System.out.println("Tag Description "+xpp.getText());
 						}else if(eventType == XmlPullParser.START_TAG && 
-							xpp.getName().equalsIgnoreCase(ELEMENT_STORY_LAST_UPDATE)){	            	 
+							xpp.getName().equalsIgnoreCase(ELEMENT_MILESTONE_ID)){	            	 
 							if(! (xpp.next() == XmlPullParser.END_TAG && 
-									xpp.getName().equalsIgnoreCase(ELEMENT_STORY_LAST_UPDATE)))
-							lastUpdate = xpp.getText();
+									xpp.getName().equalsIgnoreCase(ELEMENT_MILESTONE_ID)))
+							milestoneId = xpp.getText();
 							//System.out.println("Tag Description "+xpp.getText());
 						}else if(eventType == XmlPullParser.START_TAG && 
 							xpp.getName().equalsIgnoreCase(ELEMENT_STORY_NOTES)){	            	 
@@ -172,10 +177,10 @@ public class DefaultBacklogPacket implements IPacketExtension{
 							notes = xpp.getText();
 							//System.out.println("Tag Description "+xpp.getText());
 						}else if(eventType == XmlPullParser.START_TAG && 
-								xpp.getName().equalsIgnoreCase(ELEMENT_STORY_STATUS)){							
+								xpp.getName().equalsIgnoreCase(ELEMENT_MILESTONE_DESCRIPTION)){							
 							if(! (xpp.next() == XmlPullParser.END_TAG && 
-									xpp.getName().equalsIgnoreCase(ELEMENT_STORY_STATUS)))							
-							status = xpp.getText();
+									xpp.getName().equalsIgnoreCase(ELEMENT_MILESTONE_DESCRIPTION)))							
+							milestoneDescription = xpp.getText();
 							//System.out.println("Tag Status "+xpp.getText());
 						}else if(eventType == XmlPullParser.START_TAG && 
 								xpp.getName().equalsIgnoreCase(ELEMENT_STORY_ESTIMATE)){	            	 
@@ -189,9 +194,8 @@ public class DefaultBacklogPacket implements IPacketExtension{
 					} 
 					if(!noUserStory){
 						//System.out.println("Creating User Story...");
-						currStory = new DefaultUserStory(id, DateUtils.getDateFromString(createdOn),
-								DateUtils.getDateFromString(lastUpdate), storyText, 
-								status,notes,estimate);						
+						currStory = new DefaultUserStory(id, milestoneId, milestoneDescription, 
+								DateUtils.getDateFromString(milestoneCreationDate), storyText,notes,estimate);						
 						backlog.addUserStory(currStory);						
 					}
 				}

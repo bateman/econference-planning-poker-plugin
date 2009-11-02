@@ -7,8 +7,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
-
-import java.util.Calendar;
+import it.uniba.di.cdg.econference.planningpoker.utils.DateUtils;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -30,11 +29,17 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 	
 	private Text txt_story_text;
 	private Text txt_notes;
-	private Text txt_status;
+	//private Text txt_milestone_description;
 	private Combo cb_estimate;
 	private Text txt_id;
-
+	private Text txt_milestone_name;
+	private Text txt_milestone_id;
+	private Text txt_milestone_date;
 	private Backlog backlog;
+
+	
+
+	
 
 	public DefaultUserStoryDialog(Shell parentShell) {		
 		super(parentShell);		
@@ -100,22 +105,8 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 		txt_story_text = new Text(root, SWT.BORDER | SWT.SINGLE | SWT.H_SCROLL );
 		txt_story_text.setLayoutData(gd);
 		
-		gd = new GridData();
 		
-		Label label2 = new Label(root, SWT.NONE);
-		label2.setText("Status:");
-		label2.setLayoutData(gd);
 		
-		gd = new GridData();
-		gd.horizontalAlignment = SWT.FILL;
-		gd.grabExcessHorizontalSpace = true;
-		
-		gd = new GridData();
-		gd.horizontalAlignment = SWT.FILL;
-		gd.grabExcessHorizontalSpace = true;
-		
-		txt_status = new Text(root, SWT.SINGLE | SWT.BORDER );				
-		txt_status.setLayoutData(gd);
 		
 		Label notesLabel = new Label(root, SWT.NONE);
 		notesLabel.setText("Notes:");
@@ -127,15 +118,14 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 		gd.widthHint = 350;
 		gd.grabExcessVerticalSpace = true;
 
-		
 		txt_notes = new Text(root, SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL );
 		txt_notes.setLayoutData(gd);		
 		
 		gd = new GridData();		
 		
-		Label label4 = new Label(root, SWT.NONE);
-		label4.setText("Estimate:");
-		label4.setLayoutData(gd);
+		Label estimateLabel = new Label(root, SWT.NONE);
+		estimateLabel.setText("Estimate:");
+		estimateLabel.setLayoutData(gd);
 		
 		gd = new GridData();
 		gd.horizontalAlignment = SWT.FILL;
@@ -148,6 +138,47 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 			cb_estimate.add(card.getStringValue());
 		}
 		cb_estimate.setLayoutData(gd);
+		
+		
+		//Milestone section
+		gd = new GridData();
+		
+		Label label2 = new Label(root, SWT.NONE);
+		label2.setText("Milestone Id:");
+		label2.setLayoutData(gd);
+		
+		gd = new GridData();
+		gd.horizontalAlignment = SWT.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		
+		txt_milestone_id = new Text(root, SWT.SINGLE | SWT.BORDER );				
+		txt_milestone_id.setLayoutData(gd);
+		
+		gd = new GridData();
+		
+		Label label3 = new Label(root, SWT.NONE);
+		label3.setText("Milestone:");
+		label3.setLayoutData(gd);
+		
+		gd = new GridData();
+		gd.horizontalAlignment = SWT.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		
+		txt_milestone_name = new Text(root, SWT.SINGLE | SWT.BORDER );				
+		txt_milestone_name.setLayoutData(gd);
+		
+		gd = new GridData();
+		
+		Label label4 = new Label(root, SWT.NONE);
+		label4.setText("Milestone Creation Date:");
+		label4.setLayoutData(gd);
+		
+		gd = new GridData();
+		gd.horizontalAlignment = SWT.FILL;
+		gd.grabExcessHorizontalSpace = true;
+		
+		txt_milestone_date = new Text(root, SWT.SINGLE | SWT.BORDER );				
+		txt_milestone_date.setLayoutData(gd);
 		
 		if(story!=null){
 			//fill the dialog area with data of the Story to edit
@@ -167,9 +198,15 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 		setTitle("Edit the User Story");
 		DefaultUserStory userStory = (DefaultUserStory)story;
 		txt_id.setEditable(false);
-		txt_id.setText(userStory.getId());		
+		txt_milestone_id.setEditable(false);
+		txt_milestone_name.setEditable(false);
+		txt_milestone_date.setEditable(false);
+		txt_id.setText(userStory.getId());	
+		txt_milestone_id.setText(userStory.getMilestoneId());
+		txt_milestone_name.setText(userStory.getMilestoneName());
+		txt_milestone_date.setText(DateUtils.formatDate(userStory.getMilestoneCreationDate()));
 		txt_story_text.setText(userStory.getStoryText());		
-		txt_status.setText(userStory.getStatus());
+		//txt_milestone_description.setText(userStory.getMilestoneDescription());
 		txt_notes.setText(userStory.getNotes());
 		Object points = userStory.getEstimate();		
 			
@@ -213,16 +250,18 @@ public class DefaultUserStoryDialog extends TitleAreaDialog implements IUserStor
 			if(story==null){
 				story = new DefaultUserStory(
 						txt_id.getText(),
-						txt_story_text.getText(),
-						txt_status.getText(), 
+						txt_milestone_id.getText(),
+						txt_milestone_name.getText(),
+						DateUtils.getDateFromString(txt_milestone_date.getText()),
+						txt_story_text.getText(), 
 						txt_notes.getText(), 
 						points);		
 			}else{
-				story.setStoryText(txt_story_text.getText());
-				story.setStatus(txt_status.getText());
+				story.setStoryText(txt_story_text.getText());				
 				story.setNotes(txt_notes.getText());
 				story.setEstimate(points);
-				story.setLastUpdate(Calendar.getInstance().getTime());
+//				story.setMilestoneId(txt_milestone_id.getText());
+//				story.setMilestoneName(txt_milestone_name.getText());
 			}
 			super.okPressed();
 		}		

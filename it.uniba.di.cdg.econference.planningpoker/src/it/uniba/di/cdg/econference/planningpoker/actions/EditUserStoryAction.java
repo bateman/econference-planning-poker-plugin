@@ -19,7 +19,7 @@ public class EditUserStoryAction extends SingleSelectionAction {
 		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
 				PlanningPokerPlugin.ID, "icons/backlog/editStory.gif" ));
 		setText( "Edit User Story" );
-		setToolTipText( "Edit the content of selected User Story" );
+		setToolTipText("Edit the content of selected User Story");
 	}
 
 

@@ -3,6 +3,7 @@ package it.uniba.di.cdg.econference.planningpoker.utils;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
+import it.uniba.di.cdg.econference.planningpoker.usimport.CreateStandardXML;
 
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -16,15 +17,19 @@ import org.w3c.dom.Document;
 public class XMLUtils {
 	
 	
-	public static String ELEMENT_BACKLOG = "backlog";
-	public static String ELEMENT_STORY = "story";
+	public static String ELEMENT_BACKLOG = "Backlog";
+	public static String ELEMENT_STORY = "StoryCard";
 	public static String ELEMENT_STORY_ID = "ID";
-	public static String ELEMENT_STORY_CREATED_ON = "Created-on";
-	public static String ELEMENT_STORY_LAST_UPDATE = "Last-update";
-	public static String ELEMENT_STORY_TEXT = "StoryText";
-	public static String ELEMENT_STORY_STATUS = "Status";
-	public static String ELEMENT_STORY_NOTES = "Notes";
-	public static String ELEMENT_STORY_ESTIMATE = "Estimate";
+	public static String ELEMENT_STORY_TEXT = "Name";
+	public static String ELEMENT_STORY_NOTES = "Description";
+	public static String ELEMENT_STORY_ESTIMATE = "MostLikely";
+	public static String ELEMENT_STORY_ITERATION_ID = "Parent";
+	
+	
+	public static String ELEMENT_ITERATION = "Iteration";
+	public static String ELEMENT_ITERATION_ID = "ID";
+	public static String ELEMENT_ITERATION_NAME = "Name";
+	public static String ELEMENT_ITERATION_START_DATE = "StartDate";
 	
 	
     /**
@@ -46,7 +51,7 @@ public class XMLUtils {
      * Convert the Backlog object in the Agile Planner XML Standard
      * 
      * @param backlog
-     * @return the serialize xml string
+     * @return the serialized xml string
      * @throws TransformerException
      * @throws IllegalArgumentException 
      */
@@ -54,29 +59,29 @@ public class XMLUtils {
     	if(backlog!=null && backlog.size()>0){
 	    	LinkedList<String> id = new LinkedList<String>();
 	    	LinkedList<String> storyText = new LinkedList<String>();
-	    	LinkedList<String> status = new LinkedList<String>();
-	    	LinkedList<String> note = new LinkedList<String>();
+	    	LinkedList<String> milestoneId = new LinkedList<String>();
+	    	LinkedList<String> notes = new LinkedList<String>();
 	    	LinkedList<String> estimates = new LinkedList<String>();
-	    	LinkedList<String> createdOn = new LinkedList<String>();
-	    	LinkedList<String> lastUpdate = new LinkedList<String>();
+	    	LinkedList<String> milestoneDescriptions = new LinkedList<String>();
+	    	LinkedList<String> milestoneCreationDates = new LinkedList<String>();
 	    	for (IUserStory story : backlog.getUserStories()) {	  
 	    		if(story instanceof DefaultUserStory){
 	    			DefaultUserStory defStory = (DefaultUserStory)story;
 					id.add(defStory.getId());
 					storyText.add(defStory.getStoryText());
-					note.add(defStory.getNotes());
-					status.add(defStory.getStatus());
-					estimates.add(defStory.getEstimate().toString());
-					//FIXME: Following linkedList are ignored for now
-					createdOn.add(DateUtils.formatDate(defStory.getCreatedOn()));
-					lastUpdate.add(DateUtils.formatDate(defStory.getLastUpdate()));
+					notes.add(defStory.getNotes());
+					milestoneId.add(defStory.getMilestoneId());
+					estimates.add(defStory.getEstimate().toString());					
+					milestoneCreationDates.add(DateUtils.formatDate(defStory.getMilestoneCreationDate()));
+					milestoneDescriptions.add(defStory.getMilestoneName());
 	    		}else{
 	    			throw new IllegalArgumentException("Wrong User Story type: only DefaultUserStory type " +
 	    					"can be printed with this transformer.");
 	    		}
 			}
 	    	
-	    	CreateStandardXML standardXML = new CreateStandardXML(storyText,note,id, status, estimates);
+	    	CreateStandardXML standardXML = new CreateStandardXML(storyText,notes,id,estimates,milestoneId, null, 
+	    			milestoneCreationDates, milestoneDescriptions);
 	    	return standardXML.getXMLString();
     	}else{
     		throw new IllegalArgumentException("Backlog is empty");
