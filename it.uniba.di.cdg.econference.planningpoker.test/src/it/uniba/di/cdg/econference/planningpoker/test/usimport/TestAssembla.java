@@ -2,8 +2,6 @@ package it.uniba.di.cdg.econference.planningpoker.test.usimport;
 
 import static org.junit.Assert.assertEquals;
 
-import it.uniba.di.cdg.econference.planningpoker.usimport.Assembla;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,6 +12,8 @@ import java.util.LinkedList;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import it.uniba.di.cdg.econference.planningpoker.usimport.Assembla;
 
 
 public class TestAssembla {
