@@ -9,7 +9,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.Estimate;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimatesList;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimateSession;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
 import it.uniba.di.cdg.jabber.JabberBackend;
@@ -59,6 +59,7 @@ public class JabberPlanningPokerService extends JabberEConferenceService impleme
         	//initializing default card
         	CardDeck deck = new CardDeck();        	
         	deck.addCard(new DefaultPokerCard(DefaultPokerCard.UNKNOWN, DefaultPokerCard.IMAGE_UNKNOWN));
+        	deck.addCard(new DefaultPokerCard(DefaultPokerCard.ZERO, null));
         	deck.addCard(new DefaultPokerCard(DefaultPokerCard.ONE, DefaultPokerCard.IMAGE_ONE));
         	deck.addCard(new DefaultPokerCard(DefaultPokerCard.TWO, DefaultPokerCard.IMAGE_TWO));
         	deck.addCard(new DefaultPokerCard(DefaultPokerCard.THREE, DefaultPokerCard.IMAGE_THREE));
@@ -289,11 +290,11 @@ public class JabberPlanningPokerService extends JabberEConferenceService impleme
 				EstimateStatus status = EstimateStatus.valueOf(ext.getStatus());
 				if(status != null){
 					if(EstimateStatus.CREATED.equals(status)){					
-						getModel().openEstimateSession(new EstimatesList(storyId, id));
+						getModel().openEstimateSession(new EstimateSession(storyId, id));
 					}else if(EstimateStatus.CLOSED.equals(status)||
 							EstimateStatus.COMPLETED.equals(status) ||
 							EstimateStatus.REPEATED.equals(status)){
-						if(getModel().getEstimateSession().equals(new EstimatesList(storyId, id)))
+						if(getModel().getEstimateSession().equals(new EstimateSession(storyId, id)))
 							getModel().getEstimateSession().setStatus(status);
 					}
 				}else{
