@@ -11,8 +11,7 @@ import org.junit.runners.Suite;
 		TestTracWizardThird.class,
 		TestAssembla.class,
 		TestGoogleCode.class,
-		TestTrac.class,
-		TestCreateStandardXML.class
+		TestTrac.class
 	})
 	
 	public class AllTests {
