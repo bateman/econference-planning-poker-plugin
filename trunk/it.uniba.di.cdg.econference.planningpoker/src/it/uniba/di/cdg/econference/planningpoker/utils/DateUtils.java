@@ -7,12 +7,16 @@ import java.util.Date;
 public class DateUtils {
 	
     public static String formatDate(Date date){
-    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-    	return formatter.format(date);
+    	if(date!=null){
+	    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	    	return formatter.format(date);
+    	}else{
+    		return "";
+    	}
     }
 
 
-    public static Date getDateFromString(String createdOn) {
+    public static Date getDateFromString(String createdOn) {    	
     	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     	try
     	{
@@ -20,7 +24,7 @@ public class DateUtils {
     		return date;
     	} catch (ParseException e)
     	{
-    		e.printStackTrace();
+    		//e.printStackTrace();
     		return null;
     	}
     }

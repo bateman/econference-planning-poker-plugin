@@ -9,6 +9,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -22,47 +23,57 @@ public class DefaultBacklogContextLoader implements IBacklogContextLoader {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath = factory.newXPath();            
 
-			Node backlog = (Node) xPath.evaluate( "//backlog", doc, XPathConstants.NODE );  
+			//Node backlog = (Node) xPath.evaluate( "//"+XMLUtils.ELEMENT_BACKLOG, doc, XPathConstants.NODE );  
+			NodeList stories = (NodeList) xPath.evaluate(  "//"+XMLUtils.ELEMENT_STORY, doc, XPathConstants.NODESET );            
 
-			if(backlog!=null){
+			if(stories.getLength()>0){				
+				result = new Backlog();
+				for (int i = 0; i < stories.getLength(); i++) {            	
+					Node storyNode = stories.item( i );
+					NamedNodeMap attributes = storyNode.getAttributes();					
+					//String id = xPath.evaluate( "[@"+XMLUtils.ELEMENT_STORY_ID+"]", storyNode ); 
+					String id = attributes.getNamedItem(XMLUtils.ELEMENT_STORY_ID).getTextContent();
 
-				NodeList stories = (NodeList) xPath.evaluate( "story", backlog, XPathConstants.NODESET );            
+					if(id!=null && id!=""){   
 
-				if(stories.getLength()>0){				
-					result = new Backlog();
-					for (int i = 0; i < stories.getLength(); i++) {            	
-						Node storyNode = stories.item( i );
+						String milestoneId = attributes.getNamedItem(XMLUtils.ELEMENT_STORY_ITERATION_ID).getTextContent();
+						String milestoneName = "";
+						String milestoneCreationDate = "";
+						
+						if (!milestoneId.equals("2")){
 
-						String id = xPath.evaluate( XMLUtils.ELEMENT_STORY_ID, storyNode ); 
-
-						if(id!=null && id!=""){   
-
-							String createdOn = xPath.evaluate( XMLUtils.ELEMENT_STORY_CREATED_ON, storyNode );
-
-							String lastUpdate = xPath.evaluate( XMLUtils.ELEMENT_STORY_LAST_UPDATE, storyNode );
-
-							String status = xPath.evaluate( XMLUtils.ELEMENT_STORY_STATUS, storyNode );												
-
-							//STATUS status = STATUS.valueOf(statusString.toUpperCase());	   
-
-							String storyText = xPath.evaluate( XMLUtils.ELEMENT_STORY_TEXT, storyNode );
-
-							String notes = xPath.evaluate( XMLUtils.ELEMENT_STORY_NOTES, storyNode );
-
-							String estimate = xPath.evaluate( XMLUtils.ELEMENT_STORY_ESTIMATE, storyNode );
-							if(estimate == null || estimate=="")
-								estimate ="?";
-
-							result.addUserStory(new DefaultUserStory(id, DateUtils.getDateFromString(createdOn), 
-									DateUtils.getDateFromString(lastUpdate), 
-									storyText,status,notes,estimate));
-						}else{
-							System.err.println("Parsed User Story without id");
+							milestoneName = (String) xPath.evaluate("//"+XMLUtils.ELEMENT_ITERATION+
+									"[@"+XMLUtils.ELEMENT_ITERATION_ID+"='"+milestoneId+"']/@"+
+									XMLUtils.ELEMENT_ITERATION_NAME, doc);
+							
+							milestoneCreationDate = (String) xPath.evaluate("//"+XMLUtils.ELEMENT_ITERATION+
+									"[@"+XMLUtils.ELEMENT_ITERATION_ID+"='"+milestoneId+"']/@"+
+									XMLUtils.ELEMENT_ITERATION_START_DATE, doc);
+														
 						}
+															
+
+						//String milestoneDescription = attributes.getNamedItem( XMLUtils.ELEMENT_ITERATION_NAME).getTextContent();										
+
+						//STATUS status = STATUS.valueOf(statusString.toUpperCase());	   
+
+						String storyText = attributes.getNamedItem(XMLUtils.ELEMENT_STORY_TEXT).getTextContent();
+
+						String notes = attributes.getNamedItem( XMLUtils.ELEMENT_STORY_NOTES).getTextContent();
+
+						String estimate = attributes.getNamedItem( XMLUtils.ELEMENT_STORY_ESTIMATE).getTextContent();
+						if(estimate == null || estimate=="")
+							estimate ="?";
+
+						result.addUserStory(new DefaultUserStory(id,milestoneId, milestoneName,
+								DateUtils.getDateFromString(milestoneCreationDate),storyText,notes,estimate));
+					}else{
+						System.err.println("Parsed User Story without id");
 					}
 				}
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new InvalidContextException(e);
 		}
 		return result;
