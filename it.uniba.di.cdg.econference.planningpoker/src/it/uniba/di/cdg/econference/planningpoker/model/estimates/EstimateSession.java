@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-public class EstimatesList implements IEstimatesList {
+public class EstimateSession implements IEstimatesList {
 
 public static final int NO_VOTERS = -1;
 	
@@ -19,7 +19,7 @@ public static final int NO_VOTERS = -1;
 	private int totalVoters;
 	private EstimateStatus status;
 	
-	public EstimatesList(String storyId, String date) {
+	public EstimateSession(String storyId, String date) {
 		this.date = date;
 		this.storyId = storyId;
 		this.status = EstimateStatus.CREATED;
