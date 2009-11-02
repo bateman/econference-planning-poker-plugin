@@ -37,7 +37,7 @@ public class ImportExportBacklogTest {
 	@Before
 	public void setUp() throws Exception {
 		backlogLoader = new DefaultBacklogContextLoader();
-		is = new FileInputStream( "prova.xml" );
+		is = new FileInputStream( "StandardTest.xml" );
 		doc = XMLUtils.loadDocument(is);
 		backlog = backlogLoader.load(doc);
 		
@@ -45,7 +45,7 @@ public class ImportExportBacklogTest {
 		OutputStreamWriter osw = new OutputStreamWriter( new FileOutputStream( "prova2.xml" ) );
 		osw.write( output );
 		osw.close();
-		is2 = new FileInputStream("prova2.xml");
+		is2 = new FileInputStream("Standard.xml");
 		doc2 = XMLUtils.loadDocument(is2);
 		backlog2 = backlogLoader.load(doc2);
 	}
@@ -56,9 +56,10 @@ public class ImportExportBacklogTest {
 
 	@Test
 	public void testInputFileEqualsOutputFile() {
-		String input = getFileContent("prova.xml");
+		String input = getFileContent("Standard.xml");
 		String output = XMLUtils.convertDefaultBacklogToStandardXML(backlog);
-		assertTrue(input.equals(output));
+		//String output = getFileContent("StandardTest.xml");
+		assertEquals(input,output);
 		
 	}
 	
