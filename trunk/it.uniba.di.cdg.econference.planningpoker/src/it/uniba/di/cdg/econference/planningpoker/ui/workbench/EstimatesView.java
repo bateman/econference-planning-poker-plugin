@@ -9,7 +9,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListener;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListenerAdapter;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimatesList;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimateSession;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimate;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListener;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
@@ -395,7 +395,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 
 	private void createEstimationList(String storyId) {
 		String date = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ITALY).format(new Date());
-		IEstimatesList estimates = new EstimatesList(storyId,date);
+		IEstimatesList estimates = new EstimateSession(storyId,date);
 		getManager().notifyEstimateSessionStatusChange(estimates, EstimateStatus.CREATED);			
 	}
 
