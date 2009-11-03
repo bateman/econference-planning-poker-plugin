@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.LinkedList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -169,5 +170,13 @@ public class TestGoogleCode {
 		GoogleCode.retrieveStoryDescription(addr,idC);
 		assertEquals(note,GoogleCode.note);
 
+	}
+	
+	@After
+	public void deleteTempFiles(){
+		File f=new File("temp.xml");
+		f.delete();
+		File f2=new File("temp.csv");
+		f2.delete();
 	}
 }

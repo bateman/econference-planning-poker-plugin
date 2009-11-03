@@ -4,12 +4,14 @@ import static org.junit.Assert.assertEquals;
 import it.uniba.di.cdg.econference.planningpoker.usimport.CreateStandardXML;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.LinkedList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,7 +30,7 @@ public class TestCreateStandardXML {
 	
 	@Before
 	public void defaultValues() throws Exception {
-		expectedStandard=new FileReader("StandardTest.xml");
+		expectedStandard=new FileReader("StandardInput.xml");
 		note=new LinkedList<String>();
 		note.offer("First User Story");
 		note.offer("Importing from assembla.com");
@@ -54,20 +56,20 @@ public class TestCreateStandardXML {
 		id.offer("541453");
 		
 		milestone=new LinkedList<String>();
-		milestone.offer("110321");
-		milestone.offer("110321");
+		milestone.offer("120919");
+		milestone.offer("120919");
 		milestone.offer("110320");
 		milestone.offer("110320");
 		milestone.offer("");
 		milestone.offer("113258");
 		
 		milestoneDate=new LinkedList<String>();
-		milestoneDate.offer("2008-11-12T04:23:24+00:00");
+		milestoneDate.offer("2009-11-03T14:11:06+00:00");
 		milestoneDate.offer("2008-11-12T04:22:47+00:00");
 		milestoneDate.offer("2009-10-02T10:01:22+00:00");
 		
 		milestoneDesc=new LinkedList<String>();
-		milestoneDesc.offer("Edit this milestone name and description");
+		milestoneDesc.offer("First Milestone Desc");
 		milestoneDesc.offer("Put your to-do's and feature requests here.  Pull them into the current milestone when you are ready to work on them.");
 		milestoneDesc.offer("Second milestone for testing");
 		
@@ -91,9 +93,9 @@ public class TestCreateStandardXML {
 	@Test
 	public void createStandardFile(){
 		CreateStandardXML c=new CreateStandardXML(storyText,note,id,estimates,milestone,milestoneDesc,milestoneDate,milestoneTitle);
-		c.saveFile("Standard.xml");
+		c.saveFile("StandardOutput.xml");
 		try {
-			FileReader standard = new FileReader("Standard.xml");
+			FileReader standard = new FileReader("StandardOutput.xml");
 			BufferedReader readerTemp = new BufferedReader(standard);
 			String strTemp;
 			StringWriter w = new StringWriter();
@@ -122,6 +124,12 @@ public class TestCreateStandardXML {
 		
 		
 		
+	}
+	
+	@After
+	public void deleteTempFiles(){
+		File f2=new File("StandardOutput.xml");
+		f2.delete();
 	}
 	
 }

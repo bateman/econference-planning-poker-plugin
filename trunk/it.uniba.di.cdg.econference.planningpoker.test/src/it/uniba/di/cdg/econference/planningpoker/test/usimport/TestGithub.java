@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.LinkedList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -123,5 +124,13 @@ public class TestGithub {
 		assertEquals(note,Github.note);
 		assertEquals(storyText,Github.storyText);
 		assertEquals(id,Github.id);
+	}
+	
+	@After
+	public void deleteTempFiles(){
+		File f=new File("temp.xml");
+		f.delete();
+		File f2=new File("temp2.xml");
+		f2.delete();
 	}
 }

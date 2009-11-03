@@ -1,22 +1,15 @@
 package it.uniba.di.cdg.econference.agile.planningpoker.test;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultBacklogContextLoader;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
-import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.utils.XMLUtils;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 
 import org.junit.After;
 import org.junit.Before;
@@ -37,15 +30,15 @@ public class ImportExportBacklogTest {
 	@Before
 	public void setUp() throws Exception {
 		backlogLoader = new DefaultBacklogContextLoader();
-		is = new FileInputStream( "Standard.xml" );
+		is = new FileInputStream( "StandardInput.xml" );
 		doc = XMLUtils.loadDocument(is);
 		backlog = backlogLoader.load(doc);
 		
 		String output = XMLUtils.convertDefaultBacklogToStandardXML(backlog);		
-		OutputStreamWriter osw = new OutputStreamWriter( new FileOutputStream( "Standard.xml" ) );
+		OutputStreamWriter osw = new OutputStreamWriter( new FileOutputStream( "StandardOutput.xml" ) );
 		osw.write( output );
 		osw.close();
-		is2 = new FileInputStream("StandardTest.xml");
+		is2 = new FileInputStream("StandardOutput.xml");
 		doc2 = XMLUtils.loadDocument(is2);
 		backlog2 = backlogLoader.load(doc2);
 	}
@@ -54,14 +47,6 @@ public class ImportExportBacklogTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void testInputFileEqualsOutputFile() {
-		String input = getFileContent("StandardTest.xml");
-		//String output = XMLUtils.convertDefaultBacklogToStandardXML(backlog);
-		String output = getFileContent("Standard.xml");
-		assertEquals(input,output);
-		
-	}
 	
 	@Test
 	public void testInputBacklogEqualsOutputBacklog() {		
@@ -87,30 +72,15 @@ public class ImportExportBacklogTest {
 		assertEquals(inputStory.getMilestoneCreationDate(), outputStory.getMilestoneCreationDate());
 	}
 	
-	
-	
-	
-	private String getFileContent(String filePath){
-		String content = null;
-		try {
-			FileReader input = new FileReader(filePath);
-			BufferedReader reader = new BufferedReader(input);
-			String line = "";
-			StringWriter inputWriter = new StringWriter();
-
-			while ((line = reader.readLine()) != null) {
-				inputWriter.write(line);
-			} 
-			inputWriter.close();
-			content = inputWriter.toString();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return content;
+	@After
+	public void deleteTempFiles(){
+		File f2=new File("StandardOutput.xml");
+		f2.delete();
 	}
+	
+	
+	
+	
+	
 
 }
