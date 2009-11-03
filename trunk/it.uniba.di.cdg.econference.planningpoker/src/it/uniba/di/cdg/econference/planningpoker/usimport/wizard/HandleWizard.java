@@ -1,6 +1,5 @@
 package it.uniba.di.cdg.econference.planningpoker.usimport.wizard;
 
-import it.uniba.di.cdg.econference.planningpoker.ui.workbench.BacklogView;
 import it.uniba.di.cdg.econference.planningpoker.usimport.Assembla;
 import it.uniba.di.cdg.econference.planningpoker.usimport.Github;
 import it.uniba.di.cdg.econference.planningpoker.usimport.GoogleCode;
@@ -26,19 +25,17 @@ public class HandleWizard extends Wizard{
 	static TracWizardSecond tS;
 	static TracWizardThird tT;
 	static SaveAsWizard sW;
-	private BacklogView backlogView;
 	private boolean finished;
 	private String fileName;
 
 
 
 
-	public HandleWizard(BacklogView backlogView){
+	public HandleWizard(){
 		super();
 		setWindowTitle("User Stories Import");
 		setNeedsProgressMonitor(true);
 		this.finished = false;
-		this.backlogView = backlogView;
 
 	}
 
