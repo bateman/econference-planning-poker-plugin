@@ -46,7 +46,7 @@ public class ImportBacklogFromCDEAction extends Action {
 			UiPlugin.getUIHelper().showErrorMessage( "Please, start a Planning Poker session first!" );
 			return;
 		}		
-		HandleWizard wizard = new HandleWizard(backlogView);
+		HandleWizard wizard = new HandleWizard();
 		WizardDialog dlg = new WizardDialog(window.getShell(), wizard);
 		dlg.open();
 		if(wizard.isFinished()){
