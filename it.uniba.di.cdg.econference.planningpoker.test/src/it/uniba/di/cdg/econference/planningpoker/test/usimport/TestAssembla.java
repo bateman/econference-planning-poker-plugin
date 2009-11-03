@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.LinkedList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,26 +59,26 @@ public class TestAssembla {
 		id.offer("541453");
 		
 		milestone=new LinkedList<String>();
-		milestone.offer("110321");
-		milestone.offer("110321");
+		milestone.offer("120919");
+		milestone.offer("120919");
 		milestone.offer("110320");
 		milestone.offer("110320");
 		milestone.offer("");
 		milestone.offer("113258");
 
 		clearedMilestone=new LinkedList<String>();
-		clearedMilestone.offer("110321");
+		clearedMilestone.offer("120919");
 		clearedMilestone.offer("110320");
 		clearedMilestone.offer("");
 		clearedMilestone.offer("113258");
 		
 		milestoneDate=new LinkedList<String>();
-		milestoneDate.offer("2008-11-12T04:23:24+00:00");
+		milestoneDate.offer("2009-11-03T14:11:06+00:00");
 		milestoneDate.offer("2008-11-12T04:22:47+00:00");
 		milestoneDate.offer("2009-10-02T10:01:22+00:00");
 		
 		milestoneDesc=new LinkedList<String>();
-		milestoneDesc.offer("Edit this milestone name and description");
+		milestoneDesc.offer("First Milestone Desc");
 		milestoneDesc.offer("Put your to-do's and feature requests here.  Pull them into the current milestone when you are ready to work on them.");
 		milestoneDesc.offer("Second milestone for testing");
 		
@@ -85,6 +86,7 @@ public class TestAssembla {
 		milestoneTitle.offer("First Milestone");
 		milestoneTitle.offer("Backlog");
 		milestoneTitle.offer("Second milestone");
+		
 		
 	}
 	
@@ -142,5 +144,13 @@ public class TestAssembla {
 		assertEquals(milestoneDesc,Assembla.milestoneDesc);	
 		assertEquals(milestoneDate,Assembla.milestoneDate);	
 		assertEquals(milestoneTitle,Assembla.milestoneTitle);	
+	}
+	
+	@After
+	public void deleteTempFiles(){
+		File f=new File("temp.xml");
+		f.delete();
+		File f2=new File("milestone.xml");
+		f2.delete();
 	}
 }

@@ -7,6 +7,7 @@ import it.uniba.di.cdg.econference.planningpoker.usimport.Trac;
 import java.io.File;
 import java.util.LinkedList;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -75,6 +76,12 @@ public class TestTrac {
 		assertEquals(clearedMilestone,Trac.clearedMilestone);
 
 
+	}
+	
+	@After
+	public void deleteTempFiles(){
+		File f=new File("temp.xml");
+		f.delete();
 	}
 
 }
