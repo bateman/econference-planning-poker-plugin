@@ -3,7 +3,6 @@ package it.uniba.di.cdg.econference.planningpoker.utils;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
-import it.uniba.di.cdg.econference.planningpoker.usimport.CreateStandardXML;
 
 import java.io.InputStream;
 import java.util.LinkedList;
@@ -68,27 +67,19 @@ public class XMLUtils {
 	    		if(story instanceof DefaultUserStory){
 	    			DefaultUserStory defStory = (DefaultUserStory)story;
 					id.add(defStory.getId());
-					System.out.println("Id:"+defStory.getId());
 					storyText.add(defStory.getStoryText());
-					System.out.println("StoryText:"+defStory.getStoryText());
 					notes.add(defStory.getNotes());
-					System.out.println("Notes:"+defStory.getNotes());
 					milestoneId.add(defStory.getMilestoneId());
-					System.out.println("Milestone Id:"+defStory.getMilestoneId());
 					estimates.add(defStory.getEstimate().toString());
-					System.out.println("Estimate:"+defStory.getEstimate().toString());
 					milestoneCreationDates.add(DateUtils.formatDate(defStory.getMilestoneCreationDate()));
-					System.out.println("Milestone date:"+DateUtils.formatDate(defStory.getMilestoneCreationDate()));
 					milestoneName.add(defStory.getMilestoneName());
-					System.out.println("Milestone Name:"+defStory.getMilestoneName());
-					System.out.println();
 	    		}else{
 	    			throw new IllegalArgumentException("Wrong User Story type: only DefaultUserStory type " +
 	    					"can be printed with this transformer.");
 	    		}
 			}
 	    	
-	    	CreateStandardXML standardXML = new CreateStandardXML(storyText,notes,id,estimates,milestoneId, null, 
+	    	ConvertToAgilePlannerXMLFormat standardXML = new ConvertToAgilePlannerXMLFormat(storyText,notes,id,estimates,milestoneId, null, 
 	    			milestoneCreationDates, milestoneName);
 	    	return standardXML.getXMLString();
     	}else{

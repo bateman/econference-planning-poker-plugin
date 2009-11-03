@@ -60,6 +60,11 @@ public class GoogleCode {
 		retrieveStoryDescription(addr,idC);
 		CreateStandardXML c2=new CreateStandardXML(storyText,note,id,estimates,milestone,milestoneDesc,milestoneDate,milestoneTitle);
 		c2.saveFile(filename);
+		
+		// deleting temp file: temp.xml and temp.csv
+		f.delete();
+		File f2=new File("temp.csv");
+		f2.delete();
 	}
 
 

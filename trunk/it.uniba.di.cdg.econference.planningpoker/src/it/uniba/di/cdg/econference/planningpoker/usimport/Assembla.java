@@ -45,7 +45,10 @@ public class Assembla {
 		retrieveMilestoneInfo(clearedMilestone,addr);
 		CreateStandardXML c2=new CreateStandardXML(storyText,note,id,estimates,milestone,milestoneDesc,milestoneDate,milestoneTitle);
 		c2.saveFile(filename);
-
+		// deleting temp file: temp.xml and milestone.xml
+		f.delete();
+		File f2=new File("milestone.xml");
+		f2.delete();
 	}
 
 
