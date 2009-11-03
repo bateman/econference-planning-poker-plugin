@@ -8,7 +8,7 @@ public class DateUtils {
 	
     public static String formatDate(Date date){
     	if(date!=null){
-	    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	    	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 00:00:00.0");
 	    	return formatter.format(date);
     	}else{
     		return "";

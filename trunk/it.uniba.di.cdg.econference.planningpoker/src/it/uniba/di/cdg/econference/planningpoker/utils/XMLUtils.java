@@ -62,18 +62,26 @@ public class XMLUtils {
 	    	LinkedList<String> milestoneId = new LinkedList<String>();
 	    	LinkedList<String> notes = new LinkedList<String>();
 	    	LinkedList<String> estimates = new LinkedList<String>();
-	    	LinkedList<String> milestoneDescriptions = new LinkedList<String>();
+	    	LinkedList<String> milestoneName = new LinkedList<String>();
 	    	LinkedList<String> milestoneCreationDates = new LinkedList<String>();
 	    	for (IUserStory story : backlog.getUserStories()) {	  
 	    		if(story instanceof DefaultUserStory){
 	    			DefaultUserStory defStory = (DefaultUserStory)story;
 					id.add(defStory.getId());
+					System.out.println("Id:"+defStory.getId());
 					storyText.add(defStory.getStoryText());
+					System.out.println("StoryText:"+defStory.getStoryText());
 					notes.add(defStory.getNotes());
+					System.out.println("Notes:"+defStory.getNotes());
 					milestoneId.add(defStory.getMilestoneId());
-					estimates.add(defStory.getEstimate().toString());					
+					System.out.println("Milestone Id:"+defStory.getMilestoneId());
+					estimates.add(defStory.getEstimate().toString());
+					System.out.println("Estimate:"+defStory.getEstimate().toString());
 					milestoneCreationDates.add(DateUtils.formatDate(defStory.getMilestoneCreationDate()));
-					milestoneDescriptions.add(defStory.getMilestoneName());
+					System.out.println("Milestone date:"+DateUtils.formatDate(defStory.getMilestoneCreationDate()));
+					milestoneName.add(defStory.getMilestoneName());
+					System.out.println("Milestone Name:"+defStory.getMilestoneName());
+					System.out.println();
 	    		}else{
 	    			throw new IllegalArgumentException("Wrong User Story type: only DefaultUserStory type " +
 	    					"can be printed with this transformer.");
@@ -81,7 +89,7 @@ public class XMLUtils {
 			}
 	    	
 	    	CreateStandardXML standardXML = new CreateStandardXML(storyText,notes,id,estimates,milestoneId, null, 
-	    			milestoneCreationDates, milestoneDescriptions);
+	    			milestoneCreationDates, milestoneName);
 	    	return standardXML.getXMLString();
     	}else{
     		throw new IllegalArgumentException("Backlog is empty");
