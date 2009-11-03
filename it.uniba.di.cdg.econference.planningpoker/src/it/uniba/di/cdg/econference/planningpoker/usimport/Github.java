@@ -64,6 +64,9 @@ public class Github {
 		readFile(open,closed,f1,f2);
 		CreateStandardXML c2 = new CreateStandardXML(storyText,note,id,estimates,milestone,milestoneDesc,milestoneDate,milestoneTitle);
 		c2.saveFile(filename);
+		// deleting temp file: temp1.xml and temp2.xml
+		f1.delete();
+		f2.delete();
 	}
 
 	public static FileWriter retrieveOpenTickets(String addr){

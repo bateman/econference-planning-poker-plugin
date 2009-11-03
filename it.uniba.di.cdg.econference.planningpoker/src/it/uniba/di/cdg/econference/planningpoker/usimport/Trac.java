@@ -46,8 +46,8 @@ public class Trac {
 		readFile(f,host);
 		CreateStandardXML c2= new CreateStandardXML(storyText,note,id,estimates,milestone,milestoneDesc,milestoneDate,milestoneTitle);
 		c2.saveFile(filename);
-
-
+		// deleting temp file: temp.xml
+		f.delete();
 	}
 
 	public static FileWriter createTempFile(String addr){
