@@ -1,6 +1,5 @@
 package it.uniba.di.cdg.econference.agile.planningpoker.test.ui;
 
-import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.JoinPPDialog;
 import it.uniba.di.cdg.xcore.ui.dialogs.ConnectionDialog;
 import junit.framework.TestCase;
 
