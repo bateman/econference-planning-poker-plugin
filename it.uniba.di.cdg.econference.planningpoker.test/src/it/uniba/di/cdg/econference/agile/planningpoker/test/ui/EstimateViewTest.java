@@ -8,21 +8,14 @@ import it.uniba.di.cdg.xcore.multichat.model.Participant;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
-import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
-/**
- * The class <code>FavoritesViewTest</code> contains tests
- * for the class {@link
- *    com.qualityeclipse.favorites.views.FavoritesView}.
- *
- * @pattern JUnit Test Case
- * @generatedBy CodePro Studio
- */
+
 public class EstimateViewTest extends TestCase
 {
 	private IViewPart viewPart;
@@ -87,6 +80,8 @@ public class EstimateViewTest extends TestCase
 
       // Add additional teardown code here.
    }
+   
+   
    /**
     * Run the view test.
     */
@@ -94,7 +89,7 @@ public class EstimateViewTest extends TestCase
 	   
       TableViewer viewer = estimatesView.getViewer();
       Object[] content = new Object[2];
-      content[0]= new Participant(null, "Alex", "Anna");
+      content[0]= new Participant(null, "alessandrb@jabber.org", "Alessandro");
       content[1]= new IPokerCard() {
 		
 		@Override
@@ -131,7 +126,7 @@ public class EstimateViewTest extends TestCase
       viewer.setInput(content);
       Object[] expectedContent = content;
       Object[] expectedLabels =
-         new String[] { "Anna", "2" };
+         new String[] { "Alessandro", "2" };
       
       waitForJobs();
       delay(10000);
@@ -187,7 +182,7 @@ public class EstimateViewTest extends TestCase
     * Wait until all background tasks are complete.
     */
    public void waitForJobs() {
-      while (Platform.getJobManager().currentJob() != null)
+      while (Job.getJobManager().currentJob() != null)
          delay(8000);
    }
 
