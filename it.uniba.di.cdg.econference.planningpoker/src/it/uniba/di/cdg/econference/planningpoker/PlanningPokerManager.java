@@ -1,6 +1,5 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
-import it.uniba.di.cdg.econference.planningpoker.jabber.JabberPlanningPokerService;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
@@ -14,26 +13,20 @@ import it.uniba.di.cdg.econference.planningpoker.ui.workbench.IDeckView;
 import it.uniba.di.cdg.econference.planningpoker.ui.workbench.IEstimatesView;
 import it.uniba.di.cdg.econference.planningpoker.ui.workbench.PPWhiteBoardView;
 import it.uniba.di.cdg.econference.planningpoker.ui.workbench.PlanningPokerPerspective;
-import it.uniba.di.cdg.jabber.JabberBackend;
 import it.uniba.di.cdg.xcore.econference.IEConferenceService.AgendaOperation;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceManager;
-import it.uniba.di.cdg.xcore.econference.ui.views.AgendaView;
-import it.uniba.di.cdg.xcore.econference.ui.views.IAgendaView;
 import it.uniba.di.cdg.xcore.econference.ui.views.IWhiteBoard;
-import it.uniba.di.cdg.xcore.econference.ui.views.WhiteBoardView;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
 import it.uniba.di.cdg.xcore.multichat.model.ParticipantSpecialPrivileges;
 import it.uniba.di.cdg.xcore.multichat.model.Privileged;
 import it.uniba.di.cdg.xcore.multichat.model.SpecialPrivilegesAction;
 import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
-import it.uniba.di.cdg.xcore.multichat.service.IMultiChatService;
 import it.uniba.di.cdg.xcore.multichat.ui.views.ChatRoomView;
 import it.uniba.di.cdg.xcore.multichat.ui.views.IChatRoomView;
 import it.uniba.di.cdg.xcore.multichat.ui.views.IMultiChatTalkView;
 import it.uniba.di.cdg.xcore.multichat.ui.views.MultiChatTalkView;
 import it.uniba.di.cdg.xcore.network.BackendException;
 import it.uniba.di.cdg.xcore.network.IBackend;
-import it.uniba.di.cdg.xcore.network.services.INetworkService;
 
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.WorkbenchException;
