@@ -30,17 +30,5 @@ public class JoinPPDialogTest extends TestCase{
 		}
 		
 	}	
-	
-	
-//	/**
-//	 * Remove 2 cards in the dialog
-//	 * 
-//	 */
-//	public void testDialogEdit(){
-//		if(de.show() == Dialog.OK){
-//			assertEquals(de.getFinalDeck().getHiddenCards().length, 2);
-//			assertEquals(de.getFinalDeck().getCards().length, 7);
-//		}
-//	}
 
 }
