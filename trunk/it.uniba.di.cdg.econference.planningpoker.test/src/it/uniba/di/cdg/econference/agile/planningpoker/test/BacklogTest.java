@@ -5,7 +5,6 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.DefaultUserStory;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListener;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
-import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 
 import java.util.Calendar;
 
@@ -33,10 +32,10 @@ public class BacklogTest extends MockObjectTestCase {
 	}
 
 	public void testRemoveUserStory() {
-		  	Mock mock = mock( IItemListListener.class );
+		  	Mock mock = mock( IBacklogListener.class );
 		  	mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
 	        mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );	        
-	        mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
+	        mock.expects( once() ).method( "itemRemoved" ).with( eq( story1 ) );
 	        //mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
 	        IBacklogListener listener = (IBacklogListener) mock.proxy();
 
@@ -58,7 +57,7 @@ public class BacklogTest extends MockObjectTestCase {
 	}
 
 	public void testAddItemObject() {
-        Mock mock = mock( IItemListListener.class );
+        Mock mock = mock( IBacklogListener.class );
         mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
         mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
         IBacklogListener listener = (IBacklogListener) mock.proxy();
@@ -81,10 +80,10 @@ public class BacklogTest extends MockObjectTestCase {
 	}
 
 	public void testRemoveItem() {
-		  	Mock mock = mock( IItemListListener.class );
+		  	Mock mock = mock( IBacklogListener.class );
 	        mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
 	        mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
-	        mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
+	        mock.expects( once() ).method( "itemRemoved" ).with( eq( story1 ) );
 	        IBacklogListener listener = (IBacklogListener) mock.proxy();
 
 	        backlog.addListener( listener );
@@ -108,7 +107,7 @@ public class BacklogTest extends MockObjectTestCase {
 		assertEquals( IItemList.NO_ITEM_SELECTED, backlog.getCurrentItemIndex() );
        
 
-        Mock mock = mock( IItemListListener.class );
+        Mock mock = mock( IBacklogListener.class );
         mock.stubs().method( "contentChanged" ); // Don't bother 
         mock.expects( once() ).method( "currentSelectionChanged" ).with( eq( 0 ) );
         IBacklogListener listener = (IBacklogListener) mock.proxy();
