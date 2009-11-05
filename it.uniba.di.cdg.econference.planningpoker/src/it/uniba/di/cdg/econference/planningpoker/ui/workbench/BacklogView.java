@@ -237,7 +237,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		startStopButton.addSelectionListener( new SelectionAdapter() {
             @Override
             public void widgetSelected( SelectionEvent e ) {
-                if (STARTED.equals( getModel().getStatus())) {                	
+                if (getModel()!=null || STARTED.equals( getModel().getStatus())) {                	
                 	getManager().setStatus( STOPPED );                    
                 } else {                 	
                 	getManager().setStatus( STARTED );
@@ -384,7 +384,10 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	}
 
 	public IPlanningPokerModel getModel(){
-		return getManager().getService().getModel();
+		if(getManager()!=null && getManager().getService()!=null)
+			return getManager().getService().getModel();
+		else
+			return null;
 	}
 
 	@Override
@@ -496,6 +499,11 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	            System.out.println( "must save decisions log manually" );
 	            return true;
 	        }
+	}
+
+
+	public TableViewer getViewer() {
+		return viewer;
 	}
 
 
