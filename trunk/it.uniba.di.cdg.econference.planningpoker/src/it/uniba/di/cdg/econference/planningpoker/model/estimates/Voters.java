@@ -31,7 +31,7 @@ public class Voters {
 	
 	
 	public void addVoter(String itemText) {
-		System.out.println("Voters added " + itemText);
+		//System.out.println("Voters added " + itemText);
 		if(!voters.contains(itemText)){
 			voters.add(itemText);
 			for(IItemListListener l : listeners){
@@ -51,7 +51,7 @@ public class Voters {
 	}
 	
 	public void removeVoter(String id){
-		System.out.println("Voters removed " + id);
+		//System.out.println("Voters removed " + id);
 		for(IItemListListener l : listeners){
 			l.itemRemoved(id);
 		}
