@@ -237,7 +237,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 		startStopButton.addSelectionListener( new SelectionAdapter() {
             @Override
             public void widgetSelected( SelectionEvent e ) {
-                if (getModel()!=null || STARTED.equals( getModel().getStatus())) {                	
+                if (STARTED.equals( getModel().getStatus())) {                	
                 	getManager().setStatus( STOPPED );                    
                 } else {                 	
                 	getManager().setStatus( STARTED );
