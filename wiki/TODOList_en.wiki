@@ -1,4 +1,0 @@
-#labels TODO
-= eConference3P TODO List=
- * Define the Planning Poker packets
- * Adjust the Planning Poker Perspective
