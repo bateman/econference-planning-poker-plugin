@@ -2,7 +2,7 @@
 
 = The Planning Poker Perspective =
 
-<img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/PPPerspectivePresentazione.PNG" width="800px" />
+<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/PPPerspectivePresentazione.PNG" width="800px" /></p>
 
 
 This perspective contains following views (numbered as in the perspective):
