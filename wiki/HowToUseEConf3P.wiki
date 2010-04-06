@@ -13,6 +13,8 @@ You can get the latest build of eConference from the [http://code.google.com/p/e
 
 *Figure 1. The Planning Poker Plug-in*  
 
+Have a look to the [PlanningPokerPerspective Planning Poker perspective page] to understand the meaning of the main views. 
+
 
 
 == Running the tool ==
