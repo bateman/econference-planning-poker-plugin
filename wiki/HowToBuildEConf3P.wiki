@@ -57,10 +57,6 @@ To launch the tool for the first time, open the {{{it.uniba.di.cdg.econference.p
 If everthing is fine, you should see the tool splashscreen come up. Otherwise, you'll get a popup with error. Sometimes, on some machine, the tool doesn't start because it misses some of the plugins/projects that are supposed to be already in the classpath. To fix this issue, go to the _Run | Run ..._ menu and select the current product configuration under the _Eclipse Application_ (Fig. 10, A). Then press the _Validate Plug-in Set_ button (B). If an error message pops up, then close it and press the _Add Required Plug-ins_ button (C); otherwise here you are already ok (and the problem should be somewhere else :S).
 
 From now on, you can just run the tool the way you usually do in Eclipse.
-
-
-<p align=center><br>
-<p align=center>*Figure 10. Validate the plug-ins set*</p>
 <br>
 <br>
 
@@ -82,4 +78,4 @@ Provided that you have succesfully configured and built the whole workspace, dow
 
 == Troubleshooting ==
 
-Please report comments or suggestions sending an email to one of the project owners. Thanks.
+Please report problems, comments or suggestions sending an [mailto:eConference3P@gmail.com email]. Thanks.
