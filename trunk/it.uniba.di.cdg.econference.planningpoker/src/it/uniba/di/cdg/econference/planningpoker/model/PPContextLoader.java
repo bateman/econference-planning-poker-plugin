@@ -96,20 +96,20 @@ public class PPContextLoader {
     			Node node = null;
     			Invitee p = null;
 
-    			node = (Node) xPath.evaluate( "director", supportTeam, XPathConstants.NODE );
-    			p = readParticipantFromNode( xPath, node, EConferenceContext.ROLE_DIRECTOR );
-    			participants.add( p );
-    			context.setDirector( p );
+//    			node = (Node) xPath.evaluate( "director", supportTeam, XPathConstants.NODE );
+//    			p = readParticipantFromNode( xPath, node, EConferenceContext.ROLE_DIRECTOR );
+//    			participants.add( p );
+//    			context.setDirector( p );
 
     			node = (Node) xPath.evaluate( "moderator", supportTeam, XPathConstants.NODE );
     			p = readParticipantFromNode( xPath, node, EConferenceContext.ROLE_MODERATOR );
     			context.setModerator( p );
     			participants.add( p );
 
-    			node = (Node) xPath.evaluate( "scribe", supportTeam, XPathConstants.NODE );
-    			p = readParticipantFromNode( xPath, node, EConferenceContext.ROLE_SCRIBE  );
-    			context.setScribe( p );
-    			participants.add( p );
+//    			node = (Node) xPath.evaluate( "scribe", supportTeam, XPathConstants.NODE );
+//    			p = readParticipantFromNode( xPath, node, EConferenceContext.ROLE_SCRIBE  );
+//    			context.setScribe( p );
+//    			participants.add( p );
 
     			NodeList voters = (NodeList) xPath.evaluate( "voter", supportTeam, XPathConstants.NODESET );
     			for (int i = 0; i < voters.getLength(); i++) {
