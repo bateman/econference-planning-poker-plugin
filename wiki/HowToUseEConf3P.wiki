@@ -42,7 +42,7 @@ This section will show you how to join a Planning Poker meeting when you are eit
 
 
 === The Moderator point of view ===
-You are going to role-play the moderator during the session. Thus you should have received an email with a file (.ecx) in attachment. This file is necessary to create the room and invite the other participants. Go to the File > Econference > Load configuration menu (see Figure  3).
+You are going to role-play the moderator during the session. Thus you should have received an email with a file (.ecx) in attachment or simply you have to [HowToConfigPPFile create it]. This file is necessary to create the room and invite the other participants. Go to the File > Econference > Load configuration menu (see Figure  3).
 
 Browse and select the .ecx file wherever you saved it. Press Ok and you will see a small dialog which just shows your name and a checkbox that will ensure that the server will send invitations to all the participants registered in the configuration (Figure  6). Be sure to leave it checked, otherwise you will have to invite each of them manually=  =Press ok and you will see the GUI changing and showing the new perspective for the structured conversation.
 
