@@ -44,7 +44,7 @@ public class PlanningPokerContext extends EConferenceContext {
 	
 	
 	/**
-     * Default constructor that builds an unitialized context (require caller depedency injection).
+     * Default constructor that builds an unitialized context (require caller dependency injection).
      */
     public PlanningPokerContext() {
         super();

@@ -36,6 +36,12 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 
+/**
+ * This class represent the action to edit the card deck in the Deck view.
+ * This action is added in the toolbar menu displayed in the top right part of Deck view. 
+ * @author Alessandro Brucoli
+ *
+ */
 public class EditDeckAction extends Action {
 
 	private IViewPart view;

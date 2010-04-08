@@ -32,6 +32,11 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 
+/**
+ * This action allows participant to select a card from deck
+ * @author Alex
+ *
+ */
 public class SelectCardAction extends SingleSelectionAction {
 
 	public SelectCardAction(IViewPart view) {

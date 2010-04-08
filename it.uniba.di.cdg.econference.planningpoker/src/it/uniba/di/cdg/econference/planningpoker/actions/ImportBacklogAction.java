@@ -44,6 +44,14 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.w3c.dom.Document;
 
+/**
+ * This class represent the action to import the content of the backlog from a
+ * specific file format. This action is added on the toolbar menu of the Backlog
+ * view.
+ * 
+ * @author Alessandro Brucoli
+ * 
+ */
 public class ImportBacklogAction extends Action {
 
 	private IViewPart view;
@@ -93,7 +101,6 @@ public class ImportBacklogAction extends Action {
                             + ex.getMessage() );
 					ex.printStackTrace();
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 					UiPlugin.getUIHelper().showErrorMessage( "Could not import this Backlog file: " + e.getMessage() );
 				}				
