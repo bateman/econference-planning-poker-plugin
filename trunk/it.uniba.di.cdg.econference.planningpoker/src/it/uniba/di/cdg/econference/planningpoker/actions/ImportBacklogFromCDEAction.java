@@ -43,6 +43,13 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.w3c.dom.Document;
 
+/**
+ * This class represent the action to import the content of the backlog form a
+ * remote CDE. This action is added on the toolbar menu of the Backlog view.
+ * 
+ * @author Alessandro Brucoli
+ * 
+ */
 public class ImportBacklogFromCDEAction extends Action {
 
 	private IViewPart view;

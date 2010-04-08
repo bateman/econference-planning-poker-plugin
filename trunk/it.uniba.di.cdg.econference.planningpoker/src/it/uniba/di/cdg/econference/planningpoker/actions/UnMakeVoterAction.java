@@ -33,6 +33,12 @@ import it.uniba.di.cdg.xcore.multichat.ui.actions.popup.AbstractParticipantActio
 
 import org.eclipse.jface.action.IAction;
 
+/**
+ * This action allows Moderator to revoke the Voter privilege from a participant
+ * 
+ * @author Alessandro Brucoli
+ * 
+ */
 public class UnMakeVoterAction extends AbstractParticipantActionDelegate {
 
 	@Override

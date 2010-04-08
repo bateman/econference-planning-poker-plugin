@@ -63,20 +63,24 @@ public class SingleSelectionAction extends Action {
 	 * <li>action enabling in relation to the selection</li>
 	 * <li>action enabling permanently (for example because only the moderator can use the action)</li> 
 	 * </ul>
-	 * This method addresses the latter point
+	 * This method is for the latter point
 	 * 
 	 * @param accessible if this action is accessible or not
 	 */
-	public void setAccessible(boolean accessible){		
-		if(accessible){				
+	public void setAccessible(boolean accessible) {
+		// Only if the action is accessible we can have a listener to know if
+		// the object is selected and so enabling the action
+		if (accessible) {
 			addSelectionListener();
-		}else{
+		} else {
 			removeSelectionListener();
 			setEnabled(false);
 		}
-		
 	}
-		
+
+	/**
+	 * Add a listener that enable the action only if the item/object is selected
+	 */
 	private void addSelectionListener() {
 		if(listener==null)
 		listener = new ISelectionListener(){
@@ -90,7 +94,11 @@ public class SingleSelectionAction extends Action {
 		};
 		view.getViewSite().getWorkbenchWindow().getSelectionService().addSelectionListener(listener);		
 	}
-	
+
+	/**
+	 * Remove the selection listener. This is done only if the view is not
+	 * accessible which means that the user is not allowed to use this action
+	 */
 	private void removeSelectionListener(){
 		if(listener!=null)
 		view.getViewSite().getWorkbenchWindow().getSelectionService().removeSelectionListener(listener);
@@ -98,6 +106,18 @@ public class SingleSelectionAction extends Action {
 	}
 	
 	
+	/**
+	 * 
+	 * <p>This method works like setAccessible method.</p>
+	 * <p>We have created a different method for distinguish between the</p>
+	 * <ul>
+	 * <li>action enabling in relation to the selection</li>
+	 * <li>action enabling permanently (for example because only the moderator can use the action)</li> 
+	 * </ul>
+	 * This method is for the first point
+	 * 
+	 * @param accessible if this action is accessible or not
+	 */
 	private void setEnabled(IStructuredSelection selection) {		
 		//This action is enable only if one element is selected
 		boolean enabled = selection.size() == 1;

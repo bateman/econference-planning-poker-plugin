@@ -36,6 +36,12 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 
+/**
+ * This class represent the action associated to the adding of a new User Story in the Backlog view.
+ * This action is added in the context menu displayed after a right-click on the table in the Backlog view. 
+ * @author Alessandro Brucoli
+ *
+ */
 public class AddUserStoryAction extends Action {
 
 	public static final String ID = "it.uniba.di.cdg.econference.planningpoker.addUserStoryAction";
@@ -66,7 +72,7 @@ public class AddUserStoryAction extends Action {
 		IUserStory newStory = dialog.getStory();
 		if (newStory != null) {
 			backlogView.getModel().getBacklog().addUserStory(newStory);
-			//notify the backlog's content
+			//notify changes of the backlog's content
 			backlogView.getManager().notifyItemListToRemote();		
 		}
 	}

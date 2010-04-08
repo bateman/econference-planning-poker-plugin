@@ -35,18 +35,22 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
+/**
+ * This class represent the action to start a Planning Poker session loading the
+ * .ecx file.
+ * 
+ * @author Alessandro Brucoli
+ * 
+ */
 public class LoadPPFromFileActionDelegate implements
 		IWorkbenchWindowActionDelegate {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void init(IWorkbenchWindow window) {
-
 	}
 
 	@Override
@@ -65,8 +69,6 @@ public class LoadPPFromFileActionDelegate implements
 
 	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

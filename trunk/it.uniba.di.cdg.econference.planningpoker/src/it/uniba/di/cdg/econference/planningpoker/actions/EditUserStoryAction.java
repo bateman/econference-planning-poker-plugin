@@ -34,6 +34,12 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 
+/**
+ * This class represent the action to edit a  User Story in the Backlog view.
+ * This action is added in the context menu displayed after a right-click on the table in the Backlog view. 
+ * @author Alessandro Brucoli
+ *
+ */
 public class EditUserStoryAction extends SingleSelectionAction {
 
 	public static final String ID = "it.uniba.di.cdg.econference.planningpoker.actions.editStory";

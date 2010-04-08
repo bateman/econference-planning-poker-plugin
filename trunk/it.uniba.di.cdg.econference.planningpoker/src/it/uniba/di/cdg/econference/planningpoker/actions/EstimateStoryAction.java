@@ -34,6 +34,15 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 
+/**
+ * This class represent the action to start estimating a User Story in the
+ * Backlog view. This action is added in the context menu displayed after a
+ * right-click on the table in the Backlog view or after a double-click on a
+ * User Story.
+ * 
+ * @author Alessandro Brucoli
+ * 
+ */
 public class EstimateStoryAction extends SingleSelectionAction {
 
 	

@@ -34,6 +34,14 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 
+/**
+ * This class represent the action to export the content of the backlog in a
+ * specific format. This action is added on the toolbar menu of the Backlog
+ * view.
+ * 
+ * @author Alessandro Brucoli
+ * 
+ */
 public class ExportBacklogAction extends Action {
 
 	IViewPart view;
@@ -52,6 +60,7 @@ public class ExportBacklogAction extends Action {
 		IWorkbenchWindow window = view.getViewSite().getWorkbenchWindow();
 		IWorkbenchPage page = window.getActivePage();
 		BacklogView backlogView = (BacklogView) page.findView(BacklogView.ID);
+		//call the method doSave on the view that is called to save the log
 		backlogView.doSave(new NullProgressMonitor());        
 	}
 
