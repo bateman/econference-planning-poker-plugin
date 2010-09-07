@@ -3,7 +3,6 @@
 
 <product name="eConference + Planning Poker Plugin" id="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
-
    <configIni use="default">
    </configIni>
 
@@ -21,7 +20,6 @@
          <bmp/>
       </win>
    </launcher>
-
 
    <vm>
    </vm>
@@ -71,7 +69,7 @@
       <feature id="it.uniba.di.cdg.xcore.econference_feature" version="1.0.0"/>
       <feature id="it.uniba.di.cdg.xcore.multichat_feature" version="1.0.0"/>
       <feature id="it.uniba.di.cdg.xcore_feature" version="1.0.0"/>
-      <feature id="org.eclipse.rcp" version="3.5.0.v20090519-9SA0FwxFv6x089WEf-TWh11"/>
+      <feature id="org.eclipse.rcp"/>
       <feature id="org.aspectj.runtime_feature" version="1.0.0"/>
    </features>
 
