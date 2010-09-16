@@ -4,6 +4,5 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/it.uniba.di.cdg.xcore.multichat"/>
-	<classpathentry kind="lib" path="C:/Users/Fabio/workspace/lib/ca.ucalgary.cpsc.agilePlanner_2.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
