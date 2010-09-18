@@ -122,12 +122,12 @@
                            value="VOTER">
                      </objectState>
                   </not>
-                  <and>
+                  <!--and>
                      <objectState
                            name="service"
                            value="planning-poker">
                      </objectState>
-                  </and>
+                  </and-->
                </and>
             </enablement>
          </action>
