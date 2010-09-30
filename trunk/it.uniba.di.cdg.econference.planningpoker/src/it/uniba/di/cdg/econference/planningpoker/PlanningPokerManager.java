@@ -25,7 +25,6 @@
  */
 package it.uniba.di.cdg.econference.planningpoker;
 
-import it.uniba.di.cdg.econference.planningpoker.jabber.JabberPlanningPokerService;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
@@ -143,7 +142,7 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 //        		IPlanningPokerService.PLANNINGPOKER_SERVICE, 
 //                getContext() );
 		
-        IPlanningPokerService service =  new JabberPlanningPokerService(context, backend);
+        IPlanningPokerService service =  new PlanningPokerService(context, backend);
         return service;
     }
     

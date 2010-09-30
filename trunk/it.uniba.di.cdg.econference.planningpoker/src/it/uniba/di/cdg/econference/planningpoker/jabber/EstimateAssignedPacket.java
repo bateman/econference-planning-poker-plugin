@@ -32,7 +32,11 @@ import org.jivesoftware.smack.packet.Packet;
 
 import it.uniba.di.cdg.jabber.IPacketExtension;
 
-
+/**
+ * Deprecated, going to be removed from repo as soon as porting
+ * from eC 3.5 to eC 4.0 is verified
+ * @deprecated
+ */
 public class EstimateAssignedPacket implements IPacketExtension {
 
 	

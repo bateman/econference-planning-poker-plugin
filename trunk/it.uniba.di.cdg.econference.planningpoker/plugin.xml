@@ -247,7 +247,7 @@
    <extension
          point="it.uniba.di.cdg.jabber.services">
       <service
-            class="it.uniba.di.cdg.econference.planningpoker.jabber.JabberPlanningPokerService"
+            class="it.uniba.di.cdg.econference.planningpoker.PlanningPokerService"
             name="planning-poker">
       </service>
    </extension>

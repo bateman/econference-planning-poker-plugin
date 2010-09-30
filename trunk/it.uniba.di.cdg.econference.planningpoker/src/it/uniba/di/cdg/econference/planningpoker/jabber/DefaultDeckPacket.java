@@ -36,7 +36,11 @@ import org.jivesoftware.smack.provider.PacketExtensionProvider;
 import org.jivesoftware.smack.util.StringUtils;
 import org.xmlpull.v1.XmlPullParser;
 
-
+/**
+ * Deprecated, going to be removed from repo as soon as porting
+ * from eC 3.5 to eC 4.0 is verified
+ * @deprecated
+ */
 public class DefaultDeckPacket implements IPacketExtension{
 
 	 /**
