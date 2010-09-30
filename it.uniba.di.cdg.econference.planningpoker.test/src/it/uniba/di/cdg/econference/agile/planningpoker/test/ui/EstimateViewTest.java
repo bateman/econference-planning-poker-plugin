@@ -4,7 +4,7 @@ package it.uniba.di.cdg.econference.agile.planningpoker.test.ui;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.ui.DefaultEstimatesViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.ui.workbench.EstimatesView;
-import it.uniba.di.cdg.xcore.multichat.model.Participant;
+import it.uniba.di.cdg.xcore.m2m.model.Participant;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
