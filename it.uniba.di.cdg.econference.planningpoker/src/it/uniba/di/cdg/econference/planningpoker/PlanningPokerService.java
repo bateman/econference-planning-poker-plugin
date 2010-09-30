@@ -23,10 +23,8 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package it.uniba.di.cdg.econference.planningpoker.jabber;
+package it.uniba.di.cdg.econference.planningpoker;
 
-import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerService;
-import it.uniba.di.cdg.econference.planningpoker.PlanningPokerContext;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.PlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
@@ -71,7 +69,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-public class JabberPlanningPokerService extends EConferenceService implements
+public class PlanningPokerService extends EConferenceService implements
 		IPlanningPokerService {
 
 	// DefaultBacklogPacket -
@@ -126,11 +124,11 @@ public class JabberPlanningPokerService extends EConferenceService implements
 	// sarebbe l'id dell'item cui si applica operation
 	public static final String AGENDA_CONTEXT = "context";
 
-	public JabberPlanningPokerService() {
+	public PlanningPokerService() {
 		super();
 	}
 
-	public JabberPlanningPokerService(PlanningPokerContext context,
+	public PlanningPokerService(PlanningPokerContext context,
 			IBackend backend) {
 		super(context, backend);
 	}

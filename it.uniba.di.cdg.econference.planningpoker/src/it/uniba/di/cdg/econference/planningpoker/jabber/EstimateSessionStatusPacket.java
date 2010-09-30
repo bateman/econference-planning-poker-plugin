@@ -31,7 +31,11 @@ import it.uniba.di.cdg.jabber.IPacketExtension;
 import org.jivesoftware.smack.filter.PacketFilter;
 import org.jivesoftware.smack.packet.Packet;
 
-
+/**
+ * Deprecated, going to be removed from repo as soon as porting
+ * from eC 3.5 to eC 4.0 is verified
+ * @deprecated
+ */
 public class EstimateSessionStatusPacket implements IPacketExtension {
 
 	
