@@ -49,11 +49,11 @@ public class DefaultCardSelectionPacket implements IPacketExtension {
      */
     public static final String ELEMENT_NAME = "card-selection";
 	
-	private static final String ELEMENT_CARD = "cardValue";
+    public static final String ELEMENT_CARD = "cardValue";
 	
-	private static final String ELEMENT_WHO = "who";
+    public static final String ELEMENT_WHO = "who";
 	
-	private static final String ELEMENT_STORY = "storyId";
+    public static final String ELEMENT_STORY = "storyId";
 
     /**
      * Filter this kind of packets.

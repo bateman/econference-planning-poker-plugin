@@ -38,9 +38,9 @@ public class EstimateSessionStatusPacket implements IPacketExtension {
 	public static String ELEMENT_NS = CDG_NAMESPACE;
 	
 	public static String ELEMENT_NAME = "estimate-session";
-	private static String ELEMENT_STATUS = "status";
-	private static String ELEMENT_STORY_ID = "storyId";
-	private static String ELEMENT_ESTIMATE_ID = "id";
+	public static String ELEMENT_STATUS = "status";
+	public static String ELEMENT_STORY_ID = "storyId";
+	public static String ELEMENT_ESTIMATE_ID = "id";
 	
 	
 	private String storyId;

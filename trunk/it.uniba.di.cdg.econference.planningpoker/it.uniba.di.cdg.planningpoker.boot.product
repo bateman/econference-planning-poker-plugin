@@ -33,7 +33,6 @@ More details on the project homepage at http://cdg.di.uniba.it/projects/econfere
       </win>
    </launcher>
 
-
    <vm>
    </vm>
 
@@ -42,9 +41,9 @@ More details on the project homepage at http://cdg.di.uniba.it/projects/econfere
       <plugin id="it.uniba.di.cdg.collaborativeworkbench.boot"/>
       <plugin id="it.uniba.di.cdg.econference.planningpoker"/>
       <plugin id="it.uniba.di.cdg.jabber"/>
-      <plugin id="it.uniba.di.cdg.xcore.chat"/>
+      <plugin id="it.uniba.di.cdg.xcore.chat" fragment=""/>
       <plugin id="it.uniba.di.cdg.xcore.econference"/>
-      <plugin id="it.uniba.di.cdg.xcore.multichat"/>
+      <plugin id="it.uniba.di.cdg.xcore.multichat" fragment=""/>
       <plugin id="it.uniba.di.cdg.xcore.network"/>
       <plugin id="it.uniba.di.cdg.xcore.ui"/>
       <plugin id="it.uniba.di.cdg.xcore.util"/>
@@ -75,15 +74,16 @@ More details on the project homepage at http://cdg.di.uniba.it/projects/econfere
    </plugins>
 
    <features>
-      <feature id="it.uniba.di.cdg.collaborativeworkbench.boot_feature" version="1.0.0"/>
       <feature id="it.uniba.di.cdg.econference.planningpoker" version="1.0.0.qualifier"/>
-      <feature id="it.uniba.di.cdg.jabber_feature" version="1.0.0"/>
-      <feature id="it.uniba.di.cdg.xcore.chat_feature" version="1.0.0"/>
       <feature id="it.uniba.di.cdg.xcore.econference_feature" version="1.0.0"/>
-      <feature id="it.uniba.di.cdg.xcore.multichat_feature" version="1.0.0"/>
       <feature id="it.uniba.di.cdg.xcore_feature" version="1.0.0"/>
       <feature id="org.eclipse.rcp"/>
       <feature id="org.aspectj.runtime_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.xcore.m2m_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.skype_feature" version="1.0.0.qualifier"/>
+      <feature id="it.uniba.di.cdg.xcore.one2one_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.jabber_feature" version="1.0.1"/>
+      <feature id="it.uniba.di.cdg.collaborativeworkbench.boot_feature" version="1.0.1"/>
    </features>
 
 

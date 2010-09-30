@@ -29,7 +29,7 @@ package it.uniba.di.cdg.econference.planningpoker.ui;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
-import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
+import it.uniba.di.cdg.xcore.m2m.model.IParticipant;
 
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnWeightData;

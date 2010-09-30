@@ -49,9 +49,9 @@ import it.uniba.di.cdg.econference.planningpoker.utils.XMLUtils;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.econference.IEConferenceHelper;
-import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
-import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
+import it.uniba.di.cdg.xcore.econference.model.IItemList;
+import it.uniba.di.cdg.xcore.m2m.model.IParticipant.Role;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
 import java.io.File;
@@ -529,6 +529,12 @@ public class BacklogView extends ViewPart implements IBacklogView {
 
 	public TableViewer getViewer() {
 		return viewer;
+	}
+
+
+	@Override
+	public void refresh() {
+		// empty method
 	}
 
 

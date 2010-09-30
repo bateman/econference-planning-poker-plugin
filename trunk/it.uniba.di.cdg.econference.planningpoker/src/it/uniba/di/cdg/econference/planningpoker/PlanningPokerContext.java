@@ -25,14 +25,14 @@
  */
 package it.uniba.di.cdg.econference.planningpoker;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
-import it.uniba.di.cdg.jabber.InvitationEvent;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
-import it.uniba.di.cdg.xcore.multichat.service.Invitee;
+import it.uniba.di.cdg.xcore.m2m.events.InvitationEvent;
+import it.uniba.di.cdg.xcore.m2m.service.Invitee;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlanningPokerContext extends EConferenceContext {
 	public static final String ROLE_VOTER = "voter";
@@ -93,7 +93,7 @@ public class PlanningPokerContext extends EConferenceContext {
 	public Invitee[] getVoters(){
 		Invitee[]  result = new Invitee[voters.size()];
 		for (int i = 0; i < voters.size(); i++) {
-			result[0]  = voters.get(0);
+			result[i]  = voters.get(i);
 		}
 		return result;
 	}

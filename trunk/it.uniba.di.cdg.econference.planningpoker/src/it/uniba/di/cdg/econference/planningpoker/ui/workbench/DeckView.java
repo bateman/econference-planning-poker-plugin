@@ -42,7 +42,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
-import it.uniba.di.cdg.xcore.multichat.model.ParticipantSpecialPrivileges;
+import it.uniba.di.cdg.xcore.m2m.model.ParticipantSpecialPrivileges;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IActionBars;
@@ -65,7 +65,6 @@ public class DeckView extends ViewPart implements IDeckView {
 	private EditDeckAction editBacklogAction;
 
 	public DeckView() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	
@@ -236,6 +235,11 @@ public class DeckView extends ViewPart implements IDeckView {
 	@Override
 	public IPlanningPokerManager getManager() {
 		return manager;
+	}
+
+	@Override
+	public void refresh() {		
+		// empty method
 	}
 
 

@@ -45,7 +45,6 @@ public class DefaultUserStory implements IUserStory {
 	
 	public DefaultUserStory(String id, String milestoneId, String milestoneName,
 			Date milestoneCreationDate, String storyText, String notes, String points) {
-		super();
 		this.id = id;
 		this.milestoneId = milestoneId;
 		this.milestoneCreationDate = milestoneCreationDate;

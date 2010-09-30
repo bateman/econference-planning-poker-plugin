@@ -83,6 +83,13 @@ public interface IPlanningPokerService extends IEConferenceService {
 	 * @param estimateValue the estimate value
 	 */
 	void notifyEstimateAssigned(String storyId, String estimateValue);
+
+	/**
+	 * 
+	 * @param remove
+	 * @param itemIndex
+	 */
+	void notifyAgendaOperation(AgendaOperation remove, String itemIndex);
     
 //    
 //    /**

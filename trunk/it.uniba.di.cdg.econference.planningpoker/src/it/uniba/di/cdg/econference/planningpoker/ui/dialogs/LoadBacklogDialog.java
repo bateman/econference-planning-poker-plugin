@@ -93,7 +93,7 @@ public class LoadBacklogDialog extends Dialog {
 	        selectFileButton.setText("Select ...");
 	        selectFileButton.addSelectionListener( new org.eclipse.swt.events.SelectionAdapter() {
 	            public void widgetSelected( org.eclipse.swt.events.SelectionEvent e ) {
-	                final String fileName = UiPlugin.getUIHelper().requestFile( FILE_EXT );
+	                final String fileName = UiPlugin.getUIHelper().requestFile( FILE_EXT, System.getProperty("user.dir") );
 	                if (fileName == null) // CANCEL pressed
 	                    return;	                
 	                try {	                	

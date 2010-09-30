@@ -38,15 +38,15 @@ import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimateSession
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimate;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListener;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
+import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
+import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
-import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
-import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
+import it.uniba.di.cdg.xcore.m2m.model.IParticipant.Role;
 import it.uniba.di.cdg.xcore.network.messages.SystemMessage;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
@@ -104,12 +104,15 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	private IItemListListener voterListener = new ItemListListenerAdapter() {
 		
 		public void itemAdded(Object item) {
+			// XXX why there's no addEstimate?????
 			if(isEstimateSessionValid())
+				// XXX or getCurrentSessionOnlineVoters()?
 				getModel().getEstimateSession().setTotalVoters(getModel().getVoters().size());
 		};
 		
 		public void itemRemoved(Object item) {	
 			if(isEstimateSessionValid()){
+				// XXX or getCurrentSessionOnlineVoters()?
 				getModel().getEstimateSession().setTotalVoters(getModel().getVoters().size());
 				getModel().getEstimateSession().removeEstimate((String) item);	
 			}
@@ -164,11 +167,20 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	private IPlanningPokerModelListener ppListener = new PlanningPokerModelListenerAdapter(){
 
 		public void estimateSessionOpened() {
-			getModel().getEstimateSession().setTotalVoters(getModel().getVoters().size());
+			getModel().getEstimateSession().setTotalVoters(getCurrentSessionOnlineVoters());
 			getModel().getEstimateSession().addListener(estimatesListener);		
 			setFinalEstimateText("");
 			setAcceptButtonEnable(true);
 			appendSystemMessage("Card selection is ENABLED");
+		}
+
+		private int getCurrentSessionOnlineVoters() {	
+			// does not count the moderator	
+			int allVoters = getModel().getVoters().size(); 		 
+			// we assume the moderator's always online but does not vote => -1
+			int onlineVoters = getModel().getParticipants().length -1; 
+			int offlineVoters = allVoters - onlineVoters;
+			return allVoters - offlineVoters;
 		};
 
 		public void statusChanged() {
@@ -517,6 +529,12 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	 */
 	public TableViewer getViewer() {
 		return viewer;
+	}
+
+
+	@Override
+	public void refresh() {
+		// empty method
 	}
 
 }
