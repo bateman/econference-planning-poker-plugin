@@ -25,81 +25,53 @@
  */
 package it.uniba.di.cdg.econference.planningpoker.ui.dialogs;
 
-import static it.uniba.di.cdg.xcore.util.Misc.isEmpty;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
-import it.uniba.di.cdg.xcore.ui.UiPlugin;
+import it.uniba.di.cdg.xcore.econference.ui.dialogs.JoinConferenceDialog;
 
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 
-public class JoinPPDialog extends Dialog {
+public class JoinPPDialog extends JoinConferenceDialog {
 
-	
-	private LoadPPFileDialogUI ui;
-	private String fileName;
-	private String nickName;
-	private String status;
-	private boolean sendInvitations;
+	protected String status;
 
 	public JoinPPDialog(Shell parentShell) {
-		super(parentShell);	
+		super(parentShell);
 	}
-	
-	
+
+	public JoinPPDialog(Shell parentShell, String filepath) {
+		super(parentShell, filepath);
+	}
+
 	@Override
 	protected Control createDialogArea(Composite parent) {
-		 Composite composite = (Composite) super.createDialogArea( parent );
+		if (composite == null)
+			composite = new Composite(parent, SWT.NONE);
 
-	        FillLayout layout = new FillLayout( SWT.VERTICAL );
-	        composite.setLayout( layout );
-	        
-	        ui = new LoadPPFileDialogUI( composite, SWT.NONE );
+		if (layout == null)
+			layout = new FillLayout(SWT.VERTICAL);
+		composite.setLayout(layout);
+		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		applyDialogFont(composite);
 
-	        return composite;
-	}
-	
-    @Override
-    protected void okPressed() {
-        fileName = ui.getFileName();
-        nickName = ui.getNickName();
-        status = ui.getPersonalStatus();
-        sendInvitations = ui.sendInvitations();
-        
-        if (validate()) {
-            getContext().setNickName( nickName );
-            getContext().setPersonalStatus(status);
-            super.okPressed();
-        } else {
-            UiPlugin.getUIHelper().showErrorMessage( "Please fill all required fields" );
-        }
-    }
+		ui = new LoadPPFileDialogUI(composite, SWT.NONE, fileName);
 
-	private boolean validate() {
-        return !isEmpty( getFileName() ) && !isEmpty( getNickName() ) && getContext() != null;
+		return composite;
 	}
 
-
-	public EConferenceContext getContext() {
-		return ui.getContext();
+	@Override
+	protected void okPressed() {
+		status = ((LoadPPFileDialogUI) ui).getPersonalStatus();
+		super.okPressed();
+		if (validate()) {
+			EConferenceContext context = getContext();
+			context.setNickName(nickName);
+			context.setPersonalStatus(status);
+		}
 	}
-
-	public boolean isSendInvitations() {		
-		return sendInvitations;
-	}
-
-
-	public String getFileName() {
-		return fileName;
-	}
-
-
-	public String getNickName() {
-		return nickName;
-	}
-	
 
 }

@@ -26,10 +26,10 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
-import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
-import it.uniba.di.cdg.xcore.multichat.model.ParticipantSpecialPrivileges;
-import it.uniba.di.cdg.xcore.multichat.model.SpecialPrivilegesAction;
-import it.uniba.di.cdg.xcore.multichat.ui.actions.popup.AbstractParticipantActionDelegate;
+import it.uniba.di.cdg.xcore.m2m.model.IParticipant;
+import it.uniba.di.cdg.xcore.m2m.model.ParticipantSpecialPrivileges;
+import it.uniba.di.cdg.xcore.m2m.model.SpecialPrivilegesAction;
+import it.uniba.di.cdg.xcore.m2m.ui.actions.popup.AbstractParticipantActionDelegate;
 
 import org.eclipse.jface.action.IAction;
 

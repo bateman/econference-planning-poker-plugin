@@ -25,7 +25,9 @@
  */
 package it.uniba.di.cdg.econference.planningpoker;
 
+import it.uniba.di.cdg.econference.planningpoker.jabber.JabberPlanningPokerService;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
+import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
@@ -41,19 +43,20 @@ import it.uniba.di.cdg.econference.planningpoker.ui.workbench.PlanningPokerPersp
 import it.uniba.di.cdg.xcore.econference.IEConferenceService.AgendaOperation;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceManager;
 import it.uniba.di.cdg.xcore.econference.ui.views.IWhiteBoard;
-import it.uniba.di.cdg.xcore.multichat.model.IParticipant;
-import it.uniba.di.cdg.xcore.multichat.model.ParticipantSpecialPrivileges;
-import it.uniba.di.cdg.xcore.multichat.model.Privileged;
-import it.uniba.di.cdg.xcore.multichat.model.SpecialPrivilegesAction;
-import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
-import it.uniba.di.cdg.xcore.multichat.ui.views.ChatRoomView;
-import it.uniba.di.cdg.xcore.multichat.ui.views.IChatRoomView;
-import it.uniba.di.cdg.xcore.multichat.ui.views.IMultiChatTalkView;
-import it.uniba.di.cdg.xcore.multichat.ui.views.MultiChatTalkView;
+import it.uniba.di.cdg.xcore.m2m.model.IParticipant;
+import it.uniba.di.cdg.xcore.m2m.model.IParticipant.Role;
+import it.uniba.di.cdg.xcore.m2m.model.ParticipantSpecialPrivileges;
+import it.uniba.di.cdg.xcore.m2m.model.Privileged;
+import it.uniba.di.cdg.xcore.m2m.model.SpecialPrivilegesAction;
+import it.uniba.di.cdg.xcore.m2m.ui.views.ChatRoomView;
+import it.uniba.di.cdg.xcore.m2m.ui.views.IChatRoomView;
+import it.uniba.di.cdg.xcore.m2m.ui.views.IMultiChatTalkView;
+import it.uniba.di.cdg.xcore.m2m.ui.views.MultiChatTalkView;
 import it.uniba.di.cdg.xcore.network.BackendException;
 import it.uniba.di.cdg.xcore.network.IBackend;
 
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.WorkbenchException;
 
 public class PlanningPokerManager extends EConferenceManager implements IPlanningPokerManager {
@@ -65,40 +68,42 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 
 		IViewPart viewPart;  
 		
-		viewPart = getWorkbenchWindow().getActivePage().showView( MultiChatTalkView.ID );
+		IWorkbenchWindow workbenchWindow = getWorkbenchWindow();
+		viewPart = workbenchWindow.getActivePage().showView( MultiChatTalkView.ID );
 		talkView = (IMultiChatTalkView) viewPart;
 		talkView.setTitleText( getContext().getRoom() );
 		talkView.setModel( getService().getTalkModel() );
 
-		viewPart = (IViewPart) getWorkbenchWindow().getActivePage().findView( ChatRoomView.ID );
+		viewPart = (IViewPart) workbenchWindow.getActivePage().findView( ChatRoomView.ID );
 		roomView = (IChatRoomView) viewPart;
 		roomView.setManager( this );
 		
 
-		viewPart = getWorkbenchWindow().getActivePage().showView( PPWhiteBoardView.ID );
+		viewPart = workbenchWindow.getActivePage().showView( PPWhiteBoardView.ID );
 		IWhiteBoard whiteBoardView = (IWhiteBoard) viewPart;
 		whiteBoardView.setManager( this );
 		// By default the whiteboard cannot be modified: when the user is given the SCRIBE 
 		// special role than it will be set read-write
 		whiteBoardView.setReadOnly( true );
 
-		viewPart = getWorkbenchWindow().getActivePage().showView( DeckView.ID );
+		viewPart = workbenchWindow.getActivePage().showView( DeckView.ID );
 		IDeckView deckView = (DeckView) viewPart;
 		deckView.setManager(this);
-        deckView.setReadOnly(!Role.MODERATOR.equals(getRole()));        
+        Role role = getRole();
+		deckView.setReadOnly(!Role.MODERATOR.equals(role));        
         
-        viewPart = getWorkbenchWindow().getActivePage().showView( EstimatesView.ID );
+        viewPart = workbenchWindow.getActivePage().showView( EstimatesView.ID );
         IEstimatesView estimatesView = (EstimatesView) viewPart;   
         estimatesView.setManager(this);
-        estimatesView.setReadOnly(!Role.MODERATOR.equals(getRole()));
+        estimatesView.setReadOnly(!Role.MODERATOR.equals(role));
         
-        viewPart = getWorkbenchWindow().getActivePage().showView( BacklogView.ID );
+        viewPart = workbenchWindow.getActivePage().showView( BacklogView.ID );
         IBacklogView storiesListView = (BacklogView) viewPart;
         storiesListView.setManager(this);
-        storiesListView.setReadOnly(!Role.MODERATOR.equals(getRole()));        
+        storiesListView.setReadOnly(!Role.MODERATOR.equals(role));        
         
         //Moderator must be able to write the Whiteboard while participant has the voter privileges as default
-        if(Role.MODERATOR.equals(getRole())){
+        if(Role.MODERATOR.equals(role)){
         	//getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.SCRIBE);  
         	getService().notifyChangedSpecialPrivilege(getService().getModel().getLocalUser(), ParticipantSpecialPrivileges.SCRIBE, 
         			SpecialPrivilegesAction.GRANT);
@@ -129,11 +134,16 @@ public class PlanningPokerManager extends EConferenceManager implements IPlannin
 	
     @Override
     protected IPlanningPokerService setupChatService() throws BackendException {
-        IBackend backend = getBackendHelper().getRegistry().getBackend( getContext().getBackendId() );
-        
-        IPlanningPokerService service =(IPlanningPokerService) backend.createService( 
-        		IPlanningPokerService.PLANNINGPOKER_SERVICE, 
-                getContext() );
+    	PlanningPokerContext context = getContext();
+    	context.setBacklog(new Backlog());
+		//IBackend backend = getBackendHelper().getRegistry().getBackend( context.getBackendId() );
+    	IBackend backend = getBackendHelper().getRegistry().getDefaultBackend();
+    	
+//        IPlanningPokerService service =(IPlanningPokerService) backend.createService( 
+//        		IPlanningPokerService.PLANNINGPOKER_SERVICE, 
+//                getContext() );
+		
+        IPlanningPokerService service =  new JabberPlanningPokerService(context, backend);
         return service;
     }
     

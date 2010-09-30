@@ -40,8 +40,8 @@ public class EstimateAssignedPacket implements IPacketExtension {
 	
 	public static String ELEMENT_NAME = "estimate-assigned";
 	
-	private static String ELEMENT_STORY_ID = "storyId";
-	private static String ELEMENT_ESTIMATE = "estimate";
+	public static String ELEMENT_STORY_ID = "storyId";
+	public static String ELEMENT_ESTIMATE = "estimate";
 	
 	
 	private String storyId;

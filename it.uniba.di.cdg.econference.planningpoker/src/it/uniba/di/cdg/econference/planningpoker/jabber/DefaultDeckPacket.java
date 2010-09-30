@@ -50,7 +50,7 @@ public class DefaultDeckPacket implements IPacketExtension{
      */
 	public static final String ELEMENT_NAME = "deck";
 	
-	private static final String ELEMENT_CARD = "card";
+	public static final String ELEMENT_CARD = "card";
 	
 	private static final String ELEMENT_HIDDEN_CARD = "hidden-card";
 	

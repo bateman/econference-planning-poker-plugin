@@ -71,7 +71,7 @@ public class AddUserStoryAction extends Action {
 		dialog.show();
 		IUserStory newStory = dialog.getStory();
 		if (newStory != null) {
-			backlogView.getModel().getBacklog().addUserStory(newStory);
+			backlog.addUserStory(newStory);
 			//notify changes of the backlog's content
 			backlogView.getManager().notifyItemListToRemote();		
 		}

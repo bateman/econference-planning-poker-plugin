@@ -26,8 +26,8 @@
 package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
-import it.uniba.di.cdg.xcore.multichat.ui.views.ChatRoomView;
-import it.uniba.di.cdg.xcore.multichat.ui.views.MultiChatTalkView;
+import it.uniba.di.cdg.xcore.m2m.ui.views.ChatRoomView;
+import it.uniba.di.cdg.xcore.m2m.ui.views.MultiChatTalkView;
 
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;

@@ -24,9 +24,9 @@
  */
 package it.uniba.di.cdg.xcore.aspects;
 
-import it.uniba.di.cdg.xcore.multichat.IMultiChatManager;
-import it.uniba.di.cdg.xcore.multichat.model.Privileged;
-import it.uniba.di.cdg.xcore.multichat.model.IParticipant.Role;
+import it.uniba.di.cdg.xcore.m2m.IMultiChatManager;
+import it.uniba.di.cdg.xcore.m2m.model.IParticipant.Role;
+import it.uniba.di.cdg.xcore.m2m.model.Privileged;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
