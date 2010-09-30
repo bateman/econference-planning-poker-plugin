@@ -71,6 +71,7 @@
             label="Planning Poker actions"
             visible="true">
          <menu
+               icon="icons/poker.gif"
                id="it.uniba.di.cdg.econference.planningpoker.menu"
                label="&amp;PlanningPoker"
                path="file/additions">
@@ -80,6 +81,7 @@
          </menu>
          <action
                class="it.uniba.di.cdg.econference.planningpoker.actions.LoadPPFromFileActionDelegate"
+               icon="icons/action_fileopen.png"
                id="it.uniba.di.cdg.econference.planningpoker.loadPPFromFileAction"
                label="Load configuration ..."
                menubarPath="file/it.uniba.di.cdg.econference.planningpoker.menu/additions"
