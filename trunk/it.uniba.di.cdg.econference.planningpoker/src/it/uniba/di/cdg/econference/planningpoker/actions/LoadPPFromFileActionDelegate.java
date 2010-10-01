@@ -30,6 +30,9 @@ import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -42,20 +45,16 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
  * @author Alessandro Brucoli
  * 
  */
-public class LoadPPFromFileActionDelegate implements
-		IWorkbenchWindowActionDelegate {
+public class LoadPPFromFileActionDelegate extends AbstractHandler implements IWorkbenchWindowActionDelegate {
 
 	@Override
-	public void dispose() {
+	public Object execute(ExecutionEvent event) throws ExecutionException {        
+        run(null);
+		return null;
 	}
 
 	@Override
-	public void init(IWorkbenchWindow window) {
-	}
-
-	@Override
-	public void run(IAction action) {
-				
+	public void run(IAction action) {		
 		if (NetworkPlugin.getDefault().getHelper().getOnlineBackends().size() == 0) {
             UiPlugin.getUIHelper().showErrorMessage( "Please, connect first!" );
             return;
@@ -64,11 +63,14 @@ public class LoadPPFromFileActionDelegate implements
         EConferencePlugin defaultPlugin = EConferencePlugin.getDefault();
         defaultPlugin.setHelper(new PlanningPokerHelper( UiPlugin.getUIHelper(), NetworkPlugin.getDefault().getHelper()));        
         defaultPlugin.getHelper().openFromFile();
-
 	}
 
 	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
+	public void selectionChanged(IAction action, ISelection selection) {		
+	}
+
+	@Override
+	public void init(IWorkbenchWindow window) {
 	}
 
 }
