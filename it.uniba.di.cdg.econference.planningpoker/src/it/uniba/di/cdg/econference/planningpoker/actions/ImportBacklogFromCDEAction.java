@@ -61,7 +61,7 @@ public class ImportBacklogFromCDEAction extends Action {
 		setText("Import Backlog");
 		setToolTipText("Import user stories from CDE");
 		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
-				PlanningPokerPlugin.ID, "icons/backlog/import16x16.png" ));
+				PlanningPokerPlugin.ID, "icons/backlog/import-web16x16.png" ));
 	}
 
 	@Override
