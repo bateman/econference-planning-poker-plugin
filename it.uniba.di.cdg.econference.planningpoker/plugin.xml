@@ -81,6 +81,7 @@
          </menu>
          <action
                class="it.uniba.di.cdg.econference.planningpoker.actions.LoadPPFromFileActionDelegate"
+               definitionId="it.uniba.di.cdg.econference.planningpoker.actions.load"
                icon="icons/action_fileopen.png"
                id="it.uniba.di.cdg.econference.planningpoker.loadPPFromFileAction"
                label="Load configuration ..."
@@ -252,6 +253,23 @@
             class="it.uniba.di.cdg.econference.planningpoker.PlanningPokerService"
             name="planning-poker">
       </service>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="it.uniba.di.cdg.econference.planningpoker.actions.load"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+M3+P">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="it.uniba.di.cdg.econference.planningpoker.actions.LoadPPFromFileActionDelegate"
+            id="it.uniba.di.cdg.econference.planningpoker.actions.load"
+            name="load">
+      </command>
    </extension>
 
 </plugin>
