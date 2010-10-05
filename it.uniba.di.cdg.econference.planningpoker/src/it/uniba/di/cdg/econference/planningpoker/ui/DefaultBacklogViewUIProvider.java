@@ -70,14 +70,17 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 		DefaultUserStory story = (DefaultUserStory)element;
 		String label ="";
 		switch(columnIndex){
-		case 0: // Name 
+		case 0: // ID
+			label = story.getId();
+			break;
+		case 1: // Name 
 			label = story.getStoryText();
 		break;
-		case 1: {//Milestone Name
+		case 2: {//Milestone Name
 			label = story.getMilestoneName();
 		}		
 		break;
-		case 2:{//Estimate
+		case 3:{//Estimate
 			label = story.getEstimate().toString();	
 			if(label=="")
 				label ="?";
@@ -107,8 +110,8 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 	
 	@Override
 	public void createColumns(TableViewer viewer) {
-		String[] titles = new String[] {"Story Text","Milestone","Estimate"};
-		int[] bounds = new int[] {320,90,70};
+		String[] titles = new String[] {"ID","Story Text","Milestone","Estimate"};
+		int[] bounds = new int[] {30,320,90,70};
 		AutoResizeTableLayout layout = (AutoResizeTableLayout) viewer.getTable().getLayout();
 		for (int i = 0; i < titles.length; i++) {
 			final int index = i;
@@ -125,12 +128,15 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 					DefaultUserStory story = (DefaultUserStory) cell.getElement();
 					switch(index){
 					case 0:
-						cell.setText(story.getStoryText());
+						cell.setText(story.getId());
 						break;
 					case 1:
-						cell.setText(story.getMilestoneName());
+						cell.setText(story.getStoryText());
 						break;
 					case 2:
+						cell.setText(story.getMilestoneName());
+						break;
+					case 3:
 						cell.setText(story.getEstimate().toString());
 						break;
 					}
