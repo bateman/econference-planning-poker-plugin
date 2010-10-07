@@ -30,14 +30,13 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIPro
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 
 import org.eclipse.jface.viewers.CellLabelProvider;
+import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Table;
 
 public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
@@ -58,75 +57,24 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public Image getColumnImage(Object element, int columnIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getColumnText(Object element, int columnIndex) {
-		DefaultUserStory story = (DefaultUserStory)element;
-		String label ="";
-		switch(columnIndex){
-		case 0: // ID
-			label = story.getId();
-			break;
-		case 1: // Name 
-			label = story.getStoryText();
-		break;
-		case 2: {//Milestone Name
-			label = story.getMilestoneName();
-		}		
-		break;
-		case 3:{//Estimate
-			label = story.getEstimate().toString();	
-			if(label=="")
-				label ="?";
-		}
-		}
-		return label;
-	}
-
-	@Override
-	public void addListener(ILabelProviderListener listener) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isLabelProperty(Object element, String property) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void removeListener(ILabelProviderListener listener) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 	@Override
 	public void createColumns(TableViewer viewer) {
 		String[] titles = new String[] {"ID","Story Text","Milestone","Estimate"};
-		int[] bounds = new int[] {30,320,90,70};
-		AutoResizeTableLayout layout = (AutoResizeTableLayout) viewer.getTable().getLayout();
+		int[] bounds = new int[] {50,320,90,70};
 		for (int i = 0; i < titles.length; i++) {
 			final int index = i;
 			TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
 			column.getColumn().setText(titles[i]);
-			//column.getColumn().setWidth(bounds[i]);
+			column.getColumn().setWidth(bounds[i]);
 			column.getColumn().setResizable(true);
-			column.getColumn().setMoveable(true);			
-			layout.addColumnData(new ColumnWeightData(bounds[i]));	
+			column.getColumn().setMoveable(true);
 			column.setLabelProvider(new CellLabelProvider() {
 				
 				@Override
 				public void update(ViewerCell cell) {
 					DefaultUserStory story = (DefaultUserStory) cell.getElement();
-					switch(index){
+					switch(index) {
 					case 0:
 						cell.setText(story.getId());
 						break;
@@ -137,7 +85,10 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 						cell.setText(story.getMilestoneName());
 						break;
 					case 3:
-						cell.setText(story.getEstimate().toString());
+						String estimate = story.getEstimate().toString();
+						if (estimate.isEmpty() || estimate.equals("0.0"))
+							estimate = "?";
+						cell.setText(estimate);
 						break;
 					}
 					
@@ -147,6 +98,13 @@ public class DefaultBacklogViewUIProvider implements IBacklogViewUIProvider {
 			});
 			//column.setEditingSupport(new SimpleBacklogEditingSupport(viewer,i));
 		}
+		
+		AutoResizeTableLayout layout = new AutoResizeTableLayout(viewer.getTable());
+		layout.addColumnData(new ColumnPixelData(bounds[0]));
+		layout.addColumnData(new ColumnWeightData(1));
+		layout.addColumnData(new ColumnPixelData(bounds[2]));
+		layout.addColumnData(new ColumnPixelData(bounds[3]));
+		
 		Table table = viewer.getTable();
 		table.setHeaderVisible(true);
 		table.setLinesVisible(false);
