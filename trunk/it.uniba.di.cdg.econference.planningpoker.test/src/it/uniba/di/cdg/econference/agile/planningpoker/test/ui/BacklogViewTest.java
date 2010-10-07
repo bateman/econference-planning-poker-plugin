@@ -53,7 +53,7 @@ public class BacklogViewTest extends TestCase
 		DefaultBacklogViewUIProvider provider = new DefaultBacklogViewUIProvider();
 		TableViewer viewer = testView.getViewer();
 		viewer.setContentProvider(provider);
-		viewer.setLabelProvider(provider);
+		//viewer.setLabelProvider(provider);
 		provider.createColumns(viewer);
 		
 		// Delay for 3 seconds so that

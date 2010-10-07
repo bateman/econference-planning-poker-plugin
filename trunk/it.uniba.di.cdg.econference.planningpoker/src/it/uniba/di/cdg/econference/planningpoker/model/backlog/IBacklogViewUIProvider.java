@@ -37,8 +37,7 @@ import org.eclipse.jface.viewers.TableViewer;
  * @author Alex
  *
  */
-public interface IBacklogViewUIProvider extends IStructuredContentProvider,
-		ITableLabelProvider {
+public interface IBacklogViewUIProvider extends IStructuredContentProvider {
 	
 	void createColumns(TableViewer viewer);
 
