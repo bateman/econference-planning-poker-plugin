@@ -54,147 +54,215 @@ import it.uniba.di.cdg.xcore.m2m.ui.views.MultiChatTalkView;
 import it.uniba.di.cdg.xcore.network.BackendException;
 import it.uniba.di.cdg.xcore.network.IBackend;
 
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IPerspectiveListener3;
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.WorkbenchException;
 
-public class PlanningPokerManager extends EConferenceManager implements IPlanningPokerManager {
-	
-        
+public class PlanningPokerManager extends EConferenceManager implements
+		IPlanningPokerManager {
+
+	private IPerspectiveListener3 perspectiveListener = new IPerspectiveListener3() {
+
+		public void perspectiveOpened(IWorkbenchPage page,
+				IPerspectiveDescriptor perspective) {
+			// do nothing
+		}
+
+		public void perspectiveClosed(IWorkbenchPage page,
+				IPerspectiveDescriptor perspective) {			
+			// The user has requested the perspective to be closed ... so let's
+			// clean-up all
+			if (page == getWorkbenchWindow().getActivePage()
+					&& PlanningPokerPerspective.ID.equals(perspective.getId())) {
+				// Ask the user to save views even when the perspective is
+				// closed (by default the
+				// eclipse framework asks only when closing the whole app, see
+				// BR #43).
+				page.saveAllEditors(true);
+				// close perspective means leave the room
+				service.leave();
+				close();
+				System.out.println(String.format("perspectiveClosed( %s )",
+						perspective.getId()));
+			}
+		}
+
+		public void perspectiveDeactivated(IWorkbenchPage page,
+				IPerspectiveDescriptor perspective) {
+			// do nothing
+		}
+
+		public void perspectiveSavedAs(IWorkbenchPage page,
+				IPerspectiveDescriptor oldPerspective,
+				IPerspectiveDescriptor newPerspective) {
+			// do nothing
+		}
+
+		public void perspectiveChanged(IWorkbenchPage page,
+				IPerspectiveDescriptor perspective,
+				IWorkbenchPartReference partRef, String changeId) {
+			// do nothing
+		}
+
+		public void perspectiveActivated(IWorkbenchPage page,
+				IPerspectiveDescriptor perspective) {
+			// do nothing
+		}
+
+		public void perspectiveChanged(IWorkbenchPage page,
+				IPerspectiveDescriptor perspective, String changeId) {
+			// do nothing
+		}
+	};
+
 	@Override
 	protected void setupUI() throws WorkbenchException {
-		getUihelper().switchPerspective( PlanningPokerPerspective.ID );
+		getUihelper().switchPerspective(PlanningPokerPerspective.ID);
 
-		IViewPart viewPart;  
-		
+		IViewPart viewPart;
+
 		IWorkbenchWindow workbenchWindow = getWorkbenchWindow();
-		viewPart = workbenchWindow.getActivePage().showView( MultiChatTalkView.ID );
+		viewPart = workbenchWindow.getActivePage().showView(
+				MultiChatTalkView.ID);
 		talkView = (IMultiChatTalkView) viewPart;
-		talkView.setTitleText( getContext().getRoom() );
-		talkView.setModel( getService().getTalkModel() );
+		talkView.setTitleText(getContext().getRoom());
+		talkView.setModel(getService().getTalkModel());
 
-		viewPart = (IViewPart) workbenchWindow.getActivePage().findView( ChatRoomView.ID );
+		viewPart = (IViewPart) workbenchWindow.getActivePage().findView(
+				ChatRoomView.ID);
 		roomView = (IChatRoomView) viewPart;
-		roomView.setManager( this );
-		
+		roomView.setManager(this);
 
-		viewPart = workbenchWindow.getActivePage().showView( PPWhiteBoardView.ID );
+		viewPart = workbenchWindow.getActivePage()
+				.showView(PPWhiteBoardView.ID);
 		IWhiteBoard whiteBoardView = (IWhiteBoard) viewPart;
-		whiteBoardView.setManager( this );
-		// By default the whiteboard cannot be modified: when the user is given the SCRIBE 
+		whiteBoardView.setManager(this);
+		// By default the whiteboard cannot be modified: when the user is given
+		// the SCRIBE
 		// special role than it will be set read-write
-		whiteBoardView.setReadOnly( true );
+		whiteBoardView.setReadOnly(true);
 
-		viewPart = workbenchWindow.getActivePage().showView( DeckView.ID );
+		viewPart = workbenchWindow.getActivePage().showView(DeckView.ID);
 		IDeckView deckView = (DeckView) viewPart;
 		deckView.setManager(this);
-        Role role = getRole();
-		deckView.setReadOnly(!Role.MODERATOR.equals(role));        
-        
-        viewPart = workbenchWindow.getActivePage().showView( EstimatesView.ID );
-        IEstimatesView estimatesView = (EstimatesView) viewPart;   
-        estimatesView.setManager(this);
-        estimatesView.setReadOnly(!Role.MODERATOR.equals(role));
-        
-        viewPart = workbenchWindow.getActivePage().showView( BacklogView.ID );
-        IBacklogView storiesListView = (BacklogView) viewPart;
-        storiesListView.setManager(this);
-        storiesListView.setReadOnly(!Role.MODERATOR.equals(role));        
-        
-        //Moderator must be able to write the Whiteboard while participant has the voter privileges as default
-        if(Role.MODERATOR.equals(role)){
-        	//getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.SCRIBE);  
-        	getService().notifyChangedSpecialPrivilege(getService().getModel().getLocalUser(), ParticipantSpecialPrivileges.SCRIBE, 
-        			SpecialPrivilegesAction.GRANT);
-        }else{
-        	//getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.VOTER);
-        	getService().notifyChangedSpecialPrivilege(getService().getModel().getLocalUser(), ParticipantSpecialPrivileges.VOTER, 
-        			SpecialPrivilegesAction.GRANT);
-        }
+		Role role = getRole();
+		deckView.setReadOnly(!Role.MODERATOR.equals(role));
+
+		viewPart = workbenchWindow.getActivePage().showView(EstimatesView.ID);
+		IEstimatesView estimatesView = (EstimatesView) viewPart;
+		estimatesView.setManager(this);
+		estimatesView.setReadOnly(!Role.MODERATOR.equals(role));
+
+		viewPart = workbenchWindow.getActivePage().showView(BacklogView.ID);
+		IBacklogView storiesListView = (BacklogView) viewPart;
+		storiesListView.setManager(this);
+		storiesListView.setReadOnly(!Role.MODERATOR.equals(role));
+
+		// Moderator must be able to write the Whiteboard while participant has
+		// the voter privileges as default
+		if (Role.MODERATOR.equals(role)) {
+			// getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.SCRIBE);
+			getService().notifyChangedSpecialPrivilege(
+					getService().getModel().getLocalUser(),
+					ParticipantSpecialPrivileges.SCRIBE,
+					SpecialPrivilegesAction.GRANT);
+		} else {
+			// getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.VOTER);
+			getService().notifyChangedSpecialPrivilege(
+					getService().getModel().getLocalUser(),
+					ParticipantSpecialPrivileges.VOTER,
+					SpecialPrivilegesAction.GRANT);
+		}
 	}
-	
-	 /* (non-Javadoc)
-     * @see it.uniba.di.cdg.xcore.multichat.MultiChat#setupListeners()
-     */
-    @Override
-    protected void setupListeners() {     
-        conferenceStarteMessage = "The meeting has been STARTED";
-        conferenceStoppedMessage = "The meeting has been STOPPED";
-        
-        super.setupListeners();                             
-        
-        final IPlanningPokerModel model = (IPlanningPokerModel) getService().getModel();     
-        
-        IParticipant p = model.getLocalUser();
-        if(p!=null)
-        	if(getContext().getPersonalStatus()!=null && getContext().getPersonalStatus()!="")
-        		getService().notifyChangedMUCPersonalPrivilege(p, getContext().getPersonalStatus());      
-    }
-	
-    @Override
-    protected IPlanningPokerService setupChatService() throws BackendException {
-    	PlanningPokerContext context = getContext();
-    	context.setBacklog(new Backlog());
-		//IBackend backend = getBackendHelper().getRegistry().getBackend( context.getBackendId() );
-    	IBackend backend = getBackendHelper().getRegistry().getDefaultBackend();
-    	
-//        IPlanningPokerService service =(IPlanningPokerService) backend.createService( 
-//        		IPlanningPokerService.PLANNINGPOKER_SERVICE, 
-//                getContext() );
-		
-        IPlanningPokerService service =  new PlanningPokerService(context, backend);
-        return service;
-    }
-    
-    @Override
-    protected PlanningPokerContext getContext() {
-        return (PlanningPokerContext) super.getContext();
-    }
-	
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see it.uniba.di.cdg.xcore.multichat.MultiChat#setupListeners()
+	 */
 	@Override
-	public IPlanningPokerService getService() {	
-		return (IPlanningPokerService)super.getService();
+	protected void setupListeners() {
+		conferenceStarteMessage = "The meeting has been STARTED";
+		conferenceStoppedMessage = "The meeting has been STOPPED";
+
+		workbenchWindow.addPerspectiveListener( perspectiveListener );
+		super.setupListeners();
+
+		final IPlanningPokerModel model = (IPlanningPokerModel) getService()
+				.getModel();
+
+		IParticipant p = model.getLocalUser();
+		if (p != null)
+			if (getContext().getPersonalStatus() != null
+					&& getContext().getPersonalStatus() != "")
+				getService().notifyChangedMUCPersonalPrivilege(p,
+						getContext().getPersonalStatus());
 	}
-	
+
+	@Override
+	protected IPlanningPokerService setupChatService() throws BackendException {
+		PlanningPokerContext context = getContext();
+		context.setBacklog(new Backlog());
+		// IBackend backend = getBackendHelper().getRegistry().getBackend(
+		// context.getBackendId() );
+		IBackend backend = getBackendHelper().getRegistry().getDefaultBackend();
+
+		// IPlanningPokerService service =(IPlanningPokerService)
+		// backend.createService(
+		// IPlanningPokerService.PLANNINGPOKER_SERVICE,
+		// getContext() );
+
+		IPlanningPokerService service = new PlanningPokerService(context,
+				backend);
+		return service;
+	}
+
+	@Override
+	protected PlanningPokerContext getContext() {
+		return (PlanningPokerContext) super.getContext();
+	}
+
+	@Override
+	public IPlanningPokerService getService() {
+		return (IPlanningPokerService) super.getService();
+	}
 
 	@Override
 	public void notifyCardSelected(String storyId, IPokerCard card) {
 		getService().notifyCardSelection(storyId, card);
 	}
-	
+
 	@Override
-	public void notifyCardDeckToRemote(CardDeck deck){
+	public void notifyCardDeckToRemote(CardDeck deck) {
 		getService().notifyCardDeckToRemote(deck);
 	}
 
-	@Privileged( atleast = Role.MODERATOR )
-    public void notifyItemListToRemote() {
-        getService().notifyItemListToRemote();
-    }
+	@Privileged(atleast = Role.MODERATOR)
+	public void notifyItemListToRemote() {
+		getService().notifyItemListToRemote();
+	}
 
 	@Override
-	public void notifyEstimateSessionStatusChange(IEstimatesList estimates, EstimateStatus status) {
+	public void notifyEstimateSessionStatusChange(IEstimatesList estimates,
+			EstimateStatus status) {
 		getService().notifyEstimateSessionStatusChange(estimates, status);
-		
+
 	}
 
 	@Override
 	public void notifyRemoveBacklogItem(String itemIndex) {
-	    getService().notifyAgendaOperation( AgendaOperation.REMOVE, itemIndex );
-		
+		getService().notifyAgendaOperation(AgendaOperation.REMOVE, itemIndex);
+
 	}
 
 	@Override
 	public void notifyEstimateAssigned(String storyId, String estimateValue) {
 		getService().notifyEstimateAssigned(storyId, estimateValue);
-		
+
 	}
-	
-	
-//	@Privileged( atleast = Role.MODERATOR )
-//	public void notifyVoterListToRemote(){
-//		getService().notifyVoterListToRemote();
-//	}
 
 }
