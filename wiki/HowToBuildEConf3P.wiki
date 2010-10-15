@@ -64,7 +64,8 @@ From now on, you can just run the tool the way you usually do in Eclipse.
 
 
 == Exporting the product ==
-Coming soon
+Apply the same instructions provided [http://code.google.com/p/econference4/wiki/howtobuild#Exporting_the_product here] for exporting the eConference 4 product.
+Make only sure that you apply those instructions on the PlanningPoker plugin product file.
 
 == Code & Comments style ==
 Last but not least, be also sure to stick on the same coding style that has been used so far.
