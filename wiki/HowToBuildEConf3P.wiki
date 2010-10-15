@@ -5,8 +5,8 @@
 
 = How to build eConference Planning Poker Plug-in 1.x =
 
-== Build the eConference 3.x ==
-Follow the [http://code.google.com/p/econference/wiki/HowToBuildEConf instructions] to build eConference 3.x
+== Build the plugin ==
+Follow the [http://code.google.com/p/econference4/wiki/howtobuild instructions] to build eConference 4
 
 == Checkout the SVN repository ==
 
