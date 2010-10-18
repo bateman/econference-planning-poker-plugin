@@ -28,6 +28,7 @@ package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.actions.EditDeckAction;
+import it.uniba.di.cdg.econference.planningpoker.actions.ResetDeckAction;
 import it.uniba.di.cdg.econference.planningpoker.actions.SelectCardAction;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModelListener;
@@ -63,6 +64,7 @@ public class DeckView extends ViewPart implements IDeckView {
 	private SelectCardAction selectCardAction; 
 	
 	private EditDeckAction editBacklogAction;
+	private ResetDeckAction resetDeckAction;
 
 	public DeckView() {
 	}
@@ -157,12 +159,14 @@ public class DeckView extends ViewPart implements IDeckView {
      * @param bars
      */
     protected void contributeToActionBars( IActionBars bars ) {
+    	bars.getToolBarManager().add( resetDeckAction );
         bars.getToolBarManager().add( editBacklogAction );       
     }
 	
 	private void makeActions(){
 		selectCardAction = new SelectCardAction(this);
 		editBacklogAction = new EditDeckAction(this);
+		resetDeckAction = new ResetDeckAction(this);
 	}
 	
 	@Override
@@ -242,5 +246,8 @@ public class DeckView extends ViewPart implements IDeckView {
 		// empty method
 	}
 
-
+	public void resetDeck() {
+		uiHelper.resetDeck();
+	}
+	
 }
