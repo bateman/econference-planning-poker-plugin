@@ -23,35 +23,36 @@
  * CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package it.uniba.di.cdg.econference.planningpoker.model.deck;
+package it.uniba.di.cdg.econference.planningpoker.actions;
 
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
+import it.uniba.di.cdg.econference.planningpoker.ui.workbench.DeckView;
 
+import org.eclipse.jface.action.Action;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 
-/**
- * This class helps Deck View to create the deck graphically.
- *  
- * @author Alex
- *
- */
-
-public interface IDeckViewUIHelper {
-
-	//void addWidgetFromCard(IPokerCard card);
-
-	//void removeWidgetFromCard(IPokerCard card);
+public class ResetDeckAction extends Action {
 	
-	void setCardDeck(CardDeck deck);
+	private IViewPart view;
 	
-	void addCardSelectionListener(ICardSelectionListener listener);
+	public ResetDeckAction(IViewPart view) {
+		super();
+		this.view = view;
+		setText("Reset Deck");
+		setToolTipText("Reset the deck");
+		setImageDescriptor(PlanningPokerPlugin.imageDescriptorFromPlugin(
+				PlanningPokerPlugin.ID, "icons/backlog/deleteStory.gif" ));
+	}
 	
-	void removeCardSelectionListener(ICardSelectionListener listener);
-
-	void setDeckEnable(boolean enable);
-
-	boolean isReadOnly();
-	
-	void setFocus();
-	
-	void resetDeck();
+	@Override	
+	public void run() {
+		IWorkbenchWindow window = view.getViewSite().getWorkbenchWindow();
+		IWorkbenchPage page = window.getActivePage();
+		DeckView deckView = (DeckView) page.findView(DeckView.ID);
+		
+		deckView.resetDeck();
+	}
 
 }

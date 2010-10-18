@@ -30,121 +30,152 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.ICardSelectionListen
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DragSource;
+import org.eclipse.swt.dnd.DragSourceAdapter;
+import org.eclipse.swt.dnd.DragSourceEvent;
+import org.eclipse.swt.dnd.DropTarget;
+import org.eclipse.swt.dnd.DropTargetAdapter;
+import org.eclipse.swt.dnd.DropTargetEvent;
+import org.eclipse.swt.dnd.TextTransfer;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 
 public class DefaultDeckViewUIHelper implements IDeckViewUIHelper {
 
-//	private String selectedValue;
-	private static final String KEY_VALUE = "value";
-	private static final int SELECTION_COLOR = SWT.COLOR_RED;
-	private static final int DEFAULT_COLOR = SWT.COLOR_GRAY;
-	
 	private Set<ICardSelectionListener> listeners;
 	private Composite parent;
 	private CardDeck deck;
+	
+	private List<CardButton> cardWidgets;
+	private Canvas emptySpace;
+	private CardTarget dropTarget;
 	
 	public DefaultDeckViewUIHelper(Composite parent, CardDeck deck) {
 		this.parent = parent;
 		this.deck = deck;
 		listeners = new HashSet<ICardSelectionListener>();
+		
+		this.cardWidgets = new ArrayList<CardButton>();
 		createPartControl();
 	}
 	
 	@Override
 	public void setCardDeck(CardDeck deck){
 		this.deck = deck;
+		
 		paintDeck();
 	}
 	
 	private void createPartControl() {
 		FillLayout layout = new FillLayout();
 		layout.type = SWT.HORIZONTAL;
-		parent.setLayout(layout);	
+		parent.setLayout(layout);
 		paintDeck();
 	}
 
 	private void paintDeck() {
 		cleanPartControl();
-		for (int i = 0; i < deck.getCards().length; i++) {
-			addWidgetFromCard(deck.getCards()[i]);
-		}		
+		
+		// Cards
+		IPokerCard[] cards = deck.getCards();
+		for (int i = 0; i < cards.length; i++) {
+			createWidgetFromCard(cards[i]);
+		}
+		
+		// Empty space
+		emptySpace = new Canvas(parent, SWT.NONE);
+		
+		// Drop target
+		dropTarget = new CardTarget(parent);
+		createDropTarget(dropTarget);
+		
+		parent.layout();
 	}
 	
-
 	public void cleanPartControl() {
-		Control[] controls = parent.getChildren();
-		for(Control control: controls){
-			if(control instanceof Button){
-				control.dispose();
-			}
-		}		
-	}
+		Iterator<CardButton> itr = cardWidgets.iterator();
+	    while (itr.hasNext()) {
+	    	CardButton cardButton = itr.next();
+	    	itr.remove();
+	    	//cardWidgets.remove(cardButton);
+	    	cardButton.dispose();
+	    }
 
-	private void addWidgetFromCard(final IPokerCard card) {		
-		Button button = new Button(parent, SWT.TOGGLE );
-		button.setData(KEY_VALUE, card.getStringValue());
-		button.setBackground(parent.getDisplay().getSystemColor(DEFAULT_COLOR));
-		button.setText(card.getStringValue());
-		button.addListener(SWT.Selection, new Listener(){
-			@Override
-			public void handleEvent(Event event) {		
-				setSelectedButton((Button) event.widget);
-//				selectedValue = card.getStringValue();	
-				for(ICardSelectionListener l : listeners){
+	    if (emptySpace != null)
+	    	emptySpace.dispose();
+	    
+	    if (dropTarget != null)
+	    	dropTarget.dispose();
+	}
+	
+	private CardButton createWidgetFromCard(IPokerCard card) {
+		CardButton cardButton = new CardButton(parent, card.getStringValue());
+		createDragSource(cardButton, card);
+		cardWidgets.add(cardButton);
+		
+		return cardButton;
+	}
+	
+	private void createDragSource(final CardButton widget, final IPokerCard card) {
+		DragSource ds = new DragSource(widget, DND.DROP_MOVE);
+	    ds.setTransfer(new Transfer[] { TextTransfer.getInstance() });
+	    ds.addDragListener(new DragSourceAdapter() {
+		    public void dragSetData(DragSourceEvent event) {
+		    	event.data = card.getStringValue();
+		    	
+		    	for(ICardSelectionListener l : listeners){
 					l.cardSelected(card);
 				}
-			}
-				
-		});
-				
-//		if(card.hasImagePath()){
-//			URL url = Platform.getBundle(PlanningPokerPlugin.ID).getEntry(card.getImagePath());
-//			image = ImageDescriptor.createFromURL(url).createImage();			
-//			button.setImage(image);
-//		}
-		parent.layout();
-		
+		    }
+	    });
 	}
 	
-	private void setSelectedButton(Button button) {								
-		Control[] controls = parent.getChildren();
-		for(Control control: controls){
-			if(control instanceof Button){
-				Button current = (Button) control;
-				current.setBackground(parent.getDisplay().getSystemColor(DEFAULT_COLOR));
-				current.setSelection(false);
-			}
-		}
-		if(button!=null){
-			button.setBackground(parent.getDisplay().getSystemColor(SELECTION_COLOR));
-			button.setSelection(true);
-		}
+	private void createDropTarget(final CardTarget object) {
+		DropTarget dt = new DropTarget(object, DND.DROP_MOVE);
+	    
+	    dt.setTransfer(new Transfer[] { TextTransfer.getInstance() });
+	    dt.addDropListener(new DropTargetAdapter() {
+		    public void drop(DropTargetEvent event) {
+		    	String draggedCardValue = (String)event.data;
+		    	cardDragged(draggedCardValue);
+		    	object.setEstimate(draggedCardValue);
+		    }
+	    });
 	}
 	
-	
-	private void clearSelection(){
-		setSelectedButton(null);
+	private void cardDragged(String draggedCardValue) {
+		Iterator<CardButton> itr = cardWidgets.iterator();
+	    while (itr.hasNext()) {
+	    	CardButton card = itr.next();
+	    	if (card.getValue().equals(draggedCardValue)) {
+	    		card.setSelected(true);
+	    	}
+	    	else {
+	    		card.setSelected(false);
+	    	}
+	    }
 	}
-		
-
-//	@Override
-//	public void removeWidgetFromCard(IPokerCard card) {
-//		Control[] controls = parent.getChildren();
-//		for(Control control: controls){
-//			if(control.getData(KEY_VALUE).equals(card.getStringValue())){
-//				control.dispose();
-//			}
-//		}		
-//	}	
+	
+	public void removeWidgetFromCard(IPokerCard card) {
+		Iterator<CardButton> itr = cardWidgets.iterator();
+	    while (itr.hasNext()) {
+	    	CardButton cardButton = itr.next();
+	    	if (cardButton.getValue().equals(card.getStringValue())) {
+	    		cardWidgets.remove(cardButton);
+	    		cardButton.dispose();
+	    	}
+	    }
+	}	
 	
 	@Override
 	public void addCardSelectionListener(ICardSelectionListener listener){
@@ -154,13 +185,13 @@ public class DefaultDeckViewUIHelper implements IDeckViewUIHelper {
 	@Override
 	public void removeCardSelectionListener(ICardSelectionListener listener) {
 		listeners.remove(listener);
-		
 	}
 
 	@Override
 	public void setDeckEnable(boolean enable) {
-		parent.setEnabled(enable);	
-		clearSelection();
+		resetDeck();
+		parent.setEnabled(enable);
+		dropTarget.setEnabled(enable);
 	}
 
 	@Override
@@ -171,6 +202,17 @@ public class DefaultDeckViewUIHelper implements IDeckViewUIHelper {
 	@Override
 	public void setFocus(){
 		parent.setFocus();
+	}
+
+	@Override
+	public void resetDeck() {
+		Iterator<CardButton> itr = cardWidgets.iterator();
+	    while (itr.hasNext()) {
+	    	CardButton card = itr.next();
+	    	card.setSelected(false);
+	    }
+	    
+	    dropTarget.setEstimate("");
 	}
 
 }
