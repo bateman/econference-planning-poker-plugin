@@ -61,18 +61,18 @@ public class CardButton extends Canvas {
 	                e.gc.setLineStyle(SWT.LINE_DASH);
 	                e.gc.setForeground(e.display.getSystemColor(SWT.COLOR_GRAY));
 	                e.gc.drawRoundRectangle(3, 3, e.width-6, e.height-6, 10, 10);
-	                
-	                // Card border
-            		e.gc.setLineWidth(6);
-            		e.gc.setLineStyle(SWT.LINE_SOLID);
-                    e.gc.setForeground(e.display.getSystemColor(SWT.COLOR_WHITE));
-                    e.gc.drawRoundRectangle(12, 12, e.width-24, e.height-24, 5, 5);
-	                
+
 	                // Card background pattern
             		Image image = ImageDescriptor.createFromFile(getClass(), CARD_BACKGROUND_IMAGE).createImage();
                 	Pattern pattern = new Pattern(e.display, image);
             		e.gc.setBackgroundPattern(pattern);
-            		e.gc.fillRectangle(15, 15, e.width-30, e.height-30);
+            		e.gc.fillRectangle(8, 8, e.width-16, e.height-16);
+            		
+            		// Card border
+            		e.gc.setLineWidth(2);
+            		e.gc.setLineStyle(SWT.LINE_SOLID);
+                    e.gc.setForeground(e.display.getSystemColor(SWT.COLOR_WHITE));
+                    e.gc.drawRoundRectangle(7, 7, e.width-14, e.height-14, 5, 5);
             		
             		// Card value
             		Font font = new Font(e.display, "Arial", 12, SWT.BOLD);
