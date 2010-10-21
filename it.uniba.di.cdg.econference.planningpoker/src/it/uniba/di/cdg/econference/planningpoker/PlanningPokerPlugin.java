@@ -30,6 +30,7 @@ import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -133,9 +134,14 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
 	}
 	
 	private void setupLogging() throws IOException {
-		FileHandler fh = new FileHandler("./pplog.txt");
+		File dir = new File("./log/");
+		if(!dir.exists())
+			dir.mkdirs();
+		
+		String fn = new Long(System.currentTimeMillis()).toString();
+		FileHandler fh = new FileHandler("./log/" + fn + ".txt");
 		fh.setFormatter(new SimpleFormatter());
-		Logger.getLogger("planningpoker").addHandler(fh);
+		Logger.getLogger(ID).addHandler(fh);
 		Logger.getAnonymousLogger().setLevel(Level.ALL);
 	}
 }
