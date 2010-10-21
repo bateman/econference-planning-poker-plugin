@@ -1,11 +1,13 @@
 package it.uniba.di.cdg.xcore.aspects;
 
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public aspect JoinPointTraceAspect {
 	private static int callDepth;
-	private static Logger logger = Logger.getLogger("planningpoker");
+	private static Logger logger = Logger.getLogger(PlanningPokerPlugin.ID);
 
 	pointcut traced() : !within(JoinPointTraceAspect) && within(it.uniba.di.cdg.econference.planningpoker.*);
 
