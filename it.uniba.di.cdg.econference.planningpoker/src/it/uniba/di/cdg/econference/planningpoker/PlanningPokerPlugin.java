@@ -30,6 +30,12 @@ import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
+
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -66,12 +72,9 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
 		helper = new PlanningPokerHelper(UiPlugin.getUIHelper(), NetworkPlugin.getDefault().getHelper());
 		EConferencePlugin defaultPlugin = EConferencePlugin.getDefault();
         defaultPlugin.setHelper(helper);
-		plugin = this;		       		
+		plugin = this;		 
+		setupLogging();
 	}
-	
-	
-
-    
 
     /**
      * This method is called when the plug-in is stopped
@@ -127,5 +130,12 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
 			String stringFactory) {
 		
 		return null;
+	}
+	
+	private void setupLogging() throws IOException {
+		FileHandler fh = new FileHandler("./pplog.txt");
+		fh.setFormatter(new SimpleFormatter());
+		Logger.getLogger("planningpoker").addHandler(fh);
+		Logger.getAnonymousLogger().setLevel(Level.ALL);
 	}
 }
