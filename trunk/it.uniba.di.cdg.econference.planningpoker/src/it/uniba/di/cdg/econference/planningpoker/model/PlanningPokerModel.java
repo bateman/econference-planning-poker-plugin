@@ -29,8 +29,12 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.Voters;
+import it.uniba.di.cdg.xcore.aspects.ThreadSafetyAspect;
 import it.uniba.di.cdg.xcore.econference.model.ConferenceModel;
 import it.uniba.di.cdg.xcore.m2m.model.IChatRoomModelListener;
+
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
 
 public class PlanningPokerModel extends ConferenceModel implements IPlanningPokerModel {
 	
@@ -133,6 +137,19 @@ public class PlanningPokerModel extends ConferenceModel implements IPlanningPoke
 		return voters;
 	}
 
+	/**
+	 * Provides internal thread synchronization.
+	 */
+	@Aspect
+	public static class OwnThreadSafety extends ThreadSafetyAspect {
 
+		@Pointcut("execution( public * PlanningPokerModel.get*(..) )")
+		protected void readOperations() {
+		}
+
+		@Pointcut("execution( public void PlanningPokerModel.set*(..) )")
+		protected void writeOperations() {
+		}
+	}
 
 }
