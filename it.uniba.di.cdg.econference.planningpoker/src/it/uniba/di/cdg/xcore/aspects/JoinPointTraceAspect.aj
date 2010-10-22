@@ -5,6 +5,8 @@ import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.aspectj.lang.JoinPoint;
+
 public aspect JoinPointTraceAspect {
 	private static int callDepth;
 	private static Logger logger = Logger.getLogger(PlanningPokerPlugin.ID);
@@ -21,11 +23,12 @@ public aspect JoinPointTraceAspect {
 		print("After", thisJoinPoint);
 	}
 
-	private void print(final String prefix, final Object message) {
+	private void print(final String prefix, final JoinPoint point) {
 		String depth = "";
 		for (int i = 0; i < callDepth; i++) {
 			depth += " ";
 		}
-		logger.log(Level.INFO , depth + prefix + ": " + message);
+		logger.log(Level.INFO, depth + prefix + ": " + point + "\n" + depth
+				+ "Line: " + point.getSourceLocation());
 	}
 }
