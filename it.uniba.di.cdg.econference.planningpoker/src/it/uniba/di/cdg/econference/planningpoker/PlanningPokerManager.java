@@ -186,7 +186,7 @@ public class PlanningPokerManager extends EConferenceManager implements
 	 */
 	@Override
 	protected void setupListeners() {
-		conferenceStarteMessage = "The meeting has been STARTED";
+		conferenceStartedMessage = "The meeting has been STARTED";
 		conferenceStoppedMessage = "The meeting has been STOPPED";
 
 		workbenchWindow.addPerspectiveListener( perspectiveListener );
