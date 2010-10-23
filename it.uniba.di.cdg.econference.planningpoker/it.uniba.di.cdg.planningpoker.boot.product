@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="eConference + Planning Poker Plugin" id="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="eConference + Planning Poker Plugin" id="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/it.uniba.di.cdg.collaborativeworkbench.boot/about_logo.gif"/>
@@ -41,10 +41,11 @@ More details on the project homepage at http://cdg.di.uniba.it/projects/econfere
       <plugin id="it.uniba.di.cdg.collaborativeworkbench.boot"/>
       <plugin id="it.uniba.di.cdg.econference.planningpoker"/>
       <plugin id="it.uniba.di.cdg.jabber"/>
-      <plugin id="it.uniba.di.cdg.xcore.chat" fragment=""/>
+      <plugin id="it.uniba.di.cdg.skype"/>
       <plugin id="it.uniba.di.cdg.xcore.econference"/>
-      <plugin id="it.uniba.di.cdg.xcore.multichat" fragment=""/>
+      <plugin id="it.uniba.di.cdg.xcore.m2m"/>
       <plugin id="it.uniba.di.cdg.xcore.network"/>
+      <plugin id="it.uniba.di.cdg.xcore.one2one"/>
       <plugin id="it.uniba.di.cdg.xcore.ui"/>
       <plugin id="it.uniba.di.cdg.xcore.util"/>
       <plugin id="org.aspectj.runtime"/>
