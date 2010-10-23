@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="eConference + Planning Poker Plugin" id="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="1.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+
+   <aboutInfo>
+      <image path="/it.uniba.di.cdg.collaborativeworkbench.boot/about_logo.gif"/>
+      <text>
+         eConference 3.5 with Planning Poker Plugin
+
+eConference has been developed by the Collaborative Development Group,
+Dipartimento di Informatica, University of Bari and it is distributed under the 
+terms of the MIT license. 
+More details on the project homepage at http://cdg.di.uniba.it/projects/econference/ .
+      </text>
+   </aboutInfo>
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <vmArgs>-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=60077,server=y,suspend=n</vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+   </launcherArgs>
+
+   <windowImages i16="/it.uniba.di.cdg.collaborativeworkbench.boot/cw_16x16.gif" i32="/it.uniba.di.cdg.collaborativeworkbench.boot/cw_32x32.gif"/>
+
+   <splash
+      startupProgressRect="5,275,445,15" />
+   <launcher>
+      <solaris/>
+      <win useIco="false">
+         <bmp/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+      <plugin id="com.ibm.icu"/>
+      <plugin id="it.uniba.di.cdg.collaborativeworkbench.boot"/>
+      <plugin id="it.uniba.di.cdg.econference.planningpoker"/>
+      <plugin id="it.uniba.di.cdg.jabber"/>
+      <plugin id="it.uniba.di.cdg.xcore.chat" fragment=""/>
+      <plugin id="it.uniba.di.cdg.xcore.econference"/>
+      <plugin id="it.uniba.di.cdg.xcore.multichat" fragment=""/>
+      <plugin id="it.uniba.di.cdg.xcore.network"/>
+      <plugin id="it.uniba.di.cdg.xcore.ui"/>
+      <plugin id="it.uniba.di.cdg.xcore.util"/>
+      <plugin id="org.aspectj.runtime"/>
+      <plugin id="org.eclipse.core.commands"/>
+      <plugin id="org.eclipse.core.contenttype"/>
+      <plugin id="org.eclipse.core.databinding"/>
+      <plugin id="org.eclipse.core.databinding.observable"/>
+      <plugin id="org.eclipse.core.databinding.property"/>
+      <plugin id="org.eclipse.core.expressions"/>
+      <plugin id="org.eclipse.core.jobs"/>
+      <plugin id="org.eclipse.core.runtime"/>
+      <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
+      <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.weaving.hook" fragment="true"/>
+      <plugin id="org.eclipse.help"/>
+      <plugin id="org.eclipse.jface"/>
+      <plugin id="org.eclipse.jface.databinding"/>
+      <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.swt.win32.win32.x86" fragment="true"/>
+      <plugin id="org.eclipse.ui"/>
+      <plugin id="org.eclipse.ui.workbench"/>
+      <plugin id="org.jivesoftware.smack"/>
+   </plugins>
+
+   <features>
+      <feature id="it.uniba.di.cdg.econference.planningpoker" version="1.0.0.qualifier"/>
+      <feature id="it.uniba.di.cdg.xcore.econference_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.xcore_feature" version="1.0.0"/>
+      <feature id="org.eclipse.rcp"/>
+      <feature id="org.aspectj.runtime_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.xcore.m2m_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.skype_feature" version="1.0.0.qualifier"/>
+      <feature id="it.uniba.di.cdg.xcore.one2one_feature" version="1.0.0"/>
+      <feature id="it.uniba.di.cdg.jabber_feature" version="1.0.1"/>
+      <feature id="it.uniba.di.cdg.collaborativeworkbench.boot_feature" version="1.0.1"/>
+   </features>
+
+
+</product>
