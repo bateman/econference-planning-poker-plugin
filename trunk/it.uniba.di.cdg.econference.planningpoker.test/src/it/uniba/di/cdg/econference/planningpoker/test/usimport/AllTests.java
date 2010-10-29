@@ -12,6 +12,8 @@ import org.junit.runners.Suite;
 		TestAssembla.class,
 		TestGoogleCode.class,
 		TestTrac.class,
+		TestJira.class,
+		TestFogbugz.class,
 		TestCreateStandardXML.class
 	})
 	
