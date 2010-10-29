@@ -1,4 +1,5 @@
 /**
+ /**
  * This file is part of the eConference project and it is distributed under the 
 
  * terms of the MIT Open Source license.
@@ -29,7 +30,8 @@ import it.uniba.di.cdg.econference.planningpoker.usimport.Assembla;
 import it.uniba.di.cdg.econference.planningpoker.usimport.Github;
 import it.uniba.di.cdg.econference.planningpoker.usimport.GoogleCode;
 import it.uniba.di.cdg.econference.planningpoker.usimport.Trac;
-
+import it.uniba.di.cdg.econference.planningpoker.usimport.Fogbugz;
+import it.uniba.di.cdg.econference.planningpoker.usimport.Jira;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -41,6 +43,10 @@ public class HandleWizard extends Wizard{
 	static SourceSelectionWizard ssw;
 	static AssemblaWizardFirst awF;
 	static AssemblaWizardSecond awS;
+	static FogbugzWizardFirst fwF;
+	static FogbugzWizardSecond fwS;
+	static JiraWizardFirst jwF;
+	static JiraWizardSecond jwS;
 	static GithubWizardFirst gwF;
 	static GithubWizardSecond gwS;
 	static GoogleCodeWizardFirst gcF;
@@ -72,6 +78,10 @@ public class HandleWizard extends Wizard{
 		addPage(awF);
 		awS=new AssemblaWizardSecond();
 		addPage(awS);
+	//	bwF=new BugzillaWizardFirst();
+	//	addPage(bwF);
+	//	bwS=new BugzillaWizardSecond();
+	//	addPage(bwS);
 		gwF=new GithubWizardFirst();
 		addPage(gwF);
 		gwS=new GithubWizardSecond();
@@ -88,6 +98,14 @@ public class HandleWizard extends Wizard{
 		addPage(tS);
 		tT=new TracWizardThird();
 		addPage(tT);
+		fwF=new FogbugzWizardFirst();
+		addPage(fwF);
+		fwS=new FogbugzWizardSecond();
+		addPage(fwS);
+		jwF=new JiraWizardFirst();
+		addPage(jwF);
+		jwS=new JiraWizardSecond();
+		addPage(jwS);
 		sW=new SaveAsWizard();
 		addPage(sW);
 
@@ -139,7 +157,30 @@ public class HandleWizard extends Wizard{
 							monitor.worked(25);
 
 						}
+						if (ssw.fogbugz.getSelection()) {
+							System.out.println(fwS.makeURL(fwF.projectNameText.getText(),fwS.grabStatus()));
+							monitor.worked(25);
 
+							@SuppressWarnings("unused")
+							Fogbugz f=new Fogbugz(fwS.makeURL(fwF.projectNameText.getText(),fwS.grabStatus()),SaveAsWizard.saveText.getText());
+							monitor.worked(25);
+						}
+					/*	if (ssw.bugzilla.getSelection()) {
+							System.out.println(bwS.makeURL(bwF.projectNameText.getText(),bwS.grabStatus()));
+							monitor.worked(25);
+
+							@SuppressWarnings("unused")
+							Bugzilla f=new Bugzilla(bwS.makeURL(bwF.projectNameText.getText(),bwS.grabStatus()),SaveAsWizard.saveText.getText());
+							monitor.worked(25);
+						}*/
+						if (ssw.jira.getSelection()) {
+							System.out.println(jwS.makeURL(jwF.projectNameText.getText(),jwS.grabStatus()));
+							monitor.worked(25);
+
+							@SuppressWarnings("unused")
+							Jira j=new Jira(jwS.makeURL(jwF.projectNameText.getText(),jwS.grabStatus()),SaveAsWizard.saveText.getText());
+							monitor.worked(25);
+						}
 						if (ssw.googlecode.getSelection()) {
 							System.out.println(gcT.makeURL(GoogleCodeWizardFirst.projectNameText.getText(),GoogleCodeWizardThird.grabStatus(),GoogleCodeWizardSecond.grabType()));
 							monitor.worked(25);

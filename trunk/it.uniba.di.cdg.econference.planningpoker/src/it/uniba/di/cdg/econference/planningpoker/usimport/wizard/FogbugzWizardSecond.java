@@ -35,22 +35,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class SourceSelectionWizard extends WizardPage{
+public class FogbugzWizardSecond extends WizardPage{
+	public static Button activeButton;
+	public static Button closedButton;
+	public static Button readyButton;
+	public static Button allButton;
 
-	public Button assembla;
-	public Button github;
-	public Button googlecode;
-	public Button trac;
-	public Button fogbugz;
-	public Button jira;
-	public static boolean assemblaSelected=false;
-	public static boolean githubSelected=false;
-	public SourceSelectionWizard(){
-		super("SourceSelection");
-		setTitle("CDE Selection");
-		setDescription("Select CDE you want to import tickets");
+	private Text otherText;
+
+	public FogbugzWizardSecond(){
+		super("FogbugzSecond");
+		setTitle("Fogbugz status of tickets");
+		setDescription("Select status of tickets you want to import");
 	}
-
 
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
@@ -58,76 +55,58 @@ public class SourceSelectionWizard extends WizardPage{
 		g.verticalSpacing=15;
 		composite.setLayout(g);
 
-		new Label(composite, SWT.LEFT).setText("Select the source");
+		new Label(composite, SWT.LEFT).setText("Status of tickets");
 
 		Composite selection = new Composite(composite, SWT.NONE);
-		FillLayout f=new FillLayout(SWT.VERTICAL);
-		selection.setLayout(f);
+		selection.setLayout(new FillLayout(SWT.VERTICAL));
 
-		assembla = new Button(selection, SWT.RADIO);
-		assembla.setText("Assembla");
+		activeButton=new Button(selection,SWT.RADIO);
+		activeButton.setSelection(true);
+		activeButton.setText("Active");
 
+		readyButton=new Button(selection,SWT.RADIO);
+		readyButton.setText("Resolved");
 
-
-		github = new Button(selection, SWT.RADIO);
-		github.setText("Github");
-
-
-
-		googlecode = new Button(selection, SWT.RADIO);
-		googlecode.setText("GoogleCode");
-
-		trac = new Button(selection, SWT.RADIO);
-		trac.setText("Trac");
+		closedButton=new Button(selection,SWT.RADIO);
+		closedButton.setText("Closed");
 		
-		fogbugz = new Button(selection, SWT.RADIO);
-		fogbugz.setText("Fogbugz");
-		
-		jira = new Button(selection, SWT.RADIO);
-		jira.setText("Jira");
-		
-		
+		allButton=new Button(selection,SWT.RADIO);
+		allButton.setText("All");
 
-		Text otherText = new Text(selection,SWT.BORDER);
+		otherText=new Text(selection,SWT.BORDER);
 		otherText.setVisible(false);
-		
+
+
 		setControl(composite);
 	}
 
+	public String grabStatus(){
+		String status="";
+		if (activeButton.getSelection()) status="Active";
+		if (readyButton.getSelection()) status="Resolved";
+		if (closedButton.getSelection()) status="Closed";
+		if (allButton.getSelection()) status="0";
+		return status;
+	}
+
+	public String makeURL(String name, String status){
+		
+		//String url2="https://gigi87.fogbugz.com/api.asp?cmd=search&q=status:"+status+"&cols=ixBug,sStatus,sTitle,hrsOrigEst,sFixFor&token=p4otvsc1i70b5ksd9kgm8suieks2r2";
+		String url2="https://"+name+".fogbugz.com/api.asp?cmd=search&q=status:"+status+"&cols=ixBug,sStatus,sTitle,hrsOrigEst,sFixFor&token=oj35de3tameup8sirjjvmviltc5ko2";
+		String url="https://"+name+".fogbugz.com/api.asp?cmd=search&cols=ixBug,hrsOrigEst,sTitle,ixFixFor,sStatus,sFixFor&token=oj35de3tameup8sirjjvmviltc5ko2";
+		//String url="https://gigi87.fogbugz.com/api.asp?cmd=search&cols=ixBug,hrsOrigEst,sTitle,ixFixFor,sStatus,sFixFor&token=p4otvsc1i70b5ksd9kgm8suieks2r2";
+		
+		if (status.equals("0")){
+			return url;
+				}
+				else {
+					return url2;
+			}
+		}
 
 	public IWizardPage getNextPage() {
-		if (assembla.getSelection()){
-
-			return getWizard().getPage("Assembla");
-		}
-		else 
-			if (github.getSelection()){
-
-				return getWizard().getPage("GithubFirst");
-
-			}
-			else 
-				if (fogbugz.getSelection()){
-
-					return getWizard().getPage("Fogbugz");
-
-				}
-				else 
-					if (jira.getSelection()){
-
-						return getWizard().getPage("Jira");
-
-					}
-			/*		else 
-						if (bugzilla.getSelection()){
-
-							return getWizard().getPage("Bugzilla");
-
-						}*/
-			else 
-				if (googlecode.getSelection()) return getWizard().getPage("GoogleCodeFirst");
-				else 
-					if (trac.getSelection()) return getWizard().getPage("TracFirst");
-		return super.getNextPage();
+		return getWizard().getPage("SaveAs"); 	    
 	}
+
+
 }
