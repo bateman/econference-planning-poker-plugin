@@ -275,7 +275,7 @@ public class BacklogView extends ViewPart implements IBacklogView {
 	 @SwtAsyncExec
     private void changeButtonStatus( ConferenceStatus status ) {
         if (STARTED.equals( status )) {
-            startStopButton.setText( "Stop meeting" );
+        	startStopButton.setText( "Stop meeting" );
             startStopButton.setToolTipText( "Press to stop the meeting" );
             startStopButton.setSelection(true);           
         }

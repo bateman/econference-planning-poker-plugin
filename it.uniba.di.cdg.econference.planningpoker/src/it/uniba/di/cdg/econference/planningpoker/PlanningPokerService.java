@@ -637,7 +637,9 @@ public class PlanningPokerService extends EConferenceService implements
 							+ privilegeAction + " for participant id: " + who);
 					return;
 				}
-			} else if (mcepe.getExtensionName().equals(
+			} 
+			//FIXME ELEMENT_CURRENT_AGENDA_ITEM already present in parent class EConferenceService.. is it necessary??
+			else if (mcepe.getExtensionName().equals(
 					ELEMENT_CURRENT_AGENDA_ITEM)) {
 				String itemIdString = mcepe
 						.getExtensionParameter(CURRENT_AGENDA_ITEM_ID);
@@ -659,7 +661,8 @@ public class PlanningPokerService extends EConferenceService implements
 						e.printStackTrace();
 					}
 				}
-				getTalkModel().setCurrentThread(itemIdString);
+				
+				//getTalkModel().setCurrentThread(itemIdString);
 			}
 		}
 	}
