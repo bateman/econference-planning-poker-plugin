@@ -65,7 +65,8 @@ import org.eclipse.ui.WorkbenchException;
 public class PlanningPokerManager extends EConferenceManager implements
 		IPlanningPokerManager {
 
-	private IPerspectiveListener3 perspectiveListener = new IPerspectiveListener3() {
+	//FIXME already present in the parent class Multi Chat Manager
+	/*private IPerspectiveListener3 perspectiveListener = new IPerspectiveListener3() {
 
 		public void perspectiveOpened(IWorkbenchPage page,
 				IPerspectiveDescriptor perspective) {
@@ -117,7 +118,7 @@ public class PlanningPokerManager extends EConferenceManager implements
 				IPerspectiveDescriptor perspective, String changeId) {
 			// do nothing
 		}
-	};
+	};*/
 
 	@Override
 	protected void setupUI() throws WorkbenchException {
@@ -189,7 +190,7 @@ public class PlanningPokerManager extends EConferenceManager implements
 		conferenceStartedMessage = "The meeting has been STARTED";
 		conferenceStoppedMessage = "The meeting has been STOPPED";
 
-		workbenchWindow.addPerspectiveListener( perspectiveListener );
+		/*workbenchWindow.addPerspectiveListener( perspectiveListener );*/ //FIXME already present in the parent class Multi Chat Manager
 		super.setupListeners();
 
 		final IPlanningPokerModel model = (IPlanningPokerModel) getService()
