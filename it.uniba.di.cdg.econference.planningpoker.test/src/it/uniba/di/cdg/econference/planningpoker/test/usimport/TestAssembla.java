@@ -20,20 +20,20 @@ import it.uniba.di.cdg.econference.planningpoker.usimport.Assembla;
 public class TestAssembla {
 	private File expectedTemp;
 	private String addr;
+	private String addr2;
 	private LinkedList<String> note;
 	private LinkedList<String> storyText;
 	private LinkedList<String> id;
 	private LinkedList<String> milestone;
 	private LinkedList<String> clearedMilestone;
 	private LinkedList<String> milestoneDesc;
-	private LinkedList<String> milestoneDate;
 	private LinkedList<String> milestoneTitle;
 	
 	@Before
 	public void defaultValues() throws Exception {
 		expectedTemp=new File("tempAssemblaTest.xml");
 		addr="http://www.assembla.com/spaces/test-uniba/tickets?batch=false&tickets_report_id=0&ticket_id=&commit=Go+%C2%BB";
-		
+		addr2="http://www.assembla.com/spaces/test-uniba/tickets?batch=false&tickets_report_id=0&ticket_id=&commit=Go+%C2%BB";
 		note=new LinkedList<String>();
 		note.offer("First User Story");
 		note.offer("Importing from assembla.com");
@@ -72,10 +72,7 @@ public class TestAssembla {
 		clearedMilestone.offer("");
 		clearedMilestone.offer("113258");
 		
-		milestoneDate=new LinkedList<String>();
-		milestoneDate.offer("2009-11-03T14:11:06+00:00");
-		milestoneDate.offer("2008-11-12T04:22:47+00:00");
-		milestoneDate.offer("2009-10-02T10:01:22+00:00");
+		
 		
 		milestoneDesc=new LinkedList<String>();
 		milestoneDesc.offer("First Milestone Desc");
@@ -96,8 +93,9 @@ public class TestAssembla {
 		try {
 		@SuppressWarnings("unused")
 		FileWriter temp=Assembla.createTempFile(addr);
+		FileWriter temp1=Assembla.createTempFile(addr2);
 		FileReader f=new FileReader("temp.xml"); //from fileWriter temp
-		FileReader f2=new FileReader("tempAssemblaTest.xml");
+		FileReader f2=new FileReader("temp1.xml");
 		BufferedReader readerTemp = new BufferedReader(f);
 		String strTemp;
 		StringWriter w = new StringWriter();
@@ -142,7 +140,6 @@ public class TestAssembla {
 		Assembla.retrieveMilestoneInfo(clearedMilestone, addr);
 
 		assertEquals(milestoneDesc,Assembla.milestoneDesc);	
-		assertEquals(milestoneDate,Assembla.milestoneDate);	
 		assertEquals(milestoneTitle,Assembla.milestoneTitle);	
 	}
 	
