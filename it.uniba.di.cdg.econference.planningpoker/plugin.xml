@@ -84,9 +84,10 @@
                definitionId="it.uniba.di.cdg.econference.planningpoker.actions.load"
                icon="icons/action_fileopen.png"
                id="it.uniba.di.cdg.econference.planningpoker.loadPPFromFileAction"
-               label="Load configuration ..."
+               label="Load Planning Poker configuration ..."
                menubarPath="file/it.uniba.di.cdg.econference.planningpoker.menu/additions"
-               style="push">
+               style="push"
+               toolbarPath="new_load_group">
          </action>
       </actionSet>
    </extension>
