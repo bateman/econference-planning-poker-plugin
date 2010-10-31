@@ -20,7 +20,7 @@ More details on the project homepage at http://cdg.di.uniba.it/projects/econfere
 
    <launcherArgs>
       <vmArgs>-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=60077,server=y,suspend=n</vmArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts -d32</vmArgsMac>
    </launcherArgs>
 
    <windowImages i16="/it.uniba.di.cdg.collaborativeworkbench.boot/cw_16x16.gif" i32="/it.uniba.di.cdg.collaborativeworkbench.boot/cw_32x32.gif"/>
