@@ -31,6 +31,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogContextLoader;
 import it.uniba.di.cdg.xcore.econference.model.ConferenceContextLoader;
 import it.uniba.di.cdg.xcore.econference.model.InvalidContextException;
+import it.uniba.di.cdg.xcore.econference.model.definition.IServiceContextLoader;
 import it.uniba.di.cdg.xcore.m2m.service.Invitee;
 
 import java.io.InputStream;
@@ -38,11 +39,15 @@ import java.io.InputStream;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
-public class PPContextLoader extends ConferenceContextLoader {
+public class PPContextLoader extends ConferenceContextLoader implements IServiceContextLoader {
 	protected static final String BACKLOG_KEY = "backlog";
 	protected static final String SERVICE_KEY = "service";
 	
 	protected static final String PLANNING_POKER_SERVICE = "planningpoker";
+	
+	public PPContextLoader() {
+		super();
+	}
 
 	public PPContextLoader(PlanningPokerContext context) {
 		super(context);
@@ -55,7 +60,7 @@ public class PPContextLoader extends ConferenceContextLoader {
 			XPathFactory factory = XPathFactory.newInstance();
 			XPath xPath = factory.newXPath();
 			
-			// Get the servcie
+			// Get the service
 			String service = xPath.evaluate("/meeting/service",
 					doc);
 			if (!PLANNING_POKER_SERVICE.equals(service))

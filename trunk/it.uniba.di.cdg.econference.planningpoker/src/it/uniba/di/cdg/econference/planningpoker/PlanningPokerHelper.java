@@ -57,10 +57,6 @@ import org.eclipse.ui.PlatformUI;
 
 public class PlanningPokerHelper extends EConferenceHelper implements IPlanningPokerHelper {
 	
-
-	private IUIHelper uihelper;
-	private INetworkBackendHelper backendHelper;
-	
 	 /**
      * The factory used to build the Backlog, the Card Deck the Story dialog and the
      * UIProviders
@@ -76,6 +72,9 @@ public class PlanningPokerHelper extends EConferenceHelper implements IPlanningP
 		this.backendHelper = backendHelper;
 		factory = new DefaultModelFactory();
 	}
+    
+    public PlanningPokerHelper() {
+    }
 
 
 	@Override
@@ -132,13 +131,28 @@ public class PlanningPokerHelper extends EConferenceHelper implements IPlanningP
 			}
 		}
 	}
+	
+	@Override
+	public void openFromFile(String filepath) {
+		final JoinPPDialog dlg = new JoinPPDialog(null, filepath);
+		dlg.setFileName(filepath);
+		if (Dialog.OK == dlg.open()) {
+			IPlanningPokerManager manager = open( dlg.getContext() );
+
+			if (dlg.isSendInvitations()) {
+				for (Invitee i : dlg.getContext().getInvitees())
+					manager.inviteNewParticipant(i.getId());
+			}
+		}
+		
+	}
 
     /* (non-Javadoc)
      * @see it.uniba.di.cdg.xcore.econference.IEConferenceHelper#askUserAcceptInvitation(it.uniba.di.cdg.xcore.multichat.InvitationEvent)
      */
 	public PlanningPokerContext askUserAcceptInvitation( InvitationEvent invitation ) {
 		// Skip invitations which do not interest us ...
-		if (!ECONFERENCE_REASON.equals( invitation.getReason() ))
+		if (!PLANNINGPOKER_REASON.equals( invitation.getReason() ))
 			return null;
 
 		IBackend backend = backendHelper.getRegistry().getBackend( invitation.getBackendId() );

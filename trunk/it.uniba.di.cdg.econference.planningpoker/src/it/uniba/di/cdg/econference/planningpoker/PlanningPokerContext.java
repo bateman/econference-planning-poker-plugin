@@ -28,13 +28,14 @@ package it.uniba.di.cdg.econference.planningpoker;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.Backlog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
+import it.uniba.di.cdg.xcore.econference.model.definition.IServiceContext;
 import it.uniba.di.cdg.xcore.m2m.events.InvitationEvent;
 import it.uniba.di.cdg.xcore.m2m.service.Invitee;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlanningPokerContext extends EConferenceContext {
+public class PlanningPokerContext extends EConferenceContext implements IServiceContext {
 	public static final String ROLE_VOTER = "voter";
 	
 	private Backlog backlog;

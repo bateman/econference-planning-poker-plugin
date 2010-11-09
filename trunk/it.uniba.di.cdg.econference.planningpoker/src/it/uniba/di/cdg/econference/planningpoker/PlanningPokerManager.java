@@ -54,11 +54,7 @@ import it.uniba.di.cdg.xcore.m2m.ui.views.MultiChatTalkView;
 import it.uniba.di.cdg.xcore.network.BackendException;
 import it.uniba.di.cdg.xcore.network.IBackend;
 
-import org.eclipse.ui.IPerspectiveDescriptor;
-import org.eclipse.ui.IPerspectiveListener3;
 import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.WorkbenchException;
 
@@ -231,6 +227,11 @@ public class PlanningPokerManager extends EConferenceManager implements
 	public IPlanningPokerService getService() {
 		return (IPlanningPokerService) super.getService();
 	}
+	
+    @Override
+    public void inviteNewParticipant( String participantId) {
+        getService().invite( participantId, IPlanningPokerHelper.PLANNINGPOKER_REASON );
+    }
 
 	@Override
 	public void notifyCardSelected(String storyId, IPokerCard card) {

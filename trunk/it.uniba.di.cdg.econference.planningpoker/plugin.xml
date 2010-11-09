@@ -272,5 +272,18 @@
             name="load">
       </command>
    </extension>
+   <extension
+         point="it.uniba.di.cdg.xcore.econference.eventloader">
+      <loader
+            context="it.uniba.di.cdg.econference.planningpoker.PlanningPokerContext"
+            contextLoader="it.uniba.di.cdg.econference.planningpoker.model.PPContextLoader"
+            helper="it.uniba.di.cdg.econference.planningpoker.PlanningPokerHelper"
+            invitationIcon="icons/events/invitation_event.png"
+            organizationIcon="icons/events/organization_event.png"
+            plugin="it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin"
+            pluginID="it.uniba.di.cdg.econference.planningpoker"
+            service="planningpoker">
+      </loader>
+   </extension>
 
 </plugin>

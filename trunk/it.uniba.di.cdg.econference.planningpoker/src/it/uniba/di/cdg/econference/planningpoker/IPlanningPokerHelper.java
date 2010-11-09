@@ -42,6 +42,8 @@ import it.uniba.di.cdg.xcore.econference.IEConferenceHelper;
  * setting the factory that create the model, getting the UI Provider to fill views, ecc. ).
  */
 public interface IPlanningPokerHelper extends IEConferenceHelper {
+	
+	public static final String PLANNINGPOKER_REASON = "planningpoker";
 
 	/**
 	 * Set the factory that create the model. See {@link IModelAbstractFactory}
