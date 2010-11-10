@@ -54,67 +54,62 @@ import it.uniba.di.cdg.xcore.m2m.ui.views.MultiChatTalkView;
 import it.uniba.di.cdg.xcore.network.BackendException;
 import it.uniba.di.cdg.xcore.network.IBackend;
 
+import org.eclipse.ui.IPerspectiveDescriptor;
+import org.eclipse.ui.IPerspectiveListener3;
 import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.WorkbenchException;
 
 public class PlanningPokerManager extends EConferenceManager implements
 		IPlanningPokerManager {
+	
+	PlanningPokerManager() {
+		super();
+		
+		this.perspectiveListener = new IPerspectiveListener3() {
 
-	//FIXME already present in the parent class Multi Chat Manager
-	/*private IPerspectiveListener3 perspectiveListener = new IPerspectiveListener3() {
+	        public void perspectiveOpened( IWorkbenchPage page, IPerspectiveDescriptor perspective ) {
+	            System.out.println( String.format( "perspectiveOpened( %s )", perspective.getId() ) );
+	        }
 
-		public void perspectiveOpened(IWorkbenchPage page,
-				IPerspectiveDescriptor perspective) {
-			// do nothing
-		}
+	        public void perspectiveClosed( IWorkbenchPage page, IPerspectiveDescriptor perspective ) {           
+	            // The user has requested the perspective to be closed ... so let's clean-up all
+	            if (page == getWorkbenchWindow().getActivePage() && PlanningPokerPerspective.ID.equals(perspective.getId())) {
+	                // Ask the user to save views even when the perspective is closed (by default the
+	                // eclipse framework asks only when closing the whole app, see BR #43).
+	                
+	            	//page.saveAllEditors( true );
+	                
+	                // close perspective means leave the room
+	                //service.leave(); It's called in close()
+	                close();
+	                System.out.println( String.format( "perspectiveClosed( %s )", perspective.getId() ) );
+	            }
+	        }
 
-		public void perspectiveClosed(IWorkbenchPage page,
-				IPerspectiveDescriptor perspective) {			
-			// The user has requested the perspective to be closed ... so let's
-			// clean-up all
-			if (page == getWorkbenchWindow().getActivePage()
-					&& PlanningPokerPerspective.ID.equals(perspective.getId())) {
-				// Ask the user to save views even when the perspective is
-				// closed (by default the
-				// eclipse framework asks only when closing the whole app, see
-				// BR #43).
-				page.saveAllEditors(true);
-				// close perspective means leave the room
-				service.leave();
-				close();
-				System.out.println(String.format("perspectiveClosed( %s )",
-						perspective.getId()));
-			}
-		}
+	        public void perspectiveDeactivated( IWorkbenchPage page, IPerspectiveDescriptor perspective ) {
+//	            System.out.println( String.format( "perspectiveDeactivated( %s )", perspective.getId() ) );
+	        }
 
-		public void perspectiveDeactivated(IWorkbenchPage page,
-				IPerspectiveDescriptor perspective) {
-			// do nothing
-		}
+	        public void perspectiveSavedAs( IWorkbenchPage page, IPerspectiveDescriptor oldPerspective, IPerspectiveDescriptor newPerspective ) {
+//	            System.out.println( String.format( "perspectiveSaveAs()") );
+	        }
 
-		public void perspectiveSavedAs(IWorkbenchPage page,
-				IPerspectiveDescriptor oldPerspective,
-				IPerspectiveDescriptor newPerspective) {
-			// do nothing
-		}
+	        public void perspectiveChanged( IWorkbenchPage page, IPerspectiveDescriptor perspective, IWorkbenchPartReference partRef, String changeId ) {
+//	            System.out.println( String.format( "perspectiveChanged( %s )", perspective.getId() ) );
+	        }
 
-		public void perspectiveChanged(IWorkbenchPage page,
-				IPerspectiveDescriptor perspective,
-				IWorkbenchPartReference partRef, String changeId) {
-			// do nothing
-		}
+	        public void perspectiveActivated( IWorkbenchPage page, IPerspectiveDescriptor perspective ) {
+//	            System.out.println( String.format( "perspectiveActivated( %s )", perspective.getId() ) );
+	        }
 
-		public void perspectiveActivated(IWorkbenchPage page,
-				IPerspectiveDescriptor perspective) {
-			// do nothing
-		}
-
-		public void perspectiveChanged(IWorkbenchPage page,
-				IPerspectiveDescriptor perspective, String changeId) {
-			// do nothing
-		}
-	};*/
+	        public void perspectiveChanged( IWorkbenchPage page, IPerspectiveDescriptor perspective, String changeId ) {
+//	            System.out.println( String.format( "perspectiveChanged( %s )", perspective.getId() ) );
+	        }
+	    };
+	}
 
 	@Override
 	protected void setupUI() throws WorkbenchException {
