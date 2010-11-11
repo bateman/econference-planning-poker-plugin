@@ -34,6 +34,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
 import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.JoinPPDialog;
+import it.uniba.di.cdg.econference.planningpoker.ui.dialogs.PlanningPokerWizard;
 import it.uniba.di.cdg.econference.planningpoker.ui.workbench.PlanningPokerPerspective;
 import it.uniba.di.cdg.xcore.econference.EConferenceContext;
 import it.uniba.di.cdg.xcore.econference.internal.EConferenceHelper;
@@ -49,8 +50,10 @@ import it.uniba.di.cdg.xcore.ui.util.NotEmptyStringValidator;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -75,12 +78,29 @@ public class PlanningPokerHelper extends EConferenceHelper implements IPlanningP
     
     public PlanningPokerHelper() {
     }
+    
+    @Override
+    public void openInviteWizard() {
+        Display display = Display.getDefault();
+        Shell shell = new Shell( display );
+        PlanningPokerWizard wizard = new PlanningPokerWizard();
+        // Instantiates the wizard container with the wizard and opens it
+        WizardDialog dialog = new WizardDialog( shell, wizard );
+        dialog.create();
+        dialog.open();
+        if (wizard.canSendInvitation()) {
+            boolean autojoin = false;
+            IPlanningPokerManager manager = open( wizard.getContext(), autojoin );
+            for (Invitee i : wizard.getContext().getInvitees())
+                manager.inviteNewParticipant( i.getId() );
+        }
+    }
 
+    
+    @Override
+    public IPlanningPokerManager open( EConferenceContext context, boolean autojoin ) {
+        IPlanningPokerManager manager = null;
 
-	@Override
-	public IPlanningPokerManager open(EConferenceContext context) {
-		IPlanningPokerManager manager = null;
-			
         try {
             final IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
@@ -107,7 +127,7 @@ public class PlanningPokerHelper extends EConferenceHelper implements IPlanningP
                 }
             } );
 
-            manager.open( context );
+            manager.open( context, autojoin );
         } catch (Exception e) {
             e.printStackTrace();
             uihelper.showErrorMessage( "Could not start Planning Poker: " + e.getMessage() );
@@ -123,7 +143,8 @@ public class PlanningPokerHelper extends EConferenceHelper implements IPlanningP
 		final JoinPPDialog dlg = new JoinPPDialog( null );
 		if (dlg.open() == Dialog.OK) {
 			// 1. Open a file dialog, asking the conference file name
-			IPlanningPokerManager manager = open( dlg.getContext() );
+            boolean autojoin = true;
+			IPlanningPokerManager manager = open( dlg.getContext(), autojoin );
 
 			if (dlg.isSendInvitations()) {
 				for (Invitee i : dlg.getContext().getInvitees())
@@ -137,7 +158,8 @@ public class PlanningPokerHelper extends EConferenceHelper implements IPlanningP
 		final JoinPPDialog dlg = new JoinPPDialog(null, filepath);
 		dlg.setFileName(filepath);
 		if (Dialog.OK == dlg.open()) {
-			IPlanningPokerManager manager = open( dlg.getContext() );
+		    boolean autojoin = true;
+			IPlanningPokerManager manager = open( dlg.getContext(), autojoin );
 
 			if (dlg.isSendInvitations()) {
 				for (Invitee i : dlg.getContext().getInvitees())

@@ -35,6 +35,7 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStoryDialog;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.CardDeck;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IDeckViewUIHelper;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
+import it.uniba.di.cdg.xcore.econference.EConferenceContext;
 import it.uniba.di.cdg.xcore.econference.IEConferenceHelper;
 
 /**
@@ -42,10 +43,12 @@ import it.uniba.di.cdg.xcore.econference.IEConferenceHelper;
  * setting the factory that create the model, getting the UI Provider to fill views, ecc. ).
  */
 public interface IPlanningPokerHelper extends IEConferenceHelper {
-	
-	public static final String PLANNINGPOKER_REASON = "planningpoker";
 
-	/**
+    public static final String PLANNINGPOKER_REASON = "planningpoker";
+
+    IPlanningPokerManager open( EConferenceContext context, boolean autojoin );
+
+    /**
 	 * Set the factory that create the model. See {@link IModelAbstractFactory}
 	 * @param factory
 	 */
