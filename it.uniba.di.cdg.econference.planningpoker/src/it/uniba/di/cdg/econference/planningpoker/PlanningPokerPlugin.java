@@ -26,7 +26,6 @@
 package it.uniba.di.cdg.econference.planningpoker;
 
 import it.uniba.di.cdg.econference.planningpoker.model.IModelAbstractFactory;
-import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
@@ -71,8 +70,8 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);		
 		helper = new PlanningPokerHelper(UiPlugin.getUIHelper(), NetworkPlugin.getDefault().getHelper());
-		EConferencePlugin defaultPlugin = EConferencePlugin.getDefault();
-        defaultPlugin.setHelper(helper);
+//		EConferencePlugin defaultPlugin = EConferencePlugin.getDefault();
+//        defaultPlugin.setHelper(helper);
 		plugin = this;		 
 		setupLogging();
 	}
@@ -114,6 +113,18 @@ public class PlanningPokerPlugin extends AbstractUIPlugin {
         return (IPlanningPokerHelper) helper;
     }
 
+    /**
+     * Set the helper for this plug-in.
+     * @param helper 
+     * 
+     */
+    public void setHelper(PlanningPokerHelper helper) {     
+        
+        if(this.helper!=null)
+            this.helper.dispose();        
+        this.helper = helper;
+        this.helper.init();
+    }
 
 	/**
 	 * <p>For each new Model factory here must be the match between the 

@@ -89,6 +89,16 @@
                style="push"
                toolbarPath="new_load_group">
          </action>
+         <action
+               class="it.uniba.di.cdg.econference.planningpoker.actions.PlanningPokerWizardAction"
+               definitionId="it.uniba.di.cdg.econference.planningpoker.actions.wizard"
+               icon="icons/action_wizard.png"
+               id="it.uniba.di.cdg.econference.planningpoker.wizard"
+               label="Wizard Planning Poker configuration ..."
+               menubarPath="file/it.uniba.di.cdg.econference.planningpoker.menu/additions"
+               style="push"
+               toolbarPath="new_load_group">
+         </action>
       </actionSet>
    </extension>
    <extension
@@ -270,6 +280,11 @@
             defaultHandler="it.uniba.di.cdg.econference.planningpoker.actions.LoadPPFromFileActionDelegate"
             id="it.uniba.di.cdg.econference.planningpoker.actions.load"
             name="load">
+      </command>
+      <command
+            defaultHandler="it.uniba.di.cdg.econference.planningpoker.actions.PlanningPokerWizardAction"
+            id="it.uniba.di.cdg.econference.planningpoker.actions.wizard"
+            name="wizard_planningpoker">
       </command>
    </extension>
    <extension

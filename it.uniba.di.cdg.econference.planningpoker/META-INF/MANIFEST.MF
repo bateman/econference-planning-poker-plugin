@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.ui,
  it.uniba.di.cdg.jabber;bundle-version="1.0.0",
  org.jivesoftware.smack;bundle-version="3.1.0",
  it.uniba.di.cdg.xcore.econference;bundle-version="1.0.0",
- it.uniba.di.cdg.xcore.m2m;bundle-version="1.0.0"
+ it.uniba.di.cdg.xcore.m2m;bundle-version="1.0.0",
+ com.google.services;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: it.uniba.di.cdg.econference.planningpoker,

@@ -26,7 +26,7 @@
 package it.uniba.di.cdg.econference.planningpoker.actions;
 
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerHelper;
-import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
+import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
@@ -59,8 +59,7 @@ public class LoadPPFromFileActionDelegate extends AbstractHandler implements IWo
             UiPlugin.getUIHelper().showErrorMessage( "Please, connect first!" );
             return;
         }
-						
-        EConferencePlugin defaultPlugin = EConferencePlugin.getDefault();
+		PlanningPokerPlugin defaultPlugin = PlanningPokerPlugin.getDefault();
         defaultPlugin.setHelper(new PlanningPokerHelper( UiPlugin.getUIHelper(), NetworkPlugin.getDefault().getHelper()));        
         defaultPlugin.getHelper().openFromFile();
 	}
