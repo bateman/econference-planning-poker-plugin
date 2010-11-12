@@ -158,10 +158,17 @@ public class PlanningPokerManager extends EConferenceManager implements
 		// the voter privileges as default
 		if (Role.MODERATOR.equals(role)) {
 			// getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.SCRIBE);
-			getService().notifyChangedSpecialPrivilege(
-					getService().getModel().getLocalUser(),
-					ParticipantSpecialPrivileges.SCRIBE,
-					SpecialPrivilegesAction.GRANT);
+			
+			/*
+			 * The autoset of the scribe grant for the moderator has been disabled
+			 * due that it can't be notified to other users with the Skype protocol.
+			 * 
+			 * http://code.google.com/p/econference4/issues/detail?id=41#c3
+			 * */
+//			getService().notifyChangedSpecialPrivilege(
+//					getService().getModel().getLocalUser(),
+//					ParticipantSpecialPrivileges.SCRIBE,
+//					SpecialPrivilegesAction.GRANT);
 		} else {
 			// getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.VOTER);
 			getService().notifyChangedSpecialPrivilege(
