@@ -1,3 +1,4 @@
+#labels howto
 <wiki:toc max_depth="3" />
 
 = How to use eConference3P =
@@ -18,25 +19,34 @@ Have a look to the [PlanningPokerPerspective Planning Poker perspective page] to
 
 This perspective contains following views (numbered as in the perspective):
 
- # *Presence*: here are listed all partecipants;
- # *Backlog*: here are listed the stories that have to be estimated, show the description of the story and all the meta-data associate with it, such us Owner, Priority and so on.
+ # *Presence*: here are listed all partecipants; the blue icon means session moderator; a pencil appearing near an icon means the participant is a scribe (see Decision Place view); a card appering near an icon means the participant can vote user stories (see Card Deck view); the moderator can be a scribe but never a voter.
+ # *Backlog*: here are listed the stories that have to be estimated, show the description of the story and all the meta-data associate with it, such us Owner, Priority and so on; stories can be exported, imported from file or web; stories can also be entered using a form editor.
  # *Message Board*: here are stored conversation about questions asked from team members to the Product Owner, it could be useful during the estimation task;
- # *Decision Place*: here the moderator write some inportant notes she thinks will be helpful when this story is being programmed and tested.
+ # *Decision Place*: here any of the scribes can write some inportant notes she thinks will be helpful when this story is being programmed and tested.
  # *Card Deck*: here are the cards for estimating. User should select a card during the estimation task.
- # *Estimates*: here are listed cards selected by all estimators;
+ # *Estimates*: here are listed cards selected by all estimators; estimates are visible to participants only once all votes have been collected (until then votes are private and can be changed).
 
-
+The rest of this how to will further detail how each view works.
 
 == Running the tool ==
-After downloading the tool, extract it and double click on the .exe file named econference3P. 
+After downloading the tool, extract it and double click on the .exe in the folder. If you already know what network to use (e.g. Skype), then launch the batch file named _skype-startup-ec3p.bat_. 
 
 
 == Connecting ==
-Click on the Plug icon in the top-left corner of the GUI. When the Login Dialog is displayed (see Figure  2) fill in the fields with the data that you have received. Choose a profile name and this profile will be stored and available when you reconnect.
+Click on the Plug icon in the top-left corner of the GUI. 
+
+If you are using the Skype network, *remember to have the Skype client installed and running before launching eConference3P.*
+The first time you run eConference you will have to allow the tool to connect to attach to the Skype network through the Skype client. You will se the Skype icon glowing and a notification like the one in Figure 2a appear in the top of the client window. Press allow to let eConference3P connect.
+
+
+<p align="center"><img src="http://econference4.googlecode.com/svn/wiki/img/skypeaccess.png" width="680px" /></p>  
+<p align="center">*Figure 3b. Allow eC3P to connect to Skype (firstrun only)* </p>  
+
+When using GMail accounts, instead, a Login Dialog is displayed (see Figure  2b) fill in the fields with the data that you have received. Choose a profile name and this profile will be stored and available when you reconnect.
 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Connessione.PNG</p>  
-<p align="center">*Figure 2. The login Dialog* </p>  
+<p align="center">*Figure 2b. The login Dialog* </p>  
 
 
 
