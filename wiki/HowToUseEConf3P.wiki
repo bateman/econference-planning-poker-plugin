@@ -162,7 +162,7 @@ If you have been selected as a Scribe, then you will see the refresh icon   in t
 === The Structured Conversation ===
 As soon as you enter the event the eConference is still stopped, but you can freely chat with the participants who are currently online while you wait for the others to join. When everyone is online, the moderator decides that it is time to start the Planning Poker meeting and presses the start button in the Backlog View
 
-This view basically shows the list of the user stories that the stakeholders have to discuss about. This view is read only for all of the participants. Instead the moderator uses it to:
+This view basically shows the list of the user stories that the stakeholders have to discuss about. This view is read only for all of the participants. Instead the *moderator* uses it to:
 
 *Start / stop the meeting
 
@@ -183,12 +183,10 @@ This view basically shows the list of the user stories that the stakeholders hav
 
 *Delete a story
 
-->Clicking on the icon in the right-top corner, a popup is displayed so that the moderator can delete the selected story. All the changes are propagated to all the online participants
+->Rightclick on the backlog list and choose from the popup menu the option to delete the selected story. All the changes are propagated to all the online participants
 
 *Import & Export the Backlog
-->
-
-*the Backlog from file/Web
+->Clicking on the icons in the right-top corner of the view the moderator can, respectively (i) export the backlog to a file http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/export.png, (ii) import the backlog from a file previously exported  http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/importfile.png, and (iii) import from a the issue trackers of aproject hosted on sites such as Google Code, Assembla, Github, and so on  http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/importweb.png.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/StoryMenu.PNG</p> 
 <p align="center">*Figure  8. The Backlog view* </p> 
