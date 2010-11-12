@@ -135,9 +135,11 @@ Now to join an eConference event, select your name and roloe (e.g. developer, te
 == How to participate in an eConference3P Event ==
 This section will briefly show what the views are meant for, and what action each participant can do on them.
 
-Once you have entered the event, you will see the online stakeholders in the Who's on view (see picture below). The blue icon indicates who is the Moderator.
+Once you have entered the event, you will see the online stakeholders in the Who's on view (see picture below). The blue icon indicates the Moderator. All the other participants are Voters (i.e. can assign scores to user stories). 
 
-Before the event starts, the Moderator can grant a participant the Scribe or the Voter privilege. This is accomplished by right-clicking the stakeholder and select the 'Grant scribe/voter role' item from the popup menu (see figure below).
+Before the event starts, the Moderator usually grants him-/herself the Scribe right, given that he/she cannot vote. There can be more than one scribe at a time. To accomplish this by right-clicking the selected stakeholder and select the 'Grant scribe right' item from the popup menu (see figure below).
+
+Note that the moderator can even revoke the rights to contribute messages and to vote. As the moderator, be _*extremely careful*_ when using these features.
 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/RevokeVoter.PNG</p>
