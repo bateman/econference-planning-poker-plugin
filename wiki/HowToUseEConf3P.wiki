@@ -84,16 +84,26 @@ Unfortunately, when using Skype, you can't use eConference3P to send invitation 
 <p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-invite2.png" width="660px" /></p>  
 <p align="center">*Figure  5. Wizard step 3: add participant not in your contact list*</p> 
 
-=== When using GMail ===
+=== When using XMPP/GMail ===
 TBD
 
 == Joining an eConference3P event ==
 This section will show you how to join a Planning Poker meeting when you are either the moderator or a participant. 
 
 === The Moderator point of view ===
-You are going to role-play the moderator during the session. Thus you should have received an email with a file (.ecx) in attachment or simply you have to [HowToConfigPPFile create it]. This file is necessary to create the room and invite the other participants. Go to the File > Econference > Load configuration menu (see Figure  3).
+You are going to role-play the moderator during aPlanning Poker session. You have a couple of options to create and join the session. 
 
-Browse and select the .ecx file wherever you saved it. Press Ok and you will see a small dialog which just shows your name and a checkbox that will ensure that the server will send invitations to all the participants registered in the configuration (Figure  6). Be sure to leave it checked, otherwise you will have to invite each of them manually=  =Press ok and you will see the GUI changing and showing the new perspective for the structured conversation.
+*Option 1.* If you created the meeting using the Wizard, then you should see the event displayed in the Stored Events view of the tool. In the example below (see Figure 6), you see highlighted in event _my3ptest_ that we organized in the previous section. Double click on it, and a dialogue will appear. 
+
+*Option 2.* If you are the moderator, but you didn't create the event thru the wizard yourself, the you should have received the config file .ecx somehow. Therefore, click on the "Open PP file" icon in the toolbar (see Figure 6), then browse and select the file. Click OK and a dialogue will appear.
+
+<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/join3p-moderator.png" /></p>  
+<p align="center">*Figure  6. Joining the PP session as a moderator.*</p> 
+
+In the dialogue, choose the name that will be displayed to other participants (e.g. _Mike Cohn_) and your role. Typically, the moderator is also the project owner, then you could write _PO_. Feel free to leave the role empty if you prefer. The checkbox tells the tool to send invitations to all the participants registered in the configuration. Be sure to leave it checked, otherwise you will have to invite each of them manually. Press ok and you will see the GUI changing and showing the new perspective for the structured conversation.
+
+*Please, keep in mind that the room gets created when the moderator enter first. So be sure to be online _before_ any other participant joins*.
+
 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/LoadConf.PNG</p>  
