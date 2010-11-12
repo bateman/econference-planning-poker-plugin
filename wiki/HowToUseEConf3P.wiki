@@ -72,14 +72,14 @@ Afterwards, choose the schedule and where to store file. Choose the location (th
 <p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-geninfo.png" width="660px" /></p>  
 <p align="center">*Figure  4. Wizard step 1: general info*</p>  
 
-In the second step, you can select participants from your contact list. Both online and offile buddies are shown.
+In the second step, you can select participants from your contact list. Both online and offile buddies are shown (see Figure 5).
 
 <p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-invite1.png" width="660px" /></p>  
 <p align="center">*Figure  5. Wizard step 2: select participant from contacts*</p>  
 
-Only when using skype you can invite to the meeting people whose contact id is known, even though they are not in your buddy list.
+Only when using skype you can invite to the meeting people whose contact id is known, even though they are not in your buddy list, in this case the contact _Fabio_ (see Figure 6).
 
-Unfortunately, when using Skype, you can't use eConference3P to send invitation emails. You will have to manually send an email, attaching the ecx file that will be stored once you click finish.
+Unfortunately, when using Skype, you can't use eConference3P to send invitation emails. You will have to manually send such emails to participants, attaching the ecx file that will be stored once you click finish. However, you are still able to invite them by sending an IM.
 
 <p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-invite2.png" width="660px" /></p>  
 <p align="center">*Figure  5. Wizard step 3: add participant not in your contact list*</p> 
@@ -89,8 +89,6 @@ TBD
 
 == Joining an eConference3P event ==
 This section will show you how to join a Planning Poker meeting when you are either the moderator or a participant. 
-
-
 
 === The Moderator point of view ===
 You are going to role-play the moderator during the session. Thus you should have received an email with a file (.ecx) in attachment or simply you have to [HowToConfigPPFile create it]. This file is necessary to create the room and invite the other participants. Go to the File > Econference > Load configuration menu (see Figure  3).
