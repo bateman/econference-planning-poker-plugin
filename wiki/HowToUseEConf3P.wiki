@@ -137,18 +137,15 @@ This section will briefly show what the views are meant for, and what action eac
 
 Once you have entered the event, you will see the online stakeholders in the Who's on view (see picture below). The blue icon indicates the Moderator. All the other participants are Voters (i.e. can assign scores to user stories). 
 
-Before the event starts, the Moderator usually grants him-/herself the Scribe right, given that he/she cannot vote. There can be more than one scribe at a time. To accomplish this by right-clicking the selected stakeholder and select the 'Grant scribe right' item from the popup menu (see figure below).
-
-Note that the moderator can even revoke the rights to contribute messages and to vote. As the moderator, be _*extremely careful*_ when using these features.
-
+Before the event starts, the Moderator usually grants him-/herself the Scribe right, given that he/she cannot vote. To accomplish this by right-clicking the selected stakeholder and select the 'Grant scribe right' item from the popup menu (see figure below).
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/RevokeVoter.PNG</p>
 
 <p align="center">*Figure  9. Who's on list, showing online stakeholders and granting special privileges*</p>   
 
-By default all participants (apart the moderator) have the Voter privilege while the moderator has the scribe privilege. The moderator could also ask the stakeholders who wants to be the scribe. 
-Note that the scribe can be changed on the fly and that there can be multiple scribe at the same time.
+By default all participants (apart the moderator) have the Voter privilege. Note that the scribe can be changed on the fly and that there can be multiple scribe at the same time.
 
+Note that the moderator can even revoke the rights to contribute messages and to vote. As the moderator, be _*extremely careful*_ when using these features.
 
 
 ==== What does being a Scribe mean? ====
