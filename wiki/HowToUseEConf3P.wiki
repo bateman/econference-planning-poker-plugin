@@ -114,11 +114,18 @@ In the dialogue, choose the name that will be displayed to other participants (e
 </wiki:comment>
 
 
-
 === The participant point of view ===
-If you are a participant, that is not so much to do to join the event: Just be sure to connect and wait until you receive an invitation: it will show up as an item in the Events pane. It is not a problem if the invitation was sent while you were offline. The server will store it for you and send it as soon as you get connected.
+If you are a participant, you have a couple of options to join the event.
 
-The invitations received will be displayed in this pane, and stored until you delete it. When you select an invitation, the details about the event will be show in the lower part of the Events pane.
+*Option 1*. Just be sure to connect and see if you have received an online invitation as an IM: it will show up as an item in the Events pane (see Figure 7). This invitation will be displayed in this pane, and stored until you delete it. When you select an invitation, the details about the event will be show in the lower part of the Events pane.
+
+Typically, it is not a problem if the IM invitation was sent to you while you were offline. The server will store it for you and send it as soon as you get connected.
+
+Double click on it and a dialogue will appear.
+
+*Option 2.* 
+
+T
 
 To join an eConference event, just double-click on the item or press the button circled in the picture below. 
 
@@ -126,15 +133,15 @@ To join an eConference event, just double-click on the item or press the button 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/SetRoleInvitee.PNG </p>
 
-<p align="center">*Figure  5. The participant has been invited*</p>
+<p align="center">*Figure  7. The participant has been invited*</p>
 
 
 
-Now just click Ok and you will see the GUI change, showing the new perspective for the structured conversation.
+Now just click Ok and you will see the GUI change, showing the new perspective for the Planning Poker session.
 
 
 
-== How to participate in an eConference Event ==
+== How to participate in an eConference3P Event ==
 This section will briefly show what the views are meant for, and what action each participant can do on them.
 
 Once you have entered the event, you will see the online stakeholders in the Who's on view (see picture below). The blue icon indicates who is the Moderator.
