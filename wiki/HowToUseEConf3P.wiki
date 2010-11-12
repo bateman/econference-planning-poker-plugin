@@ -64,8 +64,21 @@ To organize the event, start the wizard as shown in Figure 3.
 
 === When using Skype ===
 In the first page of the wizard (see Figure 4) you will have to enter the moderator id (Conference chair, in this case _cohn_), which  99.9% of the time will be your account id.
-Then enter the conference name. Please note that when using Skype, _the conference name must be in this format: *conference-name$moderator-id*._ In the example, the full conference name is _my3ptest$cohn_.
+
+Then enter the conference name. Please note that when using Skype, _the conference name must be in this format: *conference-name$moderator-id*._ In the example, the full conference name is _my3ptest$cohn_. Feel free to specify the topic or leave this field blank.
+
 Afterwards, choose the schedule and where to store file. Choose the location (the default is _Folder-Profile\.econference\_. You can choose the location, but you *cannot change the filename, nor the extension* (e.g. in the example, the file name must stay _my3ptest$cohn.ecx_).
+
+<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-geninfo.png" width="600px" /></p>  
+<p align="center">*Figure  4. Wizard step 1: general info*</p>  
+
+
+<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-invite1.png" width="600px" /></p>  
+<p align="center">*Figure  5. Wizard step 2: select participant from contacts*</p>  
+
+
+<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-invite2.png" width="600px" /></p>  
+<p align="center">*Figure  5. Wizard step 3: add participant not in your contact list*</p> 
 
 === When using GMail ===
 TBD
