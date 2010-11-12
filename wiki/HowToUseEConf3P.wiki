@@ -172,20 +172,23 @@ This view basically shows the list of the user stories that the stakeholders hav
 
 ->Only if the meeting has already started. Clicking on the icon in the right-top corner, a popup is displayed so that the moderator can start estimating the selected story. All the changes are propagate to all the online participants
 
-*Add new item to discuss about
+*Add new story
 
-->Clicking on the icon in the right-top corner, a popup is displayed so that the moderator can enter the new story. All the changes are propagate to all the online participants
+->Rightclick on the backlog list and choose from the popup menu the option to enter the new story. All the changes are propagate to all the online participants
 
 
 *Edit a story
 
-->Clicking on the icon in the right-top corner, a popup is displayed so that the moderator can edit the selected story. All the changes are propagate to all the online participants
+->Rightclick on the backlog list and choose from the popup menu the option to edit the selected story. All the changes are propagate to all the online participants
 
 *Delete a story
 
 ->Clicking on the icon in the right-top corner, a popup is displayed so that the moderator can delete the selected story. All the changes are propagate to all the online participants
 
+*Export the Backlog
 
+
+*Import the Backlog from file/Web
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/StoryMenu.PNG</p> 
 <p align="center">*Figure  8. The Backlog view* </p> 
