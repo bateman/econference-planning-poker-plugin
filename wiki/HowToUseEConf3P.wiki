@@ -1,4 +1,4 @@
-#labels howto
+#labels howto,Featured
 <wiki:toc max_depth="3" />
 
 = How to use eConference3P =
@@ -40,7 +40,7 @@ The first time you run eConference you will have to allow the tool to connect to
 
 
 <p align="center"><img src="http://econference4.googlecode.com/svn/wiki/img/skypeaccess.png" width="680px" /></p>  
-<p align="center">*Figure 3b. Allow eC3P to connect to Skype (firstrun only)* </p>  
+<p align="center">*Figure 3b. Allow eC3P to connect to Skype (first run only)* </p>  
 
 When using GMail accounts, instead, a Login Dialog is displayed (see Figure  2b) fill in the fields with the data that you have received. Choose a profile name and this profile will be stored and available when you reconnect.
 
@@ -52,13 +52,19 @@ When using GMail accounts, instead, a Login Dialog is displayed (see Figure  2b)
 
 To check whether you are connected, see if the light bulb in the bottom-right corner is enabled and move the mouse over it: the tooltip should display all the connection details.
 
-Don't panic if you don't see anyone in the roster: you have no buddies, and also you cannot add them to the buddy list, so you won't distract yourselves chatting with online buddies during the elicitation :)
+If you don't see anyone in the roster, then it means you have no buddies. ATM, you can add contacts only when using XMPP/GMail network. This feature does not work with Skype yet (see [http://code.google.com/p/econference4/issues/detail?id=21 issue 21]).
+
+== Organizing an eConference3P event ==
+This section will show you how to create a Planning Poker meeting only if you are the *moderator* elected. 
+
+To organize the event, start the wizard as shown in Figure 3.
+
+<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard.png</p>  
+<p align="center">*Figure  3. Start the organization of a PP event*</p>  
 
 
-
-== Joining an eConference event ==
-This section will show you how to join a Planning Poker meeting when you are either the moderator or a simple participant. 
-
+== Joining an eConference3P event ==
+This section will show you how to join a Planning Poker meeting when you are either the moderator or a participant. 
 
 
 === The Moderator point of view ===
@@ -73,7 +79,7 @@ Browse and select the .ecx file wherever you saved it. Press Ok and you will see
 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/SetRole.PNG</p>
-<p align="center">*Figure  4. Moderator is about to create and join the event* </p> 
+<p align="center">*Figure  4. Moderator is about to create and join the event*</p> 
 
 
 
@@ -88,7 +94,7 @@ To join an eConference event, just double-click on the item or press the button 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/SetRoleInvitee.PNG </p>
 
-<p align="center">*Figure  5. The participant has been invited*  </p>
+<p align="center">*Figure  5. The participant has been invited*</p>
 
 
 
