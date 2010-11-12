@@ -142,7 +142,7 @@ Before the event starts, the Moderator can grant a participant the Scribe or the
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/RevokeVoter.PNG</p>
 
-<p align="center">*Figure  6. Who's on list, showing online stakeholders and granting special privileges*</p>   
+<p align="center">*Figure  9. Who's on list, showing online stakeholders and granting special privileges*</p>   
 
 By default all participants (apart the moderator) have the Voter privilege while the moderator has the scribe privilege. The moderator could also ask the stakeholders who wants to be the scribe. 
 Note that the scribe can be changed on the fly and that there can be multiple scribe at the same time.
@@ -155,7 +155,7 @@ If you have been selected as a Scribe, then you will see the refresh icon   in t
 
 <p align="center">http://econference.googlecode.com/svn/wiki/img/decisions_place.png  </p>
 
-<p align="center">*Figure  7. Decision places view being edited* </p>
+<p align="center">*Figure  10. Decision places view being edited* </p>
 
 
 
@@ -174,12 +174,12 @@ This view basically shows the list of the user stories that the stakeholders hav
 
 *Add new story
 
-->Rightclick on the backlog list and choose from the popup menu the option to enter the new story. All the changes are propagated to all the online participants
+->Rightclick on the backlog list and choose from the popup menu the option to enter the new story. All the changes are propagated to all the online participants. Please note that _at least the *story id* and *story text* must be entered_.
 
 
 *Edit a story
 
-->Rightclick on the backlog list and choose from the popup menu the option to edit the selected story. All the changes are propagated to all the online participants
+->Rightclick on the backlog list and choose from the popup menu the option to edit the selected story. All the changes are propagated to all the online participants.
 
 *Delete a story
 
@@ -190,12 +190,12 @@ This view basically shows the list of the user stories that the stakeholders hav
 ->Clicking on the icons in the right-top corner of the view the moderator can, respectively (i) export the backlog to a file http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/export.png, (ii) import the backlog from a file previously exported  http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/importfile.png, and (iii) import from a the issue trackers of aproject hosted on sites such as Google Code, Assembla, Github, and so on  http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/importweb.png.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/StoryMenu.PNG</p> 
-<p align="center">*Figure  8. The Backlog view* </p> 
+<p align="center">*Figure  11. The Backlog view* </p> 
 
 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/NewStory.PNG</p>  
-<p align="center">*Figure  9. Adding a new story* </p>  
+<p align="center">*Figure  12. Adding a new story (id and text are mandatory fields)* </p>  
 
   
 As soon as the moderator selects the first story in the Backlog, you will see the talk view tab renamed from 'Free talk' into the id of the story. Also, all the previous messages will be hidden, just to show only the newly-entered statements related to the current story (see Figure  10). 
