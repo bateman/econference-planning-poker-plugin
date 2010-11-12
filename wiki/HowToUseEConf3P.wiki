@@ -185,7 +185,8 @@ This view basically shows the list of the user stories that the stakeholders hav
 
 ->Rightclick on the backlog list and choose from the popup menu the option to delete the selected story. All the changes are propagated to all the online participants
 
-*Import & Export the Backlog
+*Import / Export the Backlog
+
 ->Clicking on the icons in the right-top corner of the view the moderator can, respectively (i) export the backlog to a file http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/export.png, (ii) import the backlog from a file previously exported  http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/importfile.png, and (iii) import from a the issue trackers of aproject hosted on sites such as Google Code, Assembla, Github, and so on  http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/importweb.png.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/StoryMenu.PNG</p> 
