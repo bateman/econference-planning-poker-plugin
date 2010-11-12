@@ -225,17 +225,11 @@ Yeah, but suppose that during the discussion of the story 2 new facts are came o
 The discussion goes on for each single item, until all have been discussed and consensus on them reached. Then the Moderator presses the Stop button and you are back in the free talk view to say Ciao to the stakeholders.
 
 
-
 === Save your logs ===
-The event is over. As soon as you try to disconnect, close the perspective or even shut down the application you will be prompted to save both the conversation logs and the Decisions place content (see Figure  14). Be sure to say yes, as you will need them to complete your project RFP.
-
-
+The event is over. As soon as you try to disconnect, close the perspective or even shut down the application you will be prompted to save both the conversation logs and the Decisions place content (see Figure  17). Be sure to say yes, as you will need them to complete your project RFP.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/logs.PNG</p>
-<p align="center">*Figure  14. Save your logs*</p>
-
-
-
+<p align="center">*Figure  17. Save your logs*</p>
 
 == Troubleshooting ==
 === Accidental disconnections ===
