@@ -195,21 +195,21 @@ This view basically shows the list of the user stories that the stakeholders hav
 <p align="center">*Figure  12. Adding a new story (id and text are mandatory fields)* </p>  
 
   
-As soon as the moderator selects the first story in the Backlog, you will see the talk view tab renamed from 'Free talk' into the id of the story. Also, all the previous messages will be hidden, just to show only the newly-entered statements related to the current story (see Figure  10). 
+As soon as the moderator selects the first story in the Backlog, you will see the talk view tab renamed from 'Free talk' into the id of the story. Also, all the previous messages will be hidden, just to show only the newly-entered statements related to the current story (see Figure 13). 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/StartMeeting.png </p> 
 
-<p align="center">*Figure  10. Conversation about "Story 1"* </p> 
+<p align="center">*Figure  13. Conversation about User Story 1* </p> 
 
-After a brief discussion about the current story, it's time to estimate the story. To do this, participants that have the Voter privileges, can select a card form deck.
+After discussing about the current story, it's time to estimate the story. To do so, participants that have the Voter privileges, drag and drop the selected card form deck. When you are not allowed to vote, the drop-zone will display the message _You can't vote_. Otherwise, you will read the message _Drag your vote here_. As a voter you have the chance to change your vote until all votes have not been collected.
 
-<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/DeckEnable.PNG</p>  
-<p align="center">*Figure  11. Selecting a card from deck*</p>  
+<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/deck.png</p>  
+<p align="center">*Figure  14. Selecting a card from deck*</p>  
 
 Note that cards in the deck could be changed during the meeting. It means that moderator can remove and change the order of cards in the deck with the dialog in Figure 15. All changes are propagate to all the online participants.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/DeckEditor.PNG</p>
-<p align="center">*Figure  12. Changing the deck*  </p>
+<p align="center">*Figure  15. Changing the deck*  </p>
 
 As soon as a participant selects a card, his name appears in the estimate view without the value of the estimation. When all participant have selected a card, results are shown in the estimate view as showed below.
 
