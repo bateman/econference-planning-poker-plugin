@@ -13,7 +13,17 @@ You can get the latest build of eConference from the [http://code.google.com/p/e
 
 <p align="center">*Figure 1. The Planning Poker Plug-in*  </p>
 
-Have a look to the [PlanningPokerPerspective Planning Poker perspective page] to understand the meaning of the main views. 
+<wiki:comment>
+Have a look to the [PlanningPokerPerspective Planning Poker perspective page] to understand the meaning of the main views. </wiki:comment>
+
+This perspective contains following views (numbered as in the perspective):
+
+ # *Presence*: here are listed all partecipants;
+ # *Backlog*: here are listed the stories that have to be estimated, show the description of the story and all the meta-data associate with it, such us Owner, Priority and so on.
+ # *Message Board*: here are stored conversation about questions asked from team members to the Product Owner, it could be useful during the estimation task;
+ # *Decision Place*: here the moderator write some inportant notes she thinks will be helpful when this story is being programmed and tested.
+ # *Card Deck*: here are the cards for estimating. User should select a card during the estimation task.
+ # *Estimates*: here are listed cards selected by all estimators;
 
 
 
