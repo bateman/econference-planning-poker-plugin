@@ -69,15 +69,19 @@ Then enter the conference name. Please note that when using Skype, _the conferen
 
 Afterwards, choose the schedule and where to store file. Choose the location (the default is _Folder-Profile\.econference\_. You can choose the location, but you *cannot change the filename, nor the extension* (e.g. in the example, the file name must stay _my3ptest$cohn.ecx_).
 
-<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-geninfo.png" width="600px" /></p>  
+<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-geninfo.png" width="660px" /></p>  
 <p align="center">*Figure  4. Wizard step 1: general info*</p>  
 
+In the second step, you can select participants from your contact list. Both online and offile buddies are shown.
 
-<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-invite1.png" width="600px" /></p>  
+<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-invite1.png" width="660px" /></p>  
 <p align="center">*Figure  5. Wizard step 2: select participant from contacts*</p>  
 
+Only when using skype you can invite to the meeting people whose contact id is known, even though they are not in your buddy list.
 
-<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-invite2.png" width="600px" /></p>  
+Unfortunately, when using Skype, you can't use eConference3P to send invitation emails. You will have to manually send an email, attaching the ecx file that will be stored once you click finish.
+
+<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-invite2.png" width="660px" /></p>  
 <p align="center">*Figure  5. Wizard step 3: add participant not in your contact list*</p> 
 
 === When using GMail ===
