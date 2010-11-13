@@ -7,14 +7,14 @@
 
 This tutorial will show you how to use the eConference3P, according to the role you will play during the requirements workshop.
 
+<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/PPPerspectivePresentazione.PNG" width="800px" /></p>
+
+<p align="center">*Figure 1. The Planning Poker Plug-in*  </p>
+
 
 == Download ==
 You can get the latest build of eConference from the [http://code.google.com/p/econference-planning-poker-plugin/downloads/list Download] page.
 
-
-<p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/PPPerspectivePresentazione.PNG" width="800px" /></p>
-
-<p align="center">*Figure 1. The Planning Poker Plug-in*  </p>
 
 <wiki:comment>
 Have a look to the [PlanningPokerPerspective Planning Poker perspective page] to understand the meaning of the main views. </wiki:comment>
