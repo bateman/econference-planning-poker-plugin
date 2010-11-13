@@ -1,4 +1,6 @@
+#summary How to use the eConference Planning Poker Plug-in
 #labels How-To,Featured
+
 <wiki:toc max_depth="3" />
 
 = How to use eConference3P =
