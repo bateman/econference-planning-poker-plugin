@@ -38,14 +38,14 @@ After downloading the tool, extract it and double click on the .exe in the folde
 == Connecting ==
 Click on the Plug icon in the top-left corner of the GUI. 
 
-If you are using the Skype network, *remember to have the Skype client installed and running before launching eConference3P.*
+*Option 1.* If you are using the *Skype* network, *remember to have the Skype client installed and running before launching eConference3P.*
 The first time you run eConference you will have to allow the tool to connect to attach to the Skype network through the Skype client. You will se the Skype icon glowing and a notification like the one in Figure 2a appear in the top of the client window. Press allow to let eConference3P connect.
 
 
 <p align="center"><img src="http://econference4.googlecode.com/svn/wiki/img/skypeaccess.png" width="680px" /></p>  
 <p align="center">*Figure 3b. Allow eC3P to connect to Skype (first run only)* </p>  
 
-When using GMail accounts, instead, a Login Dialog is displayed (see Figure  2b) fill in the fields with the data that you have received. Choose a profile name and this profile will be stored and available when you reconnect.
+*Option 2.* When using *XMPP/GMail* accounts, instead, a Login Dialog is displayed (see Figure  2b) fill in only the email and password fields, as server settings are automatically entered for you. Check the checkbox and your profile will be stored and available when you reconnect.
 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Connessione.PNG</p>  
