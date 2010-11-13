@@ -23,7 +23,7 @@ This perspective contains following views (as numbered in Figure 1):
 Have a look to the [PlanningPokerPerspective Planning Poker perspective page] to understand the meaning of the main views. </wiki:comment>
 
  # *Presence*: here are listed all partecipants; the blue icon means session moderator; a pencil appearing near an icon means the participant is a scribe (see Decision Place view); a card appering near an icon means the participant can vote user stories (see Card Deck view); the moderator can be a scribe but never a voter.
- # *Backlog*: here are listed the stories that have to be estimated, show the description of the story and all the meta-data associate with it, such us Owner, Priority and so on; stories can be exported, imported from file or web; stories can also be entered using a form editor.
+ # *Backlog*: here are listed the stories that have to be estimated; this view shows the description of the story and all the meta-data associate with it, such as Owner, Priority and so on; user stories can be entered using a form editor; stories can also be exported/imported to/from file or web;
  # *Message Board*: here are stored conversation about questions asked from team members to the Product Owner, it could be useful during the estimation task;
  # *Decision Place*: here any of the scribes can write some inportant notes she thinks will be helpful when this story is being programmed and tested.
  # *Card Deck*: here are the cards for estimating. User should select a card during the estimation task.
