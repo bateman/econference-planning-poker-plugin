@@ -85,7 +85,7 @@ Only when using skype you can invite to the meeting people whose contact id is k
 Unfortunately, when using Skype, you can't use eConference3P to send invitation emails. You will have to manually send such emails to participants, attaching the ecx file that will be stored once you click finish. However, you are still able to invite them by sending an IM.
 
 <p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/startwizard-invite2.png" width="660px" /></p>  
-<p align="center">*Figure  5. Wizard step 3: add participant not in your contact list*</p> 
+<p align="center">*Figure  6. Wizard step 3: add participant not in your contact list*</p> 
 
 === When using XMPP/GMail ===
 TBD
@@ -96,12 +96,12 @@ This section will show you how to join a Planning Poker meeting when you are eit
 === The Moderator point of view ===
 You are going to role-play the moderator during aPlanning Poker session. You have a couple of options to create and join the session. 
 
-*Option 1.* If you created the meeting using the Wizard, then you should see the event displayed in the Stored Events view of the tool. In the example below (see Figure 6), you see highlighted in event _my3ptest_ that we organized in the previous section. Double click on it, and a dialogue will appear. 
+*Option 1.* If you created the meeting using the Wizard, then you should see the event displayed in the Stored Events view of the tool. In the example below (see Figure 7), you see highlighted in event _my3ptest_ that we organized in the previous section. Double click on it, and a dialogue will appear. 
 
-*Option 2.* If you are the moderator, but you didn't create the event thru the wizard yourself, the you should have received the config file .ecx somehow. Therefore, click on the "Open PP configuration file" icon in the toolbar (see Figure 6), then browse and select the file. Alternatively, go to the menu "File > Planning Poker > Load configuration". Click OK and a dialogue will appear.
+*Option 2.* If you are the moderator, but you didn't create the event thru the wizard yourself, the you should have received the config file .ecx somehow. Therefore, click on the "Open PP configuration file" icon in the toolbar (see Figure 7), then browse and select the file. Alternatively, go to the menu "File > Planning Poker > Load configuration". Click OK and a dialogue will appear.
 
 <p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/join3p-moderator.png" /></p>  
-<p align="center">*Figure  6. Joining the PP session as a moderator.*</p> 
+<p align="center">*Figure  7. Joining the PP session as a moderator.*</p> 
 
 In the dialogue, choose the name that will be displayed to other participants (e.g. _Mike Cohn_) and your role. Typically, the moderator is also the project owner, then you could write _PO_. Feel free to leave the role empty if you prefer. The checkbox tells the tool to send invitations to all the participants registered in the configuration. Be sure to leave it checked, otherwise you will have to invite each of them manually. Press ok and you will see the GUI changing and showing the new perspective for the structured conversation.
 
@@ -120,47 +120,47 @@ In the dialogue, choose the name that will be displayed to other participants (e
 === The participant point of view ===
 If you are a participant, you have a couple of options to join the event.
 
-*Option 1*. Just be sure to connect and see if you have received an online invitation as an IM: it will show up as an item in the Events pane (see Figure 7). This invitation will be displayed in this pane, and stored until you delete it. When you select an invitation, the details about the event will be show in the lower part of the Events pane. Typically, it is not a problem if the IM invitation was sent to you while you were offline. The server will store it for you and send it as soon as you get connected. Double click on it and a dialogue will appear.
+*Option 1*. Just be sure to connect and see if you have received an online invitation as an IM: it will show up as an item in the Events pane (see Figure 8). This invitation will be displayed in this pane, and stored until you delete it. When you select an invitation, the details about the event will be show in the lower part of the Events pane. Typically, it is not a problem if the IM invitation was sent to you while you were offline. The server will store it for you and send it as soon as you get connected. Double click on it and a dialogue will appear.
 
 <p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/onlineinvitation.png" width="660px" /> </p>
-<p align="center">*Figure  7. The participant enters the PP session using the online invitation*</p>
+<p align="center">*Figure  8. The participant enters the PP session using the online invitation*</p>
 
 *Option 2.* Other then online invitations, you can enter a Planning Poker session loading the configuration file, provided that the moderator has sent the .ecx file to you. Download the attachment and store it somewhere. Then, press on the "Open PP configuration file" icon in the toolbar (see Figure 6), then browse and select the file. Alternatively, go to the menu "File > Planning Poker > Load configuration". Click OK and a dialogue will appear.
 
 
-Now to join an eConference event, select your name and roloe (e.g. developer, tester, etc.) press Yes as pictured below (Figure 8), and you will see the GUI change, showing the new perspective for the Planning Poker session.. 
+Now to join an eConference event, select your name and roloe (e.g. developer, tester, etc.) press Yes as pictured below (Figure 9), and you will see the GUI change, showing the new perspective for the Planning Poker session.. 
 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/SetRoleInvitee.PNG </p>
-<p align="center">*Figure  8. The participant select username and role and enters the PP session.*</p>
+<p align="center">*Figure  9. The participant select username and role and enters the PP session.*</p>
 
 
 == How to participate in an eConference3P Event ==
 This section will briefly show what the views are meant for, and what action each participant can do on them.
 
-Once you have entered the event, you will see the online stakeholders in the Who's on view (see picture below). The blue icon indicates the Moderator. All the other participants are Voters (i.e. can assign scores to user stories). 
+Once you have entered the event, you will see the online stakeholders in the Who's on view (see Figure 10 below). The blue icon indicates the Moderator. All the other participants are Voters (i.e. can assign scores to user stories). 
 
 Before the event starts, the Moderator usually grants him-/herself the Scribe right, given that he/she cannot vote. To accomplish this by right-clicking the selected stakeholder and select the 'Grant scribe right' item from the popup menu (see figure below).  Note that the scribe can be changed on the fly and that there can be multiple scribes at the same time.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/RevokeVoter.PNG</p>
 
-<p align="center">*Figure  9. Who's on list, showing online stakeholders and granting special privileges*</p>   
+<p align="center">*Figure  10. Who's on list, showing online stakeholders and granting special privileges*</p>   
 
 By default all participants (apart the moderator) have the Voter privilege. Also note that the moderator can even revoke the rights to contribute messages and to vote. As the moderator, be _*extremely careful*_ when using these features.
 
 
 ==== What does being a Scribe mean? ====
-If you have been selected as a Scribe, then you will see the refresh icon   in the Decisions Place view enabled now. When the discussion takes place, you will have to sum-up all the decisions that have been taken about each user story, as it is being discussed. Thus, you will edit an ongoing minute of the event. Be sure to press the refresh icon at every significant update, so that to show what you have written to the other stakeholders.
+If you have been selected as a Scribe, then you will see the refresh icon in the Decisions Place view enabled now (Figure 11). When the discussion takes place, you will have to sum-up all the decisions that have been taken about each user story, as it is being discussed. Thus, you will edit an ongoing minute of the event. Be sure to press the refresh icon at every significant update, so that to show what you have written to the other stakeholders.
 
 
 <p align="center">http://econference.googlecode.com/svn/wiki/img/decisions_place.png  </p>
 
-<p align="center">*Figure  10. Decision places view being edited* </p>
+<p align="center">*Figure  11. Decision places view being edited* </p>
 
 
 
 === The Structured Conversation ===
-As soon as you enter the event the eConference is still stopped, but you can freely chat with the participants who are currently online while you wait for the others to join. When everyone is online, the moderator decides that it is time to start the Planning Poker meeting and presses the start button in the Backlog View
+As soon as you enter the event the eConference is still stopped, but you can freely chat with the participants who are currently online while you wait for the others to join. When everyone is online, the moderator decides that it is time to start the Planning Poker meeting and presses the start button in the Backlog View (Figure 12).
 
 This view basically shows the list of the user stories that the stakeholders have to discuss about. This view is read only for all of the participants. Instead the *moderator* uses it to:
 
@@ -174,7 +174,7 @@ This view basically shows the list of the user stories that the stakeholders hav
 
 *Add new story
 
-->Rightclick on the backlog list and choose from the popup menu the option to enter the new story. All the changes are propagated to all the online participants. Please note that _at least the *story id* and *story text* must be entered_.
+->Rightclick on the backlog list and choose from the popup menu the option to enter the new story. All the changes are propagated to all the online participants. Please note that _at least the *story id* and *story text* must be entered_ (Figure 13).
 
 
 *Edit a story
@@ -190,34 +190,34 @@ This view basically shows the list of the user stories that the stakeholders hav
 ->Clicking on the icons in the right-top corner of the view the moderator can, respectively (i) export the backlog to a file http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/export.png, (ii) import the backlog from a file previously exported  http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/importfile.png, and (iii) import from a the issue trackers of aproject hosted on sites such as Google Code, Assembla, Github, and so on  http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/importweb.png.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/StoryMenu.PNG</p> 
-<p align="center">*Figure  11. The Backlog view* </p> 
+<p align="center">*Figure  12. The Backlog view* </p> 
 
 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/NewStory.PNG</p>  
-<p align="center">*Figure  12. Adding a new story (id and text are mandatory fields)* </p>  
+<p align="center">*Figure  13. Adding a new story (id and text are mandatory fields)* </p>  
 
   
-As soon as the moderator selects the first story in the Backlog, you will see the talk view tab renamed from 'Free talk' into the id of the story. Also, all the previous messages will be hidden, just to show only the newly-entered statements related to the current story (see Figure 13). 
+As soon as the moderator selects the first story in the Backlog, you will see the talk view tab renamed from 'Free talk' into the id of the story. Also, all the previous messages will be hidden, just to show only the newly-entered statements related to the current story (see Figure 14). 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/StartMeeting.png </p> 
 
-<p align="center">*Figure  13. Conversation about User Story 1* </p> 
+<p align="center">*Figure  14. Conversation about User Story 1* </p> 
 
-After discussing about the current story, it's time to estimate the story. To do so, participants that have the Voter privileges, drag and drop the selected card form deck. When you are not allowed to vote, the drop-zone will display the message _You can't vote_. Otherwise, you will read the message _Drag your vote here_. As a voter you have the chance to change your vote until all votes have not been collected.
+After discussing about the current story, it's time to estimate the story. To do so, participants that have the Voter privileges, drag and drop the selected card form deck (Figure 15). When you are not allowed to vote, the drop-zone will display the message _You can't vote_. Otherwise, you will read the message _Drag your vote here_. As a voter you have the chance to change your vote until all votes have not been collected.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/deck.png</p>  
-<p align="center">*Figure  14. Selecting a card from deck*</p>  
+<p align="center">*Figure  15. Selecting a card from deck*</p>  
 
-Note that cards in the deck could be changed during the meeting. It means that moderator can remove and change the order of cards in the deck with the dialog in Figure 15. All changes are propagate to all the online participants.
+Note that cards in the deck could be changed during the meeting. It means that moderator can remove and change the order of cards in the deck with the dialog in Figure 16. All changes are propagate to all the online participants.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/DeckEditor.PNG</p>
-<p align="center">*Figure  15. Changing the deck*  </p>
+<p align="center">*Figure  16. Changing the deck*  </p>
 
-As soon as a participant selects a card, his name appears in the estimate view without the value of the estimation. When all participant have selected a card, results are shown in the estimate view as showed below.
+As soon as a participant selects a card, his name appears in the estimate view without the value of the estimation. When all participant have selected a card, results are shown in the estimate view as showed below in Figure 17.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/EstimateDifferent.PNG</p>   
-<p align="center">*Figure  13. The estimate view*</p>   
+<p align="center">*Figure  17. The estimate view*</p>   
 
 The right part of the view is visible only for the moderator and allows him to set the final estimation value (should be done only if a consensus is reached) or repeat the estimation process (if estimates are different). 
 
@@ -229,10 +229,10 @@ The discussion goes on for each single item, until all have been discussed and c
 
 
 === Save your logs ===
-The event is over. As soon as you try to disconnect, close the perspective or even shut down the application you will be prompted to save both the conversation logs and the Decisions place content (see Figure  17). Be sure to say yes, as you will need them to complete your project RFP.
+The event is over. As soon as you try to disconnect, close the perspective or even shut down the application you will be prompted to save both the conversation logs and the Decisions place content (see Figure  18). Be sure to say yes, as you will need them to complete your project RFP.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/logs.PNG</p>
-<p align="center">*Figure  17. Save your logs*</p>
+<p align="center">*Figure  18. Save your logs*</p>
 
 == Troubleshooting ==
 === Accidental disconnections ===
