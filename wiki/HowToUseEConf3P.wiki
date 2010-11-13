@@ -12,6 +12,8 @@ You can get the latest build of eConference from the [http://code.google.com/p/e
 
 == The eConference3P UI ==
 
+This perspective contains following views (as numbered in Figure 1):
+
 <p align="center"><img src="http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/PPPerspectivePresentazione.PNG" width="800px" /></p>
 
 <p align="center">*Figure 1. The Planning Poker Plug-in*  </p>
@@ -19,8 +21,6 @@ You can get the latest build of eConference from the [http://code.google.com/p/e
 
 <wiki:comment>
 Have a look to the [PlanningPokerPerspective Planning Poker perspective page] to understand the meaning of the main views. </wiki:comment>
-
-This perspective contains following views (numbered as in the perspective):
 
  # *Presence*: here are listed all partecipants; the blue icon means session moderator; a pencil appearing near an icon means the participant is a scribe (see Decision Place view); a card appering near an icon means the participant can vote user stories (see Card Deck view); the moderator can be a scribe but never a voter.
  # *Backlog*: here are listed the stories that have to be estimated, show the description of the story and all the meta-data associate with it, such us Owner, Priority and so on; stories can be exported, imported from file or web; stories can also be entered using a form editor.
