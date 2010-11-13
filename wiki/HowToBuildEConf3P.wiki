@@ -1,5 +1,5 @@
 #summary How to build the eConference Planning Poker Plug-in
-#labels Phase-Deploy,Featured
+#labels Phase-Deploy,Featured,How-To
 
 <wiki:toc max_depth="4" />
 
