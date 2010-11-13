@@ -192,36 +192,48 @@ This view basically shows the list of the user stories that the stakeholders hav
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/StoryMenu.PNG</p> 
 <p align="center">*Figure  12. The Backlog view* </p> 
 
-
-
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/NewStory.PNG</p>  
 <p align="center">*Figure  13. Adding a new story (id and text are mandatory fields)* </p>  
 
+When roleplaying the moderator, the tool is assuming you enter the room first and then wait for other participants/voters to join. Adding user stories to the backlog while waiting is a real time-saver for the moderator. All the changes are automatically propagated to other participants since the moment they join the meeting.
+
+
+== Starting the session & the group call ==
+
+Once all invited participants have shown up in the presence panel and the user stories have been added to the backlog, it's time for the moderator to make the group call. *This feature is currently available only with Skype*.
+
+The moderator should type a message and ask everyone to make a test call using the Skype client, to test that audio equipment and settings are OK.
+
+Now, the moderator can èress the button circled in Figure 14. Then, from the popup make sure to select all the participants in the conference (make sure you don't really miss anyone!!!). A classic Skype call will automatically start (no need to accept the call).
   
-As soon as the moderator selects the first story in the Backlog, you will see the talk view tab renamed from 'Free talk' into the id of the story. Also, all the previous messages will be hidden, just to show only the newly-entered statements related to the current story (see Figure 14). 
+<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/groupcall.png </p> 
+
+<p align="center">*Figure  14. Group call during a PP session* </p> 
+
+To start the session, the moderator starts tehe meeting and selects the first story in the Backlog, you will see the talk view tab renamed from 'Free talk' into the id of the story. Also, all the previous messages will be hidden, just to show only the newly-entered statements related to the current story (see Figure 15). 
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/StartMeeting.png </p> 
 
-<p align="center">*Figure  14. Conversation about User Story 1* </p> 
+<p align="center">*Figure  15. Conversation about User Story 1* </p> 
 
-After discussing about the current story, it's time to estimate the story. To do so, participants that have the Voter privileges, drag and drop the selected card form deck (Figure 15). When you are not allowed to vote, the drop-zone will display the message _You can't vote_. Otherwise, you will read the message _Drag your vote here_. As a voter you have the chance to change your vote until all votes have not been collected.
+After discussing about the current story, it's time to estimate the story. To do so, participants that have the Voter privileges, drag and drop the selected card form deck (Figure 16). When you are not allowed to vote, the drop-zone will display the message _You can't vote_. Otherwise, you will read the message _Drag your vote here_. As a voter you have the chance to change your vote until all votes have not been collected.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/deck.png</p>  
-<p align="center">*Figure  15. Selecting a card from deck*</p>  
+<p align="center">*Figure  16. Selecting a card from deck*</p>  
 
-Note that cards in the deck could be changed during the meeting. It means that moderator can remove and change the order of cards in the deck with the dialog in Figure 16. All changes are propagate to all the online participants.
+Note that cards in the deck could be changed during the meeting. It means that moderator can remove and change the order of cards in the deck with the dialog in Figure 17. All changes are propagate to all the online participants.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/DeckEditor.PNG</p>
-<p align="center">*Figure  16. Changing the deck*  </p>
+<p align="center">*Figure  17. Changing the deck*  </p>
 
-As soon as a participant selects a card, his name appears in the estimate view without the value of the estimation. When all participant have selected a card, results are shown in the estimate view as showed below in Figure 17.
+As soon as a participant selects a card, his name appears in the estimate view without the value of the estimation. When all participant have selected a card, results are shown in the estimate view as showed below in Figure 18.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/EstimateDifferent.PNG</p>   
-<p align="center">*Figure  17. The estimate view*</p>   
+<p align="center">*Figure  18. The estimate view*</p>   
 
 The right part of the view is visible only for the moderator and allows him to set the final estimation value (should be done only if a consensus is reached) or repeat the estimation process (if estimates are different). 
 
-Suppose you have reached a consensus about the current story, and the Scribe has summed up the decisions taken: It is time to move the another story. The Moderator selects it in the Backlog. All the statements about story 1 are hidden, and the talk view is again clean, ready to list only the statements related to story 2
+Suppose you have reached a consensus about the current story, and the Scribe has summed up the decisions taken: It is time to move the another story. The Moderator selects it in the Backlog. All the statements about story 1 are hidden, and the talk view is again clean, ready to list only the statements related to story 2.
 
 Yeah, but suppose that during the discussion of the story 2 new facts are came out and this facts have impact with the previous estimated story that now needs to be estimated again? Can we move back??? Sure, you can. Furthermore, as soon as you move back to a story that has been previously estimated, all the messages already sent will appear in the talk view again The dashes indicates the beginning of a new session in the conversation about the Story 1.
 
@@ -229,10 +241,10 @@ The discussion goes on for each single item, until all have been discussed and c
 
 
 === Save your logs ===
-The event is over. As soon as you try to disconnect, close the perspective or even shut down the application you will be prompted to save both the conversation logs and the Decisions place content (see Figure  18). Be sure to say yes, as you will need them to complete your project RFP.
+The event is over. As soon as you try to disconnect, close the perspective or even shut down the application you will be prompted to save both the conversation logs and the Decisions place content (see Figure  19). Be sure to say yes, as you will need them to complete your project RFP.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/logs.PNG</p>
-<p align="center">*Figure  18. Save your logs*</p>
+<p align="center">*Figure  19. Save your logs*</p>
 
 == Troubleshooting ==
 === Accidental disconnections ===
