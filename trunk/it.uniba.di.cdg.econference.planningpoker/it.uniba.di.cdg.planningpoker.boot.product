@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="eConference + Planning Poker Plugin" id="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="eConference + Planning Poker Plugin" id="it.uniba.di.cdg.econference.planningpoker.product" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/it.uniba.di.cdg.collaborativeworkbench.boot/about_logo.gif"/>
       <text>
-         eConference 3.5 with Planning Poker Plugin
+         eConference 4.0 with Planning Poker Plugin
 
 eConference has been developed by the Collaborative Development Group,
 Dipartimento di Informatica, University of Bari and it is distributed under the 
@@ -25,6 +25,7 @@ More details on the project homepage at http://cdg.di.uniba.it/projects/econfere
    <windowImages i16="/it.uniba.di.cdg.collaborativeworkbench.boot/cw_16x16.gif" i32="/it.uniba.di.cdg.collaborativeworkbench.boot/cw_32x32.gif"/>
 
    <splash
+      location="it.uniba.di.cdg.collaborativeworkbench.boot"
       startupProgressRect="5,275,445,15" />
    <launcher>
       <solaris/>
@@ -33,10 +34,12 @@ More details on the project homepage at http://cdg.di.uniba.it/projects/econfere
       </win>
    </launcher>
 
+
    <vm>
    </vm>
 
    <plugins>
+      <plugin id="com.google.services"/>
       <plugin id="com.ibm.icu"/>
       <plugin id="it.uniba.di.cdg.collaborativeworkbench.boot"/>
       <plugin id="it.uniba.di.cdg.econference.planningpoker"/>
