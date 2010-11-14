@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="eConference + Planning Poker Plugin" id="it.uniba.di.cdg.econference.planningpoker.product" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
+<product name="eConference3P" id="it.uniba.di.cdg.econference.planningpoker.product" application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench" version="1.0.0.qualifier" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
       <image path="/it.uniba.di.cdg.collaborativeworkbench.boot/about_logo.gif"/>
       <text>
-         eConference 4.0 with Planning Poker Plugin
+         eConference3P
+(eConference 4.0 with Planning Poker Plugin)
 
 eConference has been developed by the Collaborative Development Group,
 Dipartimento di Informatica, University of Bari and it is distributed under the 
 terms of the MIT license. 
-More details on the project homepage at http://cdg.di.uniba.it/projects/econference/ .
+More details on the project homepage at http://cdg.di.uniba.it/projects/econference/
       </text>
    </aboutInfo>
 
