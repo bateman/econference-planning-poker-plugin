@@ -170,12 +170,32 @@
    <extension
          id="product"
          point="org.eclipse.core.runtime.products">
-      <product
+       <product
             application="it.uniba.di.cdg.collaborativeworkbench.boot.collaborativeWorkbench"
             name="eConference3P">
          <property
                name="appName"
                value="eConference3P">
+         </property>
+         <property
+               name="aboutImage"
+               value="platform:/plugin/it.uniba.di.cdg.collaborativeworkbench.boot/about_logo.gif">
+         </property>
+         <property
+               name="aboutText"
+               value="eConference 4 with Planning Poker Plugin&#x0A;&#x0A;eConference has been developed by the Collaborative Development Group,&#x0A;Dipartimento di Informatica, University of Bari and it is distributed under the &#x0A;terms of the MIT license. &#x0A;More details on the project homepage at http://cdg.di.uniba.it/projects/econference/ .">
+         </property>
+         <property
+               name="windowImages"
+               value="platform:/plugin/it.uniba.di.cdg.collaborativeworkbench.boot/cw_16x16.gif,platform:/plugin/it.uniba.di.cdg.collaborativeworkbench.boot/cw_32x32.gif">
+         </property>
+         <property
+               name="startupProgressRect"
+               value="5,275,445,15">
+         </property>
+         <property
+               name="preferenceCustomization"
+               value="plugin_customization.ini">
          </property>
       </product>
    </extension>
@@ -295,7 +315,6 @@
             helper="it.uniba.di.cdg.econference.planningpoker.PlanningPokerHelper"
             invitationIcon="icons/events/invitation_event.png"
             organizationIcon="icons/events/organization_event.png"
-            plugin="it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin"
             pluginID="it.uniba.di.cdg.econference.planningpoker"
             service="planningpoker">
       </loader>
