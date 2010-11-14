@@ -1,8 +1,6 @@
 package it.uniba.di.cdg.econference.planningpoker.test.usimport;
 
 import static org.junit.Assert.assertEquals;
-
-
 import it.uniba.di.cdg.econference.planningpoker.usimport.Fogbugz;
 
 import java.io.BufferedReader;
@@ -20,6 +18,7 @@ import org.junit.Test;
 
 
 public class TestFogbugz {
+	@SuppressWarnings("unused")
 	private File expectedTempXML;
 	private String addr;
 	private LinkedList<String> storyText;

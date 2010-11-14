@@ -1,6 +1,7 @@
 package it.uniba.di.cdg.econference.planningpoker.test.usimport;
 
 import static org.junit.Assert.assertEquals;
+import it.uniba.di.cdg.econference.planningpoker.usimport.Assembla;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,8 +14,6 @@ import java.util.LinkedList;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import it.uniba.di.cdg.econference.planningpoker.usimport.Assembla;
 
 
 public class TestAssembla {
@@ -93,6 +92,7 @@ public class TestAssembla {
 		try {
 		@SuppressWarnings("unused")
 		FileWriter temp=Assembla.createTempFile(addr);
+		@SuppressWarnings("unused")
 		FileWriter temp1=Assembla.createTempFile(addr2);
 		FileReader f=new FileReader("temp.xml"); //from fileWriter temp
 		FileReader f2=new FileReader("temp1.xml");
