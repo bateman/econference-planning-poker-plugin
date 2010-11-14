@@ -27,7 +27,6 @@ package it.uniba.di.cdg.econference.planningpoker.model.backlog;
 
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 
 /**
