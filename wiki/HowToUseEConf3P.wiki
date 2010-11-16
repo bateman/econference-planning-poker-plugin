@@ -204,7 +204,7 @@ Once all invited participants have shown up in the presence panel and the user s
 
 The moderator should type a message and ask everyone to make a test call using the Skype client, to test that audio equipment and settings are OK.
 
-Now, the moderator can èress the button circled in Figure 14. Then, from the popup make sure to select all the participants in the conference (make sure you don't really miss anyone!!!). A classic Skype call will automatically start (no need to accept the call).
+Now, the moderator can èress the button circled in Figure 14. Then, from the popup make sure to select all the participants in the conference (make sure you don't really miss anyone!!!). A classic Skype call will, and will just need to accept it as a usual Skype call.
   
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/groupcall.png </p> 
 
