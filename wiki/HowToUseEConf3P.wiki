@@ -217,7 +217,23 @@ Skype client will ask you for a permission to allow MP3 Skype Recorder to connec
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Skype_authorization_1.png </p> 
 
 Choose Allow this program to use Skype and click OK
-<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Skype authorization window.gif </p> 
+<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Skype%20authorization%20window.gif </p> 
+
+*NOTE:* If for some reason you don't see _Allow Access panel_ (as shown above), or you accidentally clicked "Deny Access", you will need to go to the _Tools->Options_ in the top Skype menu (as shown on the picture). 
+	
+<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Skype_authorization_2.png </p> 
+
+Click Advanced tab on the right and click Manage other program's access to Skype link in the bottom in the Skype Options window. 
+
+<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Skype_authorization_3.png </p> 
+
+The new widow (Skype - Manage API access control) should open with the listing of 3rd parties programs connected or not allowed to connect to Skype. If MP3SkypeRecorder.exe is marked as Not allowed to use skype. Choose it from the list by clicking on it and click Change on the right. 	
+
+Skype options window<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Skype_authorization_4.png </p> 
+
+Choose Allow the program to use Skype, by clicking radio button and click OK.
+
+<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Skype_authorization_5.png </p> 
 
 === Starting the call ===
 Now, the moderator can press the button circled in Figure 14. Then, from the popup make sure to select all the participants in the conference (make sure you don't really miss anyone!!!). A classic Skype call will, and will just need to accept it as a usual Skype call.
