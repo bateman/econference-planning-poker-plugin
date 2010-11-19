@@ -248,16 +248,16 @@ The event is over. As soon as you try to disconnect, close the perspective or ev
 
 == Troubleshooting ==
 === Missing estimate from a voter ===
-Remember that a estimate session is closed when all expert have sent in their estimates.
-In case of an estimate missing from a voter, whose client has crashed or connection has gone down, the moderato can force to close the estimate session by watching at available estimates and selecting a share estimation (i.e., enter a value and press _Accept_ button in the _Estimates_ view).
+Remember that an estimate session is closed when all experts have sent in their estimates.
+In case of a missing estimate, from a voter whose client has crashed or connection has gone down, the moderator can force to close the estimate session by watching at available estimates and selecting a share one, that is, by entering a value and pressing the _Accept_ button in the _Estimates_ view).
 
 === Tool begins to behave erratically? Save, clean and restore the tool state ===
 In this case, the moderator should:
   # Export the current backlog to file
   # *DO NOT* hang up the call; Instead, use _the voice channel to coordinate next steps._
-  # Invite the participants to leave quit the tool.
+  # Tellthe participants to leave quit the tool.
   # Restart the tool yourself and join the event again.
-  # Invite the participants to relaunch the tool and join the event again.
+  # Tell the participants to relaunch the tool and join the event again.
   # Import the backlog from the file that you created in the first step
 
 Now that you have reset the tool to the previous, but clean, state you are good to go on with the meeting.
