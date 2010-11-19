@@ -198,13 +198,29 @@ This view basically shows the list of the user stories that the stakeholders hav
 When roleplaying the moderator, the tool is assuming you enter the room first and then wait for other participants/voters to join. Adding user stories to the backlog while waiting is a real time-saver for the moderator. All the changes are automatically propagated to other participants since the moment they join the meeting.
 
 
+
 == Starting the session & the group call ==
 
 Once all invited participants have shown up in the presence panel and the user stories have been added to the backlog, it's time for the moderator to make the group call. *This feature is currently available only with Skype*.
 
 The moderator should type a message and ask everyone to make a test call using the Skype client, to test that audio equipment and settings are OK.
 
-Now, the moderator can èress the button circled in Figure 14. Then, from the popup make sure to select all the participants in the conference (make sure you don't really miss anyone!!!). A classic Skype call will, and will just need to accept it as a usual Skype call.
+=== Enable call recording ===
+In order to enable automatic Skype call recording, download and install this free tool, [http://voipcallrecording.com/MP3SkypeRecorder.zip MP3 Skype Recorder] (Windows only).
+This simple tool will automatically start when Windows starts, and likewise will automatically record your calls.
+
+MP3 Skype Recorder will try to connect to Skype on the first start, and will be waiting for authorization.
+<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/MP3SkypeRecorderWaintingAuthorization.png </p> 
+
+Skype client will ask you for a permission to allow MP3 Skype Recorder to connect to Skype during the first start of the program. Click Allow Access, as shown on the picture.
+	
+<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Skype_authorization_1.png </p> 
+
+Choose Allow this program to use Skype and click OK
+<p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Skype authorization window.gif </p> 
+
+=== Starting the call ===
+Now, the moderator can press the button circled in Figure 14. Then, from the popup make sure to select all the participants in the conference (make sure you don't really miss anyone!!!). A classic Skype call will, and will just need to accept it as a usual Skype call.
   
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/groupcall.png </p> 
 
