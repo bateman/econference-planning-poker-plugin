@@ -247,26 +247,17 @@ The event is over. As soon as you try to disconnect, close the perspective or ev
 <p align="center">*Figure  19. Save your logs*</p>
 
 == Troubleshooting ==
-=== Accidental disconnections ===
-==== As a Moderator: ====
-If you get accidentally disconnected and you are the moderator, reconnect and load again the .ecx file. If you see someone disappear from the who's on list, be sure to invite him/her again pressing the icon highlighted in the picture below. Then select the id of the missing stakeholders from the drop-down list.
+=== Missing estimate from a voter ===
+Remember that a estimate session is closed when all expert have sent in their estimates.
+In case of an estimate missing from a voter, whose client has crashed or connection has gone down, the moderato can force to close the estimate session by watching at available estimates and selecting a share estimation (i.e., enter a value and press _Accept_ button in the _Estimates_ view).
 
+=== Tool begins to behave erratically? Save, clean and restore the tool state ===
+In this case, the moderator should:
+  # Export the current backlog to file
+  # *DO NOT* hang up the call; Instead, use _the voice channel to coordinate next steps._
+  # Invite the participants to leave quit the tool.
+  # Restart the tool yourself and join the event again.
+  # Invite the participants to relaunch the tool and join the event again.
+  # Import the backlog from the file that you created in the first step
 
-
-
-<p align="center">http://econference.googlecode.com/svn/wiki/img/manual_invitation.png </p> 
-
-<p align="center">*Figure  15. Manual invitation* </p>
-
-
-
-"NOTE"
-
-Because of a known bug, when you see a participant reconnected after being disconnect, please press again the current item in the agenda, so than the newcomers can synchronize on the current item discussion.
-
-
-
-
-
-==== As a Participant: ====
-Simply reconnect (restart the tool if you want) and double-click on the invitation you received.
+Now that you have reset the tool to the previous, but clean, state you are good to go on with the meeting.
