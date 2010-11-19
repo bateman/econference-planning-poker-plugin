@@ -235,6 +235,8 @@ Choose Allow the program to use Skype, by clicking radio button and click OK.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/Skype_authorization_5.png </p> 
 
+When the first call starts, your personal firewall might ask you to allow opening some ports for the MP3 Skyper Recorder. Do so, it's absolutely safe.
+
 _*For more information or other troubles see the [http://voipcallrecording.com/skyperecorderhelp183 official manual page].*_
 
 === Starting the call ===
