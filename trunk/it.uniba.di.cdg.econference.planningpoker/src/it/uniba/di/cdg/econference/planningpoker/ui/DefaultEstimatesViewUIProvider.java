@@ -133,7 +133,7 @@ public class DefaultEstimatesViewUIProvider implements IEstimatesViewUIProvider 
 		for (int i = 0; i < titles.length; i++) {
 			TableViewerColumn column = new TableViewerColumn(viewer, SWT.NONE);
 			column.getColumn().setText(titles[i]);
-			//column.getColumn().setWidth(bounds[i]);
+			column.getColumn().setWidth(bounds[i]);
 			column.getColumn().setResizable(true);
 			column.getColumn().setMoveable(true);
 			layout.addColumnData(new ColumnWeightData(bounds[i]));
