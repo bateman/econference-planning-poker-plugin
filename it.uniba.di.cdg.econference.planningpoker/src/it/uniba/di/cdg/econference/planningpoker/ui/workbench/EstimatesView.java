@@ -40,7 +40,6 @@ import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListen
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesViewUIProvider;
-import it.uniba.di.cdg.econference.planningpoker.model.estimates.Voters;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
@@ -52,9 +51,7 @@ import it.uniba.di.cdg.xcore.network.messages.SystemMessage;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
 import java.text.DateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import org.eclipse.jface.viewers.TableViewer;
