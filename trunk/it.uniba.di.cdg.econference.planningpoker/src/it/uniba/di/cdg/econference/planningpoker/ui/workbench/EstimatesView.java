@@ -475,11 +475,7 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 	}
 	
 	private void changeEstimatesList(IEstimate[] estimates, boolean visible) {
-		List<Voters> voters = Arrays.asList(getModel().getVoters());
-		
-		if (voters.contains(getModel().getLocalUser()))
-			visible = false;
-		else
+		if (getModel().getLocalUser().getRole().equals(Role.MODERATOR))
 			visible = true;
 		
 		Object[] result = new Object[estimates.length];
