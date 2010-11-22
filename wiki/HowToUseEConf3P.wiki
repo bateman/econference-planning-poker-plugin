@@ -271,7 +271,11 @@ As soon as a participant selects a card, his name appears in the estimate view w
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/EstimateDifferent.PNG</p>   
 <p align="center">*Figure  18. The estimate view*</p>   
 
-The right part of the view is visible only for the moderator and allows him to set the final estimation value (should be done only if a consensus is reached) or repeat the estimation process (if estimates are different). 
+The voting session is automatically closed as soon as all estimates are collected. The right part of the view is visible only for the moderator and allows him to set the final estimation value (should be done only if a consensus is reached) or repeat the estimation process (if estimates are different, i.e. no consensus). 
+
+<font color="red"><b><i>Please note that the moderator can forcefully close a voting session by entering and accepting an estimate value. This is particularly useful when a voter accidentally disconnects. Once he/she re-enters, he-she must wait the next estimate session to vote again.</i></b></font>
+
+=== Moving to the estimation of another story ===
 
 Suppose you have reached a consensus about the current story, and the Scribe has summed up the decisions taken: It is time to move the another story. The Moderator selects it in the Backlog. All the statements about story 1 are hidden, and the talk view is again clean, ready to list only the statements related to story 2.
 
