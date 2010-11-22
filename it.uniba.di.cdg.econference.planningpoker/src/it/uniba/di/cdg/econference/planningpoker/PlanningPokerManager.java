@@ -58,6 +58,7 @@ import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveListener3;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.WorkbenchException;
@@ -148,6 +149,16 @@ public class PlanningPokerManager extends EConferenceManager implements
 		IEstimatesView estimatesView = (EstimatesView) viewPart;
 		estimatesView.setManager(this);
 		estimatesView.setReadOnly(!Role.MODERATOR.equals(role));
+		
+		// If the user is a moderator the focus will be on the estimates view
+		// else the focus will be on the deck view
+		IWorkbenchPart estimatesViewPart = workbenchWindow.getActivePage().findView(EstimatesView.ID);
+		IWorkbenchPart deckViewPart = workbenchWindow.getActivePage().findView(DeckView.ID);
+		
+		if (role.equals(Role.MODERATOR))
+			workbenchWindow.getActivePage().activate(estimatesViewPart);
+		else
+			workbenchWindow.getActivePage().activate(deckViewPart);
 
 		viewPart = workbenchWindow.getActivePage().showView(BacklogView.ID);
 		IBacklogView storiesListView = (BacklogView) viewPart;
