@@ -213,7 +213,7 @@ The moderator should type a message and ask everyone to make a test call using t
 In order to enable automatic Skype call recording, download and install this free tool, [http://voipcallrecording.com/MP3SkypeRecorder.zip MP3 Skype Recorder] (Windows only).
 This simple tool will automatically start when Windows starts, and likewise will automatically record your calls.
 
-_*Just in case MP3 Skype Recorder wouldn't work, you migh use [http://www.ifree-recorder.com/download.htm iFree Skype Recorder] instead, which is absolutely equivalent to the former, and works much like described below.*_ 
+_*Just in case MP3 Skype Recorder wouldn't work, you might use [http://www.ifree-recorder.com/download.htm iFree Skype Recorder] instead, which is absolutely equivalent to the former, and works much like described below.*_ 
 
 MP3 Skype Recorder will try to connect to Skype on the first start, and will be waiting for authorization.
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/MP3SkypeRecorderWaintingAuthorization.png </p> 
