@@ -140,13 +140,17 @@ This section will briefly show what the views are meant for, and what action eac
 
 Once you have entered the event, you will see the online stakeholders in the Who's on view (see Figure 10 below). The blue icon indicates the Moderator. All the other participants are Voters (i.e. can assign scores to user stories). 
 
-Before the event starts, the Moderator usually grants him-/herself the Scribe right, given that he/she cannot vote. To accomplish this by right-clicking the selected stakeholder and select the 'Grant scribe right' item from the popup menu (see figure below).  Note that the scribe can be changed on the fly and that there can be multiple scribes at the same time.
+Before the event starts, the Moderator usually grants him-/herself the Scribe right, given that he/she cannot vote. To accomplish this by right-clicking the selected stakeholder and select the 'Grant scribe right' item from the popup menu (see figure below). Note that the scribe can be changed on the fly and that there can be multiple scribes at the same time. When a user receives the scribe privilege, a pencil will appear on the his/her icon.
+
+By default all participants (apart the moderator) have the Voter privilege. Voter privilege is represented by cards appearing on online users icons.
+
+<b><font color="red">Note: due to a known bug (see issue 42), sometimes when the _Who's on view_ refreshes, the icons representing the privileges may disappear.</font></b> However, this is only a graphical glitch, privileges keep working.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/RevokeVoter.PNG</p>
 
 <p align="center">*Figure  10. Who's on list, showing online stakeholders and granting special privileges*</p>   
 
-By default all participants (apart the moderator) have the Voter privilege. Also note that the moderator can even revoke the rights to contribute messages and to vote. As the moderator, be _*extremely careful*_ when using these features.
+Also note that the moderator can even revoke the rights to contribute messages <wiki:comment>and to vote</wiki:comment>. As the moderator, be _*extremely careful*_ when using these features.
 
 
 ==== What does being a Scribe mean? ====
