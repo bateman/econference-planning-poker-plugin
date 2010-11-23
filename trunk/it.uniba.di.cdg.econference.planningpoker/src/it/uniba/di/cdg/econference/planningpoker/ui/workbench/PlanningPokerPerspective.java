@@ -51,20 +51,26 @@ public class PlanningPokerPerspective implements IPerspectiveFactory {
         layout.addPlaceholder( ChatRoomView.ID + ":*", IPageLayout.LEFT, 0.2f, editorAreaId );
         layout.addView( ChatRoomView.ID, IPageLayout.LEFT, 0.7f, editorAreaId );
         layout.addShowViewShortcut( ChatRoomView.ID );
+        layout.getViewLayout(ChatRoomView.ID).setCloseable(false);
 
         //adding the whiteboard view
-        layout.addPlaceholder(PPWhiteBoardView.ID, IPageLayout.RIGHT,0.7f,ChatRoomView.ID); 
+        layout.addPlaceholder(PPWhiteBoardView.ID, IPageLayout.RIGHT,0.7f,ChatRoomView.ID);
+        layout.getViewLayout(PPWhiteBoardView.ID).setCloseable(false);
 
         layout.addPlaceholder( MultiChatTalkView.ID, IPageLayout.RIGHT, 0.05f, editorAreaId );
-
+        layout.getViewLayout(MultiChatTalkView.ID).setCloseable(false);
+        
         //adding the backlog view (this view has to be located under the ChatRoomView and the WhiteBoardView)
         layout.addPlaceholder(BacklogView.ID, IPageLayout.BOTTOM, 0.25f, ChatRoomView.ID);  
+        layout.getViewLayout(BacklogView.ID).setCloseable(false);
 
         layout.addPerspectiveShortcut( ID );
 
         IFolderLayout bottomLeft = layout.createFolder(BOTTOM_LEFT_FOLDER, IPageLayout.BOTTOM, 0.6f, BacklogView.ID);
 		bottomLeft.addPlaceholder(EstimatesView.ID);
 		bottomLeft.addPlaceholder(DeckView.ID);
+		layout.getViewLayout(EstimatesView.ID).setCloseable(false);
+		layout.getViewLayout(DeckView.ID).setCloseable(false);
 		
 //		String editorArea = layout.getEditorArea();
 //		//there is no editor
