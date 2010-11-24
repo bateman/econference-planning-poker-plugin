@@ -132,7 +132,7 @@ public class PlanningPokerManager extends EConferenceManager implements
 
 		viewPart = workbenchWindow.getActivePage()
 				.showView(PPWhiteBoardView.ID);
-		IWhiteBoard whiteBoardView = (IWhiteBoard) viewPart;
+		whiteBoardView = (IWhiteBoard) viewPart;
 		whiteBoardView.setManager(this);
 		// By default the whiteboard cannot be modified: when the user is given
 		// the SCRIBE
