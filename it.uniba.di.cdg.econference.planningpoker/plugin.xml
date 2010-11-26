@@ -116,7 +116,7 @@
       <objectContribution
             adaptable="true"
             id="palnningpoker.participantContribution"
-            objectClass="it.uniba.di.cdg.xcore.multichat.model.IParticipant">
+            objectClass="it.uniba.di.cdg.xcore.m2m.model.IParticipant">
          <action
                class="it.uniba.di.cdg.econference.planningpoker.actions.MakeVoterAction"
                enablesFor="1"
@@ -202,14 +202,14 @@
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
-            targetID="it.uniba.di.cdg.econference.planningpoker.workbench.PlanningPokerPerspective">
+            targetID="it.uniba.di.cdg.econference.planningpoker.PPPerspective">
          <view
                closeable="false"
                id="it.uniba.di.cdg.econference.planningpoker.views.StoriesListView"
                moveable="true"
                ratio="0.5"
                relationship="top"
-               relative="it.uniba.di.cdg.xcore.multichat.ui.views.chatRoomView"
+               relative="it.uniba.di.cdg.xcore.m2m.ui.views.chatRoomView"
                showTitle="true"
                standalone="false"
                visible="false">
@@ -227,11 +227,11 @@
          </view>
          <view
                closeable="false"
-               id="it.uniba.di.cdg.xcore.multichat.ui.views.multiChatTalkView"
+               id="it.uniba.di.cdg.xcore.m2m.ui.views.multiChatTalkView"
                moveable="true"
                ratio="0.5"
                relationship="right"
-               relative="it.uniba.di.cdg.xcore.multichat.ui.views.chatRoomView"
+               relative="it.uniba.di.cdg.xcore.m2m.ui.views.chatRoomView"
                showTitle="true"
                standalone="false"
                visible="false">
