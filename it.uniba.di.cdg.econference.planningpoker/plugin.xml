@@ -199,6 +199,8 @@
          </property>
       </product>
    </extension>
+   <!-- Views programmatically added in PlanningPokerPerspective.java -->
+   <!--
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension
@@ -260,6 +262,7 @@
          </view>
       </perspectiveExtension>
    </extension>
+   -->
    <extension
          point="it.uniba.di.cdg.jabber.packets">
       <packetExtension
