@@ -287,7 +287,7 @@ The discussion goes on for each single item, until all have been discussed and c
 
 
 === Save your logs ===
-The event is over. As soon as you try to disconnect, close the perspective or even shut down the application you will be prompted to save both the conversation logs and the Decisions place content (see Figure  19). Be sure to say yes, as you will need them to complete your project RFP.
+The event is over. As soon as you try to disconnect, close the perspective or even shut down the application you will be prompted to save both the conversation logs and the Decisions place content (see Figure  19). Be sure to say yes, as you will need them for sure.
 
 <p align="center">http://econference-planning-poker-plugin.googlecode.com/svn/wiki/img/logs.PNG</p>
 <p align="center">*Figure  19. Save your logs*</p>
@@ -301,7 +301,7 @@ In case of a missing estimate, from a voter whose client has crashed or connecti
 In this case, the moderator should:
   # Export the current backlog to file
   # *DO NOT* hang up the call; Instead, use _the voice channel to coordinate next steps._
-  # Tellthe participants to leave quit the tool.
+  # Tell the participants to leave & quit the tool.
   # Restart the tool yourself and join the event again.
   # Tell the participants to relaunch the tool and join the event again.
   # Import the backlog from the file that you created in the first step
