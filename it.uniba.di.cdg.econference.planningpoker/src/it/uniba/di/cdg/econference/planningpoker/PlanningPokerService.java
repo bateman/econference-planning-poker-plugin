@@ -187,49 +187,6 @@ public class PlanningPokerService extends EConferenceService implements
 		return (PlanningPokerContext) super.getContext();
 	}
 
-//	/**
-//	 * Adapted for backlog item removing
-//	 */
-//	protected void registerAgendaOperationListener() {
-//		// Listen to incoming packets regarding the item list content
-//		PacketListener packetListener = new PacketListener() {
-//			public void processPacket(Packet packet) {
-//				final AgendaOperationPacket ext = (AgendaOperationPacket) packet
-//						.getExtension(AgendaOperationPacket.ELEMENT_NAME,
-//								SmackCommons.CDG_NAMESPACE);
-//				AgendaOperation op = AgendaOperation
-//						.valueOf(ext.getOperation());
-//				// Every operation has its context: ADD just want a string
-//				// containing
-//				// the text associated to the new item, REMOVE probably will
-//				// want to
-//				// parse the string to an integer index.
-//				String context = ext.getContext();
-//				int index;
-//				try {
-//					index = Integer.parseInt(context);
-//				} catch (NumberFormatException ex) {
-//					index = -1;
-//				}
-//				if (index != -1) {
-//					if (AgendaOperation.REMOVE.equals(op)) {
-//						getModel().getBacklog().removeItem(index);
-//						System.out
-//								.println("Received a remove operation for the User Story "
-//										+ index);
-//					} else {
-//						System.err.println("Unsupported operation "
-//								+ ext.getOperation());
-//					}
-//				} else {
-//					System.err.println("Unsupported context for backlog"
-//							+ ext.getContext());
-//				}
-//			}
-//		};
-//		// addPacketListener(packetListener, AgendaOperationPacket.FILTER);
-//	}
-
 	@Override
 	public void notifyCardSelection(String storyId, IPokerCard card) {
 		String localId = getModel().getLocalUser().getId();
