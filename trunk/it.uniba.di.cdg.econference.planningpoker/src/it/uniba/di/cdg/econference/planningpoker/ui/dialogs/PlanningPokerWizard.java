@@ -34,13 +34,16 @@ import it.uniba.di.cdg.xcore.econference.ui.dialogs.InviteWizard;
 import it.uniba.di.cdg.xcore.econference.ui.dialogs.LastPage;
 import it.uniba.di.cdg.xcore.econference.util.MailFactory;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
+import it.uniba.di.cdg.xcore.ui.wizards.IConfigurationConstant;
 
 import java.io.FileNotFoundException;
 import java.util.Vector;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.eclipse.core.runtime.preferences.ConfigurationScope;
 import org.eclipse.ui.INewWizard;
+import org.osgi.service.prefs.Preferences;
 
 import com.google.gdata.GoogleDocManager;
 
@@ -71,18 +74,21 @@ public class PlanningPokerWizard extends InviteWizard implements INewWizard {
         lastOnePage.saveData();
         this.context = (PlanningPokerContext) lastOnePage.getContext();
 
+        Preferences preferences = new ConfigurationScope().getNode(IConfigurationConstant.CONFIGURATION_NODE_QUALIFIER);
+		Preferences pathPref = preferences.node(IConfigurationConstant.PATH);
+		String preferredFilePath = pathPref.get(IConfigurationConstant.DIR, "");
+        
         String filepath = genInfoPage.getFilePath();
         try {
 
             PlanningPokerContextWriter writer = new PlanningPokerContextWriter( filepath, (PlanningPokerContext) context );
-
-            writer.serialize();
+            writer.serialize();            
+            
             // if we save the ecx file not in the default location
             // we store a copy there
-            if (!filepath.startsWith( DEFAULT_FILE_PATH )) {
-                String filename = genInfoPage.getConferenceName();
-                filename += ".ecx";
-                writer = new PlanningPokerContextWriter( DEFAULT_FILE_PATH + filename, (PlanningPokerContext) context );
+            if (!filepath.startsWith( preferredFilePath )) {
+            	String filecopy = genInfoPage.computeFilePath();
+                writer = new PlanningPokerContextWriter( filecopy, (PlanningPokerContext) context );
                 writer.serialize();
             }
 
