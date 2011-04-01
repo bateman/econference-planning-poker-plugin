@@ -164,29 +164,30 @@ public class PlanningPokerManager extends EConferenceManager implements
 		IBacklogView storiesListView = (BacklogView) viewPart;
 		storiesListView.setManager(this);
 		storiesListView.setReadOnly(!Role.MODERATOR.equals(role));
+		
+		/*
+		 * The scribe and voter privileges are now notified
+		 * when the session is started by the moderator.
+		 * 
+		 * http://code.google.com/p/econference4/issues/detail?id=41#c3
+		 * http://code.google.com/p/econference-planning-poker-plugin/issues/detail?id=49
+		 * */
 
 		// Moderator must be able to write the Whiteboard while participant has
 		// the voter privileges as default
-		if (Role.MODERATOR.equals(role)) {
+//		if (Role.MODERATOR.equals(role)) {
 			// getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.SCRIBE);
-			
-			/*
-			 * The autoset of the scribe grant for the moderator has been disabled
-			 * due that it can't be notified to other users with the Skype protocol.
-			 * 
-			 * http://code.google.com/p/econference4/issues/detail?id=41#c3
-			 * */
 //			getService().notifyChangedSpecialPrivilege(
 //					getService().getModel().getLocalUser(),
 //					ParticipantSpecialPrivileges.SCRIBE,
 //					SpecialPrivilegesAction.GRANT);
-		} else {
+//		} else {
 			// getService().getModel().getLocalUser().addSpecialPriviliges(ParticipantSpecialPrivileges.VOTER);
-			getService().notifyChangedSpecialPrivilege(
-					getService().getModel().getLocalUser(),
-					ParticipantSpecialPrivileges.VOTER,
-					SpecialPrivilegesAction.GRANT);
-		}
+//			getService().notifyChangedSpecialPrivilege(
+//					getService().getModel().getLocalUser(),
+//					ParticipantSpecialPrivileges.VOTER,
+//					SpecialPrivilegesAction.GRANT);
+//		}
 	}
 
 	/*
