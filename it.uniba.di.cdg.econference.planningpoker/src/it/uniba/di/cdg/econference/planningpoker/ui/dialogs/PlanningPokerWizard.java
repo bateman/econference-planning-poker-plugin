@@ -36,6 +36,7 @@ import it.uniba.di.cdg.xcore.econference.util.MailFactory;
 import it.uniba.di.cdg.xcore.network.NetworkPlugin;
 import it.uniba.di.cdg.xcore.ui.wizards.IConfigurationConstant;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Vector;
 
@@ -79,6 +80,7 @@ public class PlanningPokerWizard extends InviteWizard implements INewWizard {
 		String preferredFilePath = pathPref.get(IConfigurationConstant.DIR, "");
         
         String filepath = genInfoPage.getFilePath();
+        new File(filepath.substring(0, filepath.lastIndexOf(System.getProperty("file.separator")))).mkdirs();
         try {
 
             PlanningPokerContextWriter writer = new PlanningPokerContextWriter( filepath, (PlanningPokerContext) context );
