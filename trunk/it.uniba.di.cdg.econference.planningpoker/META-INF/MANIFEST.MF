@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: PlanningPoker Plug-in
 Bundle-SymbolicName: it.uniba.di.cdg.econference.planningpoker;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.1
 Bundle-Activator: it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.jivesoftware.smack;bundle-version="3.1.0",
  it.uniba.di.cdg.xcore.econference;bundle-version="1.0.0",
  it.uniba.di.cdg.xcore.m2m;bundle-version="1.0.0",
- com.google.services;bundle-version="1.0.0"
+ com.google.services;bundle-version="1.0.0",
+ it.uniba.di.cdg.aspects;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: it.uniba.di.cdg.econference.planningpoker,
@@ -27,3 +28,4 @@ Export-Package: it.uniba.di.cdg.econference.planningpoker,
  it.uniba.di.cdg.econference.planningpoker.usimport,
  it.uniba.di.cdg.econference.planningpoker.usimport.wizard,
  it.uniba.di.cdg.econference.planningpoker.utils
+Bundle-Vendor: Collaborative Development Group - Dipartimento di Informatica, University of Bari

@@ -25,11 +25,11 @@
  */
 package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 
+import it.uniba.di.cdg.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
 import it.uniba.di.cdg.econference.planningpoker.model.IPlanningPokerModel;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListener;
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogListenerAdapter;
-import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.IEConferenceManager;
 import it.uniba.di.cdg.xcore.econference.model.IItemList;
 import it.uniba.di.cdg.xcore.econference.ui.views.IWhiteBoard;

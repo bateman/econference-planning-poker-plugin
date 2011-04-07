@@ -25,6 +25,7 @@
  */
 package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 
+import it.uniba.di.cdg.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.actions.EditDeckAction;
@@ -40,7 +41,6 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimate;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimateListener;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
-import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 import it.uniba.di.cdg.xcore.m2m.model.ParticipantSpecialPrivileges;

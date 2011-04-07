@@ -27,6 +27,7 @@ package it.uniba.di.cdg.econference.planningpoker.ui.workbench;
 
 import static it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus.STARTED;
 import static it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus.STOPPED;
+import it.uniba.di.cdg.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.econference.planningpoker.IPlanningPokerManager;
 import it.uniba.di.cdg.econference.planningpoker.PlanningPokerPlugin;
 import it.uniba.di.cdg.econference.planningpoker.actions.AddUserStoryAction;
@@ -46,7 +47,6 @@ import it.uniba.di.cdg.econference.planningpoker.model.backlog.IBacklogViewUIPro
 import it.uniba.di.cdg.econference.planningpoker.model.backlog.IUserStory;
 import it.uniba.di.cdg.econference.planningpoker.utils.AutoResizeTableLayout;
 import it.uniba.di.cdg.econference.planningpoker.utils.XMLUtils;
-import it.uniba.di.cdg.xcore.aspects.SwtAsyncExec;
 import it.uniba.di.cdg.xcore.econference.EConferencePlugin;
 import it.uniba.di.cdg.xcore.econference.IEConferenceHelper;
 import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
