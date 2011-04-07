@@ -189,7 +189,7 @@
          </property>
          <property
                name="aboutText"
-               value="eConference3P&#x0A;(eConference 4.0 with Planning Poker Plugin)&#x0A;&#x0A;eConference has been developed by the Collaborative Development Group,&#x0A;Dipartimento di Informatica, University of Bari and it is distributed under the &#x0A;terms of the MIT license. &#x0A;More details on the project homepage at http://cdg.di.uniba.it/projects/econference/">
+               value="eConference3P&#x0A;(eConference 4 with Planning Poker Plugin)&#x0A;&#x0A;eConference has been developed by the Collaborative Development Group,&#x0A;Dipartimento di Informatica, University of Bari and it is distributed under the &#x0A;terms of the MIT license. &#x0A;More details on the project homepage at http://cdg.di.uniba.it/projects/econference/">
          </property>
          <property
                name="windowImages"
