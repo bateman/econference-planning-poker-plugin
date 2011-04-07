@@ -38,8 +38,10 @@ import it.uniba.di.cdg.econference.planningpoker.model.estimates.EstimateSession
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.IEstimatesList.EstimateStatus;
 import it.uniba.di.cdg.econference.planningpoker.utils.DateUtils;
+import it.uniba.di.cdg.xcore.econference.model.IConferenceModel.ConferenceStatus;
 import it.uniba.di.cdg.xcore.econference.service.EConferenceService;
 import it.uniba.di.cdg.xcore.m2m.model.IParticipant;
+import it.uniba.di.cdg.xcore.m2m.model.IParticipant.Role;
 import it.uniba.di.cdg.xcore.m2m.model.ParticipantSpecialPrivileges;
 import it.uniba.di.cdg.xcore.m2m.model.SpecialPrivilegesAction;
 import it.uniba.di.cdg.xcore.m2m.service.Invitee;
@@ -628,5 +630,33 @@ public class PlanningPokerService extends EConferenceService implements
 		xml = xml.replace("{", "<");
 		xml = xml.replace("}", ">");
 		return xml;
+	}
+	
+	@Override
+	public void notifyStatusChange(ConferenceStatus status) {
+		super.notifyStatusChange(status);
+		
+		// We notify privileges for each user
+		sendUsersPrivileges();
+	}
+	
+	private void sendUsersPrivileges() {
+		if (getModel().getLocalUser() != null
+				&& getModel().getLocalUser().getRole().equals(Role.MODERATOR)) {
+			for (IParticipant participant : getModel().getParticipants()) {
+				if (participant.getSpecialPrivileges() != null) {
+					for (String privilege : participant.getSpecialPrivileges()) {
+						notifyChangedSpecialPrivilege(participant, privilege,
+								SpecialPrivilegesAction.GRANT);
+					}
+				}
+				
+				if (!participant.getRole().equals(Role.MODERATOR)) {
+					notifyChangedSpecialPrivilege(participant,
+							ParticipantSpecialPrivileges.VOTER,
+							SpecialPrivilegesAction.GRANT);
+				}
+			}
+		}
 	}
 }
