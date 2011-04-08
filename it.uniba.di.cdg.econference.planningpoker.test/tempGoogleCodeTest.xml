@@ -19,7 +19,7 @@
 		<ID>3</ID>
 		<Type>Story</Type>
 		<Status>Accepted</Status>
-		<Milestone></Milestone>
+		<Milestone>&quot;&quot;</Milestone>
 		<Summary>Third user story</Summary>
 		<AllLabels>Type-StoryPriority-Medium</AllLabels>
 	</entry>
@@ -27,7 +27,7 @@
 		<ID>4</ID>
 		<Type>Story</Type>
 		<Status>Accepted</Status>
-		<Milestone></Milestone>
+		<Milestone>&quot;&quot;</Milestone>
 		<Summary>Fourth User story</Summary>
 		<AllLabels>Type-StoryPriority-Medium</AllLabels>
 	</entry>
@@ -43,7 +43,7 @@
 		<ID>6</ID>
 		<Type>Story</Type>
 		<Status>New</Status>
-		<Milestone></Milestone>
+		<Milestone>&quot;&quot;</Milestone>
 		<Summary>test new issue</Summary>
 		<AllLabels>Type-StoryPriority-Medium</AllLabels>
 	</entry>

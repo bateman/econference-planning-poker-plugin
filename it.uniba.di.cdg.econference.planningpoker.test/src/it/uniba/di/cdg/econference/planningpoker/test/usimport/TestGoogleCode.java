@@ -72,14 +72,14 @@ public class TestGoogleCode {
 		milestone=new LinkedList<String>();
 		milestone.offer("Release1.0");
 		milestone.offer("Release1.0");
-		milestone.offer("");
-		milestone.offer("");
+		milestone.offer("\"\"");
+		milestone.offer("\"\"");
 		milestone.offer("Release2.0");
-		milestone.offer("");
+		milestone.offer("\"\"");
 
 		clearedMilestone=new LinkedList<String>();
 		clearedMilestone.offer("Release1.0");
-		clearedMilestone.offer("");
+		clearedMilestone.offer("\"\"");
 		clearedMilestone.offer("Release2.0");
 		
 		

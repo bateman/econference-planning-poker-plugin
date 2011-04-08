@@ -5,13 +5,13 @@ import it.uniba.di.cdg.econference.planningpoker.model.deck.DefaultPokerCard;
 import it.uniba.di.cdg.econference.planningpoker.model.deck.IPokerCard;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CardDeckTest extends MockObjectTestCase{
+public class CardDeckStateTest {
 
 	DefaultPokerCard unknown;
 	DefaultPokerCard one;
@@ -54,17 +54,13 @@ public class CardDeckTest extends MockObjectTestCase{
 	@Test
 	public void testAddCard() {
 		CardDeck deck = new CardDeck();	
-		
-		Mock mock = mock(IItemListListener.class);
-		mock.expects(once()).method("itemAdded").with(eq(one));
-		IItemListListener listener = (IItemListListener) mock.proxy();
-		
+		IItemListListener listener = mock(IItemListListener.class);		
 		deck.addListener(listener);
 		
 		deck.addCard(one);
 		
 		assertEquals(1, deck.size());
-				
+		verify(listener).itemAdded(one);				
 	}
 
 	@Test
@@ -72,16 +68,14 @@ public class CardDeckTest extends MockObjectTestCase{
 		CardDeck deck = new CardDeck();
 		deck.addCard(unknown);
 		deck.addCard(one);
-		
-		Mock mock = mock(IItemListListener.class);
-		mock.expects(once()).method("itemRemoved").with(eq(unknown));
-		IItemListListener listener = (IItemListListener) mock.proxy();
+		IItemListListener listener = mock(IItemListListener.class);	
 		
 		deck.addListener(listener);
 		
 		deck.removeCard(unknown);
 		
 		assertEquals(1, deck.size());
+		verify(listener).itemRemoved(unknown);
 	}
 
 

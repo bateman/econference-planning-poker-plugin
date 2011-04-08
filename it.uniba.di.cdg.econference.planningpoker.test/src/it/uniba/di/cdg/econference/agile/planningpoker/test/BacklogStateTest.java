@@ -8,37 +8,35 @@ import it.uniba.di.cdg.xcore.econference.model.IItemList;
 
 import java.util.Calendar;
 
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 
 
-public class BacklogTest extends MockObjectTestCase {
+public class BacklogStateTest {
 	
 	private Backlog backlog;
 	
 	private DefaultUserStory story1;
 	private DefaultUserStory story2;
 		// TODO Auto-generated constructor
-
-	protected void setUp() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		this.backlog = new Backlog();
 		 
 		story1 = new DefaultUserStory("id1","milestone1", "Milestone 1", Calendar.getInstance().getTime(), "text", "notes", "8");
 		story2 = new DefaultUserStory("id2","milestone2", "Milestone 2", Calendar.getInstance().getTime(), "text2", "notes2", "?");
 	}
-
-	protected void tearDown() throws Exception {
+	@After
+	public void tearDown() throws Exception {
 	}
-
+	@Test
 	public void testRemoveUserStory() {
-		  	Mock mock = mock( IBacklogListener.class );
-		  	mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
-	        mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );	        
-	        mock.expects( once() ).method( "itemRemoved" ).with( eq( story1 ) );
-	        //mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
-	        IBacklogListener listener = (IBacklogListener) mock.proxy();
-
+			IBacklogListener listener = mock( IBacklogListener.class );
 	        backlog.addListener( listener );
 	        
 	        assertEquals( 0, backlog.size() ); // Ensure it is empty
@@ -53,15 +51,13 @@ public class BacklogTest extends MockObjectTestCase {
 	        assertEquals(1, backlog.size());
 	        
 	        assertEquals(backlog.getUserStory(0), story2);
-	        
+	        verify(listener, times(2)).contentChanged(eq(backlog));
+	        verify(listener).itemRemoved(eq(story1));	        
 	}
 
+	@Test
 	public void testAddItemObject() {
-        Mock mock = mock( IBacklogListener.class );
-        mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
-        mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
-        IBacklogListener listener = (IBacklogListener) mock.proxy();
-
+		IBacklogListener listener = mock( IBacklogListener.class );
         backlog.addListener( listener );
         
         assertEquals( 0, backlog.size() ); // Ensure it is empty
@@ -76,41 +72,34 @@ public class BacklogTest extends MockObjectTestCase {
         int i = 0;
         for (int j=0; j<backlog.size(); j++)
             assertEquals( items[i++], (IUserStory)backlog.getUserStory(j) );
-    
+        verify(listener, times(2)).contentChanged(backlog);    
 	}
 
+	@Test
 	public void testRemoveItem() {
-		  	Mock mock = mock( IBacklogListener.class );
-	        mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
-	        mock.expects( once() ).method( "contentChanged" ).with( eq( backlog ) );
-	        mock.expects( once() ).method( "itemRemoved" ).with( eq( story1 ) );
-	        IBacklogListener listener = (IBacklogListener) mock.proxy();
+		IBacklogListener listener = mock(IBacklogListener.class);
+		backlog.addListener(listener);
 
-	        backlog.addListener( listener );
-	        
-	        assertEquals( 0, backlog.size() ); // Ensure it is empty
-	        
-	        backlog.addUserStory( story1 );
-	        backlog.addUserStory( story2 );
-	        
-	        assertEquals( 2, backlog.size() );
-	        
-	        backlog.removeItem(0);
-	        
-	        assertEquals(1, backlog.size());
-	        
-	        assertEquals(backlog.getUserStory(0), story2);
-	       
+		assertEquals(0, backlog.size()); // Ensure it is empty
+
+		backlog.addUserStory(story1);
+		backlog.addUserStory(story2);
+
+		assertEquals(2, backlog.size());
+
+		backlog.removeItem(0);
+
+		assertEquals(1, backlog.size());
+
+		assertEquals(backlog.getUserStory(0), story2);
+		verify(listener, times(2)).contentChanged(backlog);
+		verify(listener).itemRemoved(story1); 
 	}
 
+	@Test
 	public void testSetCurrentItemIndex() {
 		assertEquals( IItemList.NO_ITEM_SELECTED, backlog.getCurrentItemIndex() );
-       
-
-        Mock mock = mock( IBacklogListener.class );
-        mock.stubs().method( "contentChanged" ); // Don't bother 
-        mock.expects( once() ).method( "currentSelectionChanged" ).with( eq( 0 ) );
-        IBacklogListener listener = (IBacklogListener) mock.proxy();
+		IBacklogListener listener = mock( IBacklogListener.class );       
         
         backlog.addListener( listener );
 
@@ -128,9 +117,9 @@ public class BacklogTest extends MockObjectTestCase {
     
     	backlog.setCurrentItemIndex( -2 );
     	assertEquals(backlog.getCurrentItemIndex(), IItemList.NO_ITEM_SELECTED);
-      
-        
-        backlog.removeItem( 0 );	
+              
+        backlog.removeItem( 0 );
+        verify(listener).currentSelectionChanged(0);
 	}
 
 }
