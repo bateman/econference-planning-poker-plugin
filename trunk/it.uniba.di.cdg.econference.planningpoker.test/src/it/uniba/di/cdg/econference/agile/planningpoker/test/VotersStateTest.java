@@ -3,13 +3,13 @@ package it.uniba.di.cdg.econference.agile.planningpoker.test;
 import it.uniba.di.cdg.econference.planningpoker.model.estimates.Voters;
 import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 
-import org.jmock.Mock;
-import org.jmock.MockObjectTestCase;
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class VotersTest extends MockObjectTestCase{
+public class VotersStateTest {
 
 	String id1;
 	String id2;
@@ -29,16 +29,14 @@ public class VotersTest extends MockObjectTestCase{
 	@Test
 	public void testAddVoter() {
 		Voters voters = new Voters();
-		
-		Mock mock = mock(IItemListListener.class);
-		mock.expects(once()).method("itemAdded").with(eq(id1));
-		IItemListListener listener = (IItemListListener)mock.proxy();
+		IItemListListener listener = mock(IItemListListener.class);
 		
 		voters.addListener(listener);
 		
 		voters.addVoter(id1);
 		
 		assertEquals(1, voters.size());
+		verify(listener).itemAdded(id1);
 	}
 
 	@Test
@@ -58,16 +56,14 @@ public class VotersTest extends MockObjectTestCase{
 		Voters voters = new Voters();
 		voters.addVoter(id1);
 		voters.addVoter(id2);
-		
-		Mock mock = mock(IItemListListener.class);
-		mock.expects(once()).method("itemRemoved").with(eq(id1));
-		IItemListListener listener = (IItemListListener)mock.proxy();
+		IItemListListener listener = mock(IItemListListener.class);
 		
 		voters.addListener(listener);
 		
 		voters.removeVoter(id1);
 		
 		assertEquals(1, voters.size());
+		verify(listener).itemRemoved(id1);
 	}
 
 	@Test
