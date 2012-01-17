@@ -48,6 +48,7 @@ import it.uniba.di.cdg.xcore.econference.model.IItemListListener;
 import it.uniba.di.cdg.xcore.econference.model.ItemListListenerAdapter;
 import it.uniba.di.cdg.xcore.m2m.model.IParticipant.Role;
 import it.uniba.di.cdg.xcore.network.messages.SystemMessage;
+import it.uniba.di.cdg.xcore.network.model.tv.Entry;
 import it.uniba.di.cdg.xcore.ui.UiPlugin;
 
 import java.text.DateFormat;
@@ -157,7 +158,9 @@ public class EstimatesView extends ViewPart implements IEstimatesView {
 				setAcceptButtonEnable(false);
 				appendSystemMessage("Card selection is DISABLED");
 			}else if(EstimateStatus.REPEATED.equals(status)){
-				getManager().getTalkView().appendMessage("Moderator established to RE-ESTIMATE this story");
+				Entry entry = new Entry("Moderator established to RE-ESTIMATE this story");
+				entry.setType(Entry.EntryType.SYSTEM_MSG);
+				getManager().getTalkView().appendMessage(entry);
 			}
 		};
 		
