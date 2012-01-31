@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="it.uniba.di.cdg.econference.planningpoker"
-      label="Planning Poker Feature"
-      version="1.0.0.qualifier"
-      os="win32"
-      nl="en_GB">
+      id="it.uniba.di.cdg.econference.planningpoker_feature"
+      label="it.uniba.di.cdg.econference.planningpoker-feature"
+      version="1.0.1"
+      provider-name="Collaborative Development Group - Dipartimento di Informatica, University of Bari"
+      plugin="it.uniba.di.cdg.collaborativeworkbench.boot">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
