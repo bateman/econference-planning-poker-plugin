@@ -328,5 +328,34 @@
             service="planningpoker">
       </loader>
    </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:it.uniba.di.cdg.econference.planningpoker.views.PPWhiteBoardView?before=refresh">
+         <command
+               commandId="it.uniba.di.cdg.xcore.econference.bold"
+               icon="icons/bold_icon.png"
+               label="Bold"
+               style="push">
+         </command>
+         <command
+               commandId="it.uniba.di.cdg.xcore.econference.underline"
+               icon="icons/underline_icon.png"
+               label="Underline"
+               style="push">
+         </command>
+         <command
+               commandId="it.uniba.di.cdg.xcore.econference.strike"
+               icon="icons/strike_icon.png"
+               label="Strike"
+               style="push">
+         </command>
+         <separator
+               name="it.uniba.di.cdg.xcore.econference.separator2"
+               visible="true">
+         </separator>
+      </menuContribution>
+   </extension>
 
 </plugin>
