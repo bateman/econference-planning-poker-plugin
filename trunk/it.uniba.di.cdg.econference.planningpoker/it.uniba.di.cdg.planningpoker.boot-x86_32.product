@@ -20,7 +20,7 @@ More details on the project homepage at http://cdg.di.uniba.it/projects/econfere
    </configIni>
 
    <launcherArgs>
-      <vmArgs>-Xms40m -Xmx256m -Dosgi.framework.extensions=org.eclipse.equinox.weaving.hook</vmArgs>
+      <vmArgs>-Xms40m -Xmx256m -Dosgi.framework.extensions=org.eclipse.equinox.weaving.hook -XX:-UseSplitVerifier</vmArgs>
       <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts -d32</vmArgsMac>
    </launcherArgs>
 
