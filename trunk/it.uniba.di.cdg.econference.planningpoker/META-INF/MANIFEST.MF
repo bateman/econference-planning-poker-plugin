@@ -10,11 +10,11 @@ Require-Bundle: org.eclipse.ui,
  org.aspectj.runtime,
  it.uniba.di.cdg.xcore.network;bundle-version="1.0.0",
  it.uniba.di.cdg.jabber;bundle-version="1.0.0",
- org.jivesoftware.smack;bundle-version="3.1.0",
  it.uniba.di.cdg.xcore.econference;bundle-version="1.0.0",
  it.uniba.di.cdg.xcore.m2m;bundle-version="1.0.0",
  com.google.services;bundle-version="1.0.0",
- it.uniba.di.cdg.aspects;bundle-version="1.0.0"
+ it.uniba.di.cdg.aspects;bundle-version="1.0.0",
+ it.uniba.di.cdg.smack;bundle-version="3.2.2"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: it.uniba.di.cdg.econference.planningpoker,
