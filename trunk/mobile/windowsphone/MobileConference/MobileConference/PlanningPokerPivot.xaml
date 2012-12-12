@@ -1,0 +1,85 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="MobileConference.PlanningPokerPivot"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <!--Pivot Control-->
+        <controls:Pivot Name="PlanningPoker_Pivot" Title="MobileConference" SelectionChanged="PlanningPokerPivot_SelectionChanged" >
+            <!--Pivot item one-->
+            <controls:PivotItem Name="Cards" Header="Choose a card">
+                <Grid Margin="12,0,12,0">
+                    <TextBlock Name="currTopic" Height="30" Text="Current Topic:" Margin="10,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="22"/>
+                    <ScrollViewer Name="ScrollItem" Margin="160,0,0,0" VerticalAlignment="Top" Width="270" Height="30" HorizontalAlignment="Right" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled" >
+                        <TextBlock Name="itemDisc" VerticalAlignment="Top" FontSize="22"/>
+                    </ScrollViewer>
+                   
+                    <ListBox  Name="card" Height="210" Width="400" BorderBrush="Black"  Margin="20,51,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.VerticalScrollBarVisibility="Disabled" Tap="card_Tap" >
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                    </ListBox>
+                    <Button Name="sendEstimate" Content="Send Estimate" Height="75" Width="250" Margin="28,300,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Click="sendEstimate_Click" />
+                    <Button Name="enableSel" Height="110" Width="250" Margin="28,300,0,0" HorizontalAlignment="left" VerticalAlignment="Top"  Visibility="Collapsed" Click="enableSel_Click">
+                        <TextBlock TextAlignment="Center">Enable<LineBreak />Card Selection</TextBlock>
+                    </Button>
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item two-->
+            <controls:PivotItem Header="Estimates List">
+                <Grid x:Name="EstimatesList">
+                    <TextBlock Height="50" Width="150" Text="Estimate:" Margin="0,310,180,0" Name="Estimate" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="26" Visibility="Collapsed" />
+                    <TextBox Height="70" Width="200"  Margin="100,300,0,0" Name="SetEstimate" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Collapsed" />
+                    <Button Content="Accept" Height="75" Width="200" Margin="50,0,0,70" Name="accept" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="accept_Click" Visibility="Collapsed" />
+                    <Button Content="Repeat" Height="75" Width="200" Margin="0,0,20,70" Name="repeat" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="repeat_Click" Visibility="Collapsed" />
+                </Grid>
+            </controls:PivotItem>
+
+            <!--Pivot item three-->
+            <controls:PivotItem Header="Backlog">
+                <Grid x:Name="BacklogPanel"></Grid>
+            </controls:PivotItem>
+        </controls:Pivot>
+    </Grid>
+
+    <phone:PhoneApplicationPage.Resources>
+
+        <shell:ApplicationBar x:Key="AppBarDeckMod" IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="images/appbar.back.rest.png" Text="Chat Room" Click="BackGroupChat" />
+            <shell:ApplicationBarIconButton IconUri="images/appbar.feature.settings.rest.png" Text="Deck Conf" Click="DeckSettings" />
+        </shell:ApplicationBar>
+
+        <shell:ApplicationBar x:Key="AppBarDeck" IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="images/appbar.back.rest.png" Text="Chat Room" Click="BackGroupChat" />
+        </shell:ApplicationBar>
+
+    </phone:PhoneApplicationPage.Resources>
+    
+    <!--Sample code showing usage of ApplicationBar-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton x:Name="appbar_button1" IconUri="/Images/appbar_button1.png" Text="Button 1"/>
+            <shell:ApplicationBarIconButton x:Name="appbar_button2" IconUri="/Images/appbar_button2.png" Text="Button 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem x:Name="menuItem1" Text="MenuItem 1"/>
+                <shell:ApplicationBarMenuItem x:Name="menuItem2" Text="MenuItem 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+    
+</phone:PhoneApplicationPage>
